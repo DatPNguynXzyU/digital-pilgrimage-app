@@ -3,7 +3,11 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 
-const connectDatabase = require('./config/database');
+const connectDatabase =
+  require('./config/database');
+
+const scriptureRoutes =
+  require('./routes/scripture.routes');
 
 const app = express();
 
@@ -19,11 +23,18 @@ app.get('/', (req, res) => {
   });
 });
 
+app.use(
+  '/api/scriptures',
+  scriptureRoutes
+);
+
 async function startServer() {
   await connectDatabase();
 
   app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(
+      `Server running at http://localhost:${PORT}`
+    );
   });
 }
 
