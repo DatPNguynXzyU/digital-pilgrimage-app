@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'trang_chu/trang_chu.dart';
-import 'lich/lich.dart';
 import 'kinh_sach/kinh_sach.dart';
 import 'tai_khoan/tai_khoan.dart';
 import 'qr/qr_scan.dart';
+import 'lich/lich_page.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
