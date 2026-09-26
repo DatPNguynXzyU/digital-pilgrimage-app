@@ -9,6 +9,9 @@ const connectDatabase =
 const scriptureRoutes =
   require('./routes/scripture.routes');
 
+const calendarRoutes =
+  require('./routes/calendar.routes');
+
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -26,6 +29,11 @@ app.get('/', (req, res) => {
 app.use(
   '/api/scriptures',
   scriptureRoutes
+);
+
+app.use(
+  '/api/calendar-events',
+  calendarRoutes
 );
 
 async function startServer() {
