@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../utils/lunar_calendar.dart';
 
 class LichPage extends StatefulWidget {
   const LichPage({super.key});
@@ -9,9 +10,13 @@ class LichPage extends StatefulWidget {
 
 class _LichPageState extends State<LichPage> {
   static const Color primaryBrown = Color(0xFFA56A12);
-  static const Color darkBrown = Color(0xFF6B4310);
-  static const Color lightBrown = Color(0xFFFFE9C5);
-  static const Color backgroundColor = Color(0xFFFFFCF8);
+  static const Color darkText = Color(0xFF2B2B2B);
+  static const Color softBackground = Color(0xFFF7F4EF);
+  static const Color headerBackground = Color(0xFFF3EEE7);
+  static const Color sundayRed = Color(0xFFD4574B);
+  static const Color lunarGray = Color(0xFF9C9C9C);
+  static const Color greenDot = Color(0xFF20B36A);
+  static const Color yellowDot = Color(0xFFF2A51A);
 
   DateTime _focusedMonth =
       DateTime(DateTime.now().year, DateTime.now().month);
@@ -19,26 +24,104 @@ class _LichPageState extends State<LichPage> {
   DateTime _selectedDate = DateTime.now();
 
   final Map<String, List<CalendarEvent>> _events = {
-    '2026-09-25': [
+    '2026-09-01': [
       CalendarEvent(
-        title: 'Tụng Kinh Phổ Môn',
-        time: '19:00',
-        location: 'Tại nhà',
-        icon: Icons.menu_book_rounded,
-      ),
-      CalendarEvent(
-        title: 'Thiền 15 phút',
-        time: '21:00',
-        location: 'Cá nhân',
-        icon: Icons.self_improvement_rounded,
+        title: 'Lễ đầu tháng',
+        time: '08:00',
+        location: 'Chùa gần bạn',
+        type: 'green',
       ),
     ],
-    '2026-09-27': [
+    '2026-09-03': [
+      CalendarEvent(
+        title: 'Tụng kinh tối',
+        time: '19:00',
+        location: 'Tại nhà',
+        type: 'yellow',
+      ),
+    ],
+    '2026-09-06': [
       CalendarEvent(
         title: 'Viếng chùa',
+        time: '09:00',
+        location: 'Chùa X',
+        type: 'green',
+      ),
+    ],
+    '2026-09-11': [
+      CalendarEvent(
+        title: 'Thiền',
+        time: '20:00',
+        location: 'Tại nhà',
+        type: 'yellow',
+      ),
+    ],
+    '2026-09-13': [
+      CalendarEvent(
+        title: 'Đọc kinh',
+        time: '19:30',
+        location: 'Tại nhà',
+        type: 'green',
+      ),
+    ],
+    '2026-09-14': [
+      CalendarEvent(
+        title: 'Thắp hương',
+        time: '06:00',
+        location: 'Tại nhà',
+        type: 'green',
+      ),
+    ],
+    '2026-09-18': [
+      CalendarEvent(
+        title: 'Lễ chùa',
+        time: '07:30',
+        location: 'Chùa Y',
+        type: 'yellow',
+      ),
+      CalendarEvent(
+        title: 'Nghe pháp',
+        time: '18:30',
+        location: 'Chùa Y',
+        type: 'green',
+      ),
+    ],
+    '2026-09-20': [
+      CalendarEvent(
+        title: 'Tụng kinh',
+        time: '19:00',
+        location: 'Tại nhà',
+        type: 'green',
+      ),
+    ],
+    '2026-09-25': [
+      CalendarEvent(
+        title: 'Đọc kinh Phổ Môn',
+        time: '20:00',
+        location: 'Tại nhà',
+        type: 'yellow',
+      ),
+      CalendarEvent(
+        title: 'Thiền',
+        time: '21:00',
+        location: 'Tại nhà',
+        type: 'green',
+      ),
+    ],
+    '2026-09-26': [
+      CalendarEvent(
+        title: 'Lễ cuối tuần',
         time: '08:00',
-        location: 'Chùa đã lưu',
-        icon: Icons.temple_buddhist_rounded,
+        location: 'Chùa A',
+        type: 'green',
+      ),
+    ],
+    '2026-09-30': [
+      CalendarEvent(
+        title: 'Sự kiện cuối tháng',
+        time: '17:00',
+        location: 'Tại nhà',
+        type: 'green',
       ),
     ],
   };
@@ -55,12 +138,8 @@ class _LichPageState extends State<LichPage> {
         a.day == b.day;
   }
 
-  bool _isToday(DateTime date) {
-    return _isSameDay(date, DateTime.now());
-  }
-
-  List<CalendarEvent> get _selectedEvents {
-    return _events[_dateKey(_selectedDate)] ?? [];
+  List<CalendarEvent> _getEvents(DateTime date) {
+    return _events[_dateKey(date)] ?? [];
   }
 
   void _previousMonth() {
@@ -87,226 +166,175 @@ class _LichPageState extends State<LichPage> {
 
   int _firstWeekdayOfMonth(DateTime date) {
     final weekday = DateTime(date.year, date.month, 1).weekday;
-
-    // Chuyển để tuần bắt đầu từ Thứ 2.
-    return weekday - 1;
+    return weekday - 1; // tuần bắt đầu từ thứ 2
   }
 
-  String _monthTitle(DateTime date) {
-    return 'Tháng ${date.month}, ${date.year}';
+  String _monthLabel(DateTime date) {
+    return 'Tháng ${date.month.toString().padLeft(2, '0')} - ${date.year}';
   }
 
-  String _selectedDateTitle(DateTime date) {
-    final weekdayNames = [
-      'Thứ Hai',
-      'Thứ Ba',
-      'Thứ Tư',
-      'Thứ Năm',
-      'Thứ Sáu',
-      'Thứ Bảy',
-      'Chủ Nhật',
-    ];
-
-    return '${weekdayNames[date.weekday - 1]}, '
-        '${date.day.toString().padLeft(2, '0')}/'
-        '${date.month.toString().padLeft(2, '0')}/'
-        '${date.year}';
+  Color _weekdayColor(int index) {
+    if (index == 6) return sundayRed;
+    return const Color(0xFF7A7A7A);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: backgroundColor,
-      body: SafeArea(
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            SliverToBoxAdapter(
-              child: _buildHeader(),
+      backgroundColor: softBackground,
+      body: Column(
+        children: [
+          _buildHeader(),
+          Expanded(
+            child: Container(
+              color: Colors.white,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 14),
+                    _buildMonthBar(),
+                    const SizedBox(height: 14),
+                    _buildWeekDays(),
+                    const SizedBox(height: 10),
+                    _buildCalendarGrid(),
+                    const SizedBox(height: 28),
+                    _buildYearButton(),
+                    const SizedBox(height: 24),
+                  ],
+                ),
+              ),
             ),
-            SliverToBoxAdapter(
-              child: _buildCalendarCard(),
-            ),
-            SliverToBoxAdapter(
-              child: _buildSelectedDateHeader(),
-            ),
-            SliverToBoxAdapter(
-              child: _buildEventSection(),
-            ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 110),
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: _showAddEventDialog,
-        backgroundColor: primaryBrown,
-        foregroundColor: Colors.white,
-        elevation: 3,
-        icon: const Icon(Icons.add_rounded),
-        label: const Text(
-          'Thêm lịch',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
           ),
-        ),
+        ],
       ),
     );
   }
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 18, 20, 16),
+      padding: const EdgeInsets.fromLTRB(16, 48, 16, 18),
+      decoration: const BoxDecoration(
+        color: headerBackground,
+      ),
+      child: Stack(
+        children: [
+          Positioned(
+            left: -8,
+            top: -10,
+            child: Icon(
+              Icons.local_florist_rounded,
+              size: 60,
+              color: Colors.brown.withOpacity(0.08),
+            ),
+          ),
+          Positioned(
+            right: -8,
+            top: -10,
+            child: Icon(
+              Icons.local_florist_rounded,
+              size: 60,
+              color: Colors.brown.withOpacity(0.08),
+            ),
+          ),
+          Row(
+            children: [
+              const Expanded(
+                child: Text(
+                  'Lịch và Sự kiện',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    color: darkText,
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Xem lịch / sự kiện'),
+                    ),
+                  );
+                },
+                icon: const Icon(
+                  Icons.calendar_month_outlined,
+                  color: darkText,
+                  size: 28,
+                ),
+              ),
+              IconButton(
+                onPressed: _showAddEventDialog,
+                icon: const Icon(
+                  Icons.add,
+                  color: darkText,
+                  size: 30,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMonthBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18),
       child: Row(
         children: [
-          Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: lightBrown,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: const Icon(
-              Icons.calendar_month_rounded,
-              color: primaryBrown,
-              size: 27,
+          IconButton(
+            onPressed: _previousMonth,
+            icon: const Icon(
+              Icons.chevron_left,
+              size: 30,
+              color: darkText,
             ),
           ),
-          const SizedBox(width: 14),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Lịch',
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF332516),
-                  ),
-                ),
-                SizedBox(height: 2),
-                Text(
-                  'Theo dõi lịch tu tập và hành hương',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF8A7764),
-                  ),
-                ),
-              ],
+          Expanded(
+            child: Text(
+              _monthLabel(_focusedMonth),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+                color: darkText,
+              ),
+            ),
+          ),
+          IconButton(
+            onPressed: _nextMonth,
+            icon: const Icon(
+              Icons.chevron_right,
+              size: 30,
+              color: darkText,
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildCalendarCard() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.fromLTRB(14, 14, 14, 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 18,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          _buildMonthNavigation(),
-          const SizedBox(height: 18),
-          _buildWeekDays(),
-          const SizedBox(height: 8),
-          _buildCalendarGrid(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMonthNavigation() {
-    return Row(
-      children: [
-        _monthButton(
-          icon: Icons.chevron_left_rounded,
-          onPressed: _previousMonth,
-        ),
-        Expanded(
-          child: Text(
-            _monthTitle(_focusedMonth),
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-              color: darkBrown,
-            ),
-          ),
-        ),
-        _monthButton(
-          icon: Icons.chevron_right_rounded,
-          onPressed: _nextMonth,
-        ),
-      ],
-    );
-  }
-
-  Widget _monthButton({
-    required IconData icon,
-    required VoidCallback onPressed,
-  }) {
-    return Material(
-      color: const Color(0xFFFFF5E7),
-      borderRadius: BorderRadius.circular(12),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(12),
-        onTap: onPressed,
-        child: SizedBox(
-          width: 42,
-          height: 42,
-          child: Icon(
-            icon,
-            color: primaryBrown,
-          ),
-        ),
       ),
     );
   }
 
   Widget _buildWeekDays() {
-    const days = [
-      'T2',
-      'T3',
-      'T4',
-      'T5',
-      'T6',
-      'T7',
-      'CN',
-    ];
+    const days = ['Hai', 'Ba', 'Tư', 'Năm', 'Sáu', 'Bảy', 'CN'];
 
-    return Row(
-      children: days.map((day) {
-        final isSunday = day == 'CN';
-
-        return Expanded(
-          child: Center(
-            child: Text(
-              day,
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-                color: isSunday
-                    ? const Color(0xFFC14F3B)
-                    : const Color(0xFF8A7764),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      child: Row(
+        children: List.generate(days.length, (index) {
+          return Expanded(
+            child: Center(
+              child: Text(
+                days[index],
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: _weekdayColor(index),
+                ),
               ),
             ),
-          ),
-        );
-      }).toList(),
+          );
+        }),
+      ),
     );
   }
 
@@ -314,334 +342,228 @@ class _LichPageState extends State<LichPage> {
     final daysInMonth = _daysInMonth(_focusedMonth);
     final leadingDays = _firstWeekdayOfMonth(_focusedMonth);
 
-    final totalCells = leadingDays + daysInMonth;
+    final previousMonth = DateTime(_focusedMonth.year, _focusedMonth.month, 0);
+    final daysInPreviousMonth = previousMonth.day;
 
-    final rowCount = (totalCells / 7).ceil();
+    final totalCells = 42; // 6 hàng x 7 cột
 
-    return Column(
-      children: List.generate(rowCount, (rowIndex) {
-        return Row(
-          children: List.generate(7, (columnIndex) {
-            final cellIndex = rowIndex * 7 + columnIndex;
-            final dayNumber = cellIndex - leadingDays + 1;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Column(
+        children: List.generate(6, (rowIndex) {
+          return Row(
+            children: List.generate(7, (columnIndex) {
+              final cellIndex = rowIndex * 7 + columnIndex;
+              late DateTime cellDate;
+              bool isCurrentMonth = true;
 
-            if (dayNumber < 1 || dayNumber > daysInMonth) {
-              return const Expanded(
-                child: SizedBox(height: 54),
+              if (cellIndex < leadingDays) {
+                final day = daysInPreviousMonth - leadingDays + cellIndex + 1;
+                cellDate = DateTime(
+                  _focusedMonth.year,
+                  _focusedMonth.month - 1,
+                  day,
+                );
+                isCurrentMonth = false;
+              } else if (cellIndex >= leadingDays + daysInMonth) {
+                final day = cellIndex - (leadingDays + daysInMonth) + 1;
+                cellDate = DateTime(
+                  _focusedMonth.year,
+                  _focusedMonth.month + 1,
+                  day,
+                );
+                isCurrentMonth = false;
+              } else {
+                final day = cellIndex - leadingDays + 1;
+                cellDate = DateTime(
+                  _focusedMonth.year,
+                  _focusedMonth.month,
+                  day,
+                );
+              }
+
+              return Expanded(
+                child: _buildDayCell(
+                  date: cellDate,
+                  isCurrentMonth: isCurrentMonth,
+                  isSunday: columnIndex == 6,
+                ),
               );
-            }
-
-            final date = DateTime(
-              _focusedMonth.year,
-              _focusedMonth.month,
-              dayNumber,
-            );
-
-            return Expanded(
-              child: _buildDayCell(date),
-            );
-          }),
-        );
-      }),
+            }),
+          );
+        }),
+      ),
     );
   }
 
-  Widget _buildDayCell(DateTime date) {
-    final selected = _isSameDay(date, _selectedDate);
-    final today = _isToday(date);
-    final hasEvents = (_events[_dateKey(date)] ?? []).isNotEmpty;
+  Widget _buildDayCell({
+  required DateTime date,
+  required bool isCurrentMonth,
+  required bool isSunday,
+}) {
+  final isSelected = _isSameDay(date, _selectedDate);
+  final lunar = LunarCalendar.fromSolar(date);
+  final events = _getEvents(date);
 
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedDate = date;
-        });
-      },
-      child: SizedBox(
-        height: 54,
-        child: Center(
+  String lunarText;
+
+  if (lunar.day == 1) {
+    lunarText =
+        '1/${lunar.month}${lunar.isLeapMonth ? "N" : ""}';
+  } else {
+    lunarText = '${lunar.day}';
+  }
+
+  final dayTextColor = !isCurrentMonth
+      ? Colors.grey.shade400
+      : isSelected
+          ? Colors.white
+          : isSunday
+              ? sundayRed
+              : darkText;
+
+  final lunarTextColor = !isCurrentMonth
+      ? Colors.grey.shade300
+      : isSelected
+          ? Colors.white70
+          : lunarGray;
+
+  return GestureDetector(
+    onTap: () {
+      setState(() {
+        _selectedDate = date;
+
+        if (!isCurrentMonth) {
+          _focusedMonth = DateTime(
+            date.year,
+            date.month,
+          );
+        }
+      });
+    },
+    child: SizedBox(
+      height: 74,
+      child: Center(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          width: 48,
+          height: 58,
+          decoration: BoxDecoration(
+            color: isSelected
+                ? primaryBrown
+                : Colors.transparent,
+            borderRadius: BorderRadius.circular(12),
+          ),
           child: Stack(
             alignment: Alignment.center,
             children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 180),
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: selected
-                      ? primaryBrown
-                      : today
-                          ? lightBrown
-                          : Colors.transparent,
-                  shape: BoxShape.circle,
-                  border: today && !selected
-                      ? Border.all(
-                          color: primaryBrown,
-                          width: 1.2,
-                        )
-                      : null,
-                ),
-                alignment: Alignment.center,
-                child: Text(
-                  '${date.day}',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: selected || today
-                        ? FontWeight.w700
-                        : FontWeight.w500,
-                    color: selected
-                        ? Colors.white
-                        : const Color(0xFF443729),
-                  ),
+              Positioned.fill(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      date.day
+                          .toString()
+                          .padLeft(2, '0'),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        height: 1,
+                        fontWeight: FontWeight.w700,
+                        color: dayTextColor,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      lunarText,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 11,
+                        height: 1,
+                        fontWeight: FontWeight.w400,
+                        color: lunarTextColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              if (hasEvents)
+              if (events.isNotEmpty)
                 Positioned(
-                  bottom: 3,
-                  child: Container(
-                    width: 5,
-                    height: 5,
-                    decoration: BoxDecoration(
-                      color: selected
-                          ? Colors.white
-                          : primaryBrown,
-                      shape: BoxShape.circle,
-                    ),
+                  top: 5,
+                  right: 4,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: events
+                        .take(2)
+                        .map(
+                          (event) => Container(
+                            width: 7,
+                            height: 7,
+                            margin:
+                                const EdgeInsets.only(
+                              left: 2,
+                            ),
+                            decoration:
+                                BoxDecoration(
+                              color:
+                                  event.type ==
+                                          'yellow'
+                                      ? yellowDot
+                                      : greenDot,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
             ],
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
-  Widget _buildSelectedDateHeader() {
+  Widget _buildYearButton() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 28, 20, 12),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Hoạt động trong ngày',
-                  style: TextStyle(
-                    fontSize: 19,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF332516),
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  _selectedDateTitle(_selectedDate),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF8A7764),
-                  ),
-                ),
-              ],
+      padding: const EdgeInsets.symmetric(horizontal: 26),
+      child: SizedBox(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Chức năng xem toàn bộ sự kiện trong năm'),
+              ),
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFFF7F7F7),
+            foregroundColor: darkText,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(vertical: 18),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(28),
             ),
           ),
-          if (_selectedEvents.isNotEmpty)
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10,
-                vertical: 6,
-              ),
-              decoration: BoxDecoration(
-                color: lightBrown,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                '${_selectedEvents.length} lịch',
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                  color: darkBrown,
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Toàn bộ sự kiện trong năm',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildEventSection() {
-    if (_selectedEvents.isEmpty) {
-      return _buildEmptyEvents();
-    }
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        children: _selectedEvents
-            .map(
-              (event) => _buildEventCard(event),
-            )
-            .toList(),
-      ),
-    );
-  }
-
-  Widget _buildEmptyEvents() {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 30,
-      ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: const Color(0xFFF1E5D6),
+              SizedBox(width: 8),
+              Icon(Icons.chevron_right),
+            ],
+          ),
         ),
-      ),
-      child: const Column(
-        children: [
-          Icon(
-            Icons.event_available_rounded,
-            size: 44,
-            color: Color(0xFFD3B486),
-          ),
-          SizedBox(height: 12),
-          Text(
-            'Chưa có hoạt động',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF443729),
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            'Bạn chưa có lịch tu tập hoặc hành hương trong ngày này.',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              height: 1.4,
-              fontSize: 13,
-              color: Color(0xFF9A8977),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildEventCard(CalendarEvent event) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.035),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 46,
-            height: 46,
-            decoration: BoxDecoration(
-              color: lightBrown,
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: Icon(
-              event.icon,
-              color: primaryBrown,
-              size: 24,
-            ),
-          ),
-          const SizedBox(width: 14),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  event.title,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xFF3A2D20),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.schedule_rounded,
-                      size: 16,
-                      color: Color(0xFF9B846D),
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      event.time,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Color(0xFF7B6855),
-                      ),
-                    ),
-                    const SizedBox(width: 14),
-                    const Icon(
-                      Icons.location_on_outlined,
-                      size: 16,
-                      color: Color(0xFF9B846D),
-                    ),
-                    const SizedBox(width: 4),
-                    Flexible(
-                      child: Text(
-                        event.location,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 13,
-                          color: Color(0xFF7B6855),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          PopupMenuButton<String>(
-            icon: const Icon(
-              Icons.more_vert_rounded,
-              color: Color(0xFF9B846D),
-            ),
-            onSelected: (value) {
-              if (value == 'delete') {
-                _deleteEvent(event);
-              }
-            },
-            itemBuilder: (context) {
-              return const [
-                PopupMenuItem(
-                  value: 'delete',
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.delete_outline_rounded,
-                        color: Colors.redAccent,
-                      ),
-                      SizedBox(width: 8),
-                      Text('Xóa'),
-                    ],
-                  ),
-                ),
-              ];
-            },
-          ),
-        ],
       ),
     );
   }
@@ -650,181 +572,122 @@ class _LichPageState extends State<LichPage> {
     final titleController = TextEditingController();
     final timeController = TextEditingController();
     final locationController = TextEditingController();
+    String selectedType = 'green';
 
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Colors.white,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
       builder: (context) {
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Container(
-            padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(28),
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return Padding(
+              padding: EdgeInsets.fromLTRB(
+                20,
+                20,
+                20,
+                MediaQuery.of(context).viewInsets.bottom + 20,
               ),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 45,
-                  height: 4,
-                  margin: const EdgeInsets.only(bottom: 20),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFE0D7CE),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                Row(
-                  children: [
-                    const Expanded(
-                      child: Text(
-                        'Thêm lịch mới',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xFF332516),
-                        ),
-                      ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text(
+                    'Thêm sự kiện',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
                     ),
-                    Text(
-                      '${_selectedDate.day}/'
-                      '${_selectedDate.month}/'
-                      '${_selectedDate.year}',
-                      style: const TextStyle(
-                        color: primaryBrown,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: titleController,
+                    decoration: const InputDecoration(
+                      labelText: 'Tên sự kiện',
+                      border: OutlineInputBorder(),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                TextField(
-                  controller: titleController,
-                  decoration: _inputDecoration(
-                    label: 'Tên hoạt động',
-                    icon: Icons.edit_calendar_rounded,
                   ),
-                ),
-                const SizedBox(height: 14),
-                TextField(
-                  controller: timeController,
-                  decoration: _inputDecoration(
-                    label: 'Thời gian',
-                    icon: Icons.schedule_rounded,
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: timeController,
+                    decoration: const InputDecoration(
+                      labelText: 'Giờ',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 14),
-                TextField(
-                  controller: locationController,
-                  decoration: _inputDecoration(
-                    label: 'Địa điểm',
-                    icon: Icons.location_on_outlined,
+                  const SizedBox(height: 12),
+                  TextField(
+                    controller: locationController,
+                    decoration: const InputDecoration(
+                      labelText: 'Địa điểm',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 22),
-                SizedBox(
-                  width: double.infinity,
-                  height: 52,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (titleController.text.trim().isEmpty) {
-                        return;
+                  const SizedBox(height: 12),
+                  DropdownButtonFormField<String>(
+                    value: selectedType,
+                    items: const [
+                      DropdownMenuItem(
+                        value: 'green',
+                        child: Text('Chấm xanh'),
+                      ),
+                      DropdownMenuItem(
+                        value: 'yellow',
+                        child: Text('Chấm vàng'),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        setModalState(() {
+                          selectedType = value;
+                        });
                       }
-
-                      final event = CalendarEvent(
-                        title: titleController.text.trim(),
-                        time: timeController.text.trim().isEmpty
-                            ? 'Chưa đặt giờ'
-                            : timeController.text.trim(),
-                        location:
-                            locationController.text.trim().isEmpty
-                                ? 'Chưa có địa điểm'
-                                : locationController.text.trim(),
-                        icon: Icons.event_rounded,
-                      );
-
-                      setState(() {
-                        _events.putIfAbsent(
-                          _dateKey(_selectedDate),
-                          () => [],
-                        );
-
-                        _events[_dateKey(_selectedDate)]!.add(event);
-                      });
-
-                      Navigator.pop(context);
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryBrown,
-                      foregroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                    ),
-                    child: const Text(
-                      'Thêm vào lịch',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                      ),
+                    decoration: const InputDecoration(
+                      labelText: 'Loại dấu chấm',
+                      border: OutlineInputBorder(),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (titleController.text.trim().isEmpty) return;
+
+                        final key = _dateKey(_selectedDate);
+
+                        setState(() {
+                          _events.putIfAbsent(key, () => []);
+                          _events[key]!.add(
+                            CalendarEvent(
+                              title: titleController.text.trim(),
+                              time: timeController.text.trim(),
+                              location: locationController.text.trim(),
+                              type: selectedType,
+                            ),
+                          );
+                        });
+
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryBrown,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                      ),
+                      child: const Text('Lưu sự kiện'),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
     );
-  }
-
-  InputDecoration _inputDecoration({
-    required String label,
-    required IconData icon,
-  }) {
-    return InputDecoration(
-      labelText: label,
-      prefixIcon: Icon(
-        icon,
-        color: primaryBrown,
-      ),
-      filled: true,
-      fillColor: const Color(0xFFFFFAF3),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16),
-        borderSide: BorderSide.none,
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16),
-        borderSide: const BorderSide(
-          color: Color(0xFFF0E1CE),
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(16),
-        borderSide: const BorderSide(
-          color: primaryBrown,
-          width: 1.5,
-        ),
-      ),
-    );
-  }
-
-  void _deleteEvent(CalendarEvent event) {
-    setState(() {
-      _events[_dateKey(_selectedDate)]?.remove(event);
-
-      if (_events[_dateKey(_selectedDate)]?.isEmpty ?? false) {
-        _events.remove(_dateKey(_selectedDate));
-      }
-    });
   }
 }
 
@@ -832,12 +695,12 @@ class CalendarEvent {
   final String title;
   final String time;
   final String location;
-  final IconData icon;
+  final String type;
 
   CalendarEvent({
     required this.title,
     required this.time,
     required this.location,
-    required this.icon,
+    required this.type,
   });
 }

@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Chùa Giác Lâm",
+    "slug": "chua-giac-lam",
+    "address": "TP. Hồ Chí Minh",
+    "province": "TP. Hồ Chí Minh",
+    "description": "Thông tin về chùa.",
+    "history": "",
+    "openingHours": "",
+    "imageUrl": "",
+    "nfcEnabled": false,
+    "featured": true
+  }
+]

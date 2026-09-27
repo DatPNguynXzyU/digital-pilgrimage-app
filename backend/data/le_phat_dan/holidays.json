@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Phật Đản",
+    "slug": "phat-dan",
+    "calendarType": "lunar",
+    "lunarDay": 15,
+    "lunarMonth": 4,
+    "description": "Ngày lễ Phật Đản.",
+    "type": "major",
+    "featured": true
+  },
+  {
+    "name": "Vu Lan",
+    "slug": "vu-lan",
+    "calendarType": "lunar",
+    "lunarDay": 15,
+    "lunarMonth": 7,
+    "description": "Ngày lễ Vu Lan.",
+    "type": "major",
+    "featured": true
+  }
+]
