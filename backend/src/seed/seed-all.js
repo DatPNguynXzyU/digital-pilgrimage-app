@@ -6,7 +6,8 @@ const connectDatabase = require('../config/database');
 
 const seedScriptures = require('./seed-scriptures');
 const seedTemples = require('./seed-temples');
-const seedHolidays = require('./seed-holidays');
+const seedBuddhistFigures =
+  require('./seed-buddhist-figures');
 
 async function seedAll() {
   try {
@@ -25,8 +26,8 @@ async function seedAll() {
     await seedTemples();
 
     console.log('');
-    console.log('3. Seed ngày lễ Phật giáo');
-    await seedHolidays();
+    console.log('3. Seed các vị Phật / Bồ Tát / Tổ sư');
+    await seedBuddhistFigures();
 
     console.log('');
     console.log('==============================');
@@ -36,10 +37,10 @@ async function seedAll() {
     console.error('');
     console.error('Seed database thất bại');
     console.error(error);
+
     process.exitCode = 1;
   } finally {
     await mongoose.connection.close();
-
     console.log('');
     console.log('Đã đóng kết nối MongoDB.');
   }

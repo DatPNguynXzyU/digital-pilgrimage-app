@@ -1,0 +1,64 @@
+[
+  {
+    "name": "Phật Thích Ca Mâu Ni",
+    "slug": "phat-thich-ca-mau-ni",
+    "category": "Phật",
+    "otherNames": [
+      "Thích Ca Mâu Ni",
+      "Đức Phật Thích Ca"
+    ],
+    "description": "Đức Phật lịch sử, người sáng lập Phật giáo.",
+    "biography": "",
+    "symbol": "",
+    "meaning": "",
+    "imageUrl": "",
+    "order": 1,
+    "featured": true
+  },
+  {
+    "name": "Phật A Di Đà",
+    "slug": "phat-a-di-da",
+    "category": "Phật",
+    "otherNames": [
+      "A Di Đà Phật"
+    ],
+    "description": "Một vị Phật quan trọng trong truyền thống Phật giáo Đại thừa và Tịnh Độ.",
+    "biography": "",
+    "symbol": "",
+    "meaning": "",
+    "imageUrl": "",
+    "order": 2,
+    "featured": true
+  },
+  {
+    "name": "Quán Thế Âm Bồ Tát",
+    "slug": "quan-the-am-bo-tat",
+    "category": "Bồ Tát",
+    "otherNames": [
+      "Quan Âm",
+      "Quán Âm"
+    ],
+    "description": "Vị Bồ Tát gắn với lòng từ bi trong Phật giáo Đại thừa.",
+    "biography": "",
+    "symbol": "",
+    "meaning": "",
+    "imageUrl": "",
+    "order": 3,
+    "featured": true
+  },
+  {
+    "name": "Địa Tạng Bồ Tát",
+    "slug": "dia-tang-bo-tat",
+    "category": "Bồ Tát",
+    "otherNames": [
+      "Địa Tạng Vương Bồ Tát"
+    ],
+    "description": "Một vị Bồ Tát quan trọng trong Phật giáo Đại thừa.",
+    "biography": "",
+    "symbol": "",
+    "meaning": "",
+    "imageUrl": "",
+    "order": 4,
+    "featured": false
+  }
+]
