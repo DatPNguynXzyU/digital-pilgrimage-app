@@ -12,7 +12,7 @@ class ScriptureService {
       return 'http://localhost:3000/api';
     }
 
-    return 'http://10.0.2.2:3000/api';
+    return 'http://10.12.58.157:3000/api';
   }
 
   Future<List<Scripture>>
