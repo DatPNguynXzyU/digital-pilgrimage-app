@@ -1,0 +1,18 @@
+[
+  {
+    "code": "quote-001",
+    "content": "Tâm dẫn đầu các pháp...",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-002",
+    "content": "Một câu trích dẫn khác...",
+    "author": "",
+    "source": "",
+    "category": "mindfulness",
+    "isActive": true
+  }
+]

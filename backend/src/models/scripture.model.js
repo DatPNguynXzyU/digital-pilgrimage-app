@@ -6,15 +6,17 @@ const scriptureSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
+      maxlength: 250,
     },
 
     slug: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
+      lowercase: true,
     },
 
+    // Tạm thời giữ Kinh / Chú để không làm hỏng Flutter hiện tại
     type: {
       type: String,
       required: true,
@@ -44,17 +46,46 @@ const scriptureSchema = new mongoose.Schema(
     order: {
       type: Number,
       default: 0,
+      min: 0,
     },
 
-    featured: {
+    isFeatured: {
       type: Boolean,
       default: false,
+    },
+
+    status: {
+      type: String,
+      enum: ['active', 'inactive'],
+      default: 'active',
     },
   },
   {
     timestamps: true,
   }
 );
+
+// slug không được trùng
+scriptureSchema.index(
+  {
+    slug: 1,
+  },
+  {
+    unique: true,
+    sparse: true,
+  }
+);
+
+// tìm kiếm
+scriptureSchema.index({
+  title: 'text',
+  description: 'text',
+});
+
+scriptureSchema.index({
+  type: 1,
+  order: 1,
+});
 
 module.exports = mongoose.model(
   'Scripture',
