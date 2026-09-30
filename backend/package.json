@@ -3,24 +3,24 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-  "start": "node src/server.js",
-  "dev": "nodemon src/server.js",
-
-  "seed": "node src/seed/seed-all.js",
-  "seed:temples": "node src/seed/seed-temples.js",
-  "seed:scriptures": "node src/seed/seed-scriptures.js",
-  "seed:figures": "node src/seed/seed-buddhist-figures.js",
-  "seed:quotes": "node src/seed/seed-quotes.js"
-  
-},
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "seed": "node src/seed/seed-all.js",
+    "seed:temples": "node src/seed/seed-temples.js",
+    "seed:scriptures": "node src/seed/seed-scriptures.js",
+    "seed:figures": "node src/seed/seed-buddhist-figures.js",
+    "seed:quotes": "node src/seed/seed-quotes.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.6",
     "dotenv": "^18.0.3",
     "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.10.2"
   },
   "devDependencies": {
