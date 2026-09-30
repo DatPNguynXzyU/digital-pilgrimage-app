@@ -5,10 +5,11 @@
   "scripts": {
   "start": "node src/server.js",
   "dev": "nodemon src/server.js",
+
   "seed": "node src/seed/seed-all.js",
-  "seed:scriptures": "node src/seed/run-scriptures.js",
-  "seed:temples": "node src/seed/run-temples.js",
-  "seed:holidays": "node src/seed/run-holidays.js"
+  "seed:temples": "node src/seed/seed-temples.js",
+  "seed:scriptures": "node src/seed/seed-scriptures.js",
+  "seed:figures": "node src/seed/seed-buddhist-figures.js"
 },
   "keywords": [],
   "author": "",
