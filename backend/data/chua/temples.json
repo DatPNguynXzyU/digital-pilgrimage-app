@@ -2,13 +2,568 @@
   {
     "name": "Chùa Giác Lâm",
     "slug": "chua-giac-lam",
-    "address": "TP. Hồ Chí Minh",
-    "province": "TP. Hồ Chí Minh",
-    "description": "Thông tin về chùa.",
-    "history": "",
-    "openingHours": "",
-    "imageUrl": "",
-    "nfcEnabled": false,
-    "featured": true
+    "otherNames": [],
+    "description": "Ngôi cổ tự thờ Phật có lịch sử từ năm 1744, sơ hữu Bảo tháp Xá lợi 7 tầng",
+    "history": "Được xây dựng vào năm 1744 do cư sĩ Lý Thụy Long (một người gốc Hoa thuộc cộng đồng cư dân Minh Hương) quyên tiền và đứng ra xây dựng và là một trong những ngôi chùa cổ nhất tại Sài Gòn",
+    "address": {
+      "street": "565 Lạc Long Quân, Tân Bình",
+      "ward": "Phường 10",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:30",
+      "close": "20:00"
+    },
+    "thumbnail": "https://owa.bestprice.vn/images/destinations/uploads/chua-giac-lam-60a232136c860.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Vĩnh Nghiêm",
+    "slug": "chua-vinh-nghiem",
+    "otherNames": [],
+    "description": "Sở hữu tòa tháp đá cao uy nghiêm",
+    "history": "Khởi công xây dựng từ năm 1964 và hoàn thành năm 1971",
+    "address": {
+      "street": "339 Nam Kỳ Khởi Nghĩa, Quận 3",
+      "ward": "Phường 14",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "21:00"
+    },
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/2/27/C%E1%BB%95ng_ch%C3%B9a_V%C4%A9nh_Nghi%C3%AAm.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Ngọc Hoàng",
+    "slug": "chua-ngoc-hoang",
+    "otherNames": [],
+    "description": "Chùa Ngọc Hoàng là một ngôi chùa cổ, làm theo kiểu đền chùa Trung Hoa với mô típ trang trí rực rỡ. Nổi tiếng linh thiêng về cầu duyên và cầu con",
+    "history": "Ngôi chùa vốn là điện thờ Ngọc Hoàng Thượng đế do một người tên Lưu Minh (pháp danh là Lưu Đạo Nguyên, người Quảng Đông, Trung Quốc) xây dựng vào khoảng đầu thế kỷ 20",
+    "address": {
+      "street": "73 Mai Thị Lựu, Đa Kao, Quận 1",
+      "ward": "",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "07:00",
+      "close": "18:00"
+    },
+    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Ph%C6%B0%E1%BB%9Bc_H%E1%BA%A3i_T%E1%BB%B1.jpg/1280px-Ph%C6%B0%E1%BB%9Bc_H%E1%BA%A3i_T%E1%BB%B1.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Bửu Long",
+    "slug": "chua-buu-long",
+    "otherNames": [],
+    "description": "Chùa Bửu Long mang nét kiến trúc các chùa ở Thái Lan, Ấn Độ kết hợp cùng nét kiến trúc các chùa thời Nguyễn",
+    "history": "Được thành lập vào năm 1942 và trải qua nhiều đợt đại trùng tu lớn tạo nên diện tích và cảnh quan tráng lệ như hiện nay",
+    "address": {
+      "street": "81 Nguyễn Xiển, Long Bình, Thành phố Thủ Đức",
+      "ward": "",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "07:00",
+      "close": "17:00"
+    },
+    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Th%C3%A1p_ch%C3%ADnh_ch%C3%B9a_B%E1%BB%ADu_Long.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Việt Nam Quốc Tự",
+    "slug": "viet-nam-quoc-tu",
+    "otherNames": [],
+    "description": "Là trung tâm văn hóa Phật giáo lớn tại thành phố với tòa bảo tháp 13 tầng cao uy nghi.",
+    "history": "Được khởi công xây dựng từ năm 1964, là trụ sở của Thành hội Phật giáo TP. Hồ Chí Minh.",
+    "address": {
+      "street": "244 Đường 3 Tháng 2, Quận 10",
+      "ward": "Phường 12",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "07:30",
+      "close": "19:30"
+    },
+    "thumbnail": "https://avaco.com.vn/uploads/images/mau-thiet-ke-chua-dep-1(3).jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Bà Thiên Hậu",
+    "slug": "chua-ba-thien-hau",
+    "otherNames": [],
+    "description": "Chùa xây theo hình ấn, là kiểu kiến trúc đặc trưng của người Hoa, là tổ hợp 4 ngôi nhà liên kết nhau tạo thành mặt bằng giống hình chữ khẩu hoặc chữ quốc",
+    "history": "Xây dựng khoảng năm 1760 bởi nhóm người Hoa gốc Tuệ Thành (tức Quảng Châu)",
+    "address": {
+      "street": "710 Nguyễn Trãi, Quận 5",
+      "ward": "Phường 11",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:30"
+    },
+    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Thien_Hau_Pagoda_%2810017896294%29.jpg/1280px-Thien_Hau_Pagoda_%2810017896294%29.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Pháp Hoa",
+    "slug": "chua-phap-hoa",
+    "otherNames": [],
+    "description": "Ngôi chùa thanh tịnh nằm ven kênh Nhiêu Lộc, rực rỡ ánh đèn lồng vào các dịp lễ lớn.",
+    "history": "Được thành lập vào năm 1928 và trùng tu lớn vào năm 1993.",
+    "address": {
+      "street": "870 Trường Sa, Quận 3",
+      "ward": "Phường 14",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "21:00"
+    },
+    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Ch%C3%B9a_Ph%C3%A1p_Hoa%2C_k%C3%AAnh_Nhi%C3%AAu_L%E1%BB%99c.JPG/960px-Ch%C3%B9a_Ph%C3%A1p_Hoa%2C_k%C3%AAnh_Nhi%C3%AAu_L%E1%BB%99c.JPG",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Xá Lợi",
+    "slug": "chua-xa-loi",
+    "otherNames": [],
+    "description": "Chùa Xá Lợi là ngôi chùa đầu tiên của thành phố được xây dựng theo lối kiến trúc mới, trên là bái đường, phía dưới là giảng đường. Nổi tiếng với tháp chuông cao 7 tầng",
+    "history": "Xây dựng năm 1956, chùa là trụ sở chính của Hội Phật học Nam Việt từ năm 1951 cho đến năm 1981",
+    "address": {
+      "street": "89 Bà Huyện Thanh Quan, Quận 3",
+      "ward": "Phường Võ Thị Sáu",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "21:00"
+    },
+    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/ChuaXaLoi001.jpg/1280px-ChuaXaLoi001.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Phổ Quang",
+    "slug": "chua-pho-quang",
+    "otherNames": [],
+    "description": "Không gian chùa rộng rãi, rợp bóng mát, là nơi sinh hoạt tâm linh quen thuộc của người dân thành phố.",
+    "history": "Được khởi công xây dựng vào năm 1951 và phải đến năm 1999 dưới sự quản lý của Ban Trị sự Phật giáo Hồ Chí Minh, ngôi chùa mới được trùng tu toàn diện và mở rộng khuôn viên",
+    "address": {
+      "street": "64/3 Huỳnh Lan Khanh, Tân Bình",
+      "ward": "Phường 2",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "21:00"
+    },
+    "thumbnail": "https://statics.vinpearl.com/chua-pho-quang-1_1630405760.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Vạn Phật",
+    "slug": "chua-van-phat",
+    "otherNames": [],
+    "description": "Chùa có hệ thống tượng Phật được xếp vào hàng kỷ lục tại Việt Nam",
+    "history": "Được xây dựng vào năm 1959, khởi đầu chùa khá đơn sơ và tạm bợ chỉ sau đợt trùng tu kéo dài 10 năm  ngôi chùa mới có diện mạo nhu ngày nay",
+    "address": {
+      "street": "66/14 Nghĩa Thục, Quận 5",
+      "ward": "Phường 5",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "07:00",
+      "close": "19:00"
+    },
+    "thumbnail": "https://cdn2.tuoitre.vn/nld/291774122806476800/2024/2/11/1-170762150215227584816.jpeg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Ấn Quang",
+    "slug": "chua-an-quang",
+    "otherNames": [],
+    "description": "Chùa Ấn Quang đã là nơi đặt trụ sở của Phật học đường Nam Việt, Giáo hội Tăng già Nam Việt (1959-1963)",
+    "history": "Khởi lập và phát triển từ thế kỷ 20.",
+    "address": {
+      "street": "243 đường Sư Vạn Hạnh, Quận 10",
+      "ward": "",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "",
+      "close": ""
+    },
+    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/An_Quang_Pagoda_%2810017886424%29.jpg/1280px-An_Quang_Pagoda_%2810017886424%29.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Huệ Nghiêm",
+    "slug": "chua-hue-nghiem-binh-tan",
+    "otherNames": [],
+    "description": "Chùa là nơi đào tạo Tăng tài về giới luật nổi tiếng của miền Nam cũng như Việt Nam. Chùa Huệ Nghiêm là ngôi tự viện đầu tiên xây dựng giới đàn truyền giới luật Phật giáo trong lịch sử hơn 2000 năm truyền thừa của Phật giáo Việt Nam",
+    "history": "Chùa do HT Thích Thiện Hòa khai sáng, xây dựng vào ngày 11-11-1962 theo bản vẽ của kiến trúc sư Võ Đình Diệp",
+    "address": {
+      "street": "220/110/1 đường Đỗ Năng Tế, Quận Bình Tân",
+      "ward": "Phường An Lạc A",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "20:00"
+    },
+    "thumbnail": "https://housevnstorage.blob.core.windows.net/media/imager_987.jpeg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Huê Nghiêm",
+    "slug": "chua-hue-nghiem",
+    "otherNames": [],
+    "description": "Ngôi chùa tiêu biểu thuộc hệ phái Bắc tông, nơi gắn liền với nhiều Phật sự lớn của thành phố",
+    "history": "Đất chùa có lịch sử từ năm 1899 và được xây dựng phát triển qua nhiều thời kỳ.",
+    "address": {
+      "street": "299B Lương Định Của, TP. Thủ Đức",
+      "ward": "",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "",
+      "close": ""
+    },
+    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Ch%C3%B9a_Hu%C3%AA_nghi%C3%AAm-An_Ph%C3%BA%2C_Qu%E1%BA%ADn_2%2C_TPHCM%2C_Vi%E1%BB%87t_Nam_-_panoramio.jpg/1920px-Ch%C3%B9a_Hu%C3%AA_nghi%C3%AAm-An_Ph%C3%BA%2C_Qu%E1%BA%ADn_2%2C_TPHCM%2C_Vi%E1%BB%87t_Nam_-_panoramio.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Pháp Võ",
+    "slug": "chua-phap-vo",
+    "otherNames": [],
+    "description": "Ngôi chùa nổi tiếng với các hoạt động nuôi dạy trẻ mồ côi và các hoạt động từ thiện xã hội",
+    "history": "Chùa Pháp Võ được xây dựng từ năm 1934 do Ni trưởng Thích nữ Liễu Tướng khai sơn.",
+    "address": {
+      "street": "28/1 Huỳnh Tấn Phát, Huyện Nhà Bè",
+      "ward": "Xã Nhơn Đức",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "19:00"
+    },
+    "thumbnail": "https://www.chuaviettoancau.com/userfiles/2020/01/181-01-4778.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Phước Viên",
+    "slug": "chua-phuoc-vien",
+    "otherNames": [],
+    "description": "Điểm đến tâm linh quen thuộc của nhiều thế hệ sinh viên và người dân khu vực Bình Thạnh",
+    "history": "Được sáng lập từ năm 1928",
+    "address": {
+      "street": "318 Xô Viết Nghệ Tĩnh",
+      "ward": "Phường Thạnh Mỹ Tây",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "20:00"
+    },
+    "thumbnail": "https://chuaphuocvien.org/images/hero-main.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Giác Viên",
+    "slug": "chua-giac-vien",
+    "otherNames": [],
+    "description": "Ngôi cổ tự lâu đời mang đậm phong cách kiến trúc nghệ thuật điêu khắc gỗ truyền thống của Nam Bộ",
+    "history": "Năm Canh Tuất (1850), Hòa thượng trụ trì chùa Giác Lâm lúc bấy giờ là Tiên Giác Hải Tịnh cho trùng tu viện thành chùa, đổi tên lại là Giác Viên.",
+    "address": {
+      "street": "161/35/20 đường Lạc Long Quân",
+      "ward": "phường Bình Thới",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/ChuaGiacVien01.jpg/500px-ChuaGiacVien01.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Bửu Quang",
+    "slug": "chua-buu-quang-thu-duc",
+    "otherNames": [],
+    "description": "Chùa Bửu Quang còn được gọi là Tổ đình Bửu Quang, là ngôi chùa đầu tiên đặt nền móng cho việc hình thành và phát triển Phật giáo Theravāda tại Việt Nam.",
+    "history": "Năm 1938, tại Gò Dưa, làng Tam Bình, Q. Thủ Đức, ông Hiểu cho xây cất một ngôi chùa lá và tám tịnh thất theo kiểu nhà sàn của người Cambodia để chư Tăng cư ngụ",
+    "address": {
+      "street": "171/10 Quốc Lộ 1A, quận Thủ Đức",
+      "ward": "phường Bình Chiểu",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "20:00"
+    },
+    "thumbnail": "https://phatgiaonguyenthuy.com/media/cats/chua/chua-viet-nam/buu-quang/buu%20quang-1-c%E1%BB%95ng.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Giác Ngộ",
+    "slug": "chua-giac-ngo",
+    "otherNames": [],
+    "description": "Là trung tâm tu học, hoằng pháp và tổ chức nhiều hoạt động Phật giáo, thiện nguyện",
+    "history": "Chùa Giác Ngộ là một trung tâm văn hóa, tu học và hoằng pháp do Thượng tọa Thích Nhật Từ sáng lập và trụ trì",
+    "address": {
+      "street": "92 Nguyễn Chí Thanh",
+      "ward": "Phường Vườn Lài",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "05:00",
+      "close": "21:00"
+    },
+    "thumbnail": "https://statics.vinpearl.com/chua-giac-ngo-01_1679662319.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Vạn Đức",
+    "slug": "chua-van-duc",
+    "otherNames": [],
+    "description": "Ngôi chùa nổi tiếng với kiến trúc quy mô lớn, sở hữu chánh điện cao kỷ lục và bức phù điêu cây bồ đề đắp nổi lớn.",
+    "history": "Ngày 16 tháng 3 âm lịch năm 1954, nhà sư Thích Trí Tịnh cho sửa lại nhà thành chùa và đặt tên là chùa Vạn Đức",
+    "address": {
+      "street": "502 Tô Ngọc Vân, thành phố Thủ Đức",
+      "ward": "phường Tam Bình",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "20:30"
+    },
+    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Ch%C3%B9a_V%E1%BA%A1n_%C4%90%E1%BB%A9c_%E1%BB%9F_Th%E1%BB%A7_%C4%90%E1%BB%A9c%2C_th%C3%A1ng_12_n%C4%83m_2021_%28Ch%C3%ADnh_%C4%91i%E1%BB%87n%29_%288%29.jpg/960px-Ch%C3%B9a_V%E1%BA%A1n_%C4%90%E1%BB%A9c_%E1%BB%9F_Th%E1%BB%A7_%C4%90%E1%BB%A9c%2C_th%C3%A1ng_12_n%C4%83m_2021_%28Ch%C3%ADnh_%C4%91i%E1%BB%87n%29_%288%29.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Chantarangsay",
+    "slug": "chua-chantarangsay",
+    "otherNames": [],
+    "description": "Chùa mang đậm ảnh hưởng văn hóa và kiến trúc của người Khmer, giao thoa giữa truyền thống Phật giáo và nghệ thuật kiến trúc cổ Campuchia",
+    "history": "Được khởi lập vào năm 1949 bởi Hòa thượng Lâm Em",
+    "address": {
+      "street": "164/235 Trần Quốc Thảo",
+      "ward": "phường Xuân Hòa",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Ch%C3%B9a_Ch%C4%83ntar%C4%83ngs%C3%A2y.JPG/500px-Ch%C3%B9a_Ch%C4%83ntar%C4%83ngs%C3%A2y.JPG",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
+  },
+  {
+    "name": "Chùa Phụng Sơn",
+    "slug": "chua-phung-son",
+    "otherNames": [],
+    "description": "Còn gọi là chùa Gò, Chùa Phụng Sơn là một trong những ngôi chùa cổ, còn in đậm nét sự có mặt của tín ngưỡng dân gian",
+    "history": "Chùa Phụng Sơn được thiền sư Liễu Thông (1754-1840) [1] tạo lập vào đầu thế kỷ 19, dưới triều vua Gia Long trên nền của một ngôi chùa Chân Lạp cổ",
+    "address": {
+      "street": "1408 Đường 3 Tháng 2, Quận 11",
+      "ward": "Phường 2",
+      "city": "TP. Hồ Chí Minh",
+      "country": "Việt Nam"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Ch%C3%B9a_Ph%E1%BB%A5ng_S%C6%A1n%2C_th%C3%A1ng_01_n%C4%83m_2022_%28phi%E1%BA%BFn_%C4%91%C3%A1_kh%E1%BA%AFc_ch%E1%BB%AF_th%C6%B0_ph%C3%A1p%29_%282%29.jpg/500px-Ch%C3%B9a_Ph%E1%BB%A5ng_S%C6%A1n%2C_th%C3%A1ng_01_n%C4%83m_2022_%28phi%E1%BA%BFn_%C4%91%C3%A1_kh%E1%BA%AFc_ch%E1%BB%AF_th%C6%B0_ph%C3%A1p%29_%282%29.jpg",
+    "images": [],
+    "tradition": "",
+    "contact": {
+      "phone": "",
+      "website": "",
+      "email": ""
+    },
+    "isFeatured": true,
+    "status": "active"
   }
 ]
