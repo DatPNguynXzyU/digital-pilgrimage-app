@@ -30,7 +30,7 @@ class ChiTietChuaPage extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   Image.asset(
-                    temple.image,
+                    temple.thumbnail,
                     fit: BoxFit.cover,
                     errorBuilder: (
                       context,
@@ -93,7 +93,7 @@ class ChiTietChuaPage extends StatelessWidget {
 
                       Expanded(
                         child: Text(
-                          temple.address,
+                          temple.fullAddress,
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey.shade700,

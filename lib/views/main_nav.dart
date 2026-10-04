@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'trang_chu/trang_chu.dart';
 import 'kinh_sach/kinh_sach.dart';
 import 'tai_khoan/tai_khoan.dart';
-import 'qr/qr_scan.dart';
 import 'lich/lich_page.dart';
+import 'temples/temple_list_page.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});
@@ -21,27 +21,21 @@ class _MainNavigationState
   static const Color primaryBrown =
       Color(0xFFA56A12);
 
+  // ==============================
+  // CÁC TRANG
+  // ==============================
   final List<Widget> _pages = const [
-    TrangChu(),
-    LichPage(),
-    KinhSachPage(),
-    TaiKhoanPage(),
+    TrangChu(),          // 0
+    LichPage(),          // 1
+    TempleListPage(),    // 2
+    KinhSachPage(),      // 3
+    TaiKhoanPage(),      // 4
   ];
 
   void _changeTab(int index) {
     setState(() {
       _currentIndex = index;
     });
-  }
-
-  void _openQrScanner() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            const QrScanPage(),
-      ),
-    );
   }
 
   @override
@@ -53,45 +47,16 @@ class _MainNavigationState
       ),
 
       // ==============================
-      // NÚT QR Ở GIỮA
-      // ==============================
-      floatingActionButton:
-          FloatingActionButton.large(
-        onPressed: _openQrScanner,
-
-        backgroundColor: primaryBrown,
-        foregroundColor: Colors.white,
-
-        elevation: 5,
-
-        shape: const CircleBorder(),
-
-        child: const Icon(
-          Icons.qr_code_scanner_rounded,
-          size: 35,
-        ),
-      ),
-
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.centerDocked,
-
-      // ==============================
       // MENU DƯỚI
       // ==============================
       bottomNavigationBar: BottomAppBar(
         height: 75,
-
         color: Colors.white,
-
         elevation: 10,
-
-        notchMargin: 8,
-
-        shape:
-            const CircularNotchedRectangle(),
 
         child: Row(
           children: [
+            // Trang chủ
             _buildNavItem(
               index: 0,
               icon: Icons.home_outlined,
@@ -99,6 +64,7 @@ class _MainNavigationState
               label: 'Trang chủ',
             ),
 
+            // Lịch
             _buildNavItem(
               index: 1,
               icon:
@@ -108,11 +74,19 @@ class _MainNavigationState
               label: 'Lịch',
             ),
 
-            // Chừa chỗ cho QR
-            const SizedBox(width: 75),
-
+            // Chùa
             _buildNavItem(
               index: 2,
+              icon:
+                  Icons.temple_buddhist_outlined,
+              selectedIcon:
+                  Icons.temple_buddhist,
+              label: 'Chùa',
+            ),
+
+            // Kinh sách
+            _buildNavItem(
+              index: 3,
               icon:
                   Icons.menu_book_outlined,
               selectedIcon:
@@ -120,8 +94,9 @@ class _MainNavigationState
               label: 'Kinh sách',
             ),
 
+            // Cá nhân
             _buildNavItem(
-              index: 3,
+              index: 4,
               icon: Icons.person_outline,
               selectedIcon: Icons.person,
               label: 'Cá nhân',
@@ -138,7 +113,7 @@ class _MainNavigationState
     required IconData selectedIcon,
     required String label,
   }) {
-    final selected =
+    final bool selected =
         _currentIndex == index;
 
     return Expanded(
@@ -166,6 +141,8 @@ class _MainNavigationState
 
             Text(
               label,
+
+              maxLines: 1,
 
               style: TextStyle(
                 fontSize: 11,

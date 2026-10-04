@@ -1,53 +1,161 @@
 class Temple {
   final String id;
   final String name;
-  final String address;
+  final String slug;
+
   final String description;
   final String history;
-  final String image;
 
-  const Temple({
+  final String street;
+  final String ward;
+  final String city;
+  final String country;
+
+  final String openingTime;
+  final String closingTime;
+
+  final String thumbnail;
+
+  final List<String> images;
+
+  final String tradition;
+
+  final bool isFeatured;
+
+  Temple({
     required this.id,
     required this.name,
-    required this.address,
+    required this.slug,
     required this.description,
     required this.history,
-    required this.image,
+    required this.street,
+    required this.ward,
+    required this.city,
+    required this.country,
+    required this.openingTime,
+    required this.closingTime,
+    required this.thumbnail,
+    required this.images,
+    required this.tradition,
+    required this.isFeatured,
   });
-}
-const List<Temple> demoTemples = [
-  Temple(
-    id: 'chua-giac-lam',
-    name: 'Chùa Giác Lâm',
-    address: 'TP. Hồ Chí Minh',
-    description:
-        'Chùa Giác Lâm là một ngôi chùa cổ tại Thành phố Hồ Chí Minh.',
-    history:
-        'Ngôi chùa có lịch sử lâu đời và là một trong những địa điểm '
-        'văn hóa Phật giáo tiêu biểu.',
-    image: 'assets/images/chua_giac_lam.jpg',
-  ),
 
-  Temple(
-    id: 'chua-vinh-nghiem',
-    name: 'Chùa Vĩnh Nghiêm',
-    address: 'TP. Hồ Chí Minh',
-    description:
-        'Chùa Vĩnh Nghiêm là một trong những ngôi chùa nổi tiếng '
-        'tại Thành phố Hồ Chí Minh.',
-    history:
-        'Chùa mang nét kiến trúc Phật giáo truyền thống kết hợp '
-        'với quy mô xây dựng hiện đại.',
-    image: 'assets/images/chua_vinh_nghiem.jpg',
-  ),
-];
+  factory Temple.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    final address =
+        json['address']
+            as Map<String, dynamic>? ??
+        {};
 
-Temple? findTempleById(String id) {
-  try {
-    return demoTemples.firstWhere(
-      (temple) => temple.id == id,
+    final openingHours =
+        json['openingHours']
+            as Map<String, dynamic>? ??
+        {};
+
+    return Temple(
+      id:
+          json['_id']
+              ?.toString() ??
+          '',
+
+      name:
+          json['name']
+              ?.toString() ??
+          '',
+
+      slug:
+          json['slug']
+              ?.toString() ??
+          '',
+
+      description:
+          json['description']
+              ?.toString() ??
+          '',
+
+      history:
+          json['history']
+              ?.toString() ??
+          '',
+
+      street:
+          address['street']
+              ?.toString() ??
+          '',
+
+      ward:
+          address['ward']
+              ?.toString() ??
+          '',
+
+      city:
+          address['city']
+              ?.toString() ??
+          '',
+
+      country:
+          address['country']
+              ?.toString() ??
+          '',
+
+      openingTime:
+          openingHours['open']
+              ?.toString() ??
+          '',
+
+      closingTime:
+          openingHours['close']
+              ?.toString() ??
+          '',
+
+      thumbnail:
+          json['thumbnail']
+              ?.toString() ??
+          '',
+
+      images:
+          (json['images'] as List?)
+                  ?.map(
+                    (e) =>
+                        e.toString(),
+                  )
+                  .toList() ??
+              [],
+
+      tradition:
+          json['tradition']
+              ?.toString() ??
+          '',
+
+      isFeatured:
+          json['isFeatured']
+                  as bool? ??
+              false,
     );
-  } catch (_) {
-    return null;
+  }
+
+  String get fullAddress {
+    return [
+      street,
+      ward,
+      city,
+      country,
+    ]
+        .where(
+          (value) =>
+              value.trim().isNotEmpty,
+        )
+        .join(', ');
+  }
+
+  String get openingHoursText {
+    if (
+        openingTime.isEmpty &&
+        closingTime.isEmpty) {
+      return 'Chưa cập nhật';
+    }
+
+    return '$openingTime - $closingTime';
   }
 }

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-
+import '../../services/temple_service.dart';
 import '../../models/temple.dart';
-import '../chua/chi_tiet_chua.dart';
+import '../temples/chi_tiet_chua.dart';
 
 class QrScanPage extends StatefulWidget {
   const QrScanPage({super.key});
 
   @override
   State<QrScanPage> createState() => _QrScanPageState();
+  
 }
 
 class _QrScanPageState extends State<QrScanPage> {
@@ -20,59 +21,66 @@ class _QrScanPageState extends State<QrScanPage> {
       BarcodeFormat.qrCode,
     ],
   );
+  final TempleService _templeService =
+    TempleService();
 
   bool _isProcessing = false;
 
   Future<void> _handleQrCode(
-    BarcodeCapture capture,
-  ) async {
-    if (_isProcessing) return;
+  BarcodeCapture capture,
+) async {
+  if (_isProcessing) return;
 
-    if (capture.barcodes.isEmpty) return;
+  if (capture.barcodes.isEmpty) {
+    return;
+  }
 
-    final String? rawValue =
-        capture.barcodes.first.rawValue;
+  final String? rawValue =
+      capture.barcodes.first.rawValue;
 
-    if (rawValue == null || rawValue.isEmpty) {
-      return;
-    }
+  if (rawValue == null ||
+      rawValue.isEmpty) {
+    return;
+  }
 
-    _isProcessing = true;
+  _isProcessing = true;
 
-    await controller.stop();
+  await controller.stop();
 
-    // QR hợp lệ:
-    // TEMPLE:chua-giac-lam
+  // QR hợp lệ:
+  // TEMPLE:chua-giac-lam
+  if (!rawValue.startsWith(
+    'TEMPLE:',
+  )) {
+    if (!mounted) return;
 
-    if (!rawValue.startsWith('TEMPLE:')) {
-      if (!mounted) return;
+    await _showInvalidQr();
 
-      await _showInvalidQr();
+    _isProcessing = false;
 
-      _isProcessing = false;
-
+    if (mounted) {
       await controller.start();
-
-      return;
     }
 
-    final templeId = rawValue
-        .replaceFirst('TEMPLE:', '')
-        .trim();
+    return;
+  }
 
-    final temple = findTempleById(templeId);
+  // Đây là SLUG chùa,
+  // không phải MongoDB _id
+  final templeSlug = rawValue
+      .replaceFirst(
+        'TEMPLE:',
+        '',
+      )
+      .trim()
+      .toLowerCase();
 
-    if (temple == null) {
-      if (!mounted) return;
-
-      await _showTempleNotFound();
-
-      _isProcessing = false;
-
-      await controller.start();
-
-      return;
-    }
+  try {
+    final temple =
+        await _templeService
+            .getTempleBySlug(
+      templeSlug,
+    );
 
     if (!mounted) return;
 
@@ -85,11 +93,18 @@ class _QrScanPageState extends State<QrScanPage> {
         ),
       ),
     );
+  } catch (error) {
+    if (!mounted) return;
 
-    _isProcessing = false;
+    await _showTempleNotFound();
+  }
 
+  _isProcessing = false;
+
+  if (mounted) {
     await controller.start();
   }
+}
 
   Future<void> _showInvalidQr() async {
     await showDialog(
