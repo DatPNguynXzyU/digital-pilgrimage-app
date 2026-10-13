@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'dart:typed_data';
+import 'package:http_parser/http_parser.dart';
 import '../config/api_config.dart';
 
 class AuthService {
@@ -116,7 +117,149 @@ class AuthService {
     return token != null &&
         token.isNotEmpty;
   }
+  Future<void> register({
+  required String fullName,
+  required String email,
+  required String password,
+}) async {
+  final uri = Uri.parse(
+    '${ApiConfig.baseUrl}/auth/register',
+  );
 
+  final response = await http.post(
+    uri,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: jsonEncode({
+      'fullName': fullName.trim(),
+      'email': email.trim().toLowerCase(),
+      'password': password,
+    }),
+  );
+
+  final body = jsonDecode(response.body)
+      as Map<String, dynamic>;
+
+  if ((response.statusCode != 200 &&
+          response.statusCode != 201) ||
+      body['success'] != true) {
+    throw Exception(
+      body['message']?.toString() ??
+          'Đăng ký tài khoản thất bại.',
+    );
+  }
+}
+
+// =====================================
+// CẬP NHẬT HỌ TÊN
+// =====================================
+Future<void> updateProfile({
+  required String fullName,
+}) async {
+  final token = await getToken();
+
+  if (token == null || token.isEmpty) {
+    throw Exception('Bạn chưa đăng nhập.');
+  }
+
+  final uri = Uri.parse(
+    '${ApiConfig.baseUrl}/auth/profile',
+  );
+
+  final response = await http.put(
+    uri,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+    body: jsonEncode({
+      'fullName': fullName.trim(),
+    }),
+  );
+
+  final body = jsonDecode(response.body)
+      as Map<String, dynamic>;
+
+  if (response.statusCode != 200 ||
+      body['success'] != true) {
+    throw Exception(
+      body['message'] ?? 'Không thể cập nhật hồ sơ.',
+    );
+  }
+}
+
+// =====================================
+// UPLOAD ẢNH ĐẠI DIỆN
+// =====================================
+Future<void> uploadAvatar({
+  required Uint8List bytes,
+  required String filename,
+}) async {
+  final token = await getToken();
+
+  if (token == null || token.isEmpty) {
+    throw Exception('Bạn chưa đăng nhập.');
+  }
+
+  final lowerName = filename.toLowerCase();
+
+  String subtype;
+
+  if (lowerName.endsWith('.png')) {
+    subtype = 'png';
+  } else if (lowerName.endsWith('.webp')) {
+    subtype = 'webp';
+  } else if (
+    lowerName.endsWith('.jpg') ||
+    lowerName.endsWith('.jpeg')
+  ) {
+    subtype = 'jpeg';
+  } else {
+    throw Exception(
+      'Chỉ hỗ trợ ảnh JPG, PNG hoặc WEBP.',
+    );
+  }
+
+  final uri = Uri.parse(
+    '${ApiConfig.baseUrl}/auth/avatar',
+  );
+
+  final request = http.MultipartRequest(
+    'POST',
+    uri,
+  );
+
+  request.headers['Authorization'] =
+      'Bearer $token';
+
+  request.files.add(
+    http.MultipartFile.fromBytes(
+      'avatar',
+      bytes,
+      filename: filename,
+      contentType: MediaType('image', subtype),
+    ),
+  );
+
+  final streamedResponse = await request.send();
+
+  final response =
+      await http.Response.fromStream(
+    streamedResponse,
+  );
+
+  final body = jsonDecode(response.body)
+      as Map<String, dynamic>;
+
+  if (response.statusCode != 200 ||
+      body['success'] != true) {
+    throw Exception(
+      body['message'] ??
+          'Không thể cập nhật ảnh đại diện.',
+    );
+  }
+}
   // ==============================
   // ĐĂNG XUẤT
   // ==============================

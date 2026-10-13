@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import '../../config/api_config.dart';
 import '../nfc/nfc_scan_page.dart';
 import '../../services/auth_service.dart';
 import 'change_password_page.dart';
 import 'login_page.dart';
 import 'pilgrimage_page.dart';
+import 'edit_profile_page.dart';
 
 class TaiKhoanPage extends StatefulWidget {
   const TaiKhoanPage({
@@ -76,21 +78,24 @@ class _TaiKhoanPageState
       final result =
           await _authService.getMe();
 
-      final user =
-          result['user'] ??
-          result['data'];
+      final data = result['data'];
+
+      final rawUser = result['user'] ??
+          (data is Map
+              ? (data['user'] ?? data)
+              : null);
+
+      final Map<String, dynamic>? user =
+          rawUser is Map
+              ? Map<String, dynamic>.from(rawUser)
+              : null;
 
       if (!mounted) return;
 
       setState(() {
         _token = token;
 
-        if (user
-            is Map<String, dynamic>) {
-          _user = user;
-        } else {
-          _user = null;
-        }
+        _user = user;
 
         _loading = false;
       });
@@ -121,6 +126,30 @@ class _TaiKhoanPageState
       await _loadAccount();
     }
   }
+  Future<void> _openEditProfile() async {
+  final updated = await Navigator.push<bool>(
+    context,
+    MaterialPageRoute(
+      builder: (_) => const EditProfilePage(),
+    ),
+  );
+
+  if (!mounted) return;
+
+  if (updated == true) {
+    await _loadAccount();
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Cập nhật hồ sơ thành công.',
+        ),
+      ),
+    );
+  }
+}
 
   void _openPilgrimage() {
     if (_token == null) {
@@ -169,6 +198,75 @@ class _TaiKhoanPageState
     );
   }
 
+  String? _getAvatarUrl() {
+    final avatar = _user?['avatar']
+            ?.toString()
+            .trim() ??
+        '';
+
+    if (avatar.isEmpty) {
+      return null;
+    }
+
+    if (avatar.startsWith('http://') ||
+        avatar.startsWith('https://')) {
+      return avatar;
+    }
+
+    final serverUrl =
+        ApiConfig.baseUrl.replaceFirst(
+      RegExp(r'/api/?$'),
+      '',
+    );
+
+    final path = avatar.startsWith('/')
+        ? avatar
+        : '/$avatar';
+
+    return '$serverUrl$path';
+  }
+
+  // ===================================
+  // HIỂN THỊ ẢNH ĐẠI DIỆN
+  // ===================================
+  Widget _buildAvatar() {
+    final avatarUrl = _getAvatarUrl();
+
+    Widget fallbackAvatar() {
+      return Container(
+        color: const Color(0xFFF3E1C5),
+        alignment: Alignment.center,
+        child: const Icon(
+          Icons.person,
+          size: 54,
+          color: primaryBrown,
+        ),
+      );
+    }
+
+    return Center(
+      child: ClipOval(
+        child: SizedBox(
+          width: 96,
+          height: 96,
+          child: avatarUrl == null
+              ? fallbackAvatar()
+              : Image.network(
+                  avatarUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (
+                    context,
+                    error,
+                    stackTrace,
+                  ) {
+                    return fallbackAvatar();
+                  },
+                ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(
     BuildContext context,
@@ -203,6 +301,7 @@ class _TaiKhoanPageState
           : RefreshIndicator(
               onRefresh:
                   _loadAccount,
+                
 
               child: ListView(
                 physics:
@@ -221,23 +320,7 @@ class _TaiKhoanPageState
                   // =========================
                   // AVATAR
                   // =========================
-                  const Center(
-                    child: CircleAvatar(
-                      radius: 48,
-
-                      backgroundColor:
-                          Color(
-                        0xFFF3E1C5,
-                      ),
-
-                      child: Icon(
-                        Icons.person,
-                        size: 54,
-                        color:
-                            primaryBrown,
-                      ),
-                    ),
-                  ),
+                  _buildAvatar(),
 
                   const SizedBox(
                     height: 16,
@@ -346,6 +429,52 @@ class _TaiKhoanPageState
                   // ĐÃ ĐĂNG NHẬP
                   // =========================
                   if (_token != null) ...[
+                    // ===================================
+// CHỈNH SỬA HỒ SƠ
+// ===================================
+Card(
+  elevation: 0,
+  color: Colors.white,
+
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(16),
+  ),
+
+  child: ListTile(
+    contentPadding: const EdgeInsets.symmetric(
+      horizontal: 18,
+      vertical: 8,
+    ),
+
+    leading: const CircleAvatar(
+      backgroundColor: Color(0xFFF3E1C5),
+
+      child: Icon(
+        Icons.manage_accounts_outlined,
+        color: primaryBrown,
+      ),
+    ),
+
+    title: const Text(
+      'Chỉnh sửa hồ sơ',
+      style: TextStyle(
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+
+    subtitle: const Text(
+      'Thay đổi họ tên và ảnh đại diện',
+    ),
+
+    trailing: const Icon(
+      Icons.chevron_right,
+    ),
+
+    onTap: _openEditProfile,
+  ),
+),
+
+const SizedBox(height: 12),
                     // =======================
                     // HÀNH TRÌNH
                     // =======================

@@ -427,9 +427,90 @@ async function getPilgrimageStats(
     });
   }
 }
+// ======================================================
+// GET /api/pilgrimage/stamps
+// Sổ tem điện tử của user
+// ======================================================
+async function getTempleStamps(req, res) {
+  try {
+    const userId = req.user._id;
+
+    const stamps =
+      await TempleStamp.find({
+        userId,
+      })
+        .populate({
+          path: 'templeId',
+          select: [
+            'name',
+            'slug',
+            'thumbnail',
+            'address',
+            'description',
+          ].join(' '),
+        })
+        .sort({
+          receivedAt: -1,
+        })
+        .lean();
+
+    const data = stamps
+      .filter(
+        (stamp) => stamp.templeId
+      )
+      .map(
+        (stamp) => ({
+          id: stamp._id,
+
+          receivedAt:
+            stamp.receivedAt,
+
+          temple: {
+            id:
+              stamp.templeId._id,
+
+            name:
+              stamp.templeId.name,
+
+            slug:
+              stamp.templeId.slug,
+
+            thumbnail:
+              stamp.templeId
+                  .thumbnail,
+
+            address:
+              stamp.templeId.address,
+
+            description:
+              stamp.templeId
+                  .description,
+          },
+        })
+      );
+
+    return res.status(200).json({
+      success: true,
+      count: data.length,
+      data,
+    });
+  } catch (error) {
+    console.error(
+      'Get temple stamps error:',
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message:
+        'Không thể tải sổ tem điện tử.',
+    });
+  }
+}
 
 module.exports = {
   getVisitHistory,
   getVisitedTemples,
   getPilgrimageStats,
+  getTempleStamps,
 };

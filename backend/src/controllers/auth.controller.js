@@ -172,6 +172,7 @@ async function register(req, res) {
       'Register error:',
       error
     );
+    
 
     // Unique email
     if (error.code === 11000) {

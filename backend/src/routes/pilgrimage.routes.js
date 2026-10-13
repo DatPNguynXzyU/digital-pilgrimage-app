@@ -1,23 +1,20 @@
-const express =
-  require('express');
+const express = require('express');
 
 const authMiddleware =
-  require(
-    '../middleware/auth.middleware'
-  );
+  require('../middleware/auth.middleware');
 
 const {
   getVisitHistory,
   getVisitedTemples,
   getPilgrimageStats,
+  getTempleStamps,
 } = require(
   '../controllers/pilgrimage.controller'
 );
 
-const router =
-  express.Router();
+const router = express.Router();
 
-// Tất cả đều yêu cầu đăng nhập
+// Tất cả API hành hương đều cần đăng nhập
 router.use(authMiddleware);
 
 // Lịch sử từng lần viếng
@@ -26,16 +23,22 @@ router.get(
   getVisitHistory
 );
 
-// Danh sách chùa đã đi + số lần
+// Danh sách chùa đã đi
 router.get(
   '/temples',
   getVisitedTemples
 );
 
-// Thống kê tổng quan
+// Thống kê
 router.get(
   '/stats',
   getPilgrimageStats
+);
+
+// Sổ tem
+router.get(
+  '/stamps',
+  getTempleStamps
 );
 
 module.exports = router;

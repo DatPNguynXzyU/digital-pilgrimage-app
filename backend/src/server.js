@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-
+const path = require('path');
 const connectDatabase =
   require('./config/database');
 
@@ -23,6 +23,9 @@ const nfcRoutes =
 
 const pilgrimageRoutes =
   require('./routes/pilgrimage.routes');
+
+const buddhistFigureRoutes =
+  require('./routes/buddhist-figure.routes');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -45,6 +48,12 @@ app.use(
   '/api/pilgrimage',
   pilgrimageRoutes
 )
+app.use(
+  '/img',
+  express.static(
+    path.join(__dirname, '../img')
+  )
+);
 
 
 app.get('/', (req, res) => {
@@ -62,6 +71,11 @@ app.use(
 app.use(
   '/api/calendar-events',
   calendarRoutes
+);
+
+app.use(
+  '/api/buddhist-figures',
+  buddhistFigureRoutes
 );
 
 async function startServer() {
