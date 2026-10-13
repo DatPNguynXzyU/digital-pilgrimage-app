@@ -300,9 +300,128 @@ async function getMe(req, res) {
       sanitizeUser(req.user),
   });
 }
+// ======================================================
+// ĐỔI MẬT KHẨU
+// PUT /api/auth/change-password
+// ======================================================
+async function changePassword(req, res) {
+  try {
+    const {
+      currentPassword,
+      newPassword,
+    } = req.body;
+
+    // ============================
+    // VALIDATE
+    // ============================
+    if (
+      !currentPassword ||
+      !newPassword
+    ) {
+      return res.status(400).json({
+        success: false,
+        message:
+          'Vui lòng nhập mật khẩu hiện tại và mật khẩu mới.',
+      });
+    }
+
+    if (newPassword.length < 6) {
+      return res.status(400).json({
+        success: false,
+        message:
+          'Mật khẩu mới phải có ít nhất 6 ký tự.',
+      });
+    }
+
+    if (
+      currentPassword ===
+      newPassword
+    ) {
+      return res.status(400).json({
+        success: false,
+        message:
+          'Mật khẩu mới phải khác mật khẩu hiện tại.',
+      });
+    }
+
+    // ============================
+    // TÌM USER
+    // passwordHash đang select:false
+    // nên phải select lại
+    // ============================
+    const user = await User.findById(
+      req.user._id
+    ).select('+passwordHash');
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message:
+          'Không tìm thấy tài khoản.',
+      });
+    }
+
+    if (user.status !== 'active') {
+      return res.status(403).json({
+        success: false,
+        message:
+          'Tài khoản đã bị khóa.',
+      });
+    }
+
+    // ============================
+    // KIỂM TRA MẬT KHẨU CŨ
+    // ============================
+    const isPasswordCorrect =
+      await bcrypt.compare(
+        currentPassword,
+        user.passwordHash
+      );
+
+    if (!isPasswordCorrect) {
+      return res.status(400).json({
+        success: false,
+        message:
+          'Mật khẩu hiện tại không đúng.',
+      });
+    }
+
+    // ============================
+    // HASH MẬT KHẨU MỚI
+    // ============================
+    const newPasswordHash =
+      await bcrypt.hash(
+        newPassword,
+        12
+      );
+
+    user.passwordHash =
+      newPasswordHash;
+
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      message:
+        'Đổi mật khẩu thành công.',
+    });
+  } catch (error) {
+    console.error(
+      'Change password error:',
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message:
+        'Không thể đổi mật khẩu.',
+    });
+  }
+}
 
 module.exports = {
   register,
   login,
   getMe,
+  changePassword,
 };

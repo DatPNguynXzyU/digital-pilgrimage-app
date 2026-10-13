@@ -1,50 +1,41 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
-import 'package:http/http.dart'
-    as http;
+import 'package:http/http.dart' as http;
 
+import '../config/api_config.dart';
 import '../models/scripture.dart';
 
 class ScriptureService {
-  String get baseUrl {
-    if (kIsWeb) {
-      return 'http://localhost:3000/api';
-    }
-
-    return 'http://10.12.58.157:3000/api';
-  }
-
-  Future<List<Scripture>>
-      getScriptures() async {
-    final response =
-        await http.get(
-      Uri.parse(
-        '$baseUrl/scriptures',
-      ),
+  Future<List<Scripture>> getScriptures() async {
+    final uri = Uri.parse(
+      '${ApiConfig.baseUrl}/scriptures',
     );
 
-    if (response.statusCode !=
-        200) {
+    final response = await http.get(uri);
+
+    if (response.statusCode != 200) {
       throw Exception(
         'Không thể tải kinh sách',
       );
     }
 
-    final Map<String, dynamic>
-        json =
-        jsonDecode(
-      response.body,
-    );
+    final Map<String, dynamic> json =
+        jsonDecode(response.body);
+
+    if (json['success'] != true) {
+      throw Exception(
+        json['message'] ??
+            'Không thể tải kinh sách',
+      );
+    }
 
     final List<dynamic> data =
         json['data'] ?? [];
 
     return data
         .map(
-          (item) =>
-              Scripture.fromJson(
-            item,
+          (item) => Scripture.fromJson(
+            item as Map<String, dynamic>,
           ),
         )
         .toList();

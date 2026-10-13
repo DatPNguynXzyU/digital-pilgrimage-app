@@ -1,36 +1,42 @@
-const express =
-  require('express');
+const express = require('express');
 
 const {
   register,
   login,
   getMe,
-} =
-  require('../controllers/auth.controller');
+  changePassword,
+} = require(
+  '../controllers/auth.controller'
+);
 
-const authMiddleware =
-  require('../middleware/auth.middleware');
+const authMiddleware = require(
+  '../middleware/auth.middleware'
+);
 
-const router =
-  express.Router();
+const router = express.Router();
 
-// Đăng ký
+// Public
 router.post(
   '/register',
   register
 );
 
-// Đăng nhập
 router.post(
   '/login',
   login
 );
 
-// Lấy user đang đăng nhập
+// Yêu cầu JWT
 router.get(
   '/me',
   authMiddleware,
   getMe
+);
+
+router.put(
+  '/change-password',
+  authMiddleware,
+  changePassword
 );
 
 module.exports = router;

@@ -18,6 +18,11 @@ const authRoutes =
 const templeRoutes =
   require('./routes/temple.routes');  
 
+const nfcRoutes =
+  require('./routes/nfc.routes');
+
+const pilgrimageRoutes =
+  require('./routes/pilgrimage.routes');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -32,6 +37,14 @@ app.use(
   '/api/temples',
   templeRoutes
 );
+app.use(
+  '/api/nfc',
+  nfcRoutes
+);
+app.use(
+  '/api/pilgrimage',
+  pilgrimageRoutes
+)
 
 
 app.get('/', (req, res) => {

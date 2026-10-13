@@ -13,9 +13,7 @@ dotenv.config({
   path: path.join(__dirname, '../../.env'),
 });
 
-// ========================================
-// CHUẨN HÓA CATEGORY
-// ========================================
+
 
 function normalizeCategory(category) {
   if (!category) {
