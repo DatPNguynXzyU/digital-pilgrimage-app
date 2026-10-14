@@ -1,52 +1,42 @@
 import 'package:flutter/material.dart';
+
+import '../../config/app_theme.dart';
 import '../../models/temple.dart';
+import '../nfc/nfc_scan_page.dart';
 
 class ChiTietChuaPage extends StatelessWidget {
   final Temple temple;
 
-  const ChiTietChuaPage({
-    super.key,
-    required this.temple,
-  });
+  const ChiTietChuaPage({super.key, required this.temple});
 
-  static const Color primaryBrown = Color(0xFFA56A12);
-  static const Color lightBrown = Color(0xFFFFF4DF);
+  static const Color primaryBrown = AppTheme.primary;
+  static const Color lightBrown = AppTheme.surface;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppTheme.background,
 
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: 280,
             pinned: true,
-            backgroundColor: Colors.white,
+            backgroundColor: AppTheme.primary,
             foregroundColor: Colors.white,
 
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 fit: StackFit.expand,
                 children: [
-                  Image.asset(
-                    temple.thumbnail,
-                    fit: BoxFit.cover,
-                    errorBuilder: (
-                      context,
-                      error,
-                      stackTrace,
-                    ) {
-                      return Container(
-                        color: primaryBrown,
-                        child: const Icon(
-                          Icons.temple_buddhist,
-                          size: 120,
-                          color: Colors.white54,
-                        ),
-                      );
-                    },
-                  ),
+                  if (temple.thumbnail.trim().isNotEmpty)
+                    Image.network(
+                      temple.thumbnail,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, _, _) => _imagePlaceholder(),
+                    )
+                  else
+                    _imagePlaceholder(),
 
                   Container(
                     decoration: BoxDecoration(
@@ -105,6 +95,27 @@ class ChiTietChuaPage extends StatelessWidget {
 
                   const SizedBox(height: 25),
 
+                  _detailRow(
+                    Icons.schedule_outlined,
+                    'Giờ mở cửa: ${temple.openingHoursText}',
+                  ),
+
+                  if (temple.images.isNotEmpty) ...[
+                    const SizedBox(height: 25),
+                    const Text(
+                      'Hình ảnh',
+                      style: TextStyle(
+                        color: AppTheme.text,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    _buildGallery(),
+                  ],
+
+                  const SizedBox(height: 25),
+
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(18),
@@ -114,10 +125,7 @@ class ChiTietChuaPage extends StatelessWidget {
                     ),
                     child: const Row(
                       children: [
-                        Icon(
-                          Icons.verified_outlined,
-                          color: primaryBrown,
-                        ),
+                        Icon(Icons.verified_outlined, color: primaryBrown),
 
                         SizedBox(width: 12),
 
@@ -125,9 +133,7 @@ class ChiTietChuaPage extends StatelessWidget {
                           child: Text(
                             'Thông tin được cung cấp bởi hệ thống '
                             'Hành Hương Số',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                            ),
+                            style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ),
                       ],
@@ -138,40 +144,28 @@ class ChiTietChuaPage extends StatelessWidget {
 
                   const Text(
                     'Giới thiệu',
-                    style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(height: 10),
 
                   Text(
                     temple.description,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      height: 1.6,
-                    ),
+                    style: const TextStyle(fontSize: 16, height: 1.6),
                   ),
 
                   const SizedBox(height: 28),
 
                   const Text(
                     'Lịch sử',
-                    style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(height: 10),
 
                   Text(
                     temple.history,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      height: 1.6,
-                    ),
+                    style: const TextStyle(fontSize: 16, height: 1.6),
                   ),
 
                   const SizedBox(height: 35),
@@ -188,21 +182,18 @@ class ChiTietChuaPage extends StatelessWidget {
                       ),
 
                       onPressed: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              'Đã ghi nhận bạn viếng ${temple.name}',
-                            ),
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (_) => const NfcScanPage(),
                           ),
                         );
                       },
 
-                      icon: const Icon(
-                        Icons.bookmark_added_outlined,
-                      ),
+                      icon: const Icon(Icons.nfc_rounded),
 
                       label: const Text(
-                        'Ghi nhận chuyến viếng',
+                        'Check-in bằng NFC',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -217,6 +208,56 @@ class ChiTietChuaPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _imagePlaceholder() {
+    return Container(
+      color: AppTheme.surface,
+      alignment: Alignment.center,
+      child: const Icon(
+        Icons.temple_buddhist_outlined,
+        size: 100,
+        color: AppTheme.secondary,
+      ),
+    );
+  }
+
+  Widget _detailRow(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, color: AppTheme.secondary),
+        const SizedBox(width: 9),
+        Expanded(
+          child: Text(
+            text,
+            style: const TextStyle(color: AppTheme.textSecondary),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGallery() {
+    return SizedBox(
+      height: 145,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: temple.images.length,
+        separatorBuilder: (_, _) => const SizedBox(width: 10),
+        itemBuilder: (context, index) {
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(
+              temple.images[index],
+              width: 210,
+              height: 145,
+              fit: BoxFit.cover,
+              errorBuilder: (_, _, _) => _imagePlaceholder(),
+            ),
+          );
+        },
       ),
     );
   }

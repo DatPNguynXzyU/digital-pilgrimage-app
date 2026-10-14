@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../config/app_theme.dart';
 import '../../config/api_config.dart';
 import '../../services/auth_service.dart';
 
@@ -10,20 +11,16 @@ class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
 
   @override
-  State<EditProfilePage> createState() =>
-      _EditProfilePageState();
+  State<EditProfilePage> createState() => _EditProfilePageState();
 }
 
-class _EditProfilePageState
-    extends State<EditProfilePage> {
-  static const Color primaryBrown =
-      Color(0xFFA56A12);
+class _EditProfilePageState extends State<EditProfilePage> {
+  static const Color primaryBrown = AppTheme.primary;
 
   final AuthService _authService = AuthService();
   final ImagePicker _picker = ImagePicker();
 
-  final TextEditingController _nameController =
-      TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
 
   bool _loading = true;
   bool _saving = false;
@@ -52,15 +49,11 @@ class _EditProfilePageState
   String _resolveAvatarUrl(String value) {
     if (value.isEmpty) return '';
 
-    if (value.startsWith('http://') ||
-        value.startsWith('https://')) {
+    if (value.startsWith('http://') || value.startsWith('https://')) {
       return value;
     }
 
-    final server = ApiConfig.baseUrl.replaceFirst(
-      RegExp(r'/api/?$'),
-      '',
-    );
+    final server = ApiConfig.baseUrl.replaceFirst(RegExp(r'/api/?$'), '');
 
     if (value.startsWith('/')) {
       return '$server$value';
@@ -78,22 +71,16 @@ class _EditProfilePageState
 
       final data = result['data'];
 
-      final rawUser = result['user'] ??
-          (data is Map
-              ? (data['user'] ?? data)
-              : null);
+      final rawUser =
+          result['user'] ?? (data is Map ? (data['user'] ?? data) : null);
 
       if (rawUser is! Map) {
-        throw Exception(
-          'Không đọc được thông tin tài khoản.',
-        );
+        throw Exception('Không đọc được thông tin tài khoản.');
       }
 
-      final name =
-          rawUser['fullName']?.toString() ?? '';
+      final name = rawUser['fullName']?.toString() ?? '';
 
-      final avatar =
-          rawUser['avatar']?.toString() ?? '';
+      final avatar = rawUser['avatar']?.toString() ?? '';
 
       if (!mounted) return;
 
@@ -110,9 +97,7 @@ class _EditProfilePageState
         _loading = false;
       });
 
-      _showMessage(
-        error.toString().replaceFirst('Exception: ', ''),
-      );
+      _showMessage(error.toString().replaceFirst('Exception: ', ''));
     }
   }
 
@@ -134,9 +119,7 @@ class _EditProfilePageState
       final bytes = await image.readAsBytes();
 
       if (bytes.length > 2 * 1024 * 1024) {
-        _showMessage(
-          'Ảnh không được vượt quá 2MB.',
-        );
+        _showMessage('Ảnh không được vượt quá 2MB.');
         return;
       }
 
@@ -149,9 +132,7 @@ class _EditProfilePageState
     } catch (error) {
       if (!mounted) return;
 
-      _showMessage(
-        'Không thể chọn ảnh: $error',
-      );
+      _showMessage('Không thể chọn ảnh: $error');
     }
   }
 
@@ -164,9 +145,7 @@ class _EditProfilePageState
     final fullName = _nameController.text.trim();
 
     if (fullName.length < 2 || fullName.length > 100) {
-      _showMessage(
-        'Họ tên phải có từ 2 đến 100 ký tự.',
-      );
+      _showMessage('Họ tên phải có từ 2 đến 100 ký tự.');
       return;
     }
 
@@ -177,16 +156,13 @@ class _EditProfilePageState
     try {
       // Cập nhật tên khi có thay đổi
       if (fullName != _originalName) {
-        await _authService.updateProfile(
-          fullName: fullName,
-        );
+        await _authService.updateProfile(fullName: fullName);
 
         _originalName = fullName;
       }
 
       // Upload ảnh khi user chọn ảnh mới
-      if (_newAvatar != null &&
-          _avatarFilename != null) {
+      if (_newAvatar != null && _avatarFilename != null) {
         await _authService.uploadAvatar(
           bytes: _newAvatar!,
           filename: _avatarFilename!,
@@ -199,9 +175,7 @@ class _EditProfilePageState
     } catch (error) {
       if (!mounted) return;
 
-      _showMessage(
-        error.toString().replaceFirst('Exception: ', ''),
-      );
+      _showMessage(error.toString().replaceFirst('Exception: ', ''));
     } finally {
       if (mounted) {
         setState(() {
@@ -212,9 +186,8 @@ class _EditProfilePageState
   }
 
   void _showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
@@ -228,28 +201,23 @@ class _EditProfilePageState
     }
 
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFBF7),
+      backgroundColor: AppTheme.background,
 
       appBar: AppBar(
         title: const Text(
           'Chỉnh sửa hồ sơ',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color(0xFFFFFBF7),
+        backgroundColor: AppTheme.background,
       ),
 
       body: _loading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
+          ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               padding: const EdgeInsets.all(24),
 
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
 
                 children: [
                   const SizedBox(height: 20),
@@ -262,8 +230,7 @@ class _EditProfilePageState
                       children: [
                         CircleAvatar(
                           radius: 58,
-                          backgroundColor:
-                              const Color(0xFFF3E1C5),
+                          backgroundColor: AppTheme.surface,
 
                           backgroundImage: avatarImage,
 
@@ -298,9 +265,7 @@ class _EditProfilePageState
                   const Center(
                     child: Text(
                       'Chạm biểu tượng máy ảnh để đổi ảnh',
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
+                      style: TextStyle(color: Colors.grey),
                     ),
                   ),
 
@@ -313,13 +278,10 @@ class _EditProfilePageState
                     decoration: InputDecoration(
                       labelText: 'Họ và tên',
 
-                      prefixIcon: const Icon(
-                        Icons.person_outline,
-                      ),
+                      prefixIcon: const Icon(Icons.person_outline),
 
                       border: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(14),
+                        borderRadius: BorderRadius.circular(14),
                       ),
                     ),
                   ),
@@ -331,8 +293,7 @@ class _EditProfilePageState
                     height: 52,
 
                     child: ElevatedButton.icon(
-                      onPressed:
-                          _saving ? null : _saveProfile,
+                      onPressed: _saving ? null : _saveProfile,
 
                       icon: _saving
                           ? const SizedBox(
@@ -345,19 +306,14 @@ class _EditProfilePageState
                             )
                           : const Icon(Icons.save_outlined),
 
-                      label: Text(
-                        _saving
-                            ? 'Đang lưu...'
-                            : 'Lưu thay đổi',
-                      ),
+                      label: Text(_saving ? 'Đang lưu...' : 'Lưu thay đổi'),
 
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryBrown,
                         foregroundColor: Colors.white,
 
                         shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(14),
+                          borderRadius: BorderRadius.circular(14),
                         ),
                       ),
                     ),

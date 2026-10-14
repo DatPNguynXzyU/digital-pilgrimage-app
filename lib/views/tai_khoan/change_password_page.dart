@@ -1,37 +1,26 @@
 import 'package:flutter/material.dart';
 
+import '../../config/app_theme.dart';
 import '../../services/auth_service.dart';
 
-class ChangePasswordPage
-    extends StatefulWidget {
-  const ChangePasswordPage({
-    super.key,
-  });
+class ChangePasswordPage extends StatefulWidget {
+  const ChangePasswordPage({super.key});
 
   @override
-  State<ChangePasswordPage>
-      createState() =>
-          _ChangePasswordPageState();
+  State<ChangePasswordPage> createState() => _ChangePasswordPageState();
 }
 
-class _ChangePasswordPageState
-    extends State<ChangePasswordPage> {
-  static const Color primaryBrown =
-      Color(0xFFA56A12);
+class _ChangePasswordPageState extends State<ChangePasswordPage> {
+  static const Color primaryBrown = AppTheme.primary;
 
-  final AuthService _authService =
-      AuthService();
+  final AuthService _authService = AuthService();
 
-  final TextEditingController
-      _currentPasswordController =
+  final TextEditingController _currentPasswordController =
       TextEditingController();
 
-  final TextEditingController
-      _newPasswordController =
-      TextEditingController();
+  final TextEditingController _newPasswordController = TextEditingController();
 
-  final TextEditingController
-      _confirmPasswordController =
+  final TextEditingController _confirmPasswordController =
       TextEditingController();
 
   bool _loading = false;
@@ -42,64 +31,44 @@ class _ChangePasswordPageState
 
   @override
   void dispose() {
-    _currentPasswordController
-        .dispose();
+    _currentPasswordController.dispose();
 
-    _newPasswordController
-        .dispose();
+    _newPasswordController.dispose();
 
-    _confirmPasswordController
-        .dispose();
+    _confirmPasswordController.dispose();
 
     super.dispose();
   }
 
-  Future<void> _changePassword()
-      async {
-    final currentPassword =
-        _currentPasswordController
-            .text;
+  Future<void> _changePassword() async {
+    final currentPassword = _currentPasswordController.text;
 
-    final newPassword =
-        _newPasswordController
-            .text;
+    final newPassword = _newPasswordController.text;
 
-    final confirmPassword =
-        _confirmPasswordController
-            .text;
+    final confirmPassword = _confirmPasswordController.text;
 
     if (currentPassword.isEmpty ||
         newPassword.isEmpty ||
         confirmPassword.isEmpty) {
-      _showMessage(
-        'Vui lòng nhập đầy đủ thông tin.',
-      );
+      _showMessage('Vui lòng nhập đầy đủ thông tin.');
 
       return;
     }
 
     if (newPassword.length < 6) {
-      _showMessage(
-        'Mật khẩu mới phải có ít nhất 6 ký tự.',
-      );
+      _showMessage('Mật khẩu mới phải có ít nhất 6 ký tự.');
 
       return;
     }
 
-    if (newPassword !=
-        confirmPassword) {
-      _showMessage(
-        'Xác nhận mật khẩu mới không khớp.',
-      );
+    if (newPassword != confirmPassword) {
+      _showMessage('Xác nhận mật khẩu mới không khớp.');
 
       return;
     }
 
-    if (currentPassword ==
-        newPassword) {
-      _showMessage(
-        'Mật khẩu mới phải khác mật khẩu hiện tại.',
-      );
+    if (currentPassword == newPassword) {
+      _showMessage('Mật khẩu mới phải khác mật khẩu hiện tại.');
 
       return;
     }
@@ -109,41 +78,23 @@ class _ChangePasswordPageState
     });
 
     try {
-      await _authService
-          .changePassword(
-        currentPassword:
-            currentPassword,
+      await _authService.changePassword(
+        currentPassword: currentPassword,
 
-        newPassword:
-            newPassword,
+        newPassword: newPassword,
       );
 
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context)
-          .showSnackBar(
-        const SnackBar(
-          content: Text(
-            'Đổi mật khẩu thành công.',
-          ),
-        ),
-      );
-
-      Navigator.pop(
+      ScaffoldMessenger.of(
         context,
-        true,
-      );
+      ).showSnackBar(const SnackBar(content: Text('Đổi mật khẩu thành công.')));
+
+      Navigator.pop(context, true);
     } catch (error) {
       if (!mounted) return;
 
-      _showMessage(
-        error
-            .toString()
-            .replaceFirst(
-              'Exception: ',
-              '',
-            ),
-      );
+      _showMessage(error.toString().replaceFirst('Exception: ', ''));
     } finally {
       if (mounted) {
         setState(() {
@@ -153,17 +104,9 @@ class _ChangePasswordPageState
     }
   }
 
-  void _showMessage(
-    String message,
-  ) {
+  void _showMessage(String message) {
     ScaffoldMessenger.of(context)
-        .showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-        ),
-      ),
-    );
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   InputDecoration _inputDecoration({
@@ -175,213 +118,136 @@ class _ChangePasswordPageState
     return InputDecoration(
       labelText: label,
 
-      prefixIcon: Icon(
-        icon,
-      ),
+      prefixIcon: Icon(icon),
 
       suffixIcon: IconButton(
         onPressed: onToggle,
 
         icon: Icon(
-          hidden
-              ? Icons
-                  .visibility_outlined
-              : Icons
-                  .visibility_off_outlined,
+          hidden ? Icons.visibility_outlined : Icons.visibility_off_outlined,
         ),
       ),
 
-      border: OutlineInputBorder(
-        borderRadius:
-            BorderRadius.circular(
-          14,
-        ),
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
     );
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          const Color(0xFFFFFBF7),
+      backgroundColor: AppTheme.background,
 
       appBar: AppBar(
         title: const Text(
           'Đổi mật khẩu',
-          style: TextStyle(
-            fontWeight:
-                FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
 
-        backgroundColor:
-            const Color(0xFFFFFBF7),
+        backgroundColor: AppTheme.background,
       ),
 
       body: SingleChildScrollView(
-        padding:
-            const EdgeInsets.all(
-          20,
-        ),
+        padding: const EdgeInsets.all(20),
 
         child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment
-                  .stretch,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
 
           children: [
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20),
 
             const Center(
               child: CircleAvatar(
                 radius: 45,
 
-                backgroundColor:
-                    Color(
-                  0xFFF3E1C5,
-                ),
+                backgroundColor: Color(0xFFF3E1C5),
 
-                child: Icon(
-                  Icons.lock_outline,
-                  size: 45,
-                  color:
-                      primaryBrown,
-                ),
+                child: Icon(Icons.lock_outline, size: 45, color: primaryBrown),
               ),
             ),
 
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
 
             TextField(
-              controller:
-                  _currentPasswordController,
+              controller: _currentPasswordController,
 
-              obscureText:
-                  _hideCurrentPassword,
+              obscureText: _hideCurrentPassword,
 
-              decoration:
-                  _inputDecoration(
-                label:
-                    'Mật khẩu hiện tại',
+              decoration: _inputDecoration(
+                label: 'Mật khẩu hiện tại',
 
-                icon:
-                    Icons.lock_outline,
+                icon: Icons.lock_outline,
 
-                hidden:
-                    _hideCurrentPassword,
+                hidden: _hideCurrentPassword,
 
                 onToggle: () {
                   setState(() {
-                    _hideCurrentPassword =
-                        !_hideCurrentPassword;
+                    _hideCurrentPassword = !_hideCurrentPassword;
                   });
                 },
               ),
             ),
 
-            const SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 16),
 
             TextField(
-              controller:
-                  _newPasswordController,
+              controller: _newPasswordController,
 
-              obscureText:
-                  _hideNewPassword,
+              obscureText: _hideNewPassword,
 
-              decoration:
-                  _inputDecoration(
-                label:
-                    'Mật khẩu mới',
+              decoration: _inputDecoration(
+                label: 'Mật khẩu mới',
 
-                icon:
-                    Icons
-                        .password_outlined,
+                icon: Icons.password_outlined,
 
-                hidden:
-                    _hideNewPassword,
+                hidden: _hideNewPassword,
 
                 onToggle: () {
                   setState(() {
-                    _hideNewPassword =
-                        !_hideNewPassword;
+                    _hideNewPassword = !_hideNewPassword;
                   });
                 },
               ),
             ),
 
-            const SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 16),
 
             TextField(
-              controller:
-                  _confirmPasswordController,
+              controller: _confirmPasswordController,
 
-              obscureText:
-                  _hideConfirmPassword,
+              obscureText: _hideConfirmPassword,
 
-              onSubmitted: (_) =>
-                  _changePassword(),
+              onSubmitted: (_) => _changePassword(),
 
-              decoration:
-                  _inputDecoration(
-                label:
-                    'Xác nhận mật khẩu mới',
+              decoration: _inputDecoration(
+                label: 'Xác nhận mật khẩu mới',
 
-                icon:
-                    Icons
-                        .check_circle_outline,
+                icon: Icons.check_circle_outline,
 
-                hidden:
-                    _hideConfirmPassword,
+                hidden: _hideConfirmPassword,
 
                 onToggle: () {
                   setState(() {
-                    _hideConfirmPassword =
-                        !_hideConfirmPassword;
+                    _hideConfirmPassword = !_hideConfirmPassword;
                   });
                 },
               ),
             ),
 
-            const SizedBox(
-              height: 26,
-            ),
+            const SizedBox(height: 26),
 
             SizedBox(
               height: 52,
 
               child: ElevatedButton(
-                onPressed:
-                    _loading
-                        ? null
-                        : _changePassword,
+                onPressed: _loading ? null : _changePassword,
 
-                style:
-                    ElevatedButton
-                        .styleFrom(
-                  backgroundColor:
-                      primaryBrown,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: primaryBrown,
 
-                  foregroundColor:
-                      Colors.white,
+                  foregroundColor: Colors.white,
 
-                  shape:
-                      RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius
-                            .circular(
-                      14,
-                    ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
                   ),
                 ),
 
@@ -390,22 +256,16 @@ class _ChangePasswordPageState
                         width: 22,
                         height: 22,
 
-                        child:
-                            CircularProgressIndicator(
-                          strokeWidth:
-                              2,
-                          color:
-                              Colors.white,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
                         ),
                       )
                     : const Text(
                         'Đổi mật khẩu',
-                        style:
-                            TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
-                          fontWeight:
-                              FontWeight
-                                  .bold,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
               ),

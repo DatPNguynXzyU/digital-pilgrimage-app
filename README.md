@@ -460,13 +460,20 @@ Sử dụng:
 http://10.0.2.2:3000
 ```
 
-Bởi vì:
+Trong Android Emulator, `10.0.2.2` trỏ đến máy tính đang chạy emulator.
+Backend phải được khởi động riêng trước khi tải dữ liệu trong ứng dụng.
 
-```text
-localhost
+### Điện thoại Android thật
+
+`10.0.2.2` chỉ dùng cho Android Emulator. Điện thoại thật cần truy cập IP
+LAN của máy tính chạy backend (cả hai thiết bị cùng mạng Wi-Fi), ví dụ:
+
+```powershell
+flutter run --dart-define=API_BASE_URL=http://192.168.1.25:3000/api
 ```
 
-trong Android Emulator chính là emulator, không phải máy tính host.
+Thay `192.168.1.25` bằng địa chỉ IPv4 của máy tính. Nếu dùng emulator, có thể
+ghi đè mặc định bằng `--dart-define=API_BASE_URL=http://10.0.2.2:3000/api`.
 
 ---
 

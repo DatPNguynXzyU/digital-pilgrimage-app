@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../config/app_theme.dart';
 import '../../services/auth_service.dart';
 import 'register_page.dart';
 
@@ -11,15 +12,13 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  static const Color primaryBrown = Color(0xFFA56A12);
+  static const Color primaryBrown = AppTheme.primary;
 
   final AuthService _authService = AuthService();
 
-  final TextEditingController _emailController =
-      TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  final TextEditingController _passwordController =
-      TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   bool _loading = false;
   bool _hidePassword = true;
@@ -35,11 +34,8 @@ class _LoginPageState extends State<LoginPage> {
   // HIỂN THỊ THÔNG BÁO
   // ============================================
   void _showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-      ),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   // ============================================
@@ -52,9 +48,7 @@ class _LoginPageState extends State<LoginPage> {
     final password = _passwordController.text;
 
     if (email.isEmpty || password.isEmpty) {
-      _showMessage(
-        'Vui lòng nhập email và mật khẩu.',
-      );
+      _showMessage('Vui lòng nhập email và mật khẩu.');
       return;
     }
 
@@ -64,10 +58,7 @@ class _LoginPageState extends State<LoginPage> {
 
     try {
       // Gọi API backend và lưu JWT qua AuthService
-      await _authService.login(
-        email: email,
-        password: password,
-      );
+      await _authService.login(email: email, password: password);
 
       if (!mounted) return;
 
@@ -78,12 +69,7 @@ class _LoginPageState extends State<LoginPage> {
     } catch (error) {
       if (!mounted) return;
 
-      _showMessage(
-        error.toString().replaceFirst(
-          'Exception: ',
-          '',
-        ),
-      );
+      _showMessage(error.toString().replaceFirst('Exception: ', ''));
     } finally {
       if (mounted) {
         setState(() {
@@ -101,17 +87,13 @@ class _LoginPageState extends State<LoginPage> {
 
     final registered = await Navigator.push<bool>(
       context,
-      MaterialPageRoute(
-        builder: (_) => const RegisterPage(),
-      ),
+      MaterialPageRoute(builder: (_) => const RegisterPage()),
     );
 
     if (!mounted) return;
 
     if (registered == true) {
-      _showMessage(
-        'Đăng ký thành công! Hãy đăng nhập bằng tài khoản mới.',
-      );
+      _showMessage('Đăng ký thành công! Hãy đăng nhập bằng tài khoản mới.');
     }
   }
 
@@ -121,16 +103,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFBF7),
+      backgroundColor: AppTheme.background,
 
       appBar: AppBar(
         title: const Text(
           'Đăng nhập',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: const Color(0xFFFFFBF7),
+        backgroundColor: AppTheme.background,
       ),
 
       body: SafeArea(
@@ -146,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
               // ===================================
               const CircleAvatar(
                 radius: 50,
-                backgroundColor: Color(0xFFF3E1C5),
+                backgroundColor: AppTheme.surface,
 
                 child: Icon(
                   Icons.temple_buddhist,
@@ -162,10 +142,7 @@ class _LoginPageState extends State<LoginPage> {
               // ===================================
               const Text(
                 'Hành Hương Số',
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
 
               const SizedBox(height: 8),
@@ -173,9 +150,7 @@ class _LoginPageState extends State<LoginPage> {
               const Text(
                 'Đăng nhập để lưu hành trình viếng chùa',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.grey,
-                ),
+                style: TextStyle(color: Colors.grey),
               ),
 
               const SizedBox(height: 32),
@@ -191,9 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   labelText: 'Email',
 
-                  prefixIcon: const Icon(
-                    Icons.email_outlined,
-                  ),
+                  prefixIcon: const Icon(Icons.email_outlined),
 
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(14),
@@ -219,9 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   labelText: 'Mật khẩu',
 
-                  prefixIcon: const Icon(
-                    Icons.lock_outline,
-                  ),
+                  prefixIcon: const Icon(Icons.lock_outline),
 
                   suffixIcon: IconButton(
                     onPressed: () {
@@ -295,10 +266,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const Text(
                     'Chưa có tài khoản?',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black87,
-                    ),
+                    style: TextStyle(fontSize: 14, color: Colors.black87),
                   ),
 
                   TextButton(

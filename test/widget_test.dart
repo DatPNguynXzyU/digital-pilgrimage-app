@@ -1,30 +1,209 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:apptungkinh/main.dart';
+import 'package:hanh_trinh_an_nhien/utils/lunar_calendar.dart';
+import 'package:hanh_trinh_an_nhien/views/lich/lich_page.dart';
+import 'package:hanh_trinh_an_nhien/views/main_nav.dart';
+import 'package:hanh_trinh_an_nhien/views/trang_chu/home_dhammapada_card.dart';
+import 'package:hanh_trinh_an_nhien/views/trang_chu/home_hero.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('main navigation has the five required tabs', (
+    WidgetTester tester,
+  ) async {
+    var selectedIndex = 0;
+    await tester.pumpWidget(
+      MaterialApp(
+        home: StatefulBuilder(
+          builder: (context, setState) => Scaffold(
+            bottomNavigationBar: AppBottomNavigation(
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (index) {
+                setState(() => selectedIndex = index);
+              },
+            ),
+          ),
+        ),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    final navigationBar = tester.widget<NavigationBar>(
+      find.byType(NavigationBar),
+    );
+    expect(navigationBar.destinations, hasLength(5));
+    expect(
+      tester
+          .widgetList<NavigationDestination>(
+            find.descendant(
+              of: find.byType(NavigationBar),
+              matching: find.byType(NavigationDestination),
+            ),
+          )
+          .map((destination) => destination.label),
+      ['Trang chủ', 'Chùa', 'Kinh sách', 'Lịch', 'Cá nhân'],
+    );
+    expect(navigationBar.selectedIndex, 0);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
+    await tester.tap(find.text('Chùa'));
+    await tester.pump();
+    expect(
+      tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
+      1,
+    );
+  });
+
+  testWidgets('calendar displays and navigates full months', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(800, 1000);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    SharedPreferences.setMockInitialValues({});
+    await tester.pumpWidget(
+      MaterialApp(home: LichPage(initialDate: DateTime(2026, 10, 14))),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('Tháng 10 năm 2026'), findsOneWidget);
+    expect(find.text('T2'), findsOneWidget);
+    expect(find.text('CN'), findsOneWidget);
+    expect(find.byKey(const ValueKey('selected-lunar-date')), findsOneWidget);
+    expect(find.text('Ngày'), findsOneWidget);
+    expect(find.text('Tuần'), findsOneWidget);
+
+    await tester.tap(find.byKey(const ValueKey('next-month')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Tháng 11 năm 2026'), findsOneWidget);
+    expect(find.text('Thứ Bảy, 14/11/2026'), findsOneWidget);
+
+    final lastDay = find.byKey(const ValueKey('calendar-day-2026-11-30'));
+    await tester.tap(lastDay);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Thứ Hai, 30/11/2026'), findsOneWidget);
+  });
+
+  testWidgets('calendar shows lunar dates for each solar day', (
+    WidgetTester tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    await tester.pumpWidget(
+      MaterialApp(home: LichPage(initialDate: DateTime(2024, 2, 10))),
+    );
+    await tester.pumpAndSettle();
+
+    final lunarNewYearCell = find.byKey(
+      const ValueKey('calendar-day-2024-2-10'),
+    );
+    expect(
+      tester
+          .widgetList<Text>(
+            find.descendant(of: lunarNewYearCell, matching: find.byType(Text)),
+          )
+          .map((text) => text.data),
+      ['10', '1'],
+    );
+    expect(find.text('Âm lịch: ngày 1, tháng 1 năm 2024'), findsOneWidget);
+  });
+
+  testWidgets('calendar switches between day, week, and month views', (
+    WidgetTester tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({});
+    await tester.pumpWidget(
+      MaterialApp(home: LichPage(initialDate: DateTime(2024, 2, 10))),
+    );
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Tuần'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('week-calendar')), findsOneWidget);
+
+    await tester.tap(find.text('Ngày'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('day-agenda')), findsOneWidget);
+
+    await tester.tap(find.text('Tháng'));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const ValueKey('month-calendar')), findsOneWidget);
+  });
+
+  testWidgets('home hero shows solar and lunar dates without overflow', (
+    WidgetTester tester,
+  ) async {
+    tester.view.physicalSize = const Size(348, 640);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
+    final today = DateTime(2026, 10, 14);
+    final lunarDate = LunarCalendar.fromSolar(today);
+    final solarLabel =
+        '${today.day.toString().padLeft(2, '0')}/'
+        '${today.month.toString().padLeft(2, '0')}/${today.year}';
+    final lunarLabel =
+        '${lunarDate.day.toString().padLeft(2, '0')}/'
+        '${lunarDate.month.toString().padLeft(2, '0')}'
+        '${lunarDate.isLeapMonth ? ' nhuận' : ''}/${lunarDate.year}';
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: Align(
+            alignment: Alignment.topLeft,
+            child: SizedBox(width: 308, child: HomeHero(date: today)),
+          ),
+        ),
+      ),
+    );
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text(solarLabel), findsOneWidget);
+    expect(find.text(lunarLabel), findsOneWidget);
+    expect(find.text('DƯƠNG'), findsOneWidget);
+    expect(find.text('ÂM'), findsOneWidget);
+
+    final brandRect = tester.getRect(find.byKey(const ValueKey('hero-brand')));
+    final titleRect = tester.getRect(find.text('Một ngày\nan nhiên'));
+    final descriptionRect = tester.getRect(
+      find.text('Chậm lại một nhịp, lắng nghe lòng mình.'),
+    );
+    final dateCardRect = tester.getRect(
+      find.byKey(const ValueKey('hero-date-card')),
+    );
+
+    expect(brandRect.top, lessThan(titleRect.top));
+    expect(titleRect.left, closeTo(descriptionRect.left, 0.1));
+    expect(titleRect.left, closeTo(dateCardRect.left, 0.1));
+    final gaps = [
+      titleRect.top - brandRect.bottom,
+      descriptionRect.top - titleRect.bottom,
+      dateCardRect.top - descriptionRect.bottom,
+    ];
+    expect(gaps[0], closeTo(gaps[1], 1));
+    expect(gaps[1], closeTo(gaps[2], 1));
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('Dhammapada home card shows an updating placeholder', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      const MaterialApp(home: Scaffold(body: HomeDhammapadaCard())),
+    );
+
+    expect(find.text('Kinh Pháp Cú'), findsOneWidget);
+    expect(
+      find.text('Các câu kinh ý nghĩa sẽ được cập nhật tại đây.'),
+      findsOneWidget,
+    );
+    expect(find.text('ĐANG CẬP NHẬT'), findsOneWidget);
+    expect(
+      find.text('Dành một phút tĩnh lặng để trở về với hiện tại.'),
+      findsNothing,
+    );
   });
 }

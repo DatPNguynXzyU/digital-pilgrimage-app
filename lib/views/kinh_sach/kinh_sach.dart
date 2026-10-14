@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../config/app_theme.dart';
 import '../../models/scripture.dart';
 import '../../services/scripture_service.dart';
+import '../buddhist_figures/buddhist_figure_list_page.dart';
 import 'chi_tiet_kinh_sach.dart';
 
 class KinhSachPage extends StatefulWidget {
@@ -12,32 +14,26 @@ class KinhSachPage extends StatefulWidget {
 }
 
 class _KinhSachPageState extends State<KinhSachPage> {
-  static const Color primaryBrown = Color(0xFFA56A12);
-  static const Color backgroundColor = Color(0xFFFFFCF8);
-  static const Color lightBrown = Color(0xFFFFE9C5);
+  static const Color primaryBrown = AppTheme.primary;
+  static const Color backgroundColor = AppTheme.background;
+  static const Color lightBrown = AppTheme.surface;
 
   final ScriptureService _scriptureService = ScriptureService();
 
-  final TextEditingController _searchController =
-      TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   late Future<List<Scripture>> _scripturesFuture;
 
   String _searchKeyword = '';
   String _selectedType = 'Tất cả';
 
-  final List<String> _types = [
-    'Tất cả',
-    'Kinh',
-    'Chú',
-  ];
+  final List<String> _types = ['Tất cả', 'Kinh', 'Chú'];
 
   @override
   void initState() {
     super.initState();
 
-    _scripturesFuture =
-        _scriptureService.getScriptures();
+    _scripturesFuture = _scriptureService.getScriptures();
   }
 
   @override
@@ -48,47 +44,33 @@ class _KinhSachPageState extends State<KinhSachPage> {
 
   Future<void> _reload() async {
     setState(() {
-      _scripturesFuture =
-          _scriptureService.getScriptures();
+      _scripturesFuture = _scriptureService.getScriptures();
     });
 
     await _scripturesFuture;
   }
 
-  List<Scripture> _filterScriptures(
-    List<Scripture> scriptures,
-  ) {
-    final keyword =
-        _searchKeyword.trim().toLowerCase();
+  List<Scripture> _filterScriptures(List<Scripture> scriptures) {
+    final keyword = _searchKeyword.trim().toLowerCase();
 
     return scriptures.where((scripture) {
       final matchesSearch =
           keyword.isEmpty ||
-          scripture.title
-              .toLowerCase()
-              .contains(keyword) ||
-          scripture.description
-              .toLowerCase()
-              .contains(keyword);
+          scripture.title.toLowerCase().contains(keyword) ||
+          scripture.description.toLowerCase().contains(keyword);
 
       final matchesType =
-          _selectedType == 'Tất cả' ||
-          scripture.type == _selectedType;
+          _selectedType == 'Tất cả' || scripture.type == _selectedType;
 
       return matchesSearch && matchesType;
     }).toList();
   }
 
-  void _openDetail(
-    Scripture scripture,
-  ) {
+  void _openDetail(Scripture scripture) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) =>
-            ChiTietKinhSachPage(
-          scripture: scripture,
-        ),
+        builder: (_) => ChiTietKinhSachPage(scripture: scripture),
       ),
     );
   }
@@ -96,102 +78,62 @@ class _KinhSachPageState extends State<KinhSachPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          backgroundColor,
+      backgroundColor: backgroundColor,
 
       body: SafeArea(
-        child:
-            FutureBuilder<List<Scripture>>(
-          future:
-              _scripturesFuture,
+        child: FutureBuilder<List<Scripture>>(
+          future: _scripturesFuture,
 
-          builder:
-              (context, snapshot) {
-            if (snapshot.connectionState ==
-                ConnectionState.waiting) {
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                child:
-                    CircularProgressIndicator(
-                  color:
-                      primaryBrown,
-                ),
+                child: CircularProgressIndicator(color: primaryBrown),
               );
             }
 
             if (snapshot.hasError) {
-              return _buildError(
-                snapshot.error
-                    .toString(),
-              );
+              return _buildError(snapshot.error.toString());
             }
 
-            final scriptures =
-                snapshot.data ?? [];
+            final scriptures = snapshot.data ?? [];
 
-            final filtered =
-                _filterScriptures(
-              scriptures,
-            );
+            final filtered = _filterScriptures(scriptures);
 
             return RefreshIndicator(
-              color:
-                  primaryBrown,
+              color: primaryBrown,
 
-              onRefresh:
-                  _reload,
+              onRefresh: _reload,
 
               child: ListView(
-                physics:
-                    const AlwaysScrollableScrollPhysics(),
+                physics: const AlwaysScrollableScrollPhysics(),
 
-                padding:
-                    const EdgeInsets.all(
-                  20,
-                ),
+                padding: const EdgeInsets.all(20),
 
                 children: [
+                  _buildBuddhistFiguresLink(),
+                  const SizedBox(height: 18),
                   _buildHeader(),
-
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  const SizedBox(height: 24),
 
                   _buildSearch(),
 
-                  const SizedBox(
-                    height: 16,
-                  ),
+                  const SizedBox(height: 16),
 
                   _buildFilter(),
 
-                  const SizedBox(
-                    height: 26,
-                  ),
+                  const SizedBox(height: 26),
 
                   const Text(
                     'Kinh sách',
-                    style:
-                        TextStyle(
-                      fontSize:
-                          20,
-                      fontWeight:
-                          FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
 
-                  const SizedBox(
-                    height: 14,
-                  ),
+                  const SizedBox(height: 14),
 
                   if (filtered.isEmpty)
                     _buildEmpty()
                   else
-                    ...filtered.map(
-                      (scripture) =>
-                          _buildCard(
-                        scripture,
-                      ),
-                    ),
+                    ...filtered.map((scripture) => _buildCard(scripture)),
                 ],
               ),
             );
@@ -204,42 +146,24 @@ class _KinhSachPageState extends State<KinhSachPage> {
   Widget _buildHeader() {
     return const Row(
       children: [
-        Icon(
-          Icons.menu_book_rounded,
-          size: 34,
-          color: primaryBrown,
-        ),
+        Icon(Icons.menu_book_rounded, size: 34, color: primaryBrown),
 
-        SizedBox(
-          width: 12,
-        ),
+        SizedBox(width: 12),
 
         Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
             Text(
               'Kinh sách',
-              style:
-                  TextStyle(
-                fontSize: 27,
-                fontWeight:
-                    FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
             ),
 
-            SizedBox(
-              height: 3,
-            ),
+            SizedBox(height: 3),
 
             Text(
               'Đọc và tìm hiểu kinh, chú',
-              style:
-                  TextStyle(
-                color:
-                    Colors.grey,
-              ),
+              style: TextStyle(color: AppTheme.textSecondary),
             ),
           ],
         ),
@@ -247,63 +171,92 @@ class _KinhSachPageState extends State<KinhSachPage> {
     );
   }
 
+  Widget _buildBuddhistFiguresLink() {
+    return Material(
+      color: const Color(0xFFEEE2D5),
+      borderRadius: BorderRadius.circular(18),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(18),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (_) => const BuddhistFigureListPage(),
+            ),
+          );
+        },
+        child: const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
+            children: [
+              Icon(Icons.spa_outlined, color: AppTheme.warmBrown),
+              SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Phật & Bồ Tát',
+                      style: TextStyle(
+                        color: AppTheme.text,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    SizedBox(height: 3),
+                    Text(
+                      'Thư viện tìm hiểu giáo lý và hình tượng',
+                      style: TextStyle(
+                        color: AppTheme.textSecondary,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.arrow_forward_rounded, color: AppTheme.warmBrown),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildSearch() {
     return TextField(
-      controller:
-          _searchController,
+      controller: _searchController,
 
       onChanged: (value) {
         setState(() {
-          _searchKeyword =
-              value;
+          _searchKeyword = value;
         });
       },
 
-      decoration:
-          InputDecoration(
-        hintText:
-            'Tìm kiếm kinh, chú...',
+      decoration: InputDecoration(
+        hintText: 'Tìm kiếm kinh, chú...',
 
-        prefixIcon:
-            const Icon(
-          Icons.search,
-          color:
-              primaryBrown,
-        ),
+        prefixIcon: const Icon(Icons.search, color: primaryBrown),
 
-        suffixIcon:
-            _searchKeyword.isEmpty
-                ? null
-                : IconButton(
-                    onPressed: () {
-                      _searchController
-                          .clear();
+        suffixIcon: _searchKeyword.isEmpty
+            ? null
+            : IconButton(
+                onPressed: () {
+                  _searchController.clear();
 
-                      setState(() {
-                        _searchKeyword =
-                            '';
-                      });
-                    },
+                  setState(() {
+                    _searchKeyword = '';
+                  });
+                },
 
-                    icon:
-                        const Icon(
-                      Icons.close,
-                    ),
-                  ),
+                icon: const Icon(Icons.close),
+              ),
 
         filled: true,
-        fillColor:
-            Colors.white,
+        fillColor: Colors.white,
 
-        border:
-            OutlineInputBorder(
-          borderRadius:
-              BorderRadius.circular(
-            16,
-          ),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
 
-          borderSide:
-              BorderSide.none,
+          borderSide: BorderSide.none,
         ),
       ),
     );
@@ -313,97 +266,57 @@ class _KinhSachPageState extends State<KinhSachPage> {
     return Wrap(
       spacing: 10,
 
-      children:
-          _types.map(
-        (type) {
-          final selected =
-              type ==
-                  _selectedType;
+      children: _types.map((type) {
+        final selected = type == _selectedType;
 
-          return ChoiceChip(
-            label:
-                Text(type),
+        return ChoiceChip(
+          label: Text(type),
 
-            selected:
-                selected,
+          selected: selected,
 
-            showCheckmark:
-                false,
+          showCheckmark: false,
 
-            selectedColor:
-                primaryBrown,
+          selectedColor: primaryBrown,
 
-            backgroundColor:
-                Colors.white,
+          backgroundColor: Colors.white,
 
-            labelStyle:
-                TextStyle(
-              color:
-                  selected
-                      ? Colors.white
-                      : Colors.black87,
+          labelStyle: TextStyle(
+            color: selected ? Colors.white : Colors.black87,
 
-              fontWeight:
-                  FontWeight.w600,
-            ),
+            fontWeight: FontWeight.w600,
+          ),
 
-            onSelected: (_) {
-              setState(() {
-                _selectedType =
-                    type;
-              });
-            },
-          );
-        },
-      ).toList(),
+          onSelected: (_) {
+            setState(() {
+              _selectedType = type;
+            });
+          },
+        );
+      }).toList(),
     );
   }
 
-  Widget _buildCard(
-    Scripture scripture,
-  ) {
+  Widget _buildCard(Scripture scripture) {
     return Container(
-      margin:
-          const EdgeInsets.only(
-        bottom: 12,
-      ),
+      margin: const EdgeInsets.only(bottom: 12),
 
-      decoration:
-          BoxDecoration(
-        color:
-            Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.white,
 
-        borderRadius:
-            BorderRadius.circular(
-          18,
-        ),
+        borderRadius: BorderRadius.circular(18),
 
-        border:
-            Border.all(
-          color:
-              const Color(
-            0xFFF1E6D7,
-          ),
-        ),
+        border: Border.all(color: const Color(0xFFF1E6D7)),
       ),
 
       child: InkWell(
-        borderRadius:
-            BorderRadius.circular(
-          18,
-        ),
+        borderRadius: BorderRadius.circular(18),
 
         onTap: () {
-          _openDetail(
-            scripture,
-          );
+          _openDetail(scripture);
         },
 
         child: Padding(
-          padding:
-              const EdgeInsets.all(
-            16,
-          ),
+          padding: const EdgeInsets.all(16),
 
           child: Row(
             children: [
@@ -411,107 +324,67 @@ class _KinhSachPageState extends State<KinhSachPage> {
                 width: 54,
                 height: 54,
 
-                decoration:
-                    BoxDecoration(
-                  color:
-                      lightBrown,
+                decoration: BoxDecoration(
+                  color: lightBrown,
 
-                  borderRadius:
-                      BorderRadius
-                          .circular(
-                    14,
-                  ),
+                  borderRadius: BorderRadius.circular(14),
                 ),
 
-                child:
-                    Icon(
-                  scripture.type ==
-                          'Chú'
-                      ? Icons
-                          .spa_rounded
-                      : Icons
-                          .menu_book_rounded,
+                child: Icon(
+                  scripture.type == 'Chú'
+                      ? Icons.spa_rounded
+                      : Icons.menu_book_rounded,
 
-                  color:
-                      primaryBrown,
+                  color: primaryBrown,
                 ),
               ),
 
-              const SizedBox(
-                width: 14,
-              ),
+              const SizedBox(width: 14),
 
               Expanded(
                 child: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment
-                          .start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
 
                   children: [
                     Text(
                       scripture.title,
 
-                      style:
-                          const TextStyle(
-                        fontSize:
-                            16,
-                        fontWeight:
-                            FontWeight.bold,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
 
-                    const SizedBox(
-                      height: 5,
-                    ),
+                    const SizedBox(height: 5),
 
                     Text(
-                      scripture
-                          .description,
+                      scripture.description,
 
                       maxLines: 2,
 
-                      overflow:
-                          TextOverflow
-                              .ellipsis,
+                      overflow: TextOverflow.ellipsis,
 
-                      style:
-                          const TextStyle(
-                        color:
-                            Colors.grey,
-                        height:
-                            1.4,
-                      ),
+                      style: const TextStyle(color: Colors.grey, height: 1.4),
                     ),
 
-                    const SizedBox(
-                      height: 8,
-                    ),
+                    const SizedBox(height: 8),
 
                     Text(
                       scripture.type,
 
-                      style:
-                          const TextStyle(
-                        color:
-                            primaryBrown,
+                      style: const TextStyle(
+                        color: primaryBrown,
 
-                        fontSize:
-                            12,
+                        fontSize: 12,
 
-                        fontWeight:
-                            FontWeight.w600,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
               ),
 
-              const Icon(
-                Icons
-                    .chevron_right_rounded,
-                color:
-                    Colors.grey,
-              ),
+              const Icon(Icons.chevron_right_rounded, color: Colors.grey),
             ],
           ),
         ),
@@ -521,114 +394,62 @@ class _KinhSachPageState extends State<KinhSachPage> {
 
   Widget _buildEmpty() {
     return const Padding(
-      padding:
-          EdgeInsets.only(
-        top: 70,
-      ),
+      padding: EdgeInsets.only(top: 70),
 
       child: Column(
         children: [
-          Icon(
-            Icons
-                .menu_book_outlined,
-            size: 60,
-            color:
-                Colors.grey,
-          ),
+          Icon(Icons.menu_book_outlined, size: 60, color: Colors.grey),
 
-          SizedBox(
-            height: 16,
-          ),
+          SizedBox(height: 16),
 
           Text(
             'Không tìm thấy kinh sách',
-            style:
-                TextStyle(
-              color:
-                  Colors.grey,
-            ),
+            style: TextStyle(color: Colors.grey),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildError(
-    String error,
-  ) {
+  Widget _buildError(String error) {
     return Center(
       child: Padding(
-        padding:
-            const EdgeInsets.all(
-          24,
-        ),
+        padding: const EdgeInsets.all(24),
 
         child: Column(
-          mainAxisAlignment:
-              MainAxisAlignment
-                  .center,
+          mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
-            const Icon(
-              Icons
-                  .cloud_off_rounded,
-              size: 60,
-              color:
-                  Colors.grey,
-            ),
+            const Icon(Icons.cloud_off_rounded, size: 60, color: Colors.grey),
 
-            const SizedBox(
-              height: 16,
-            ),
+            const SizedBox(height: 16),
 
             const Text(
               'Không thể tải kinh sách',
-              style:
-                  TextStyle(
-                fontSize: 18,
-                fontWeight:
-                    FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
 
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
 
             Text(
               error,
-              textAlign:
-                  TextAlign.center,
+              textAlign: TextAlign.center,
 
-              style:
-                  const TextStyle(
-                color:
-                    Colors.grey,
-              ),
+              style: const TextStyle(color: Colors.grey),
             ),
 
-            const SizedBox(
-              height: 18,
-            ),
+            const SizedBox(height: 18),
 
             ElevatedButton(
-              onPressed:
-                  _reload,
+              onPressed: _reload,
 
-              style:
-                  ElevatedButton
-                      .styleFrom(
-                backgroundColor:
-                    primaryBrown,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: primaryBrown,
 
-                foregroundColor:
-                    Colors.white,
+                foregroundColor: Colors.white,
               ),
 
-              child:
-                  const Text(
-                'Thử lại',
-              ),
+              child: const Text('Thử lại'),
             ),
           ],
         ),

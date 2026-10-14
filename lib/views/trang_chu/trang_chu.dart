@@ -1,1323 +1,471 @@
 import 'package:flutter/material.dart';
+
+import '../../config/app_theme.dart';
+import '../../models/pilgrimage_stats.dart';
+import '../../models/temple.dart';
+import '../../services/auth_service.dart';
+import '../../services/pilgrimage_service.dart';
+import '../../services/temple_service.dart';
 import '../buddhist_figures/buddhist_figure_list_page.dart';
-
-
+import 'home_dhammapada_card.dart';
+import 'home_hero.dart';
+import '../temples/chi_tiet_chua.dart';
 
 class TrangChu extends StatefulWidget {
+  final ValueChanged<int>? onNavigate;
 
-  const TrangChu({super.key});
-
-
+  const TrangChu({super.key, this.onNavigate});
 
   @override
-
   State<TrangChu> createState() => _TrangChuState();
-
 }
 
-
-
 class _TrangChuState extends State<TrangChu> {
+  final AuthService _authService = AuthService();
+  final PilgrimageService _pilgrimageService = PilgrimageService();
+  final TempleService _templeService = TempleService();
 
-  static const Color primaryBrown = Color(0xFFA56A12);
-
-  static const Color lightBrown = Color(0xFFFFE8BC);
-
-  static const Color backgroundLight = Color(0xFFFFFAF2);
-
-
-
-  late DateTime selectedDate;
-
-
-
-  final List<String> weekNames = [
-
-    'Hai',
-
-    'Ba',
-
-    'Tư',
-
-    'Năm',
-
-    'Sáu',
-
-    'Bảy',
-
-    'CN',
-
-  ];
-
-
+  late Future<List<Temple>> _featuredTemples;
+  late Future<PilgrimageStats?> _pilgrimageStats;
 
   @override
-
   void initState() {
-
     super.initState();
-
-
-
-    selectedDate = DateTime.now();
-
+    _reload();
   }
 
+  void _reload() {
+    _featuredTemples = _templeService.getTemples(sort: 'name_asc');
+    _pilgrimageStats = _loadStats();
+  }
 
+  Future<PilgrimageStats?> _loadStats() async {
+    final token = await _authService.getToken();
+    if (token == null || token.isEmpty) return null;
+    return _pilgrimageService.getStats(token);
+  }
+
+  Future<void> _refresh() async {
+    setState(_reload);
+    await Future.wait([_featuredTemples, _pilgrimageStats]);
+  }
+
+  String get _greeting {
+    final hour = DateTime.now().hour;
+    if (hour < 11) return 'Chào buổi sáng';
+    if (hour < 17) return 'Chào buổi chiều';
+    return 'Chào buổi tối';
+  }
+
+  String get _todayLabel {
+    final now = DateTime.now();
+    return 'Thứ ${now.weekday == DateTime.sunday ? 'Chủ nhật' : now.weekday + 1}, '
+        '${now.day.toString().padLeft(2, '0')}/'
+        '${now.month.toString().padLeft(2, '0')}/${now.year}';
+  }
 
   @override
-
   Widget build(BuildContext context) {
-
     return Scaffold(
-
-      backgroundColor: Colors.white,
-
-
-
+      backgroundColor: AppTheme.background,
       body: SafeArea(
-
-        child: SingleChildScrollView(
-
-          padding: const EdgeInsets.only(bottom: 30),
-
-          child: Column(
-
-            crossAxisAlignment: CrossAxisAlignment.start,
-
+        child: RefreshIndicator(
+          color: AppTheme.primary,
+          onRefresh: _refresh,
+          child: ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
             children: [
-
-              // HEADER
-
               _buildHeader(),
-
-
-
-              const SizedBox(height: 25),
-
-
-
-              // LỊCH TUẦN
-
-              _buildWeekCalendar(),
-
-
-
-              const SizedBox(height: 25),
-
-
-
-              // CARD LỊCH
-
-              Padding(
-
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-
-                child: _buildCalendarCard(),
-
-              ),
-
-
-
-              const SizedBox(height: 25),
-
-
-
-              // PHÁP CÚ
-
-              _buildQuoteSection(),
-
-
-
+              const SizedBox(height: 22),
+              _buildHero(),
+              const SizedBox(height: 28),
+              _buildQuoteCard(),
+              const SizedBox(height: 28),
+              _buildJourneySection(),
               const SizedBox(height: 30),
-
-
-
-              // PHẬT & BỒ TÁT
-
-              _buildBuddhistFigureSection(),
-
-
-
-              const SizedBox(height: 30),
-
-
-
-              // KHÁM PHÁ CHÙA
-
-              _buildTempleSection(),
-
-
-
-              const SizedBox(height: 30),
-
+              _buildTempleSectionHeading(),
+              const SizedBox(height: 14),
+              _buildFeaturedTemples(),
+              const SizedBox(height: 28),
+              _buildKnowledgeLink(),
             ],
-
           ),
-
         ),
-
       ),
-
     );
-
   }
-
-
-
-  // ============================================================
-
-  // HEADER
-
-  // ============================================================
-
-
 
   Widget _buildHeader() {
-
-    return Padding(
-
-      padding: const EdgeInsets.fromLTRB(
-
-        20,
-
-        18,
-
-        15,
-
-        0,
-
-      ),
-
-      child: Row(
-
-        children: [
-
-          // LOGO
-
-          Container(
-
-            width: 58,
-
-            height: 58,
-
-            decoration: const BoxDecoration(
-
-              color: primaryBrown,
-
-              shape: BoxShape.circle,
-
-            ),
-
-            child: const Icon(
-
-              Icons.temple_buddhist,
-
-              color: Colors.white,
-
-              size: 31,
-
-            ),
-
-          ),
-
-
-
-          const SizedBox(width: 15),
-
-
-
-          // XIN CHÀO
-
-          const Expanded(
-
-            child: Text.rich(
-
-              TextSpan(
-
-                children: [
-
-                  TextSpan(
-
-                    text: 'Xin chào, ',
-
-                    style: TextStyle(
-
-                      color: Colors.black,
-
-                    ),
-
-                  ),
-
-                  TextSpan(
-
-                    text: 'Phật tử!',
-
-                    style: TextStyle(
-
-                      color: primaryBrown,
-
-                    ),
-
-                  ),
-
-                ],
-
-              ),
-
-              textAlign: TextAlign.center,
-
-              style: TextStyle(
-
-                fontSize: 23,
-
-                fontWeight: FontWeight.bold,
-
-              ),
-
-            ),
-
-          ),
-
-
-
-          // THÔNG BÁO
-
-          IconButton(
-
-            icon: const Icon(
-
-              Icons.notifications_none_rounded,
-
-              size: 31,
-
-              color: Colors.black87,
-
-            ),
-
-            onPressed: _showNotifications,
-
-          ),
-
-        ],
-
-      ),
-
-    );
-
-  }
-
-
-
-  // ============================================================
-
-  // THÔNG BÁO
-
-  // ============================================================
-
-
-
-  void _showNotifications() {
-
-    showModalBottomSheet(
-
-      context: context,
-
-      showDragHandle: true,
-
-      backgroundColor: Colors.white,
-
-      builder: (context) {
-
-        return SafeArea(
-
-          child: Padding(
-
-            padding: const EdgeInsets.fromLTRB(
-
-              20,
-
-              0,
-
-              20,
-
-              25,
-
-            ),
-
-            child: Column(
-
-              mainAxisSize: MainAxisSize.min,
-
-              children: [
-
-                const Text(
-
-                  'Thông báo',
-
-                  style: TextStyle(
-
-                    fontSize: 22,
-
-                    fontWeight: FontWeight.bold,
-
-                  ),
-
-                ),
-
-
-
-                const SizedBox(height: 20),
-
-
-
-                Container(
-
-                  padding: const EdgeInsets.all(15),
-
-                  decoration: BoxDecoration(
-
-                    color: backgroundLight,
-
-                    borderRadius: BorderRadius.circular(16),
-
-                  ),
-
-                  child: const Row(
-
-                    children: [
-
-                      CircleAvatar(
-
-                        backgroundColor: lightBrown,
-
-                        child: Icon(
-
-                          Icons.nfc,
-
-                          color: primaryBrown,
-
-                        ),
-
-                      ),
-
-
-
-                      SizedBox(width: 15),
-
-
-
-                      Expanded(
-
-                        child: Column(
-
-                          crossAxisAlignment:
-
-                              CrossAxisAlignment.start,
-
-                          children: [
-
-                            Text(
-
-                              'Khám phá thông tin chùa',
-
-                              style: TextStyle(
-
-                                fontWeight: FontWeight.bold,
-
-                              ),
-
-                            ),
-
-
-
-                            SizedBox(height: 5),
-
-
-
-                            Text(
-
-                              'Sử dụng nút QR ở thanh menu để quét '
-
-                              'mã tại chùa.',
-
-                              style: TextStyle(
-
-                                color: Colors.grey,
-
-                              ),
-
-                            ),
-
-                          ],
-
-                        ),
-
-                      ),
-
-                    ],
-
-                  ),
-
-                ),
-
-
-
-                const SizedBox(height: 15),
-
-
-
-                const ListTile(
-
-                  leading: CircleAvatar(
-
-                    backgroundColor: lightBrown,
-
-                    child: Icon(
-
-                      Icons.menu_book_outlined,
-
-                      color: primaryBrown,
-
-                    ),
-
-                  ),
-
-                  title: Text(
-
-                    'Kinh sách hôm nay',
-
-                  ),
-
-                  subtitle: Text(
-
-                    'Dành một chút thời gian để đọc và chiêm nghiệm.',
-
-                  ),
-
-                ),
-
-              ],
-
-            ),
-
-          ),
-
-        );
-
-      },
-
-    );
-
-  }
-
-
-
-  // ============================================================
-
-  // LỊCH TUẦN
-
-  // ============================================================
-
-
-
-  Widget _buildWeekCalendar() {
-
-    final DateTime today = DateTime.now();
-
-
-
-    // Tìm thứ Hai của tuần hiện tại
-
-    final DateTime monday = today.subtract(
-
-      Duration(
-
-        days: today.weekday - DateTime.monday,
-
-      ),
-
-    );
-
-
-
-    return SizedBox(
-
-      height: 135,
-
-      child: ListView.builder(
-
-        scrollDirection: Axis.horizontal,
-
-        padding: const EdgeInsets.symmetric(
-
-          horizontal: 10,
-
-        ),
-
-        itemCount: 7,
-
-        itemBuilder: (context, index) {
-
-          final DateTime date = monday.add(
-
-            Duration(days: index),
-
-          );
-
-
-
-          final bool selected = _isSameDay(
-
-            date,
-
-            selectedDate,
-
-          );
-
-
-
-          final bool isSunday =
-
-              date.weekday == DateTime.sunday;
-
-
-
-          final bool isToday = _isSameDay(
-
-            date,
-
-            today,
-
-          );
-
-
-
-          return GestureDetector(
-
-            onTap: () {
-
-              setState(() {
-
-                selectedDate = date;
-
-              });
-
-            },
-
-
-
-            child: Container(
-
-              width: 62,
-
-              margin: const EdgeInsets.symmetric(
-
-                horizontal: 3,
-
-              ),
-
-
-
-              child: Column(
-
-                children: [
-
-                  Text(
-
-                    weekNames[index],
-
-                    style: TextStyle(
-
-                      fontSize: 16,
-
-                      fontWeight: FontWeight.w600,
-
-                      color: isSunday
-
-                          ? Colors.redAccent
-
-                          : Colors.grey.shade600,
-
-                    ),
-
-                  ),
-
-
-
-                  const SizedBox(height: 12),
-
-
-
-                  AnimatedContainer(
-
-                    duration:
-
-                        const Duration(milliseconds: 200),
-
-                    width: 58,
-
-                    height: 88,
-
-                    decoration: BoxDecoration(
-
-                      color: selected
-
-                          ? primaryBrown
-
-                          : Colors.transparent,
-
-                      borderRadius:
-
-                          BorderRadius.circular(16),
-
-                    ),
-
-
-
-                    child: Column(
-
-                      mainAxisAlignment:
-
-                          MainAxisAlignment.center,
-
-                      children: [
-
-                        Text(
-
-                          '${date.day}',
-
-                          style: TextStyle(
-
-                            fontSize: 22,
-
-                            fontWeight: FontWeight.w500,
-
-                            color: selected
-
-                                ? Colors.white
-
-                                : isSunday
-
-                                    ? Colors.redAccent
-
-                                    : Colors.black87,
-
-                          ),
-
-                        ),
-
-
-
-                        const SizedBox(height: 8),
-
-
-
-                        // Tạm thời hiển thị tháng ở đây.
-
-                        // Sau này có thể thay bằng ngày âm lịch thật.
-
-                        Text(
-
-                          '${date.month}',
-
-                          style: TextStyle(
-
-                            fontSize: 13,
-
-                            color: selected
-
-                                ? Colors.white70
-
-                                : Colors.grey,
-
-                          ),
-
-                        ),
-
-
-
-                        if (isToday && !selected) ...[
-
-                          const SizedBox(height: 5),
-
-
-
-                          const CircleAvatar(
-
-                            radius: 3,
-
-                            backgroundColor:
-
-                                primaryBrown,
-
-                          ),
-
-                        ],
-
-                      ],
-
-                    ),
-
-                  ),
-
-                ],
-
-              ),
-
-            ),
-
-          );
-
-        },
-
-      ),
-
-    );
-
-  }
-
-
-
-  // ============================================================
-
-  // CARD NGÀY / ÂM LỊCH
-
-  // ============================================================
-
-
-
-  Widget _buildCalendarCard() {
-
-    final String weekday =
-
-        _getWeekdayName(selectedDate.weekday);
-
-
-
-    final String day =
-
-        selectedDate.day.toString().padLeft(2, '0');
-
-
-
-    final String month =
-
-        selectedDate.month.toString().padLeft(2, '0');
-
-
-
-    return Container(
-
-      width: double.infinity,
-
-      height: 370,
-
-      clipBehavior: Clip.antiAlias,
-
-      decoration: BoxDecoration(
-
-        borderRadius: BorderRadius.circular(26),
-
-        color: Colors.grey.shade900,
-
-      ),
-
-
-
-      child: Stack(
-
-        fit: StackFit.expand,
-
-        children: [
-
-          // ẢNH NỀN
-
-          Image.asset(
-
-            'assets/images/phat_home.jpg',
-
-            fit: BoxFit.cover,
-
-
-
-            errorBuilder: (
-
-              context,
-
-              error,
-
-              stackTrace,
-
-            ) {
-
-              return Container(
-
-                decoration: const BoxDecoration(
-
-                  gradient: LinearGradient(
-
-                    begin: Alignment.topLeft,
-
-                    end: Alignment.bottomRight,
-
-                    colors: [
-
-                      Color(0xFF4F7D89),
-
-                      Color(0xFF253D42),
-
-                      Color(0xFF7D592E),
-
-                    ],
-
-                  ),
-
-                ),
-
-
-
-                child: const Center(
-
-                  child: Icon(
-
-                    Icons.temple_buddhist,
-
-                    size: 180,
-
-                    color: Colors.white24,
-
-                  ),
-
-                ),
-
-              );
-
-            },
-
-          ),
-
-
-
-          // LỚP TỐI
-
-          Container(
-
-            decoration: BoxDecoration(
-
-              gradient: LinearGradient(
-
-                begin: Alignment.centerLeft,
-
-                end: Alignment.centerRight,
-
-                colors: [
-
-                  Colors.black.withValues(
-
-                    alpha: 0.68,
-
-                  ),
-
-                  Colors.black.withValues(
-
-                    alpha: 0.10,
-
-                  ),
-
-                ],
-
-              ),
-
-            ),
-
-          ),
-
-
-
-          // NỘI DUNG
-
-          Padding(
-
-            padding: const EdgeInsets.fromLTRB(
-
-              25,
-
-              55,
-
-              20,
-
-              20,
-
-            ),
-
-
-
-            child: Column(
-
-              crossAxisAlignment:
-
-                  CrossAxisAlignment.start,
-
-              children: [
-
-                Text(
-
-                  '$weekday · '
-
-                  '$day/$month/${selectedDate.year}',
-
-                  style: const TextStyle(
-
-                    color: Colors.white,
-
-                    fontSize: 18,
-
-                    fontWeight: FontWeight.w600,
-
-                  ),
-
-                ),
-
-
-
-                const SizedBox(height: 12),
-
-
-
-                const Row(
-
-                  children: [
-
-                    Icon(
-
-                      Icons.nightlight_round,
-
-                      color: Colors.amberAccent,
-
-                      size: 24,
-
-                    ),
-
-
-
-                    SizedBox(width: 8),
-
-
-
-                    Text(
-
-                      'Âm lịch',
-
-                      style: TextStyle(
-
-                        color: Colors.amberAccent,
-
-                        fontSize: 18,
-
-                        fontWeight: FontWeight.w600,
-
-                      ),
-
-                    ),
-
-                  ],
-
-                ),
-
-
-
-                const SizedBox(height: 18),
-
-
-
-                /*
-
-                  HIỆN TẠI:
-
-
-
-                  Chưa tích hợp thư viện âm lịch nên phần này
-
-                  vẫn dùng ngày đang được chọn.
-
-
-
-                  Sau này chúng ta sẽ chuyển:
-
-                  Dương lịch -> Âm lịch chính xác.
-
-                */
-
-                Text(
-
-                  day,
-
-                  style: const TextStyle(
-
-                    color: Colors.white,
-
-                    fontSize: 70,
-
-                    height: 1,
-
-                    fontWeight: FontWeight.bold,
-
-                  ),
-
-                ),
-
-
-
-                const SizedBox(height: 10),
-
-
-
-                Text(
-
-                  'Tháng $month',
-
-                  style: const TextStyle(
-
-                    color: Colors.white,
-
-                    fontSize: 25,
-
-                    fontWeight: FontWeight.bold,
-
-                  ),
-
-                ),
-
-
-
-                const SizedBox(height: 10),
-
-
-
-                const Text(
-
-                  'Lịch Phật giáo',
-
-                  style: TextStyle(
-
-                    color: Colors.amberAccent,
-
-                    fontSize: 16,
-
-                    fontWeight: FontWeight.bold,
-
-                  ),
-
-                ),
-
-              ],
-
-            ),
-
-          ),
-
-        ],
-
-      ),
-
-    );
-
-  }
-
-
-
-  // ============================================================
-
-  // PHÁP CÚ
-
-  // ============================================================
-
-
-
-  Widget _buildQuoteSection() {
-
-    return Container(
-
-      width: double.infinity,
-
-      color: backgroundLight,
-
-      padding: const EdgeInsets.symmetric(
-
-        vertical: 48,
-
-        horizontal: 30,
-
-      ),
-
-
-
-      child: Stack(
-
-        alignment: Alignment.center,
-
-        children: [
-
-          Icon(
-
-            Icons.local_florist,
-
-            size: 180,
-
-            color: primaryBrown.withValues(
-
-              alpha: 0.06,
-
-            ),
-
-          ),
-
-
-
-          const Column(
-
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Text(
-
-                '"Tinh cần giữa phóng dật,\n'
-
-                'Tỉnh thức giữa quần mê.\n'
-
-                'Người trí như ngựa phi,\n'
-
-                'Bỏ sau con ngựa hèn."',
-
-                textAlign: TextAlign.center,
-
-                style: TextStyle(
-
-                  fontSize: 18,
-
-                  height: 1.6,
-
-                  fontStyle: FontStyle.italic,
-
-                  color: Colors.black87,
-
+                _greeting,
+                style: const TextStyle(
+                  color: AppTheme.textSecondary,
+                  fontSize: 14,
                 ),
-
               ),
-
-
-
-              SizedBox(height: 22),
-
-
-
+              const SizedBox(height: 3),
+              const Text(
+                'Hành trình an nhiên',
+                style: TextStyle(
+                  color: AppTheme.text,
+                  fontSize: 23,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: -0.4,
+                ),
+              ),
+              const SizedBox(height: 5),
               Text(
-
-                'Trích Kinh Pháp Cú '
-
-                '(Phẩm Phóng Dật)',
-
-                textAlign: TextAlign.center,
-
-                style: TextStyle(
-
-                  fontSize: 16,
-
-                  fontStyle: FontStyle.italic,
-
-                  color: Colors.black87,
-
+                _todayLabel,
+                style: const TextStyle(
+                  color: AppTheme.warmBrown,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500,
                 ),
-
               ),
-
             ],
-
           ),
-
-        ],
-
-      ),
-
+        ),
+        Semantics(
+          button: true,
+          label: 'Mở trang cá nhân',
+          child: InkWell(
+            onTap: () => widget.onNavigate?.call(4),
+            customBorder: const CircleBorder(),
+            child: Container(
+              width: 48,
+              height: 48,
+              decoration: BoxDecoration(
+                color: AppTheme.surface,
+                shape: BoxShape.circle,
+                border: Border.all(color: AppTheme.border),
+              ),
+              child: const Icon(
+                Icons.person_outline_rounded,
+                color: AppTheme.primary,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
-
   }
 
+  Widget _buildHero() => const HomeHero();
 
+  Widget _buildSectionHeading(String eyebrow, String title) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          eyebrow.toUpperCase(),
+          style: const TextStyle(
+            color: AppTheme.secondary,
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.3,
+          ),
+        ),
+        const SizedBox(height: 4),
+        Text(
+          title,
+          style: const TextStyle(
+            color: AppTheme.text,
+            fontSize: 21,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.3,
+          ),
+        ),
+      ],
+    );
+  }
 
-  // ============================================================
+  Widget _buildTempleSectionHeading() {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Expanded(
+          child: _buildSectionHeading('Ghé thăm', 'Gợi ý chốn bình yên'),
+        ),
+        const SizedBox(width: 8),
+        TextButton(
+          key: const ValueKey('see-all-temples'),
+          onPressed: () => widget.onNavigate?.call(1),
+          style: TextButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+            minimumSize: Size.zero,
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ),
+          child: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Xem thêm'),
+              SizedBox(width: 2),
+              Icon(Icons.chevron_right_rounded, size: 18),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 
-  // PHẬT & BỒ TÁT
+  Widget _buildQuoteCard() => const HomeDhammapadaCard();
 
-  // ============================================================
-
-  Widget _buildBuddhistFigureSection() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(24),
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => const BuddhistFigureListPage(),
+  Widget _buildJourneySection() {
+    return FutureBuilder<PilgrimageStats?>(
+      future: _pilgrimageStats,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return _buildJourneyPanel(
+            title: 'Hành trình của tôi',
+            child: const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: LinearProgressIndicator(
+                color: AppTheme.secondary,
+                backgroundColor: AppTheme.surface,
+              ),
             ),
           );
-        },
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: const Color(0xFFFFF7E8),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(
-              color: const Color(0xFFF1DFBF),
+        }
+
+        if (snapshot.hasError) {
+          return _buildJourneyPanel(
+            title: 'Hành trình của tôi',
+            child: Row(
+              children: [
+                const Expanded(
+                  child: Text(
+                    'Chưa thể tải số liệu hành trình.',
+                    style: TextStyle(color: AppTheme.textSecondary),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => setState(() {
+                    _pilgrimageStats = _loadStats();
+                  }),
+                  child: const Text('Thử lại'),
+                ),
+              ],
             ),
-          ),
+          );
+        }
+
+        final stats = snapshot.data;
+        if (stats == null) {
+          return _buildJourneyPanel(
+            title: 'Hành trình của tôi',
+            child: Row(
+              children: [
+                const Expanded(
+                  child: Text(
+                    'Đăng nhập để lưu lại những chặng đường đã đi.',
+                    style: TextStyle(
+                      color: AppTheme.textSecondary,
+                      height: 1.4,
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () => widget.onNavigate?.call(4),
+                  child: const Text('Đăng nhập'),
+                ),
+              ],
+            ),
+          );
+        }
+
+        return _buildJourneyPanel(
+          title: 'Hành trình của tôi',
           child: Row(
             children: [
-              Container(
-                width: 62,
-                height: 62,
-                decoration: BoxDecoration(
-                  color: lightBrown,
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                child: const Icon(
-                  Icons.self_improvement,
-                  color: primaryBrown,
-                  size: 34,
+              _journeyMetric('${stats.uniqueTemples}', 'ngôi chùa'),
+              _metricDivider(),
+              _journeyMetric('${stats.totalVisits}', 'lượt viếng'),
+              _metricDivider(),
+              _journeyMetric('${stats.totalStamps}', 'con dấu'),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildJourneyPanel({required String title, required Widget child}) {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(18, 17, 18, 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: AppTheme.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: const TextStyle(
+                    color: AppTheme.text,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
-              const SizedBox(width: 16),
-              const Expanded(
+              TextButton(
+                onPressed: () => widget.onNavigate?.call(4),
+                child: const Text('Chi tiết'),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          child,
+        ],
+      ),
+    );
+  }
+
+  Widget _journeyMetric(String value, String label) {
+    return Expanded(
+      child: Column(
+        children: [
+          Text(
+            value,
+            style: const TextStyle(
+              color: AppTheme.primary,
+              fontSize: 23,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const SizedBox(height: 3),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(color: AppTheme.textSecondary, fontSize: 11),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _metricDivider() {
+    return Container(width: 1, height: 34, color: AppTheme.border);
+  }
+
+  Widget _buildFeaturedTemples() {
+    return SizedBox(
+      height: 232,
+      child: FutureBuilder<List<Temple>>(
+        future: _featuredTemples,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(strokeWidth: 2),
+            );
+          }
+
+          if (snapshot.hasError) {
+            return _featuredState(
+              icon: Icons.cloud_off_outlined,
+              message: 'Chưa thể tải danh sách chùa.',
+              actionLabel: 'Thử lại',
+              onPressed: () => setState(_reload),
+            );
+          }
+
+          final temples = (snapshot.data ?? const <Temple>[])
+              .where((temple) => temple.isFeatured)
+              .take(5)
+              .toList();
+          if (temples.isEmpty) {
+            return _featuredState(
+              icon: Icons.temple_buddhist_outlined,
+              message: 'Chưa có chùa nổi bật để gợi ý.',
+              actionLabel: 'Xem danh sách',
+              onPressed: () => widget.onNavigate?.call(1),
+            );
+          }
+
+          return ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: temples.length,
+            separatorBuilder: (_, _) => const SizedBox(width: 13),
+            itemBuilder: (context, index) =>
+                _featuredTempleCard(temples[index]),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _featuredTempleCard(Temple temple) {
+    return SizedBox(
+      width: 250,
+      child: Material(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(22),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (_) => ChiTietChuaPage(temple: temple),
+              ),
+            );
+          },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: temple.thumbnail.trim().isEmpty
+                      ? _templeImagePlaceholder()
+                      : Image.network(
+                          temple.thumbnail,
+                          fit: BoxFit.cover,
+                          errorBuilder: (_, _, _) => _templeImagePlaceholder(),
+                        ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(14, 11, 14, 13),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Phật & Bồ Tát',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                      temple.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: AppTheme.text,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                    SizedBox(height: 6),
-                    Text(
-                      'Tìm hiểu tiểu sử, ý nghĩa và hình tượng các vị Phật, Bồ Tát.',
-                      style: TextStyle(
-                        fontSize: 14,
-                        height: 1.4,
-                        color: Colors.black54,
+                    if (temple.fullAddress.isNotEmpty) ...[
+                      const SizedBox(height: 5),
+                      Text(
+                        temple.fullAddress,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                          color: AppTheme.textSecondary,
+                          fontSize: 12,
+                        ),
                       ),
-                    ),
+                    ],
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
-              const Icon(
-                Icons.chevron_right,
-                color: primaryBrown,
-              ),
             ],
           ),
         ),
@@ -1325,384 +473,97 @@ class _TrangChuState extends State<TrangChu> {
     );
   }
 
-
-
-  // ============================================================
-
-  // KHÁM PHÁ CHÙA
-
-  // ============================================================
-
-
-
-  Widget _buildTempleSection() {
-
-    return Column(
-
-      crossAxisAlignment: CrossAxisAlignment.start,
-
-      children: [
-
-        const Padding(
-
-          padding: EdgeInsets.symmetric(
-
-            horizontal: 20,
-
-          ),
-
-          child: Row(
-
-            mainAxisAlignment:
-
-                MainAxisAlignment.spaceBetween,
-
-            children: [
-
-              Text(
-
-                'Khám phá chùa',
-
-                style: TextStyle(
-
-                  fontSize: 23,
-
-                  fontWeight: FontWeight.bold,
-
-                ),
-
-              ),
-
-
-
-              Icon(
-
-                Icons.temple_buddhist_outlined,
-
-                color: primaryBrown,
-
-              ),
-
-            ],
-
-          ),
-
-        ),
-
-
-
-        const SizedBox(height: 8),
-
-
-
-        Padding(
-
-          padding: const EdgeInsets.symmetric(
-
-            horizontal: 20,
-
-          ),
-
-          child: Text(
-
-            'Tra cứu thông tin chùa và sử dụng NFC để check-in tại chùa hỗ trợ.',
-
-            style: TextStyle(
-
-              color: Colors.grey.shade600,
-
-              fontSize: 14,
-
-            ),
-
-          ),
-
-        ),
-
-
-
-        const SizedBox(height: 20),
-
-
-
-        SizedBox(
-
-          height: 165,
-
-          child: ListView(
-
-            scrollDirection: Axis.horizontal,
-
-            padding: const EdgeInsets.symmetric(
-
-              horizontal: 18,
-
-            ),
-
-            children: [
-
-              _templeCard(
-
-                icon: Icons.temple_buddhist,
-
-                title: 'Chùa Giác Lâm',
-
-                subtitle: 'TP. Hồ Chí Minh',
-
-              ),
-
-
-
-              _templeCard(
-
-                icon: Icons.temple_buddhist,
-
-                title: 'Chùa Vĩnh Nghiêm',
-
-                subtitle: 'TP. Hồ Chí Minh',
-
-              ),
-
-
-
-              _templeCard(
-
-                icon: Icons.nfc,
-
-                title: 'Check-in NFC',
-
-                subtitle: 'Tại chùa hỗ trợ',
-
-              ),
-
-            ],
-
-          ),
-
-        ),
-
-      ],
-
-    );
-
-  }
-
-
-
-  Widget _templeCard({
-
-    required IconData icon,
-
-    required String title,
-
-    required String subtitle,
-
-  }) {
-
+  Widget _templeImagePlaceholder() {
     return Container(
-
-      width: 155,
-
-      margin: const EdgeInsets.only(
-
-        right: 13,
-
+      color: AppTheme.surface,
+      alignment: Alignment.center,
+      child: const Icon(
+        Icons.temple_buddhist_outlined,
+        color: AppTheme.secondary,
+        size: 48,
       ),
-
-      padding: const EdgeInsets.all(16),
-
-
-
-      decoration: BoxDecoration(
-
-        color: const Color(0xFFFFF7E8),
-
-        borderRadius: BorderRadius.circular(20),
-
-        border: Border.all(
-
-          color: const Color(0xFFF1DFBF),
-
-        ),
-
-      ),
-
-
-
-      child: Column(
-
-        crossAxisAlignment:
-
-            CrossAxisAlignment.start,
-
-        children: [
-
-          Container(
-
-            width: 48,
-
-            height: 48,
-
-            decoration: BoxDecoration(
-
-              color: lightBrown,
-
-              borderRadius: BorderRadius.circular(
-
-                14,
-
-              ),
-
-            ),
-
-            child: Icon(
-
-              icon,
-
-              color: primaryBrown,
-
-              size: 27,
-
-            ),
-
-          ),
-
-
-
-          const Spacer(),
-
-
-
-          Text(
-
-            title,
-
-            maxLines: 1,
-
-            overflow: TextOverflow.ellipsis,
-
-            style: const TextStyle(
-
-              fontSize: 15,
-
-              fontWeight: FontWeight.bold,
-
-            ),
-
-          ),
-
-
-
-          const SizedBox(height: 5),
-
-
-
-          Text(
-
-            subtitle,
-
-            maxLines: 1,
-
-            overflow: TextOverflow.ellipsis,
-
-            style: const TextStyle(
-
-              fontSize: 12,
-
-              color: Colors.grey,
-
-            ),
-
-          ),
-
-        ],
-
-      ),
-
     );
-
   }
 
-
-
-  // ============================================================
-
-  // HÀM HỖ TRỢ
-
-  // ============================================================
-
-
-
-  bool _isSameDay(
-
-    DateTime first,
-
-    DateTime second,
-
-  ) {
-
-    return first.year == second.year &&
-
-        first.month == second.month &&
-
-        first.day == second.day;
-
+  Widget _featuredState({
+    required IconData icon,
+    required String message,
+    required String actionLabel,
+    required VoidCallback onPressed,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: AppTheme.border),
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: AppTheme.secondary, size: 30),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              message,
+              style: const TextStyle(
+                color: AppTheme.textSecondary,
+                height: 1.35,
+              ),
+            ),
+          ),
+          TextButton(onPressed: onPressed, child: Text(actionLabel)),
+        ],
+      ),
+    );
   }
 
-
-
-  String _getWeekdayName(int weekday) {
-
-    switch (weekday) {
-
-      case DateTime.monday:
-
-        return 'Thứ Hai';
-
-
-
-      case DateTime.tuesday:
-
-        return 'Thứ Ba';
-
-
-
-      case DateTime.wednesday:
-
-        return 'Thứ Tư';
-
-
-
-      case DateTime.thursday:
-
-        return 'Thứ Năm';
-
-
-
-      case DateTime.friday:
-
-        return 'Thứ Sáu';
-
-
-
-      case DateTime.saturday:
-
-        return 'Thứ Bảy';
-
-
-
-      case DateTime.sunday:
-
-        return 'Chủ Nhật';
-
-
-
-      default:
-
-        return '';
-
-    }
-
+  Widget _buildKnowledgeLink() {
+    return InkWell(
+      borderRadius: BorderRadius.circular(22),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute<void>(
+            builder: (_) => const BuddhistFigureListPage(),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          color: const Color(0xFFEEE2D5),
+          borderRadius: BorderRadius.circular(22),
+        ),
+        child: const Row(
+          children: [
+            Icon(Icons.spa_outlined, color: AppTheme.warmBrown, size: 29),
+            SizedBox(width: 13),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Tìm hiểu Phật & Bồ Tát',
+                    style: TextStyle(
+                      color: AppTheme.text,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Khám phá biểu tượng và câu chuyện',
+                    style: TextStyle(
+                      color: AppTheme.textSecondary,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(Icons.arrow_forward_rounded, color: AppTheme.warmBrown),
+          ],
+        ),
+      ),
+    );
   }
-
 }

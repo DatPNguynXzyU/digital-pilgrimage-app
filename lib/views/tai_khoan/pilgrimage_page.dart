@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../../config/app_theme.dart';
 import '../../models/pilgrimage_stats.dart';
 import '../../models/visited_temple.dart';
 import '../../services/pilgrimage_service.dart';
 
-class PilgrimagePage
-    extends StatefulWidget {
+class PilgrimagePage extends StatefulWidget {
   final String token;
 
-  const PilgrimagePage({
-    super.key,
-    required this.token,
-  });
+  const PilgrimagePage({super.key, required this.token});
 
   @override
-  State<PilgrimagePage> createState() =>
-      _PilgrimagePageState();
+  State<PilgrimagePage> createState() => _PilgrimagePageState();
 }
 
-class _PilgrimagePageState
-    extends State<PilgrimagePage> {
-  static const Color primaryBrown =
-      Color(0xFFA56A12);
+class _PilgrimagePageState extends State<PilgrimagePage> {
+  static const Color primaryBrown = AppTheme.primary;
 
-  final PilgrimageService service =
-      PilgrimageService();
+  final PilgrimageService service = PilgrimageService();
 
   PilgrimageStats? stats;
 
@@ -32,8 +25,7 @@ class _PilgrimagePageState
 
   bool loading = true;
 
-  String selectedSort =
-      'most_visited';
+  String selectedSort = 'most_visited';
 
   @override
   void initState() {
@@ -48,13 +40,9 @@ class _PilgrimagePageState
         loading = true;
       });
 
-      final statsResult =
-          await service.getStats(
-        widget.token,
-      );
+      final statsResult = await service.getStats(widget.token);
 
-      final templesResult =
-          await service.getVisitedTemples(
+      final templesResult = await service.getVisitedTemples(
         widget.token,
         sort: selectedSort,
       );
@@ -74,19 +62,11 @@ class _PilgrimagePageState
       });
 
       ScaffoldMessenger.of(context)
-          .showSnackBar(
-        SnackBar(
-          content: Text(
-            error.toString(),
-          ),
-        ),
-      );
+          .showSnackBar(SnackBar(content: Text(error.toString())));
     }
   }
 
-  Future<void> _changeSort(
-    String? value,
-  ) async {
+  Future<void> _changeSort(String? value) async {
     if (value == null) return;
 
     setState(() {
@@ -97,118 +77,74 @@ class _PilgrimagePageState
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Hành trình của tôi',
-        ),
-      ),
+      appBar: AppBar(title: const Text('Hành trình của tôi')),
 
       body: loading
-          ? const Center(
-              child:
-                  CircularProgressIndicator(),
-            )
+          ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(
               onRefresh: _loadData,
 
               child: ListView(
-                padding:
-                    const EdgeInsets.all(
-                  16,
-                ),
+                padding: const EdgeInsets.all(16),
 
                 children: [
                   _buildStats(),
 
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  const SizedBox(height: 24),
 
                   Row(
-                    mainAxisAlignment:
-                        MainAxisAlignment
-                            .spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
                     children: [
                       const Text(
                         'Chùa đã đi',
                         style: TextStyle(
                           fontSize: 20,
-                          fontWeight:
-                              FontWeight
-                                  .bold,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
 
-                      DropdownButton<
-                          String>(
-                        value:
-                            selectedSort,
+                      DropdownButton<String>(
+                        value: selectedSort,
 
-                        onChanged:
-                            _changeSort,
+                        onChanged: _changeSort,
 
                         items: const [
                           DropdownMenuItem(
-                            value:
-                                'most_visited',
-                            child: Text(
-                              'Đi nhiều nhất',
-                            ),
+                            value: 'most_visited',
+                            child: Text('Đi nhiều nhất'),
                           ),
 
                           DropdownMenuItem(
-                            value:
-                                'recent',
-                            child: Text(
-                              'Gần đây',
-                            ),
+                            value: 'recent',
+                            child: Text('Gần đây'),
                           ),
 
                           DropdownMenuItem(
-                            value:
-                                'least_visited',
-                            child: Text(
-                              'Đi ít nhất',
-                            ),
+                            value: 'least_visited',
+                            child: Text('Đi ít nhất'),
                           ),
 
                           DropdownMenuItem(
-                            value:
-                                'name_asc',
-                            child: Text(
-                              'Tên A-Z',
-                            ),
+                            value: 'name_asc',
+                            child: Text('Tên A-Z'),
                           ),
                         ],
                       ),
                     ],
                   ),
 
-                  const SizedBox(
-                    height: 12,
-                  ),
+                  const SizedBox(height: 12),
 
                   if (temples.isEmpty)
                     const Padding(
-                      padding:
-                          EdgeInsets.all(
-                        30,
-                      ),
-                      child: Center(
-                        child: Text(
-                          'Bạn chưa viếng chùa nào.',
-                        ),
-                      ),
+                      padding: EdgeInsets.all(30),
+                      child: Center(child: Text('Bạn chưa viếng chùa nào.')),
                     ),
 
-                  ...temples.map(
-                    _buildTempleCard,
-                  ),
+                  ...temples.map(_buildTempleCard),
                 ],
               ),
             ),
@@ -228,84 +164,54 @@ class _PilgrimagePageState
           children: [
             Expanded(
               child: _statCard(
-                icon:
-                    Icons.temple_buddhist,
-                number:
-                    data.uniqueTemples,
-                label:
-                    'Chùa đã đi',
+                icon: Icons.temple_buddhist,
+                number: data.uniqueTemples,
+                label: 'Chùa đã đi',
               ),
             ),
 
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
 
             Expanded(
               child: _statCard(
-                icon:
-                    Icons.directions_walk,
-                number:
-                    data.totalVisits,
-                label:
-                    'Lượt viếng',
+                icon: Icons.directions_walk,
+                number: data.totalVisits,
+                label: 'Lượt viếng',
               ),
             ),
 
-            const SizedBox(
-              width: 10,
-            ),
+            const SizedBox(width: 10),
 
             Expanded(
               child: _statCard(
-                icon:
-                    Icons.verified,
-                number:
-                    data.totalStamps,
-                label:
-                    'Tem đã nhận',
+                icon: Icons.verified,
+                number: data.totalStamps,
+                label: 'Tem đã nhận',
               ),
             ),
           ],
         ),
 
-        if (data
-                .mostVisitedTempleName !=
-            null) ...[
-          const SizedBox(
-            height: 16,
-          ),
+        if (data.mostVisitedTempleName != null) ...[
+          const SizedBox(height: 16),
 
           Card(
             child: ListTile(
               leading: const CircleAvatar(
-                backgroundColor:
-                    primaryBrown,
+                backgroundColor: primaryBrown,
 
-                child: Icon(
-                  Icons
-                      .emoji_events_outlined,
-                  color:
-                      Colors.white,
-                ),
+                child: Icon(Icons.emoji_events_outlined, color: Colors.white),
               ),
 
-              title: const Text(
-                'Chùa đi nhiều nhất',
-              ),
+              title: const Text('Chùa đi nhiều nhất'),
 
-              subtitle: Text(
-                data
-                    .mostVisitedTempleName!,
-              ),
+              subtitle: Text(data.mostVisitedTempleName!),
 
               trailing: Text(
                 '${data.mostVisitedCount} lần',
                 style: const TextStyle(
-                  color:
-                      primaryBrown,
-                  fontWeight:
-                      FontWeight.bold,
+                  color: primaryBrown,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),
@@ -322,43 +228,26 @@ class _PilgrimagePageState
   }) {
     return Card(
       child: Padding(
-        padding:
-            const EdgeInsets.symmetric(
-          vertical: 18,
-          horizontal: 8,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 8),
 
         child: Column(
           children: [
-            Icon(
-              icon,
-              color: primaryBrown,
-              size: 28,
-            ),
+            Icon(icon, color: primaryBrown, size: 28),
 
-            const SizedBox(
-              height: 8,
-            ),
+            const SizedBox(height: 8),
 
             Text(
               number.toString(),
 
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight:
-                    FontWeight.bold,
-              ),
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
 
             Text(
               label,
 
-              textAlign:
-                  TextAlign.center,
+              textAlign: TextAlign.center,
 
-              style: const TextStyle(
-                fontSize: 12,
-              ),
+              style: const TextStyle(fontSize: 12),
             ),
           ],
         ),
@@ -366,35 +255,21 @@ class _PilgrimagePageState
     );
   }
 
-  Widget _buildTempleCard(
-    VisitedTemple temple,
-  ) {
+  Widget _buildTempleCard(VisitedTemple temple) {
     return Card(
-      margin:
-          const EdgeInsets.only(
-        bottom: 12,
-      ),
+      margin: const EdgeInsets.only(bottom: 12),
 
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor:
-              const Color(
-            0xFFF5E8D4,
-          ),
+          backgroundColor: const Color(0xFFF5E8D4),
 
-          child: const Icon(
-            Icons.temple_buddhist,
-            color: primaryBrown,
-          ),
+          child: const Icon(Icons.temple_buddhist, color: primaryBrown),
         ),
 
         title: Text(
           temple.name,
 
-          style: const TextStyle(
-            fontWeight:
-                FontWeight.w600,
-          ),
+          style: const TextStyle(fontWeight: FontWeight.w600),
         ),
 
         subtitle: Text(
@@ -403,22 +278,12 @@ class _PilgrimagePageState
         ),
 
         trailing: Container(
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 6,
-          ),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
 
           decoration: BoxDecoration(
-            color:
-                const Color(
-              0xFFF5E8D4,
-            ),
+            color: const Color(0xFFF5E8D4),
 
-            borderRadius:
-                BorderRadius.circular(
-              20,
-            ),
+            borderRadius: BorderRadius.circular(20),
           ),
 
           child: Text(
@@ -426,8 +291,7 @@ class _PilgrimagePageState
 
             style: const TextStyle(
               color: primaryBrown,
-              fontWeight:
-                  FontWeight.bold,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -435,25 +299,16 @@ class _PilgrimagePageState
     );
   }
 
-  String _formatDate(
-    DateTime? date,
-  ) {
+  String _formatDate(DateTime? date) {
     if (date == null) {
       return 'Chưa rõ';
     }
 
-    final local =
-        date.toLocal();
+    final local = date.toLocal();
 
-    final day =
-        local.day
-            .toString()
-            .padLeft(2, '0');
+    final day = local.day.toString().padLeft(2, '0');
 
-    final month =
-        local.month
-            .toString()
-            .padLeft(2, '0');
+    final month = local.month.toString().padLeft(2, '0');
 
     return '$day/$month/${local.year}';
   }
