@@ -3,12 +3,45 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:hanh_trinh_an_nhien/utils/lunar_calendar.dart';
+import 'package:hanh_trinh_an_nhien/views/buddhist_figures/buddhist_figure_list_page.dart';
+import 'package:hanh_trinh_an_nhien/views/kinh_sach/kinh_sach.dart';
 import 'package:hanh_trinh_an_nhien/views/lich/lich_page.dart';
 import 'package:hanh_trinh_an_nhien/views/main_nav.dart';
+import 'package:hanh_trinh_an_nhien/views/temples/temple_list_page.dart';
 import 'package:hanh_trinh_an_nhien/views/trang_chu/home_dhammapada_card.dart';
 import 'package:hanh_trinh_an_nhien/views/trang_chu/home_hero.dart';
 
 void main() {
+  testWidgets('scripture tab opens the Buddhist figure lookup', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MaterialApp(home: KinhSachPage()));
+
+    expect(find.text('Tra cứu chư vị'), findsOneWidget);
+    final headingRect = tester.getRect(
+      find.byKey(const ValueKey('scripture-page-heading')),
+    );
+    final lookupRect = tester.getRect(
+      find.byKey(const ValueKey('buddhist-figure-lookup')),
+    );
+    expect(lookupRect.left, greaterThan(headingRect.right));
+    expect(lookupRect.center.dy, closeTo(headingRect.center.dy, 8));
+
+    await tester.tap(find.text('Tra cứu chư vị'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(BuddhistFigureListPage), findsOneWidget);
+    expect(find.byType(KinhSachPage, skipOffstage: false), findsOneWidget);
+  });
+
+  testWidgets('temple tab no longer shows the Buddhist figure lookup', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const MaterialApp(home: TempleListPage()));
+
+    expect(find.text('Tra cứu chư vị'), findsNothing);
+  });
+
   testWidgets('main navigation has the five required tabs', (
     WidgetTester tester,
   ) async {

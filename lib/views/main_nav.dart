@@ -17,11 +17,13 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 0;
 
+  // Cập nhật thứ tự danh sách trang:
+  // 0: Trang chủ | 1: Lịch | 2: Kinh sách | 3: Chùa | 4: Cá nhân
   late final List<Widget> _pages = [
     TrangChu(onNavigate: _changeTab),
-    const TempleListPage(),
-    const KinhSachPage(),
     LichPage(onNavigate: _changeTab),
+    const KinhSachPage(),
+    const TempleListPage(),
     const TaiKhoanPage(),
   ];
 
@@ -34,7 +36,10 @@ class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(index: _currentIndex, children: _pages),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
+      ),
       bottomNavigationBar: AppBottomNavigation(
         selectedIndex: _currentIndex,
         onDestinationSelected: _changeTab,
@@ -62,6 +67,7 @@ class AppBottomNavigation extends StatelessWidget {
       backgroundColor: Colors.white,
       indicatorColor: AppTheme.surface,
       animationDuration: const Duration(milliseconds: 220),
+      // Cập nhật thứ tự các mục điều hướng tương ứng
       destinations: const [
         NavigationDestination(
           icon: Icon(Icons.home_outlined),
@@ -69,9 +75,9 @@ class AppBottomNavigation extends StatelessWidget {
           label: 'Trang chủ',
         ),
         NavigationDestination(
-          icon: Icon(Icons.temple_buddhist_outlined),
-          selectedIcon: Icon(Icons.temple_buddhist),
-          label: 'Chùa',
+          icon: Icon(Icons.calendar_month_outlined),
+          selectedIcon: Icon(Icons.calendar_month),
+          label: 'Lịch',
         ),
         NavigationDestination(
           icon: Icon(Icons.menu_book_outlined),
@@ -79,9 +85,9 @@ class AppBottomNavigation extends StatelessWidget {
           label: 'Kinh sách',
         ),
         NavigationDestination(
-          icon: Icon(Icons.calendar_month_outlined),
-          selectedIcon: Icon(Icons.calendar_month),
-          label: 'Lịch',
+          icon: Icon(Icons.temple_buddhist_outlined),
+          selectedIcon: Icon(Icons.temple_buddhist),
+          label: 'Chùa',
         ),
         NavigationDestination(
           icon: Icon(Icons.person_outline_rounded),
