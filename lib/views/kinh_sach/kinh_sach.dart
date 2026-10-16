@@ -79,57 +79,59 @@ class _KinhSachPageState extends State<KinhSachPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: backgroundColor,
-
       body: SafeArea(
         child: FutureBuilder<List<Scripture>>(
           future: _scripturesFuture,
-
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(color: primaryBrown),
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 4),
+                    child: _buildHeader(),
+                  ),
+                  const Expanded(
+                    child: Center(
+                      child: CircularProgressIndicator(color: primaryBrown),
+                    ),
+                  ),
+                ],
               );
             }
 
             if (snapshot.hasError) {
-              return _buildError(snapshot.error.toString());
+              return Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 8, 20, 4),
+                    child: _buildHeader(),
+                  ),
+                  Expanded(child: _buildError(snapshot.error.toString())),
+                ],
+              );
             }
 
             final scriptures = snapshot.data ?? [];
-
             final filtered = _filterScriptures(scriptures);
 
             return RefreshIndicator(
               color: primaryBrown,
-
               onRefresh: _reload,
-
               child: ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
-
                 padding: const EdgeInsets.all(20),
-
                 children: [
-                  _buildBuddhistFiguresLink(),
-                  const SizedBox(height: 18),
                   _buildHeader(),
                   const SizedBox(height: 24),
-
                   _buildSearch(),
-
                   const SizedBox(height: 16),
-
                   _buildFilter(),
-
                   const SizedBox(height: 26),
-
                   const Text(
                     'Kinh sách',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-
                   const SizedBox(height: 14),
-
                   if (filtered.isEmpty)
                     _buildEmpty()
                   else
@@ -143,83 +145,50 @@ class _KinhSachPageState extends State<KinhSachPage> {
     );
   }
 
-  Widget _buildHeader() {
-    return const Row(
-      children: [
-        Icon(Icons.menu_book_rounded, size: 34, color: primaryBrown),
-
-        SizedBox(width: 12),
-
-        Column(
+  Widget _buildHeader() => Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Icon(Icons.menu_book_rounded, size: 34, color: primaryBrown),
+      const SizedBox(width: 12),
+      const Expanded(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-
           children: [
             Text(
               'Kinh sách',
+              key: ValueKey('scripture-page-heading'),
               style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
             ),
-
             SizedBox(height: 3),
-
             Text(
               'Đọc và tìm hiểu kinh, chú',
               style: TextStyle(color: AppTheme.textSecondary),
             ),
           ],
         ),
-      ],
-    );
-  }
-
-  Widget _buildBuddhistFiguresLink() {
-    return Material(
-      color: const Color(0xFFEEE2D5),
-      borderRadius: BorderRadius.circular(18),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(18),
-        onTap: () {
-          Navigator.push(
+      ),
+      TextButton.icon(
+        key: const ValueKey('buddhist-figure-lookup'),
+        onPressed: () {
+          Navigator.push<void>(
             context,
             MaterialPageRoute<void>(
               builder: (_) => const BuddhistFigureListPage(),
             ),
           );
         },
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-          child: Row(
-            children: [
-              Icon(Icons.spa_outlined, color: AppTheme.warmBrown),
-              SizedBox(width: 12),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Phật & Bồ Tát',
-                      style: TextStyle(
-                        color: AppTheme.text,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    SizedBox(height: 3),
-                    Text(
-                      'Thư viện tìm hiểu giáo lý và hình tượng',
-                      style: TextStyle(
-                        color: AppTheme.textSecondary,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(Icons.arrow_forward_rounded, color: AppTheme.warmBrown),
-            ],
-          ),
+        icon: const Icon(Icons.spa_outlined, size: 17),
+        label: const Text('Tra cứu chư vị', maxLines: 1, softWrap: false),
+        style: TextButton.styleFrom(
+          foregroundColor: AppTheme.warmBrown,
+          textStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700),
+          padding: const EdgeInsets.symmetric(horizontal: 4),
+          minimumSize: const Size(0, 40),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         ),
       ),
-    );
-  }
+    ],
+  );
 
   Widget _buildSearch() {
     return TextField(
