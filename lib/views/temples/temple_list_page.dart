@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../config/app_theme.dart';
 import '../../models/temple.dart';
 import '../../services/temple_service.dart';
+import '../nfc/nfc_scan_page.dart';
 import 'chi_tiet_chua.dart';
 
 class TempleListPage extends StatefulWidget {
@@ -72,7 +73,25 @@ class _TempleListPageState extends State<TempleListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Chốn bình yên')),
+      appBar: AppBar(
+        title: const Text('Chốn bình yên'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Tooltip(
+              message: 'Quét NFC để check-in tại chùa',
+              child: TextButton.icon(
+                onPressed: () => Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(builder: (_) => const NfcScanPage()),
+                ),
+                icon: const Icon(Icons.nfc_rounded, size: 20),
+                label: const Text('Check-in'),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         top: false,
         child: Column(
