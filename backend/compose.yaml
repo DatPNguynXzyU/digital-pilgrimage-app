@@ -1,0 +1,29 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    image: hanh-huong-backend:local
+
+    container_name: hanh-huong-backend
+
+    restart: unless-stopped
+
+    init: true
+
+    ports:
+      - "127.0.0.1:3000:3000"
+
+    env_file:
+      - .env
+
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+
+    volumes:
+      - avatar_data:/app/img/avatars
+
+volumes:
+  avatar_data:
