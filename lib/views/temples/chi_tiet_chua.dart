@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/app_theme.dart';
 import '../../models/temple.dart';
-import '../nfc/nfc_scan_page.dart';
 
 class ChiTietChuaPage extends StatelessWidget {
   final Temple temple;
@@ -11,6 +12,71 @@ class ChiTietChuaPage extends StatelessWidget {
 
   static const Color primaryBrown = AppTheme.primary;
   static const Color lightBrown = AppTheme.surface;
+
+  Future<void> _openGoogleMaps(BuildContext context) async {
+    final latitude = temple.latitude;
+    final longitude = temple.longitude;
+    final hasValidCoordinates =
+        latitude != null &&
+        longitude != null &&
+        latitude.isFinite &&
+        longitude.isFinite &&
+        latitude >= -90 &&
+        latitude <= 90 &&
+        longitude >= -180 &&
+        longitude <= 180;
+    final address = temple.fullAddress.trim();
+    final destination = hasValidCoordinates ? '$latitude,$longitude' : address;
+
+    if (destination.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Chùa chưa có tọa độ hoặc địa chỉ hợp lệ để chỉ đường.',
+          ),
+        ),
+      );
+      return;
+    }
+
+    final mapsAppUri = Uri.parse(
+      'google.navigation:q=${Uri.encodeQueryComponent(destination)}&mode=d',
+    );
+    final mapsWebUri = Uri.https('www.google.com', '/maps/dir/', {
+      'api': '1',
+      'destination': destination,
+      'travelmode': 'driving',
+    });
+
+    try {
+      if (await launchUrl(mapsAppUri, mode: LaunchMode.externalApplication)) {
+        return;
+      }
+    } on PlatformException {
+      // Fall back to the HTTPS URL if the Google Maps app cannot be opened.
+    }
+
+    try {
+      if (await launchUrl(mapsWebUri, mode: LaunchMode.externalApplication)) {
+        return;
+      }
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Không thể mở Google Maps hoặc trình duyệt.'),
+        ),
+      );
+    } on PlatformException catch (error) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            'Không thể mở Google Maps: ${error.message ?? error.code}',
+          ),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -172,28 +238,19 @@ class ChiTietChuaPage extends StatelessWidget {
 
                   SizedBox(
                     width: double.infinity,
-                    height: 55,
+                    height: 62,
                     child: FilledButton.icon(
                       style: FilledButton.styleFrom(
                         backgroundColor: primaryBrown,
+                        foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(22),
                         ),
                       ),
-
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (_) => const NfcScanPage(),
-                          ),
-                        );
-                      },
-
-                      icon: const Icon(Icons.nfc_rounded),
-
+                      onPressed: () => _openGoogleMaps(context),
+                      icon: const Icon(Icons.directions_rounded),
                       label: const Text(
-                        'Check-in bằng NFC',
+                        'Chỉ đường bằng Google Maps',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
