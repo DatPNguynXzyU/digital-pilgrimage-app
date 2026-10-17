@@ -104,7 +104,7 @@ class _SplashScreen extends StatelessWidget {
               ),
               const SizedBox(height: 21),
               const Text(
-                'ĐI CHÙA',
+                'HÀNH TRÌNH AN NHIÊN',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 28,
@@ -153,7 +153,7 @@ class _OnboardingPageState extends State<_OnboardingPage> {
     (
       Icons.temple_buddhist_outlined,
       'Tìm về chốn bình yên',
-      'Khám phá những ngôi chùa Việt và câu chuyện văn hóa phía sau mỗi mái chùa.',
+      'Khám phá những ngôi chùa Việt và câu chuyện văn hóa phía sau mỗi ngôi chùa.',
       'CHÙA VIỆT · VĂN HÓA · HÀNH TRÌNH',
     ),
     (

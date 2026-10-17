@@ -40,6 +40,12 @@ void main() {
     await tester.pumpWidget(const MaterialApp(home: TempleListPage()));
 
     expect(find.text('Tra cứu chư vị'), findsNothing);
+    expect(find.text('Check-In'), findsOneWidget);
+
+    await tester.tap(find.text('Check-In'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Check-in NFC'), findsOneWidget);
   });
 
   testWidgets('main navigation has the five required tabs', (
