@@ -49,3 +49,6 @@ app.*.map.json
 
 # Kotlin compiler local cache
 /android/.kotlin/
+
+# Local deployment state and lock
+/.local-cd/

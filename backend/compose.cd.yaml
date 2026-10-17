@@ -1,0 +1,21 @@
+# Used by scripts/deploy-local.ps1, independently of the runner/source checkout.
+services:
+  backend:
+    image: ${DEPLOY_IMAGE:?DEPLOY_IMAGE is required}
+    container_name: hanh-huong-backend
+    restart: unless-stopped
+    init: true
+    ports:
+      - "3000:3000"
+    env_file:
+      - ${BACKEND_ENV_FILE:?BACKEND_ENV_FILE is required}
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+    volumes:
+      - avatar_data:/app/img/avatars
+
+volumes:
+  avatar_data:
+    external: true
+    name: backend_avatar_data

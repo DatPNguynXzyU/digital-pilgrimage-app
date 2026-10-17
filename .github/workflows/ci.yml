@@ -18,6 +18,18 @@ env:
   FLUTTER_VERSION: '3.47.4'
 
 jobs:
+  local-cd:
+    name: Local CD safety tests
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Test deployment without network or Docker
+        shell: powershell
+        run: ./scripts/test-local-cd.ps1
+
   flutter:
     name: Flutter analyze and test
     runs-on: ubuntu-24.04
