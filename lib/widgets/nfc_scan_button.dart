@@ -1,7 +1,7 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
+import 'package:nfc_manager/nfc_manager_android.dart';
 
 class NfcScanButton extends StatefulWidget {
   const NfcScanButton({super.key});
@@ -16,14 +16,13 @@ class _NfcScanButtonState extends State<NfcScanButton> {
   void _showMessage(String message) {
     if (!mounted) return;
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   Future<void> _scanNfc() async {
     // NFC vật lý không hoạt động trong Flutter Web.
-    if (kIsWeb) {
+    if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) {
       _showMessage(
         'Hãy mở ứng dụng trên điện thoại Android có hỗ trợ NFC để quét thẻ.',
       );
@@ -45,24 +44,21 @@ class _NfcScanButtonState extends State<NfcScanButton> {
     setState(() => _isScanning = true);
 
     try {
-      final availability =
-          await NfcManager.instance.checkAvailability();
+      final availability = await NfcManager.instance.checkAvailability();
 
       if (availability != NfcAvailability.enabled) {
         if (mounted) {
           setState(() => _isScanning = false);
         }
 
-        _showMessage(
-          'NFC chưa bật hoặc thiết bị không hỗ trợ NFC.',
-        );
+        _showMessage('NFC chưa bật hoặc thiết bị không hỗ trợ NFC.');
         return;
       }
 
       await NfcManager.instance.startSession(
         pollingOptions: {NfcPollingOption.iso14443},
         onDiscovered: (NfcTag tag) async {
-          final tagData = tag.data;
+          final tagData = {'identifier': NfcTagAndroid.from(tag)?.id};
           final uid = _findUid(tagData);
 
           try {
@@ -117,12 +113,7 @@ class _NfcScanButtonState extends State<NfcScanButton> {
 
             if (numbers.isNotEmpty) {
               return numbers
-                  .map(
-                    (byte) => byte
-                        .toInt()
-                        .toRadixString(16)
-                        .padLeft(2, '0'),
-                  )
+                  .map((byte) => byte.toInt().toRadixString(16).padLeft(2, '0'))
                   .join(':')
                   .toUpperCase();
             }
@@ -145,10 +136,7 @@ class _NfcScanButtonState extends State<NfcScanButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 22,
-        vertical: 12,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
       child: SizedBox(
         width: double.infinity,
         height: 56,
