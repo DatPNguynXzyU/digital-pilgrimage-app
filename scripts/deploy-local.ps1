@@ -1,11 +1,13 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param(
     [string]$Repository = 'DatPNguynXzyU/digital-pilgrimage-app',
-    [string]$EnvFile = (Join-Path $PSScriptRoot '../backend/.env'),
-    [string]$StateDirectory = (Join-Path $PSScriptRoot '../.local-cd'),
+    [string]$EnvFile,
+    [string]$StateDirectory,
     [switch]$CheckOnly
 )
 $ErrorActionPreference = 'Stop'
+if (-not $EnvFile) { $EnvFile = Join-Path $PSScriptRoot '../backend/.env' }
+if (-not $StateDirectory) { $StateDirectory = Join-Path $PSScriptRoot '../.local-cd' }
 if ($Repository -notmatch '^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$') { throw 'Invalid repository.' }
 $headers = @{ Accept = 'application/vnd.github+json'; 'User-Agent' = 'digital-pilgrimage-local-cd' }
 $api = "https://api.github.com/repos/$Repository"
@@ -97,4 +99,3 @@ try {
 } finally {
     $lock.Dispose()
 }
-
