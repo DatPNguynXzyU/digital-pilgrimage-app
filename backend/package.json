@@ -9,7 +9,8 @@
     "seed:temples": "node src/seed/seed-temples.js",
     "seed:scriptures": "node src/seed/seed-scriptures.js",
     "seed:figures": "node src/seed/seed-buddhist-figures.js",
-    "seed:quotes": "node src/seed/seed-quotes.js"
+    "seed:quotes": "node src/seed/seed-quotes.js",
+    "test": "node --test --test-concurrency=1 test/*.test.js"
   },
   "keywords": [],
   "author": "",

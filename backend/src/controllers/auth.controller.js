@@ -18,6 +18,7 @@ function createToken(user) {
     {
       userId: user._id.toString(),
       role: user.role,
+      tokenVersion: user.tokenVersion ?? 0,
     },
     process.env.JWT_SECRET,
     {
@@ -68,7 +69,7 @@ async function register(req, res) {
       fullName,
       email,
       password,
-    } = req.body;
+    } = req.body || {};
 
     // Kiểm tra dữ liệu bắt buộc
     if (
@@ -310,7 +311,7 @@ async function changePassword(req, res) {
     const {
       currentPassword,
       newPassword,
-    } = req.body;
+    } = req.body || {};
 
     // ============================
     // VALIDATE
@@ -326,11 +327,12 @@ async function changePassword(req, res) {
       });
     }
 
-    if (newPassword.length < 6) {
+    if (typeof currentPassword !== 'string' || typeof newPassword !== 'string' ||
+        newPassword.length < 6 || Buffer.byteLength(newPassword, 'utf8') > 72) {
       return res.status(400).json({
         success: false,
         message:
-          'Mật khẩu mới phải có ít nhất 6 ký tự.',
+          'Mật khẩu mới phải có ít nhất 6 ký tự và tối đa 72 byte UTF-8.',
       });
     }
 
@@ -396,15 +398,22 @@ async function changePassword(req, res) {
         12
       );
 
-    user.passwordHash =
-      newPasswordHash;
-
-    await user.save();
+    // Compare-and-swap prevents concurrent changes from accepting an old password.
+    const result = await User.updateOne(
+      { _id: user._id, passwordHash: user.passwordHash, status: 'active' },
+      { $set: { passwordHash: newPasswordHash }, $inc: { tokenVersion: 1 } }
+    );
+    if (result.modifiedCount !== 1) {
+      return res.status(409).json({
+        success: false,
+        message: 'Tài khoản đã thay đổi. Vui lòng đăng nhập lại.',
+      });
+    }
 
     return res.status(200).json({
       success: true,
       message:
-        'Đổi mật khẩu thành công.',
+        'Đổi mật khẩu thành công. Vui lòng đăng nhập lại.',
     });
   } catch (error) {
     console.error(

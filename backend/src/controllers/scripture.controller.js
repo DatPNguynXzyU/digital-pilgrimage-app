@@ -2,7 +2,7 @@ const Scripture = require('../models/scripture.model');
 
 async function getScriptures(req, res) {
   try {
-    const scriptures = await Scripture.find()
+    const scriptures = await Scripture.find({ status: 'active' })
       .sort({
         order: 1,
         title: 1,
@@ -26,6 +26,7 @@ async function getScriptureBySlug(req, res) {
   try {
     const scripture = await Scripture.findOne({
       slug: req.params.slug,
+      status: 'active',
     });
 
     if (!scripture) {

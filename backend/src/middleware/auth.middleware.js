@@ -77,6 +77,14 @@ async function authMiddleware(
       });
     }
 
+    // Tokens issued before versioning remain valid until the first password change.
+    if ((decoded.tokenVersion ?? 0) !== (user.tokenVersion ?? 0)) {
+      return res.status(401).json({
+        success: false,
+        message: 'Mật khẩu đã thay đổi. Vui lòng đăng nhập lại.',
+      });
+    }
+
     // Lưu user vào request
     req.user = user;
 

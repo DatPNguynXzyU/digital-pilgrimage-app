@@ -37,7 +37,7 @@ class _CalendarEventDetailPageState extends State<CalendarEventDetailPage> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Xóa lịch này?'),
-        content: const Text('Lịch cá nhân sẽ bị xóa khỏi thiết bị này.'),
+        content: const Text('Bạn có chắc muốn xóa lịch cá nhân này?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
@@ -56,9 +56,8 @@ class _CalendarEventDetailPageState extends State<CalendarEventDetailPage> {
       if (mounted) Navigator.pop(context, true);
     } catch (error) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Không thể xóa lịch trên thiết bị: $error')),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Không thể xóa lịch: $error')));
     }
   }
 
@@ -186,7 +185,7 @@ class _CalendarEventDetailPageState extends State<CalendarEventDetailPage> {
             ),
           const SizedBox(height: 12),
           const Text(
-            'Lịch này hiện chỉ được lưu cục bộ trên thiết bị, chưa đồng bộ lên máy chủ.',
+            'Khi đăng nhập, lịch được lưu theo tài khoản trên máy chủ. Lịch khách được lưu riêng trên thiết bị.',
             style: TextStyle(
               color: AppTheme.textSecondary,
               fontSize: 12,

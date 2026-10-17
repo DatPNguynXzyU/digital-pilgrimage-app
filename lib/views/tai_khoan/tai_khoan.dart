@@ -36,9 +36,18 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
     super.initState();
 
     _loadAccount();
+    AuthService.sessionChanges.addListener(_loadAccount);
   }
 
+  @override
+  void dispose() {
+    AuthService.sessionChanges.removeListener(_loadAccount);
+    super.dispose();
+  }
+
+  int _accountRequest = 0;
   Future<void> _loadAccount() async {
+    final requestId = ++_accountRequest;
     var token = '';
     setState(() {
       _loading = true;
@@ -49,7 +58,7 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
       token = await _authService.getToken() ?? '';
 
       if (token.isEmpty) {
-        if (!mounted) return;
+        if (!mounted || requestId != _accountRequest) return;
 
         setState(() {
           _token = null;
@@ -72,7 +81,7 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
           ? Map<String, dynamic>.from(rawUser)
           : null;
 
-      if (!mounted) return;
+      if (!mounted || requestId != _accountRequest) return;
 
       setState(() {
         _token = token;
@@ -83,7 +92,7 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
         _accountError = null;
       });
     } catch (_) {
-      if (!mounted) return;
+      if (!mounted || requestId != _accountRequest) return;
 
       setState(() {
         _token = token.isEmpty ? _token : token;
@@ -170,11 +179,12 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
     );
   }
 
-  void _openChangePassword() {
-    Navigator.push(
+  Future<void> _openChangePassword() async {
+    final changed = await Navigator.push<bool>(
       context,
       MaterialPageRoute(builder: (_) => const ChangePasswordPage()),
     );
+    if (mounted && changed == true) await _loadAccount();
   }
 
   Future<void> _logout() async {

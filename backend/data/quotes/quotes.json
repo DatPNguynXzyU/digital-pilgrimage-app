@@ -1,18 +1,66 @@
 [
   {
     "code": "quote-001",
-    "content": "Tâm dẫn đầu các pháp...",
+    "content": "Ý dẫn đầu các pháp,\nÝ làm chủ, ý tạo;\nNếu với ý ô nhiễm,\nNói lên hay hành động,\nKhổ não bước theo sau,\nNhư xe, chân vật kéo.",
     "author": "",
-    "source": "Kinh Pháp Cú",
-    "category": "wisdom",
+    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 1",
+    "category": "mindfulness",
     "isActive": true
   },
   {
     "code": "quote-002",
-    "content": "Một câu trích dẫn khác...",
+    "content": "Ý dẫn đầu các pháp,\nÝ làm chủ, ý tạo;\nNếu với ý thanh tịnh,\nNói lên hay hành động,\nAn lạc bước theo sau,\nNhư bóng, không rời hình.",
     "author": "",
-    "source": "",
+    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 2",
     "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-003",
+    "content": "Nó mắng tôi, đánh tôi,\nNó thắng tôi, cướp tôi\nAi ôm hiềm hận ấy,\nHận thù không thể nguôi.",
+    "author": "",
+    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 3",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-004",
+    "content": "Nó mắng tôi, đánh tôi,\nNó thắng tôi, cướp tôi\nKhông ôm hiềm hận ấy,\nHận thù được tự nguôi.",
+    "author": "",
+    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 4",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-005",
+    "content": "Với hận diệt hận thù,\nÐời này không có được.\nKhông hận diệt hận thù,\nLà định luật ngàn thu.",
+    "author": "",
+    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 5",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-006",
+    "content": "Và người khác không biết,\nChúng ta đây bị hại.\nChỗ ấy, ai hiểu được\nTranh luận được lắng êm.",
+    "author": "",
+    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 6",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-007",
+    "content": "Ai sống nhìn tịnh tướng,\nKhông hộ trì các căn,\năn uống thiếu tiết độ,\nbiếng nhác, chẳng tinh cần.\nMa uy hiếp kẻ ấy,\nnhư cây yếu trước gió.",
+    "author": "",
+    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 7",
+    "category": "practice",
+    "isActive": true
+  },
+  {
+    "code": "quote-008",
+    "content": "Ai sống quán bất tịnh,\nKhéo hộ trì các căn,\năn uống có tiết độ,\nCó lòng tin, tinh cần,\nMa không uy hiếp được,\nNhư núi đá, trước gió.",
+    "author": "",
+    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 8",
+    "category": "practice",
     "isActive": true
   }
 ]

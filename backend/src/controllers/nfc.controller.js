@@ -71,7 +71,7 @@ async function scanNfc(req, res) {
   const {
     uid,
     slug,
-  } = req.body;
+  } = req.body || {};
 
   const normalizedUid =
     normalizeUid(uid);

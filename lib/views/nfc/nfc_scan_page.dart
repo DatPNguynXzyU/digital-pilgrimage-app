@@ -9,6 +9,10 @@ import 'package:nfc_manager_ndef/nfc_manager_ndef.dart';
 
 import '../../config/app_theme.dart';
 import '../../services/nfc_service.dart';
+import '../../services/auth_service.dart';
+import '../tai_khoan/login_page.dart';
+import '../tai_khoan/pilgrimage_history_page.dart';
+import '../tai_khoan/stamp_book_page.dart';
 
 class NfcScanPage extends StatefulWidget {
   const NfcScanPage({super.key});
@@ -22,6 +26,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
 
   final NfcService _nfcService = NfcService();
 
+  bool _starting = false;
   bool _scanning = false;
   bool _processing = false;
 
@@ -127,7 +132,50 @@ class _NfcScanPageState extends State<NfcScanPage> {
   // ==========================================
   // START NFC
   // ==========================================
+  @override
+  void dispose() {
+    if (_scanning) {
+      NfcManager.instance.stopSession().catchError((Object _) {});
+    }
+    super.dispose();
+  }
+
+  Future<void> _openResult(bool stamps) async {
+    final token = await AuthService().getToken();
+    if (!mounted || token == null) return;
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => stamps
+            ? StampBookPage(token: token)
+            : PilgrimageHistoryPage(token: token),
+      ),
+    );
+  }
+
   Future<void> _startScan() async {
+    if (_starting || _processing || _scanning) return;
+    setState(() => _starting = true);
+    try {
+      var token = await AuthService().getToken();
+      if (!mounted) return;
+      if (token == null || token.isEmpty) {
+        await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginPage()),
+        );
+        token = await AuthService().getToken();
+        if (!mounted || token == null || token.isEmpty) return;
+      }
+      await _scan();
+    } catch (_) {
+      if (mounted) _showMessage('Không thể khởi động NFC. Vui lòng thử lại.');
+    } finally {
+      if (mounted) setState(() => _starting = false);
+    }
+  }
+
+  Future<void> _scan() async {
     if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) {
       _showMessage('Hãy chạy chức năng NFC trên điện thoại Android.');
 
@@ -136,6 +184,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
 
     final availability = await NfcManager.instance.checkAvailability();
 
+    if (!mounted) return;
     if (availability != NfcAvailability.enabled) {
       _showMessage('NFC chưa được bật hoặc thiết bị không hỗ trợ NFC.');
 
@@ -167,11 +216,11 @@ class _NfcScanPageState extends State<NfcScanPage> {
         pollingOptions: {NfcPollingOption.iso14443},
 
         onDiscovered: (NfcTag tag) async {
-          if (_processing) {
+          if (!mounted || !_scanning || _processing) {
             return;
           }
 
-          _processing = true;
+          setState(() => _processing = true);
 
           try {
             // ==========================
@@ -268,7 +317,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
               _status = error.toString().replaceFirst('Exception: ', '');
             });
           } finally {
-            _processing = false;
+            if (mounted) setState(() => _processing = false);
           }
         },
       );
@@ -324,7 +373,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
       ),
 
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
 
           child: Column(
@@ -437,13 +486,25 @@ class _NfcScanPageState extends State<NfcScanPage> {
               if (_uid != null)
                 _infoCard(icon: Icons.nfc, title: 'UID NFC', value: _uid!),
 
-              const Spacer(),
+              if (successful) ...[
+                TextButton(
+                  onPressed: () => _openResult(true),
+                  child: const Text('Xem sổ tem'),
+                ),
+                TextButton(
+                  onPressed: () => _openResult(false),
+                  child: const Text('Xem lịch sử viếng chùa'),
+                ),
+              ],
+              const SizedBox(height: 24),
 
               SizedBox(
                 height: 54,
 
                 child: ElevatedButton.icon(
-                  onPressed: _scanning ? _stopScan : _startScan,
+                  onPressed: _processing || _starting
+                      ? null
+                      : (_scanning ? _stopScan : _startScan),
 
                   icon: Icon(_scanning ? Icons.close : Icons.nfc),
 

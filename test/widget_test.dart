@@ -74,7 +74,7 @@ void main() {
             ),
           )
           .map((destination) => destination.label),
-      ['Trang chủ', 'Chùa', 'Kinh sách', 'Lịch', 'Cá nhân'],
+      ['Trang chủ', 'Lịch', 'Kinh sách', 'Chùa', 'Cá nhân'],
     );
     expect(navigationBar.selectedIndex, 0);
 
@@ -82,7 +82,7 @@ void main() {
     await tester.pump();
     expect(
       tester.widget<NavigationBar>(find.byType(NavigationBar)).selectedIndex,
-      1,
+      3,
     );
   });
 
@@ -221,22 +221,28 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
-  testWidgets('Dhammapada home card shows an updating placeholder', (
-    WidgetTester tester,
-  ) async {
+  testWidgets('Dhammapada handles empty data and retry', (tester) async {
+    var attempts = 0;
     await tester.pumpWidget(
-      const MaterialApp(home: Scaffold(body: HomeDhammapadaCard())),
+      MaterialApp(
+        home: Scaffold(
+          body: HomeDhammapadaCard(
+            loadQuote: (_) async {
+              attempts++;
+              if (attempts == 1) throw Exception('offline');
+              return null;
+            },
+          ),
+        ),
+      ),
     );
-
-    expect(find.text('Kinh Pháp Cú'), findsOneWidget);
+    await tester.pumpAndSettle();
     expect(
-      find.text('Các câu kinh ý nghĩa sẽ được cập nhật tại đây.'),
+      find.text('Không thể tải câu Phật ngôn. Vui lòng thử lại.'),
       findsOneWidget,
     );
-    expect(find.text('ĐANG CẬP NHẬT'), findsOneWidget);
-    expect(
-      find.text('Dành một phút tĩnh lặng để trở về với hiện tại.'),
-      findsNothing,
-    );
+    await tester.tap(find.text('Thử lại'));
+    await tester.pumpAndSettle();
+    expect(find.text('Chưa có câu Phật ngôn.'), findsOneWidget);
   });
 }

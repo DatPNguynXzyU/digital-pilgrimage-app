@@ -4,6 +4,7 @@ import '../../config/app_theme.dart';
 import '../../models/pilgrimage_stats.dart';
 import '../../models/temple.dart';
 import '../../services/auth_service.dart';
+import '../../services/nfc_service.dart';
 import '../../services/pilgrimage_service.dart';
 import '../../services/temple_service.dart';
 import '../buddhist_figures/buddhist_figure_list_page.dart';
@@ -32,6 +33,19 @@ class _TrangChuState extends State<TrangChu> {
   void initState() {
     super.initState();
     _reload();
+    AuthService.sessionChanges.addListener(_refreshStats);
+    NfcService.checkIns.addListener(_refreshStats);
+  }
+
+  void _refreshStats() {
+    if (mounted) setState(() => _pilgrimageStats = _loadStats());
+  }
+
+  @override
+  void dispose() {
+    AuthService.sessionChanges.removeListener(_refreshStats);
+    NfcService.checkIns.removeListener(_refreshStats);
+    super.dispose();
   }
 
   void _reload() {
@@ -47,7 +61,8 @@ class _TrangChuState extends State<TrangChu> {
 
   Future<void> _refresh() async {
     setState(_reload);
-    await Future.wait([_featuredTemples, _pilgrimageStats]);
+    await Future.wait([_featuredTemples, _pilgrimageStats])
+        .then<void>((_) {}, onError: (Object _, StackTrace _) {});
   }
 
   String get _greeting {
@@ -196,7 +211,7 @@ class _TrangChuState extends State<TrangChu> {
         const SizedBox(width: 8),
         TextButton(
           key: const ValueKey('see-all-temples'),
-          onPressed: () => widget.onNavigate?.call(1),
+          onPressed: () => widget.onNavigate?.call(3),
           style: TextButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
             minimumSize: Size.zero,
@@ -389,7 +404,7 @@ class _TrangChuState extends State<TrangChu> {
               icon: Icons.temple_buddhist_outlined,
               message: 'Chưa có chùa nổi bật để gợi ý.',
               actionLabel: 'Xem danh sách',
-              onPressed: () => widget.onNavigate?.call(1),
+              onPressed: () => widget.onNavigate?.call(3),
             );
           }
 

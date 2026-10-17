@@ -4,6 +4,7 @@ import '../../config/app_theme.dart';
 import '../../models/buddhist_festival.dart';
 import '../../models/calendar_event.dart';
 import '../../services/calendar_event_store.dart';
+import '../../services/auth_service.dart';
 import '../../services/calendar_festival_service.dart';
 import '../../utils/lunar_calendar.dart';
 import 'buddhist_festival_pages.dart';
@@ -53,6 +54,17 @@ class _LichPageState extends State<LichPage> {
     _selectedDate = _dateOnly(initialDate);
     _focusedMonth = DateTime(initialDate.year, initialDate.month);
     _eventsFuture = _eventStore.load();
+    AuthService.sessionChanges.addListener(_sessionChanged);
+  }
+
+  void _sessionChanged() {
+    if (mounted) setState(() => _eventsFuture = _eventStore.load());
+  }
+
+  @override
+  void dispose() {
+    AuthService.sessionChanges.removeListener(_sessionChanged);
+    super.dispose();
   }
 
   DateTime _dateOnly(DateTime date) =>
@@ -113,7 +125,7 @@ class _LichPageState extends State<LichPage> {
       context,
       MaterialPageRoute<void>(
         builder: (_) => BuddhistFestivalListPage(
-          onFindTemples: () => widget.onNavigate?.call(1),
+          onFindTemples: () => widget.onNavigate?.call(3),
         ),
       ),
     );
