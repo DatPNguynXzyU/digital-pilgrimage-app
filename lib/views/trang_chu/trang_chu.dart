@@ -7,9 +7,9 @@ import '../../services/auth_service.dart';
 import '../../services/pilgrimage_service.dart';
 import '../../services/temple_service.dart';
 import '../buddhist_figures/buddhist_figure_list_page.dart';
+import '../temples/chi_tiet_chua.dart';
 import 'home_dhammapada_card.dart';
 import 'home_hero.dart';
-import '../temples/chi_tiet_chua.dart';
 
 class TrangChu extends StatefulWidget {
   final ValueChanged<int>? onNavigate;
