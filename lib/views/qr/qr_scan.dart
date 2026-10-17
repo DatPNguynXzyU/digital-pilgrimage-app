@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import '../../services/temple_service.dart';
-import '../../models/temple.dart';
 import '../temples/chi_tiet_chua.dart';
 
 class QrScanPage extends StatefulWidget {

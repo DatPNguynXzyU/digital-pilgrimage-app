@@ -11,6 +11,9 @@ class Temple {
   final String city;
   final String country;
 
+  final double? latitude;
+  final double? longitude;
+
   final String openingTime;
   final String closingTime;
 
@@ -38,6 +41,8 @@ class Temple {
     required this.images,
     required this.tradition,
     required this.isFeatured,
+    this.latitude,
+    this.longitude,
   });
 
   factory Temple.fromJson(
@@ -53,10 +58,15 @@ class Temple {
             as Map<String, dynamic>? ??
         {};
 
+    final location =
+        json['location']
+            as Map<String, dynamic>? ??
+        {};
+
     return Temple(
       id:
-          json['_id']
-              ?.toString() ??
+          json['_id']?.toString() ??
+          json['id']?.toString() ??
           '',
 
       name:
@@ -132,6 +142,10 @@ class Temple {
           json['isFeatured']
                   as bool? ??
               false,
+
+      latitude: double.tryParse(location['latitude']?.toString() ?? ''),
+
+      longitude: double.tryParse(location['longitude']?.toString() ?? ''),
     );
   }
 
