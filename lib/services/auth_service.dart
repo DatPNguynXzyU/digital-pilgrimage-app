@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http_parser/http_parser.dart';
 
 import '../config/api_config.dart';
+import 'biometric_lock.dart';
 
 class AuthService {
   static final sessionChanges = ValueNotifier<int>(0);
@@ -86,6 +87,7 @@ class AuthService {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString(_tokenKey) != rejectedToken) return;
     await prefs.remove(_tokenKey);
+    await BiometricLock.setEnabled(false);
     sessionChanges.value++;
   }
 
@@ -222,6 +224,7 @@ class AuthService {
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.remove(_tokenKey);
+    await BiometricLock.setEnabled(false);
     sessionChanges.value++;
   }
 

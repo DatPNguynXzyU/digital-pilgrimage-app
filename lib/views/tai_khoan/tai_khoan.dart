@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../widgets/biometric_settings_tile.dart';
 
 import '../../config/app_theme.dart';
 import '../../config/api_config.dart';
@@ -637,6 +638,7 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
                       ),
                     ),
                     const SizedBox(height: 12),
+                    const BiometricSettingsTile(),
                     Card(
                       elevation: 0,
                       color: Colors.white,
