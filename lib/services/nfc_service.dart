@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:http/http.dart' as http;
 
 import '../config/api_config.dart';
 import 'auth_service.dart';
 
 class NfcService {
+  static final checkIns = ValueNotifier<int>(0);
   final AuthService _authService = AuthService();
 
   // ==========================================
@@ -63,35 +66,32 @@ class NfcService {
       throw Exception('Bạn cần đăng nhập trước khi check-in.');
     }
 
-    final normalizedUid = normalizeUid(uid);
-    final normalizedSlug = slug?.trim().toLowerCase();
+    final normalizedUid = uid
+        .replaceAll(RegExp(r'[^0-9a-fA-F]'), '')
+        .toUpperCase();
+
+    final normalizedSlug = slug.trim().toLowerCase();
 
     if (normalizedUid.isEmpty) {
       throw Exception('UID NFC không hợp lệ.');
+    }
+
+    if (normalizedSlug.isEmpty) {
+      throw Exception('Thẻ NFC không chứa thông tin chùa.');
     }
 
     final uri = Uri.parse('${ApiConfig.baseUrl}/nfc/scan');
 
-    final requestBody = <String, dynamic>{
-      'uid': normalizedUid,
-    };
-
-    if (normalizedSlug != null && normalizedSlug.isNotEmpty) {
-      requestBody['slug'] = normalizedSlug;
-    }
-
-    if (templeId != null && templeId.trim().isNotEmpty) {
-      requestBody['templeId'] = templeId.trim();
-    }
-
-    final response = await http.post(
-      uri,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode(requestBody),
-    );
+    final response = await http
+        .post(
+          uri,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+          body: jsonEncode({'uid': normalizedUid, 'slug': normalizedSlug}),
+        )
+        .timeout(const Duration(seconds: 15));
 
     late final Map<String, dynamic> body;
     try {
@@ -101,62 +101,10 @@ class NfcService {
     }
 
     if (response.statusCode != 200 || body['success'] != true) {
-      throw Exception(
-        body['message']?.toString() ?? 'Check-in NFC thất bại.',
-      );
+      throw Exception(body['message'] ?? 'Check-in NFC thất bại.');
     }
 
-    return body;
-  }
-
-  // ==========================================
-  // LIÊN KẾT THẺ NFC VỚI CHÙA (YÊU CẦU ĐĂNG NHẬP)
-  // ==========================================
-  Future<Map<String, dynamic>> bindTag({
-    required String uid,
-    required String templeId,
-    String? label,
-  }) async {
-    final token = await _authService.getToken();
-
-    if (token == null || token.isEmpty) {
-      throw Exception('Bạn cần đăng nhập để liên kết thẻ NFC.');
-    }
-
-    final normalizedUid = normalizeUid(uid);
-
-    if (normalizedUid.isEmpty) {
-      throw Exception('UID NFC không hợp lệ.');
-    }
-
-    final uri = Uri.parse('${ApiConfig.baseUrl}/nfc/bind');
-
-    final response = await http.post(
-      uri,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode({
-        'uid': normalizedUid,
-        'templeId': templeId.trim(),
-        if (label != null && label.trim().isNotEmpty) 'label': label.trim(),
-      }),
-    );
-
-    late final Map<String, dynamic> body;
-    try {
-      body = jsonDecode(response.body) as Map<String, dynamic>;
-    } catch (_) {
-      throw Exception('Backend trả về dữ liệu không hợp lệ.');
-    }
-
-    if (response.statusCode != 200 || body['success'] != true) {
-      throw Exception(
-        body['message']?.toString() ?? 'Không thể liên kết thẻ NFC.',
-      );
-    }
-
+    checkIns.value++;
     return body;
   }
 }

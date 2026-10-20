@@ -9,6 +9,7 @@ const {
 } = require('../controllers/calendar.controller');
 
 const router = express.Router();
+router.use(require('../middleware/auth.middleware'));
 
 router.get('/', getCalendarEvents);
 router.get('/:id', getCalendarEventById);

@@ -169,7 +169,7 @@ class _CalendarReminderSettingsPageState
             _ReminderSwitchTile(
               icon: Icons.event_note_outlined,
               title: 'Lịch cá nhân',
-              subtitle: 'Các lịch được lưu trên thiết bị này',
+              subtitle: 'Các lịch cá nhân của bạn',
               value: _personalEnabled,
               onChanged: (value) => setState(() => _personalEnabled = value),
             ),
@@ -221,7 +221,7 @@ class _CalendarReminderSettingsPageState
             ),
             const SizedBox(height: 20),
             const Text(
-              'Để đồng bộ lịch và nhắc trên nhiều thiết bị, backend cần bổ sung API lịch cá nhân, đăng ký nhắc và đồng bộ trạng thái gửi. Thông báo chỉ nên được lên lịch sau khi người dùng cấp quyền hệ điều hành.',
+              'Lịch được đồng bộ theo tài khoản khi đăng nhập. Tùy chọn nhắc vẫn lưu trên thiết bị; ứng dụng chưa gửi thông báo hệ thống.',
               style: TextStyle(
                 color: AppTheme.textSecondary,
                 fontSize: 12,

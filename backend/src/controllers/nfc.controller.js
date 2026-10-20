@@ -99,7 +99,13 @@ async function getTempleByTagUid(req, res) {
 // Authorization: Bearer JWT
 // ======================================================
 async function scanNfc(req, res) {
-  const { uid, slug, templeId } = req.body;
+  const {
+    uid,
+    slug,
+  } = req.body || {};
+
+  const normalizedUid =
+    normalizeUid(uid);
 
   const normalizedUid = normalizeUid(uid);
   const normalizedSlug = normalizeSlug(slug);
@@ -299,6 +305,4 @@ async function getAllNfcTags(req, res) {
 
 module.exports = {
   scanNfc,
-  getTempleByTagUid,
-  getAllNfcTags,
 };

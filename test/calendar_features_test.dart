@@ -167,7 +167,7 @@ void main() {
     await tester.tap(find.text('Open add form'));
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextFormField).first, 'Thời khóa');
-    final saveButton = find.text('Lưu trên thiết bị');
+    final saveButton = find.text('Lưu lịch');
     await tester.scrollUntilVisible(
       saveButton,
       180,

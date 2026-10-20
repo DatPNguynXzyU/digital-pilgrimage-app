@@ -1,91 +1,10 @@
 require('dotenv').config();
-
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const connectDatabase =
-  require('./config/database');
-
-const scriptureRoutes =
-  require('./routes/scripture.routes');
-
-const calendarRoutes =
-  require('./routes/calendar.routes');
-
-const authRoutes =
-  require('./routes/auth.routes');
-
-const templeRoutes =
-  require('./routes/temple.routes');  
-
-const nfcRoutes =
-  require('./routes/nfc.routes');
-
-const pilgrimageRoutes =
-  require('./routes/pilgrimage.routes');
-
-const buddhistFigureRoutes =
-  require('./routes/buddhist-figure.routes');
-const app = express();
-
-const PORT = process.env.PORT || 3000;
-
-app.use(cors());
-app.use(express.json());
-app.use(
-  '/api/auth',
-  authRoutes
-);
-app.use(
-  '/api/temples',
-  templeRoutes
-);
-app.use(
-  '/api/nfc',
-  nfcRoutes
-);
-app.use(
-  '/api/pilgrimage',
-  pilgrimageRoutes
-)
-app.use(
-  '/img',
-  express.static(
-    path.join(__dirname, '../img')
-  )
-);
-
-
-app.get('/', (req, res) => {
-  res.json({
-    success: true,
-    message: 'Digital Pilgrimage API is running',
-  });
-});
-
-app.use(
-  '/api/scriptures',
-  scriptureRoutes
-);
-
-app.use(
-  '/api/calendar-events',
-  calendarRoutes
-);
-
-app.use(
-  '/api/buddhist-figures',
-  buddhistFigureRoutes
-);
-
+const app = require('./app');
+const connectDatabase = require('./config/database');
 async function startServer() {
+  if (!process.env.JWT_SECRET) throw new Error('JWT_SECRET chưa được cấu hình.');
   await connectDatabase();
-
-  app.listen(PORT, () => {
-    console.log(
-      `Server running at http://localhost:${PORT}`
-    );
-  });
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => console.log('Server listening on port ' + port));
 }
-
-startServer();
+startServer().catch(error => { console.error(error.message); process.exitCode = 1; });

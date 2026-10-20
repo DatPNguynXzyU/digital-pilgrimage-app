@@ -1,0 +1,113 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: '3.47.4'
+
+jobs:
+  local-cd:
+    name: Local CD safety tests
+    runs-on: windows-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Test deployment without network or Docker
+        shell: powershell
+        run: ./scripts/test-local-cd.ps1
+
+  flutter:
+    name: Flutter analyze and test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - run: flutter analyze --no-pub
+      - run: flutter test --no-pub --coverage
+      - name: Save coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: flutter-coverage
+          path: coverage/lcov.info
+          if-no-files-found: error
+          retention-days: 14
+
+  backend:
+    name: Backend integration tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Test with isolated MongoDB replica set
+        run: docker compose -p apptungkinh-tests -f compose.test.yaml up --build --attach test --abort-on-container-exit --exit-code-from test
+      - name: Collect Docker logs
+        if: always()
+        run: docker compose -p apptungkinh-tests -f compose.test.yaml logs --no-color > ci-backend.log 2>&1
+      - name: Save backend logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-test-logs
+          path: backend/ci-backend.log
+          retention-days: 7
+      - name: Clean up test containers
+        if: always()
+        run: docker compose -p apptungkinh-tests -f compose.test.yaml down --volumes --remove-orphans
+
+  android:
+    name: Android test APK
+    needs: [flutter, backend]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      API_BASE_URL: ${{ vars.API_BASE_URL || 'http://10.0.2.2:3000/api' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - run: flutter pub get --enforce-lockfile
+      - name: Build debug APK
+        run: flutter build apk --debug --no-pub --dart-define="API_BASE_URL=$API_BASE_URL"
+      - name: Save test APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-debug-${{ github.run_number }}
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: error
+          retention-days: 7

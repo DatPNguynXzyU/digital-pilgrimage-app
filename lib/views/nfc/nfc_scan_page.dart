@@ -11,8 +11,10 @@ import '../../config/app_theme.dart';
 import '../../models/temple.dart';
 import '../../services/auth_service.dart';
 import '../../services/nfc_service.dart';
+import '../../services/auth_service.dart';
 import '../tai_khoan/login_page.dart';
-import '../temples/chi_tiet_chua.dart';
+import '../tai_khoan/pilgrimage_history_page.dart';
+import '../tai_khoan/stamp_book_page.dart';
 
 class NfcScanPage extends StatefulWidget {
   const NfcScanPage({super.key});
@@ -27,6 +29,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
   final NfcService _nfcService = NfcService();
   final AuthService _authService = AuthService();
 
+  bool _starting = false;
   bool _scanning = false;
   bool _processing = false;
   bool _isLoggedIn = false;
@@ -173,18 +176,52 @@ class _NfcScanPageState extends State<NfcScanPage> {
   // ==========================================
   // BẮT ĐẦU QUÉT NFC (BẮT BUỘC ĐÃ ĐĂNG NHẬP)
   // ==========================================
-  Future<void> _startScan() async {
-    // 1. RÀNG BUỘC PHẢI ĐĂNG NHẬP
-    final token = await _authService.getToken();
-    if (token == null || token.isEmpty) {
-      if (mounted) {
-        setState(() {
-          _isLoggedIn = false;
-          _scanning = false;
-        });
-      }
-      return;
+  @override
+  void dispose() {
+    if (_scanning) {
+      NfcManager.instance.stopSession().catchError((Object _) {});
     }
+    super.dispose();
+  }
+
+  Future<void> _openResult(bool stamps) async {
+    final token = await AuthService().getToken();
+    if (!mounted || token == null) return;
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => stamps
+            ? StampBookPage(token: token)
+            : PilgrimageHistoryPage(token: token),
+      ),
+    );
+  }
+
+  Future<void> _startScan() async {
+    if (_starting || _processing || _scanning) return;
+    setState(() => _starting = true);
+    try {
+      var token = await AuthService().getToken();
+      if (!mounted) return;
+      if (token == null || token.isEmpty) {
+        await Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginPage()),
+        );
+        token = await AuthService().getToken();
+        if (!mounted || token == null || token.isEmpty) return;
+      }
+      await _scan();
+    } catch (_) {
+      if (mounted) _showMessage('Không thể khởi động NFC. Vui lòng thử lại.');
+    } finally {
+      if (mounted) setState(() => _starting = false);
+    }
+  }
+
+  Future<void> _scan() async {
+    if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) {
+      _showMessage('Hãy chạy chức năng NFC trên điện thoại Android.');
 
     if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) {
       _showMessage('Vui lòng sử dụng điện thoại Android có hỗ trợ NFC.');
@@ -192,6 +229,8 @@ class _NfcScanPageState extends State<NfcScanPage> {
     }
 
     final availability = await NfcManager.instance.checkAvailability();
+
+    if (!mounted) return;
     if (availability != NfcAvailability.enabled) {
       _showMessage('NFC chưa được bật hoặc thiết bị không hỗ trợ NFC.');
       return;
@@ -210,8 +249,11 @@ class _NfcScanPageState extends State<NfcScanPage> {
       await NfcManager.instance.startSession(
         pollingOptions: {NfcPollingOption.iso14443, NfcPollingOption.iso15693},
         onDiscovered: (NfcTag tag) async {
-          if (_processing) return;
-          _processing = true;
+          if (!mounted || !_scanning || _processing) {
+            return;
+          }
+
+          setState(() => _processing = true);
 
           try {
             HapticFeedback.mediumImpact();
@@ -272,7 +314,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
               _status = error.toString().replaceFirst('Exception: ', '');
             });
           } finally {
-            _processing = false;
+            if (mounted) setState(() => _processing = false);
           }
         },
       );
@@ -349,14 +391,31 @@ class _NfcScanPageState extends State<NfcScanPage> {
         elevation: 0,
       ),
       body: SafeArea(
-        child: _checkingAuth
-            ? const Center(child: CircularProgressIndicator())
-            : !_isLoggedIn
-            ? _buildLoginRequiredView()
-            : _buildScanView(),
-      ),
-    );
-  }
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+
+            children: [
+              const SizedBox(height: 15),
+
+              // NFC ICON
+              Center(
+                child: Container(
+                  width: 140,
+                  height: 140,
+
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFF3E1C5),
+
+                    shape: BoxShape.circle,
+                  ),
+
+                  child: Icon(
+                    successful ? Icons.check_circle : Icons.nfc,
+
+                    size: 75,
 
   // ==========================================
   // GIAO DIỆN BẮT BUỘC ĐĂNG NHẬP
@@ -478,21 +537,51 @@ class _NfcScanPageState extends State<NfcScanPage> {
                       ),
                     ),
                   ),
+                ),
 
-                  const SizedBox(height: 20),
+              if (_ndefName != null)
+                _infoCard(
+                  icon: Icons.info_outline,
 
-                  Text(
-                    hasTemple
-                        ? 'Check-in thành công!'
-                        : _scanning
-                        ? 'Đang chờ thẻ NFC...'
-                        : 'Quét thẻ NFC tại Chùa',
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: AppTheme.text,
-                    ),
+                  title: 'Thông tin trên thẻ',
+
+                  value: _ndefName!,
+                ),
+
+              if (_ndefSlug != null)
+                _infoCard(icon: Icons.link, title: 'Slug', value: _ndefSlug!),
+
+              if (_uid != null)
+                _infoCard(icon: Icons.nfc, title: 'UID NFC', value: _uid!),
+
+              if (successful) ...[
+                TextButton(
+                  onPressed: () => _openResult(true),
+                  child: const Text('Xem sổ tem'),
+                ),
+                TextButton(
+                  onPressed: () => _openResult(false),
+                  child: const Text('Xem lịch sử viếng chùa'),
+                ),
+              ],
+              const SizedBox(height: 24),
+
+              SizedBox(
+                height: 54,
+
+                child: ElevatedButton.icon(
+                  onPressed: _processing || _starting
+                      ? null
+                      : (_scanning ? _stopScan : _startScan),
+
+                  icon: Icon(_scanning ? Icons.close : Icons.nfc),
+
+                  label: Text(
+                    _scanning
+                        ? 'Dừng quét'
+                        : successful
+                        ? 'Quét lại'
+                        : 'Bắt đầu quét NFC',
                   ),
 
                   const SizedBox(height: 8),

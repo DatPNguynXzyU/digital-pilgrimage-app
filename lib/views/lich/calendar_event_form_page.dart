@@ -318,16 +318,14 @@ class _CalendarEventFormPageState extends State<CalendarEventFormPage> {
     try {
       await _store.upsert(event);
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Lịch đã lưu trên thiết bị này.')),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('Đã lưu lịch.')));
       Navigator.pop(context, event);
     } catch (error) {
       if (!mounted) return;
       setState(() => _saving = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Không thể lưu lịch trên thiết bị: $error')),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Không thể lưu lịch: $error')));
     }
   }
 
@@ -500,9 +498,7 @@ class _CalendarEventFormPageState extends State<CalendarEventFormPage> {
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
                   : const Icon(Icons.save_outlined),
-              label: Text(
-                widget.event == null ? 'Lưu trên thiết bị' : 'Lưu thay đổi',
-              ),
+              label: Text(widget.event == null ? 'Lưu lịch' : 'Lưu thay đổi'),
               style: FilledButton.styleFrom(
                 minimumSize: const Size.fromHeight(52),
               ),

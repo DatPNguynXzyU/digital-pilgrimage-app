@@ -46,3 +46,9 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Kotlin compiler local cache
+/android/.kotlin/
+
+# Local deployment state and lock
+/.local-cd/

@@ -3,4 +3,4 @@ services:
     image: cloudflare/cloudflared:latest
     command: ["tunnel", "--no-autoupdate", "--url", "http://backend:3000"]
     depends_on:
-      - backend   
+      - backend

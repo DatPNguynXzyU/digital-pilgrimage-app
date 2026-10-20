@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema(
   {
+    tokenVersion: { type: Number, default: 0, min: 0 },
     fullName: {
       type: String,
       required: true,
