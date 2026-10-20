@@ -22,6 +22,10 @@ const pilgrimageRoutes =
 const buddhistFigureRoutes =
   require('./routes/buddhist-figure.routes');
 const app = express();
+app.get('/api/health', (req, res) => {
+  const ready = require('mongoose').connection.readyState === 1;
+  res.status(ready ? 200 : 503).json({ success: ready });
+});
 
 app.use(cors());
 app.use(express.json());

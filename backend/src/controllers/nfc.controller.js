@@ -50,7 +50,7 @@ async function getTempleByTagUid(req, res) {
       .populate('templeId')
       .lean();
 
-    if (!nfcTag || !nfcTag.templeId) {
+    if (!nfcTag || !nfcTag.templeId || nfcTag.templeId.status !== 'active') {
       return res.status(404).json({
         success: false,
         registered: false,
@@ -92,7 +92,7 @@ async function getTempleByTagUid(req, res) {
 // Body:
 // {
 //   "uid": "04A1B2C3D4E5",
-//   "slug": "chua-giac-lam" // Hoặc bất kỳ slug của ngôi chùa nào
+//   "slug": "chua-giac-lam" // Nếu gửi, phải khớp với chùa đã đăng ký
 // }
 //
 // Yêu cầu:
@@ -102,10 +102,8 @@ async function scanNfc(req, res) {
   const {
     uid,
     slug,
+    templeId,
   } = req.body || {};
-
-  const normalizedUid =
-    normalizeUid(uid);
 
   const normalizedUid = normalizeUid(uid);
   const normalizedSlug = normalizeSlug(slug);
@@ -123,73 +121,30 @@ async function scanNfc(req, res) {
 
   try {
     await session.withTransaction(async () => {
-      let temple = null;
-
-      // 1. TÌM CHÙA THEO SLUG TRUYỀN VÀO TỪ THẺ NFC
-      if (normalizedSlug) {
-        temple = await Temple.findOne({
-          slug: normalizedSlug,
-          status: 'active',
-        })
-          .session(session)
-          .lean();
-      } else if (templeId && mongoose.Types.ObjectId.isValid(templeId)) {
-        temple = await Temple.findOne({
-          _id: templeId,
-          status: 'active',
-        })
-          .session(session)
-          .lean();
-      }
-
-      // 2. NẾU THẺ KHÔNG TRUYỀN SLUG, TÌM XEM UID NÀY ĐÃ TỪNG ĐƯỢC LƯU TRONG DB CHƯA
-      let nfcTag = await NfcTag.findOne({
+      // A scan may use an existing registration, but must never create or reassign it.
+      const nfcTag = await NfcTag.findOne({
         uid: normalizedUid,
         status: 'active',
       }).session(session);
-
-      if (!temple && nfcTag) {
-        temple = await Temple.findOne({
-          _id: nfcTag.templeId,
-          status: 'active',
-        })
-          .session(session)
-          .lean();
-      }
-
-      if (!temple) {
-        const error = new Error(
-          normalizedSlug
-            ? `Không tìm thấy ngôi chùa với mã định danh: "${normalizedSlug}".`
-            : 'Thẻ NFC không chứa thông tin chùa hợp lệ.'
-        );
+      if (!nfcTag) {
+        const error = new Error('Thẻ NFC không tồn tại hoặc đã bị vô hiệu hóa.');
         error.statusCode = 404;
         throw error;
       }
-
-      // 3. TỰ ĐỘNG LƯU / CẬP NHẬT LIÊN KẾT UID THẺ VỚI CHÙA
-      if (!nfcTag) {
-        const createdTags = await NfcTag.create(
-          [
-            {
-              uid: normalizedUid,
-              templeId: temple._id,
-              label: `Thẻ NFC ${temple.name}`,
-              status: 'active',
-            },
-          ],
-          { session }
-        );
-        nfcTag = createdTags[0];
-      } else if (nfcTag.templeId.toString() !== temple._id.toString()) {
-        await NfcTag.updateOne(
-          { _id: nfcTag._id },
-          {
-            templeId: temple._id,
-            label: `Thẻ NFC ${temple.name}`,
-            status: 'active',
-          }
-        ).session(session);
+      const temple = await Temple.findOne({
+        _id: nfcTag.templeId,
+        status: 'active',
+      }).session(session).lean();
+      if (!temple) {
+        const error = new Error('Chùa liên kết với thẻ NFC không tồn tại hoặc đã bị vô hiệu hóa.');
+        error.statusCode = 404;
+        throw error;
+      }
+      if ((slug !== undefined && normalizedSlug !== normalizeSlug(temple.slug)) ||
+          (templeId !== undefined && templeId !== temple._id.toString())) {
+        const error = new Error('Thông tin trên thẻ NFC không khớp với chùa đã đăng ký.');
+        error.statusCode = 400;
+        throw error;
       }
 
       // 4. TẠO LẦN VIẾNG MỚI (CHECK-IN)
@@ -305,4 +260,6 @@ async function getAllNfcTags(req, res) {
 
 module.exports = {
   scanNfc,
+  getTempleByTagUid,
+  getAllNfcTags,
 };

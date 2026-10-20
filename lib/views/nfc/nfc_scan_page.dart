@@ -9,9 +9,9 @@ import 'package:nfc_manager_ndef/nfc_manager_ndef.dart';
 
 import '../../config/app_theme.dart';
 import '../../models/temple.dart';
+import '../temples/chi_tiet_chua.dart';
 import '../../services/auth_service.dart';
 import '../../services/nfc_service.dart';
-import '../../services/auth_service.dart';
 import '../tai_khoan/login_page.dart';
 import '../tai_khoan/pilgrimage_history_page.dart';
 import '../tai_khoan/stamp_book_page.dart';
@@ -45,14 +45,6 @@ class _NfcScanPageState extends State<NfcScanPage> {
   void initState() {
     super.initState();
     _initAuthAndScan();
-  }
-
-  @override
-  void dispose() {
-    try {
-      NfcManager.instance.stopSession();
-    } catch (_) {}
-    super.dispose();
   }
 
   Future<void> _initAuthAndScan() async {
@@ -211,6 +203,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
         token = await AuthService().getToken();
         if (!mounted || token == null || token.isEmpty) return;
       }
+      setState(() => _isLoggedIn = true);
       await _scan();
     } catch (_) {
       if (mounted) _showMessage('Không thể khởi động NFC. Vui lòng thử lại.');
@@ -220,9 +213,6 @@ class _NfcScanPageState extends State<NfcScanPage> {
   }
 
   Future<void> _scan() async {
-    if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) {
-      _showMessage('Hãy chạy chức năng NFC trên điện thoại Android.');
-
     if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) {
       _showMessage('Vui lòng sử dụng điện thoại Android có hỗ trợ NFC.');
       return;
@@ -343,6 +333,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
 
       if (!mounted) return;
       setState(() {
+        _scanning = false;
         _temple = Temple.fromJson(templeJson);
         _visitCount = visitJson['visitCount'] as int?;
         _newStamp = stampJson['isNew'] == true;
@@ -351,6 +342,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
     } catch (e) {
       if (!mounted) return;
       setState(() {
+        _scanning = false;
         _status = e.toString().replaceFirst('Exception: ', '');
       });
     }
@@ -375,47 +367,23 @@ class _NfcScanPageState extends State<NfcScanPage> {
         .showSnackBar(SnackBar(content: Text(message)));
   }
 
-  // ==========================================
-  // UI BUILD
-  // ==========================================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFBF7),
       appBar: AppBar(
-        title: const Text(
-          'Quét thẻ NFC Chùa',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: const Text('Check-in NFC'),
         backgroundColor: const Color(0xFFFFFBF7),
-        elevation: 0,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-
-            children: [
-              const SizedBox(height: 15),
-
-              // NFC ICON
-              Center(
-                child: Container(
-                  width: 140,
-                  height: 140,
-
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF3E1C5),
-
-                    shape: BoxShape.circle,
-                  ),
-
-                  child: Icon(
-                    successful ? Icons.check_circle : Icons.nfc,
-
-                    size: 75,
+        child: _checkingAuth
+            ? const Center(child: CircularProgressIndicator())
+            : !_isLoggedIn
+            ? SingleChildScrollView(child: _buildLoginRequiredView())
+            : _buildScanView(),
+      ),
+    );
+  }
 
   // ==========================================
   // GIAO DIỆN BẮT BUỘC ĐĂNG NHẬP
@@ -537,53 +505,6 @@ class _NfcScanPageState extends State<NfcScanPage> {
                       ),
                     ),
                   ),
-                ),
-
-              if (_ndefName != null)
-                _infoCard(
-                  icon: Icons.info_outline,
-
-                  title: 'Thông tin trên thẻ',
-
-                  value: _ndefName!,
-                ),
-
-              if (_ndefSlug != null)
-                _infoCard(icon: Icons.link, title: 'Slug', value: _ndefSlug!),
-
-              if (_uid != null)
-                _infoCard(icon: Icons.nfc, title: 'UID NFC', value: _uid!),
-
-              if (successful) ...[
-                TextButton(
-                  onPressed: () => _openResult(true),
-                  child: const Text('Xem sổ tem'),
-                ),
-                TextButton(
-                  onPressed: () => _openResult(false),
-                  child: const Text('Xem lịch sử viếng chùa'),
-                ),
-              ],
-              const SizedBox(height: 24),
-
-              SizedBox(
-                height: 54,
-
-                child: ElevatedButton.icon(
-                  onPressed: _processing || _starting
-                      ? null
-                      : (_scanning ? _stopScan : _startScan),
-
-                  icon: Icon(_scanning ? Icons.close : Icons.nfc),
-
-                  label: Text(
-                    _scanning
-                        ? 'Dừng quét'
-                        : successful
-                        ? 'Quét lại'
-                        : 'Bắt đầu quét NFC',
-                  ),
-
                   const SizedBox(height: 8),
 
                   Text(
@@ -606,33 +527,48 @@ class _NfcScanPageState extends State<NfcScanPage> {
                     const SizedBox(height: 12),
                   ],
 
+                  if (hasTemple) ...[
+                    TextButton(
+                      onPressed: () => _openResult(true),
+                      child: const Text('Xem sổ tem'),
+                    ),
+                    TextButton(
+                      onPressed: () => _openResult(false),
+                      child: const Text('Xem lịch sử viếng chùa'),
+                    ),
+                  ],
                   const Spacer(),
 
                   // NÚT ĐIỀU KHIỂN QUÉT
-                  if (!hasTemple)
-                    SizedBox(
-                      height: 52,
-                      child: ElevatedButton.icon(
-                        onPressed: _scanning ? _stopScan : _startScan,
-                        icon: Icon(_scanning ? Icons.close : Icons.nfc),
-                        label: Text(
-                          _scanning ? 'Dừng quét' : 'Bắt đầu quét NFC',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
+                  SizedBox(
+                    height: 52,
+                    child: ElevatedButton.icon(
+                      onPressed: _processing || _starting
+                          ? null
+                          : (_scanning ? _stopScan : _startScan),
+                      icon: Icon(_scanning ? Icons.close : Icons.nfc),
+                      label: Text(
+                        _scanning
+                            ? 'Dừng quét'
+                            : hasTemple
+                            ? 'Quét lại'
+                            : 'Bắt đầu quét NFC',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
                         ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: _scanning
-                              ? Colors.red.shade700
-                              : primaryBrown,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(14),
-                          ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: _scanning
+                            ? Colors.red.shade700
+                            : primaryBrown,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
                         ),
                       ),
                     ),
+                  ),
                   const SizedBox(height: 10),
                 ],
               ),

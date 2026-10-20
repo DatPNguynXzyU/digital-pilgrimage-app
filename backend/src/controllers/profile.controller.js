@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const multer = require('multer');
+const { uploadCloudAvatar } = require('../config/avatar-storage');
+const cloudAvatars = process.env.AVATAR_STORAGE === 'cloudinary';
 
 const User = require('../models/user.model');
 
@@ -42,7 +44,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({
-  storage,
+  storage: cloudAvatars ? multer.memoryStorage() : storage,
 
   limits: {
     fileSize: 2 * 1024 * 1024,
@@ -156,8 +158,9 @@ async function updateAvatar(req, res) {
       });
     }
 
-    const avatarPath =
-      `/img/avatars/${req.file.filename}`;
+    const avatarPath = cloudAvatars
+      ? await uploadCloudAvatar(req.file, req.user._id.toString())
+      : `/img/avatars/${req.file.filename}`;
 
     const user = await User.findByIdAndUpdate(
       req.user._id,
@@ -173,7 +176,7 @@ async function updateAvatar(req, res) {
     ).select('fullName email avatar role');
 
     if (!user) {
-      fs.unlink(req.file.path, () => {});
+      if (req.file.path) fs.unlink(req.file.path, () => {});
 
       return res.status(404).json({
         success: false,
@@ -187,6 +190,7 @@ async function updateAvatar(req, res) {
       data: user,
     });
   } catch (error) {
+    if (req.file?.path) fs.unlink(req.file.path, () => {});
     console.error('Update avatar error:', error);
 
     return res.status(500).json({
