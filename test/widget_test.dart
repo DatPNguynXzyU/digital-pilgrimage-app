@@ -37,6 +37,7 @@ void main() {
   testWidgets('temple tab no longer shows the Buddhist figure lookup', (
     WidgetTester tester,
   ) async {
+    SharedPreferences.setMockInitialValues({});
     await tester.pumpWidget(const MaterialApp(home: TempleListPage()));
 
     expect(find.text('Tra cứu chư vị'), findsNothing);
@@ -46,6 +47,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Check-in NFC'), findsOneWidget);
+    expect(find.text('Yêu cầu đăng nhập'), findsOneWidget);
   });
 
   testWidgets('main navigation has the five required tabs', (

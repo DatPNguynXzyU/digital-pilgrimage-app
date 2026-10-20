@@ -58,4 +58,17 @@ void main() {
     }, () => MockClient((_) async => http.Response('{"success":false}', 400)));
     expect(NfcService.checkIns.value, revision + 1);
   });
+
+  test(
+    'NFC supports UID-only check-in without a nullable slug crash',
+    () async {
+      await http.runWithClient(
+        () => NfcService().checkIn(uid: '04:ab:01'),
+        () => MockClient((request) async {
+          expect(jsonDecode(request.body), {'uid': '04AB01'});
+          return http.Response('{"success":true,"data":{}}', 200);
+        }),
+      );
+    },
+  );
 }

@@ -30,9 +30,7 @@ class NfcService {
 
     final uri = Uri.parse('${ApiConfig.baseUrl}/nfc/temple/$normalizedUid');
 
-    final response = await http
-        .get(uri)
-        .timeout(const Duration(seconds: 15));
+    final response = await http.get(uri).timeout(const Duration(seconds: 15));
 
     late final Map<String, dynamic> body;
     try {
@@ -42,7 +40,8 @@ class NfcService {
     }
 
     if (response.statusCode != 200 || body['success'] != true) {
-      final msg = body['message']?.toString() ??
+      final msg =
+          body['message']?.toString() ??
           'Thẻ NFC chưa được liên kết với chùa nào.';
       throw Exception(msg);
     }
@@ -70,14 +69,10 @@ class NfcService {
         .replaceAll(RegExp(r'[^0-9a-fA-F]'), '')
         .toUpperCase();
 
-    final normalizedSlug = slug.trim().toLowerCase();
+    final normalizedSlug = slug?.trim().toLowerCase();
 
     if (normalizedUid.isEmpty) {
       throw Exception('UID NFC không hợp lệ.');
-    }
-
-    if (normalizedSlug.isEmpty) {
-      throw Exception('Thẻ NFC không chứa thông tin chùa.');
     }
 
     final uri = Uri.parse('${ApiConfig.baseUrl}/nfc/scan');
@@ -89,7 +84,11 @@ class NfcService {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer $token',
           },
-          body: jsonEncode({'uid': normalizedUid, 'slug': normalizedSlug}),
+          body: jsonEncode({
+            'uid': normalizedUid,
+            'slug': ?normalizedSlug,
+            'templeId': ?templeId,
+          }),
         )
         .timeout(const Duration(seconds: 15));
 

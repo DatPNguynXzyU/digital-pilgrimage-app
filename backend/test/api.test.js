@@ -168,3 +168,25 @@ test('scripture listing and detail do not expose inactive content', async () => 
   assert.equal((await request('GET', '/scriptures/draft')).status, 404);
   assert.equal((await request('GET', '/scriptures/published')).status, 200);
 });
+
+
+test('NFC UID lookup and UID-only check-in preserve registered temple ownership', async () => {
+  const user = await account();
+  const temple = await Temple.create({name:'UID Temple',slug:randomUUID()});
+  const other = await Temple.create({name:'Other Temple',slug:randomUUID()});
+  const tag = await NfcTag.create({uid:'04ABCDEF',templeId:temple._id});
+  const lookup = await request('GET', '/nfc/temple/04:AB:CD:EF');
+  assert.equal(lookup.status,200);
+  assert.equal(lookup.body.data.temple.slug,temple.slug);
+  assert.equal((await request('POST','/nfc/scan',user.token,{uid:tag.uid})).status,200);
+  for (const extra of [{slug:other.slug},{templeId:other.id},{slug:''},{templeId:'invalid'}]) {
+    assert.equal((await request('POST','/nfc/scan',user.token,{uid:tag.uid,...extra})).status,400);
+  }
+  assert.equal((await NfcTag.findById(tag._id)).templeId.toString(),temple.id);
+  assert.equal(await Visit.countDocuments({userId:user.id}),1);
+  assert.equal((await request('POST','/nfc/scan',user.token,{uid:'04FFFF00',slug:temple.slug})).status,404);
+  assert.equal(await NfcTag.countDocuments({uid:'04FFFF00'}),0);
+  await Temple.updateOne({_id:temple._id},{$set:{status:'inactive'}});
+  assert.equal((await request('GET','/nfc/temple/'+tag.uid)).status,404);
+  assert.equal((await request('POST','/nfc/scan',user.token,{uid:tag.uid})).status,404);
+});

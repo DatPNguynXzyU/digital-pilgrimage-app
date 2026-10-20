@@ -26,7 +26,6 @@ temp
 
 # Ảnh upload của user không đưa vào image
 img/avatars
-img/
 
 # File không cần trong image
 README.md
