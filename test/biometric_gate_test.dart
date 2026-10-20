@@ -17,10 +17,14 @@ void main() {
       'auth_token': 'session',
       BiometricLock.preferenceKey: true,
     });
-    await tester.pumpWidget(MaterialApp(home: BiometricGate(
-      authenticate: () async => false,
-      child: const Scaffold(body: Text('Private content')),
-    )));
+    await tester.pumpWidget(
+      MaterialApp(
+        home: BiometricGate(
+          authenticate: () async => false,
+          child: const Scaffold(body: Text('Private content')),
+        ),
+      ),
+    );
     await tester.pumpAndSettle();
     expect(find.text('Private content'), findsNothing);
     await tester.tap(find.text('Xác thực vân tay'));
