@@ -139,23 +139,28 @@ class _NfcScanButtonState extends State<NfcScanButton> {
       padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
       child: SizedBox(
         width: double.infinity,
-        height: 56,
+        height: 54,
         child: FilledButton.icon(
-          onPressed: _scanNfc,
-          icon: Icon(
-            _isScanning ? Icons.hourglass_top_rounded : Icons.nfc,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute<void>(
+                builder: (_) => const NfcScanPage(),
+              ),
+            );
+          },
+          icon: const Icon(
+            Icons.nfc_rounded,
             size: 24,
           ),
-          label: Text(
-            _isScanning
-                ? 'Đang chờ thẻ NFC... (nhấn để dừng)'
-                : 'Quét NFC tại chùa',
+          label: const Text(
+            'Quét thẻ NFC tại chùa',
           ),
           style: FilledButton.styleFrom(
-            backgroundColor: const Color(0xFF684735),
+            backgroundColor: AppTheme.primary,
             foregroundColor: const Color(0xFFFFF8EF),
             textStyle: const TextStyle(
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
             shape: RoundedRectangleBorder(
