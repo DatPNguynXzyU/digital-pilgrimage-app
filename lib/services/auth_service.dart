@@ -9,6 +9,9 @@ import 'package:http_parser/http_parser.dart';
 
 import '../config/api_config.dart';
 import 'biometric_lock.dart';
+import 'firebase_identity.dart';
+
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
 
 class AuthService {
   static final sessionChanges = ValueNotifier<int>(0);
@@ -31,6 +34,16 @@ class AuthService {
 
     final Map<String, dynamic> body = jsonDecode(response.body);
 
+    if (response.statusCode == 401 && FirebaseIdentity.configured) {
+      try {
+        return await _acceptFirebase(
+          await FirebaseIdentity.password(email, password),
+        );
+      } catch (error) {
+        await FirebaseIdentity.signOut();
+        throw Exception(FirebaseIdentity.message(error));
+      }
+    }
     if (response.statusCode != 200 || body['success'] != true) {
       throw Exception(body['message'] ?? 'Đăng nhập thất bại.');
     }
@@ -96,15 +109,45 @@ class AuthService {
   // ==============================
   Future<String?> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-
-    return prefs.getString(_tokenKey);
+    final saved = prefs.getString(_tokenKey);
+    if (saved?.startsWith('firebase:') == true) {
+      final user = (await FirebaseIdentity.auth()).currentUser;
+      if (user == null) {
+        await invalidateSession(saved!);
+        return null;
+      }
+      try {
+        final idToken = await user.getIdToken();
+        if (idToken == null) {
+          await invalidateSession(saved!);
+          return null;
+        }
+        final token = 'firebase:$idToken';
+        // Do not resurrect a session if logout happened while refreshing.
+        if (prefs.getString(_tokenKey) != saved) return null;
+        await prefs.setString(_tokenKey, token);
+        return token;
+      } on firebase.FirebaseAuthException catch (error) {
+        if ([
+          'user-disabled',
+          'user-token-expired',
+          'invalid-user-token',
+        ].contains(error.code)) {
+          await invalidateSession(saved!);
+        }
+        rethrow;
+      }
+    }
+    return saved;
   }
 
   // ==============================
   // KIỂM TRA ĐĂNG NHẬP
   // ==============================
   Future<bool> isLoggedIn() async {
-    final token = await getToken();
+    // A UI hint only; API access always refreshes and validates the token.
+    // Avoid a network request while initializing the biometric lock.
+    final token = (await SharedPreferences.getInstance()).getString(_tokenKey);
 
     return token != null && token.isNotEmpty;
   }
@@ -114,6 +157,14 @@ class AuthService {
     required String email,
     required String password,
   }) async {
+    if (FirebaseIdentity.configured) {
+      try {
+        await FirebaseIdentity.register(fullName, email, password);
+        return;
+      } catch (error) {
+        throw Exception(FirebaseIdentity.message(error));
+      }
+    }
     final uri = Uri.parse('${ApiConfig.baseUrl}/auth/register');
 
     final response = await http.post(
@@ -226,12 +277,107 @@ class AuthService {
     await prefs.remove(_tokenKey);
     await BiometricLock.setEnabled(false);
     sessionChanges.value++;
+    // Clear the app session even if the identity provider is unavailable.
+    try {
+      await FirebaseIdentity.signOut();
+    } catch (_) {}
+  }
+
+  Future<Map<String, dynamic>> loginWithGoogle() async {
+    try {
+      return await _acceptFirebase(await FirebaseIdentity.google());
+    } catch (error) {
+      try {
+        await FirebaseIdentity.signOut();
+      } catch (_) {}
+      throw Exception(FirebaseIdentity.message(error));
+    }
+  }
+
+  Future<Map<String, dynamic>> _acceptFirebase(firebase.User user) async {
+    await user.reload();
+    final current = (await FirebaseIdentity.auth()).currentUser!;
+    if (!current.emailVerified) {
+      throw Exception(
+        'Hãy mở email xác nhận (kiểm tra cả thư rác) rồi đăng nhập lại.',
+      );
+    }
+    final idToken = await current.getIdToken(true);
+    final response = await http.post(
+      Uri.parse('${ApiConfig.baseUrl}/auth/firebase'),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'idToken': idToken}),
+    );
+    final body = jsonDecode(response.body) as Map<String, dynamic>;
+    if (response.statusCode != 200 ||
+        body['success'] != true ||
+        body['token'] is! String) {
+      throw Exception(body['message'] ?? 'Không thể đăng nhập.');
+    }
+    await (await SharedPreferences.getInstance()).setString(
+      _tokenKey,
+      body['token'],
+    );
+    sessionChanges.value++;
+    return body;
+  }
+
+  Future<void> resendVerification(String email, String password) async {
+    try {
+      final user = await FirebaseIdentity.password(email, password);
+      if (user.emailVerified) {
+        throw Exception('Email đã xác nhận. Bạn có thể đăng nhập.');
+      }
+      await user.sendEmailVerification();
+    } catch (error) {
+      throw Exception(FirebaseIdentity.message(error));
+    } finally {
+      try {
+        await FirebaseIdentity.signOut();
+      } catch (_) {}
+    }
   }
 
   Future<void> changePassword({
     required String currentPassword,
     required String newPassword,
   }) async {
+    final stored = (await SharedPreferences.getInstance()).getString(_tokenKey);
+    if (stored?.startsWith('firebase:') == true) {
+      try {
+        final instance = await FirebaseIdentity.auth();
+        final user = instance.currentUser;
+        if (user == null ||
+            !user.providerData.any((p) => p.providerId == 'password')) {
+          throw Exception(
+            'Tài khoản Google: hãy quản lý mật khẩu trong tài khoản Google.',
+          );
+        }
+        await user.reauthenticateWithCredential(
+          firebase.EmailAuthProvider.credential(
+            email: user.email!,
+            password: currentPassword,
+          ),
+        );
+        final freshToken = await user.getIdToken(true);
+        final response = await http.put(
+          Uri.parse('${ApiConfig.baseUrl}/auth/firebase/change-password'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer firebase:$freshToken',
+          },
+          body: jsonEncode({'newPassword': newPassword}),
+        );
+        final body = jsonDecode(response.body) as Map<String, dynamic>;
+        if (response.statusCode != 200) {
+          throw Exception(body['message'] ?? 'Không thể đổi mật khẩu.');
+        }
+        await logout();
+        return;
+      } catch (error) {
+        throw Exception(FirebaseIdentity.message(error));
+      }
+    }
     final token = await getToken();
 
     if (token == null || token.isEmpty) {

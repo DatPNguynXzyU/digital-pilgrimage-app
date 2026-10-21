@@ -51,6 +51,68 @@ async function account() {
   return { ...credentials, token: loggedIn.body.token, registeredToken: registered.body.token, id: loggedIn.body.user.id };
 }
 const eventData = () => ({ id: randomUUID(), title: 'Lễ Phật', startAt: '2026-10-16T09:00:00.000', endAt: '2026-10-16T10:00:00.000', repeat: 'monthly', usesLunarDate: true, reminderMinutes: 30 });
+test('Firebase verification, legacy collision, blocked users and revoked sessions', async () => {
+  const legacy = await account();
+  const firebase = require('../src/config/firebase');
+  const originalVerify = firebase.verify;
+  const originalAuth = firebase.auth;
+  const oldProject = process.env.FIREBASE_PROJECT_ID;
+  process.env.FIREBASE_PROJECT_ID = 'isolated-test';
+  let revoked = false;
+  let claims = { uid: randomUUID(), email: randomUUID() + '@example.test',
+    email_verified: false, firebase: { sign_in_provider: 'password' } };
+  firebase.verify = async () => {
+    if (revoked) {
+      const error = new Error('revoked');
+      error.code = 'auth/id-token-revoked';
+      throw error;
+    }
+    return firebase.validateClaims(claims);
+  };
+  try {
+    assert.equal((await request('POST', '/auth/firebase', null, { idToken: 'test-token' })).status, 403);
+    assert.equal(await User.countDocuments({ firebaseUid: claims.uid }), 0);
+    assert.equal((await request('POST', '/auth/register', null, {
+      fullName: 'Bypass Attempt', email: 'bypass@example.test', password: 'password123',
+    })).status, 403);
+    claims.email_verified = true;
+    let signIn = await request('POST', '/auth/firebase', null, { idToken: 'test-token' });
+    assert.equal(signIn.status, 200);
+    assert.equal((await request('GET', '/auth/me', signIn.body.token)).status, 200);
+    assert.equal((await request('POST', '/auth/firebase', null, { idToken: 'test-token' })).status, 200);
+    assert.equal(await User.countDocuments({ firebaseUid: claims.uid }), 1);
+    const passwordChanges = [];
+    firebase.auth = () => ({
+      updateUser: async (uid, patch) => passwordChanges.push({ uid, patch }),
+      revokeRefreshTokens: async () => { revoked = true; },
+    });
+    claims.auth_time = Math.floor(Date.now() / 1000) - 600;
+    assert.equal((await request('PUT', '/auth/firebase/change-password', signIn.body.token,
+      { newPassword: 'New-password-456' })).status, 403);
+    assert.equal(passwordChanges.length, 0);
+    claims.auth_time = Math.floor(Date.now() / 1000);
+    assert.equal((await request('PUT', '/auth/firebase/change-password', signIn.body.token,
+      { newPassword: 'New-password-456' })).status, 200);
+    assert.deepEqual(passwordChanges, [{ uid: claims.uid, patch: { password: 'New-password-456' } }]);
+    revoked = true;
+    assert.equal((await request('GET', '/calendar-events', signIn.body.token)).status, 401);
+    revoked = false;
+    await User.updateOne({ firebaseUid: claims.uid }, { status: 'blocked' });
+    assert.equal((await request('GET', '/auth/me', signIn.body.token)).status, 403);
+    assert.equal((await request('POST', '/auth/firebase', null, { idToken: 'test-token' })).status, 403);
+    claims = { ...claims, uid: randomUUID(), email: legacy.email,
+      firebase: { sign_in_provider: 'google.com' } };
+    assert.equal((await request('POST', '/auth/firebase', null, { idToken: 'test-token' })).status, 409);
+    assert.equal((await request('POST', '/auth/login', null, {
+      email: legacy.email, password: legacy.password,
+    })).status, 200);
+  } finally {
+    firebase.verify = originalVerify;
+    firebase.auth = originalAuth;
+    if (oldProject === undefined) delete process.env.FIREBASE_PROJECT_ID;
+    else process.env.FIREBASE_PROJECT_ID = oldProject;
+  }
+});
 test('calendar requires auth on every route', async () => {
   for (const [method, path] of [['GET',''],['GET','/abc'],['POST',''],['PUT','/abc'],['DELETE','/abc']]) {
     assert.equal((await request(method, '/calendar-events' + path, null, method === 'POST' || method === 'PUT' ? eventData() : undefined)).status, 401);

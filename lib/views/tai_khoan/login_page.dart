@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/app_theme.dart';
 import '../../services/auth_service.dart';
+import '../../services/firebase_identity.dart';
 import 'register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,6 +23,48 @@ class _LoginPageState extends State<LoginPage> {
 
   bool _loading = false;
   bool _hidePassword = true;
+
+  Future<void> _google() async {
+    if (_loading) return;
+    setState(() => _loading = true);
+    try {
+      await _authService.loginWithGoogle();
+      if (mounted) Navigator.pop(context, true);
+    } catch (error) {
+      if (mounted) {
+        _showMessage(error.toString().replaceFirst('Exception: ', ''));
+      }
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _resend() async {
+    if (_loading) return;
+    if (_emailController.text.trim().isEmpty ||
+        _passwordController.text.isEmpty) {
+      _showMessage(
+        'Hãy nhập email và mật khẩu đã đăng ký để gửi lại xác nhận.',
+      );
+      return;
+    }
+    setState(() => _loading = true);
+    try {
+      await _authService.resendVerification(
+        _emailController.text,
+        _passwordController.text,
+      );
+      if (mounted) {
+        _showMessage('Đã gửi email xác nhận. Hãy kiểm tra cả thư rác.');
+      }
+    } catch (error) {
+      if (mounted) {
+        _showMessage(error.toString().replaceFirst('Exception: ', ''));
+      }
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
 
   @override
   void dispose() {
@@ -93,7 +136,17 @@ class _LoginPageState extends State<LoginPage> {
     if (!mounted) return;
 
     if (registered == true) {
-      _showMessage('Đăng ký thành công! Hãy đăng nhập bằng tài khoản mới.');
+      final loggedIn = await _authService.isLoggedIn();
+      if (!mounted) return;
+      if (loggedIn) {
+        Navigator.pop(context, true);
+      } else {
+        _showMessage(
+          FirebaseIdentity.configured
+              ? 'Đã gửi email xác nhận. Hãy mở liên kết trong email rồi đăng nhập.'
+              : 'Đăng ký thành công! Hãy đăng nhập bằng tài khoản mới.',
+        );
+      }
     }
   }
 
@@ -256,6 +309,16 @@ class _LoginPageState extends State<LoginPage> {
               ),
 
               const SizedBox(height: 20),
+              OutlinedButton.icon(
+                onPressed: _loading ? null : _google,
+                icon: const Icon(Icons.account_circle_outlined),
+                label: const Text('Tiếp tục với Google'),
+              ),
+              if (FirebaseIdentity.configured)
+                TextButton(
+                  onPressed: _loading ? null : _resend,
+                  child: const Text('Gửi lại email xác nhận'),
+                ),
 
               // ===================================
               // NÚT ĐĂNG KÝ - MỚI THÊM
