@@ -5,6 +5,8 @@ npm-debug.log*
 # Bí mật và môi trường local
 .env
 .env.*
+*service-account*.json
+*firebase-adminsdk*.json
 !.env.example
 
 # Git

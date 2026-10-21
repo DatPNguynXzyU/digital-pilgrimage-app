@@ -22,6 +22,9 @@ const authMiddleware = require(
 );
 
 const router = express.Router();
+const firebaseAuth = require('../controllers/firebase-auth.controller');
+router.post('/firebase', firebaseAuth.signIn);
+router.put('/firebase/change-password', authMiddleware, firebaseAuth.changePassword);
 
 // Public
 router.post(

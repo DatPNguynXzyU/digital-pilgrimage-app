@@ -24,6 +24,25 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _loading = false;
   bool _showPassword = false;
 
+  Future<void> _google() async {
+    if (_loading) return;
+    setState(() => _loading = true);
+    try {
+      await _authService.loginWithGoogle();
+      if (mounted) Navigator.pop(context, true);
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error.toString().replaceFirst('Exception: ', '')),
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -226,6 +245,11 @@ class _RegisterPageState extends State<RegisterPage> {
                     'Đã có tài khoản? Đăng nhập',
                     style: TextStyle(color: primaryBrown),
                   ),
+                ),
+                OutlinedButton.icon(
+                  onPressed: _loading ? null : _google,
+                  icon: const Icon(Icons.account_circle_outlined),
+                  label: const Text('Đăng ký với Google'),
                 ),
               ],
             ),

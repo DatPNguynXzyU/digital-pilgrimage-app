@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const userSchema = new mongoose.Schema(
   {
     tokenVersion: { type: Number, default: 0, min: 0 },
+    firebaseUid: { type: String, unique: true, sparse: true, immutable: true },
     fullName: {
       type: String,
       required: true,
@@ -26,7 +27,7 @@ const userSchema = new mongoose.Schema(
 
     passwordHash: {
       type: String,
-      required: true,
+      required: function () { return !this.firebaseUid; },
 
       // Khi query User bình thường,
       // passwordHash sẽ không được trả về.

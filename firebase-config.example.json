@@ -1,0 +1,8 @@
+{
+  "API_BASE_URL": "https://digital-pilgrimage-api.onrender.com/api",
+  "FIREBASE_PROJECT_ID": "",
+  "FIREBASE_API_KEY": "",
+  "FIREBASE_APP_ID": "",
+  "FIREBASE_MESSAGING_SENDER_ID": "",
+  "GOOGLE_WEB_CLIENT_ID": ""
+}

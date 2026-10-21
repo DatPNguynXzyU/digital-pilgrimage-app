@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const firebase = require('../config/firebase');
 
 const User =
   require('../models/user.model');
@@ -38,6 +39,21 @@ async function authMiddleware(
         message:
           'Token không hợp lệ.',
       });
+    }
+
+    if (token.startsWith('firebase:')) {
+      if (!firebase.configured()) {
+        return res.status(503).json({ success: false, message: 'Dịch vụ xác thực chưa được cấu hình.' });
+      }
+      const claims = await firebase.verify(token.slice(9));
+      const user = await User.findOne({ firebaseUid: claims.uid });
+      if (!user) return res.status(401).json({ success: false, message: 'Hãy đăng nhập lại.' });
+      if (user.status !== 'active') {
+        return res.status(403).json({ success: false, message: 'Tài khoản đã bị khóa.' });
+      }
+      req.user = user;
+      req.firebaseClaims = claims;
+      return next();
     }
 
     if (!process.env.JWT_SECRET) {
@@ -90,6 +106,9 @@ async function authMiddleware(
 
     next();
   } catch (error) {
+    if (error.code?.startsWith('auth/')) {
+      return res.status(401).json({ success: false, message: 'Phiên đăng nhập đã hết hạn, bị thu hồi hoặc email chưa xác nhận.' });
+    }
     if (
       error.name ===
         'JsonWebTokenError' ||

@@ -88,6 +88,11 @@ jobs:
     timeout-minutes: 30
     env:
       API_BASE_URL: ${{ vars.API_BASE_URL || 'http://10.0.2.2:3000/api' }}
+      FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
+      FIREBASE_API_KEY: ${{ vars.FIREBASE_API_KEY }}
+      FIREBASE_APP_ID: ${{ vars.FIREBASE_APP_ID }}
+      FIREBASE_MESSAGING_SENDER_ID: ${{ vars.FIREBASE_MESSAGING_SENDER_ID }}
+      GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -103,7 +108,14 @@ jobs:
           cache: true
       - run: flutter pub get --enforce-lockfile
       - name: Build debug APK
-        run: flutter build apk --debug --no-pub --dart-define="API_BASE_URL=$API_BASE_URL"
+        run: |
+          flutter build apk --debug --no-pub \
+            --dart-define="API_BASE_URL=$API_BASE_URL" \
+            --dart-define="FIREBASE_PROJECT_ID=$FIREBASE_PROJECT_ID" \
+            --dart-define="FIREBASE_API_KEY=$FIREBASE_API_KEY" \
+            --dart-define="FIREBASE_APP_ID=$FIREBASE_APP_ID" \
+            --dart-define="FIREBASE_MESSAGING_SENDER_ID=$FIREBASE_MESSAGING_SENDER_ID" \
+            --dart-define="GOOGLE_WEB_CLIENT_ID=$GOOGLE_WEB_CLIENT_ID"
       - name: Save test APK
         uses: actions/upload-artifact@v4
         with:

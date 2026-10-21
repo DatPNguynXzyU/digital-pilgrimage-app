@@ -64,6 +64,12 @@ function sanitizeUser(user) {
 // ========================================
 
 async function register(req, res) {
+  if (require('../config/firebase').configured()) {
+    return res.status(403).json({
+      success: false,
+      message: 'Vui lòng cập nhật ứng dụng để đăng ký và xác nhận email.',
+    });
+  }
   try {
     const {
       fullName,
@@ -226,7 +232,7 @@ async function login(req, res) {
         email: normalizedEmail,
       }).select('+passwordHash');
 
-    if (!user) {
+    if (!user || !user.passwordHash || user.firebaseUid) {
       return res.status(401).json({
         success: false,
 
@@ -362,6 +368,10 @@ async function changePassword(req, res) {
         message:
           'Không tìm thấy tài khoản.',
       });
+    }
+
+    if (user.firebaseUid) {
+      return res.status(400).json({ success: false, message: 'Hãy đổi mật khẩu qua luồng xác thực Firebase.' });
     }
 
     if (user.status !== 'active') {
