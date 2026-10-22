@@ -11,6 +11,7 @@ import '../buddhist_figures/buddhist_figure_list_page.dart';
 import '../temples/chi_tiet_chua.dart';
 import 'home_dhammapada_card.dart';
 import 'home_hero.dart';
+import '../../widgets/profile_avatar.dart';
 
 class TrangChu extends StatefulWidget {
   final ValueChanged<int>? onNavigate;
@@ -60,6 +61,7 @@ class _TrangChuState extends State<TrangChu> {
   }
 
   Future<void> _refresh() async {
+    AuthService.profileChanges.value++;
     setState(_reload);
     await Future.wait([_featuredTemples, _pilgrimageStats])
         .then<void>((_) {}, onError: (Object _, StackTrace _) {});
@@ -161,10 +163,7 @@ class _TrangChuState extends State<TrangChu> {
                 shape: BoxShape.circle,
                 border: Border.all(color: AppTheme.border),
               ),
-              child: const Icon(
-                Icons.person_outline_rounded,
-                color: AppTheme.primary,
-              ),
+              child: const ProfileAvatar(),
             ),
           ),
         ),
