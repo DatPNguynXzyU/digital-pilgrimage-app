@@ -72,11 +72,14 @@ class _HomeDhammapadaCardState extends State<HomeDhammapadaCard> {
             _quote!.content,
             style: const TextStyle(fontSize: 14, height: 1.5),
           ),
-          const SizedBox(height: 8),
-          Text(
-            _quote!.source,
-            style: const TextStyle(color: AppTheme.textSecondary),
-          ),
+          if (_quote!.source.trim().isNotEmpty &&
+              _quote!.source.trim() != 'Kinh Pháp Cú') ...[
+            const SizedBox(height: 8),
+            Text(
+              _quote!.source,
+              style: const TextStyle(color: AppTheme.textSecondary),
+            ),
+          ],
         ],
         Align(
           alignment: Alignment.centerRight,

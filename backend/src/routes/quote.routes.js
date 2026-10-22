@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Quote = require('../models/quote.model');
+const { resolveQuote } = require('../utils/quote-content');
 
 router.get('/random', async (req, res) => {
   const exclude = req.query.exclude;
@@ -19,7 +20,7 @@ router.get('/random', async (req, res) => {
       ]);
     }
     res.set('Cache-Control', 'no-store');
-    return res.json({ success: true, data: quote || null });
+    return res.json({ success: true, data: resolveQuote(quote, exclude) || null });
   } catch (error) {
     console.error('Quote error:', error);
     return res.status(500).json({ success: false, message: 'Không thể tải câu Phật ngôn.' });

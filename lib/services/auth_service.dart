@@ -14,6 +14,7 @@ import 'firebase_identity.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 
 class AuthService {
+  static final profileChanges = ValueNotifier<int>(0);
   static final sessionChanges = ValueNotifier<int>(0);
   static const String _tokenKey = 'auth_token';
 
@@ -213,6 +214,7 @@ class AuthService {
     if (response.statusCode != 200 || body['success'] != true) {
       throw Exception(body['message'] ?? 'Không thể cập nhật hồ sơ.');
     }
+    profileChanges.value++;
   }
 
   // =====================================
@@ -266,6 +268,7 @@ class AuthService {
     if (response.statusCode != 200 || body['success'] != true) {
       throw Exception(body['message'] ?? 'Không thể cập nhật ảnh đại diện.');
     }
+    profileChanges.value++;
   }
 
   // ==============================
