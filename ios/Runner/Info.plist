@@ -2,6 +2,21 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Dùng camera để quét mã QR và chụp ảnh đại diện.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Chọn ảnh đại diện từ thư viện ảnh của bạn.</string>
+	<key>NFCReaderUsageDescription</key>
+	<string>Đọc thẻ NFC tại chùa để check-in và nhận tem hành hương.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array><string>$(GOOGLE_REVERSED_CLIENT_ID)</string></array>
+		</dict>
+	</array>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Xác thực để mở khóa ứng dụng Hành trình an nhiên.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>

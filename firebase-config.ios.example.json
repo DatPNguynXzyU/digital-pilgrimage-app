@@ -1,0 +1,9 @@
+{
+  "API_BASE_URL": "https://digital-pilgrimage-api.onrender.com/api",
+  "FIREBASE_PROJECT_ID": "hanh-trinh-an-nhien",
+  "FIREBASE_API_KEY": "",
+  "FIREBASE_IOS_APP_ID": "",
+  "FIREBASE_MESSAGING_SENDER_ID": "",
+  "GOOGLE_WEB_CLIENT_ID": "",
+  "GOOGLE_IOS_CLIENT_ID": ""
+}

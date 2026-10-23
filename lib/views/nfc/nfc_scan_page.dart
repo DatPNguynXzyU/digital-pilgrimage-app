@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
+import 'package:nfc_manager/nfc_manager_ios.dart';
 import 'package:nfc_manager_ndef/nfc_manager_ndef.dart';
 
 import '../../config/app_theme.dart';
@@ -59,7 +60,10 @@ class _NfcScanPageState extends State<NfcScanPage> {
 
     if (loggedIn &&
         !kIsWeb &&
-        defaultTargetPlatform == TargetPlatform.android) {
+        [
+          TargetPlatform.android,
+          TargetPlatform.iOS,
+        ].contains(defaultTargetPlatform)) {
       _startScan();
     }
   }
@@ -68,6 +72,17 @@ class _NfcScanPageState extends State<NfcScanPage> {
   // TRÍCH XUẤT UID VẬT LÝ CỦA THẺ NFC
   // ==========================================
   String? _extractUid(NfcTag tag) {
+    if (!kIsWeb && defaultTargetPlatform == TargetPlatform.iOS) {
+      final bytes =
+          MiFareIos.from(tag)?.identifier ??
+          Iso15693Ios.from(tag)?.identifier ??
+          Iso7816Ios.from(tag)?.identifier;
+      if (bytes == null || bytes.isEmpty) return null;
+      return bytes
+          .map((b) => b.toRadixString(16).padLeft(2, '0'))
+          .join()
+          .toUpperCase();
+    }
     try {
       final androidTag = NfcTagAndroid.from(tag);
       if (androidTag != null && androidTag.id.isNotEmpty) {
@@ -213,8 +228,14 @@ class _NfcScanPageState extends State<NfcScanPage> {
   }
 
   Future<void> _scan() async {
-    if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) {
-      _showMessage('Vui lòng sử dụng điện thoại Android có hỗ trợ NFC.');
+    if (kIsWeb ||
+        ![
+          TargetPlatform.android,
+          TargetPlatform.iOS,
+        ].contains(defaultTargetPlatform)) {
+      _showMessage(
+        'Vui lòng sử dụng điện thoại Android hoặc iPhone có hỗ trợ NFC.',
+      );
       return;
     }
 
@@ -237,6 +258,15 @@ class _NfcScanPageState extends State<NfcScanPage> {
 
     try {
       await NfcManager.instance.startSession(
+        alertMessageIos: 'Đưa phần trên iPhone lại gần thẻ NFC của chùa.',
+        invalidateAfterFirstReadIos: false,
+        onSessionErrorIos: (_) {
+          if (!mounted || _processing) return;
+          setState(() {
+            _scanning = false;
+            _status = 'Phiên quét đã kết thúc. Nhấn quét để thử lại.';
+          });
+        },
         pollingOptions: {NfcPollingOption.iso14443, NfcPollingOption.iso15693},
         onDiscovered: (NfcTag tag) async {
           if (!mounted || !_scanning || _processing) {

@@ -4,6 +4,7 @@ import '../../config/app_theme.dart';
 import '../../services/auth_service.dart';
 import '../../services/firebase_identity.dart';
 import 'register_page.dart';
+import 'forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -267,7 +268,23 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
 
-              const SizedBox(height: 24),
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: _loading
+                      ? null
+                      : () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ForgotPasswordPage(
+                              initialEmail: _emailController.text,
+                            ),
+                          ),
+                        ),
+                  child: const Text('Quên mật khẩu?'),
+                ),
+              ),
+              const SizedBox(height: 12),
 
               // ===================================
               // NÚT ĐĂNG NHẬP

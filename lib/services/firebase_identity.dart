@@ -7,6 +7,10 @@ class FirebaseIdentity {
   static const projectId = String.fromEnvironment('FIREBASE_PROJECT_ID');
   static const apiKey = String.fromEnvironment('FIREBASE_API_KEY');
   static const appId = String.fromEnvironment('FIREBASE_APP_ID');
+  static const iosAppId = String.fromEnvironment('FIREBASE_IOS_APP_ID');
+  static const iosClientId = String.fromEnvironment('GOOGLE_IOS_CLIENT_ID');
+  static bool get _isIos =>
+      !kIsWeb && defaultTargetPlatform == TargetPlatform.iOS;
   static const senderId = String.fromEnvironment(
     'FIREBASE_MESSAGING_SENDER_ID',
   );
@@ -14,7 +18,7 @@ class FirebaseIdentity {
   static bool get configured =>
       projectId.isNotEmpty &&
       apiKey.isNotEmpty &&
-      appId.isNotEmpty &&
+      (_isIos ? iosAppId : appId).isNotEmpty &&
       senderId.isNotEmpty;
   static Future<FirebaseAuth>? _initialization;
   static Future<void>? _googleInitialization;
@@ -34,9 +38,10 @@ class FirebaseIdentity {
   static Future<FirebaseAuth> _initialize() async {
     if (Firebase.apps.isEmpty) {
       await Firebase.initializeApp(
-        options: const FirebaseOptions(
+        options: FirebaseOptions(
           apiKey: apiKey,
-          appId: appId,
+          appId: _isIos ? iosAppId : appId,
+          iosClientId: _isIos ? iosClientId : null,
           messagingSenderId: senderId,
           projectId: projectId,
         ),
@@ -79,14 +84,24 @@ class FirebaseIdentity {
 
   static Future<User> google() async {
     final instance = await auth();
-    if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) {
-      throw Exception('Luồng Google hiện được cấu hình cho ứng dụng Android.');
+    if (kIsWeb ||
+        ![
+          TargetPlatform.android,
+          TargetPlatform.iOS,
+        ].contains(defaultTargetPlatform)) {
+      throw Exception('Đăng nhập Google hỗ trợ Android và iOS.');
+    }
+    if (_isIos && iosClientId.isEmpty) {
+      throw Exception('Chưa cấu hình Google iOS Client ID.');
     }
     if (googleClientId.isEmpty) {
       throw Exception('Chưa cấu hình Google Web Client ID.');
     }
     await (_googleInitialization ??= GoogleSignIn.instance
-        .initialize(serverClientId: googleClientId)
+        .initialize(
+          clientId: _isIos ? iosClientId : null,
+          serverClientId: googleClientId,
+        )
         .catchError((Object error) {
           _googleInitialization = null;
           throw error;
@@ -104,6 +119,15 @@ class FirebaseIdentity {
     if (_initialization == null) return;
     await (await auth()).signOut();
     if (_googleInitialization != null) await GoogleSignIn.instance.signOut();
+  }
+
+  static Future<void> sendPasswordReset(String email) async {
+    try {
+      await (await auth()).sendPasswordResetEmail(email: email.trim());
+    } on FirebaseAuthException catch (error) {
+      // Give the same result for unknown addresses to avoid account enumeration.
+      if (error.code != 'user-not-found') rethrow;
+    }
   }
 
   static String message(Object error) {

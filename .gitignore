@@ -55,3 +55,5 @@ app.*.map.json
 **/*service-account*.json
 **/*firebase-adminsdk*.json
 /firebase-config.json
+/firebase-config.ios.json
+/ios/Flutter/Firebase.local.xcconfig
