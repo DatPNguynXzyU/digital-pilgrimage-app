@@ -15,7 +15,7 @@
       "open": "06:30",
       "close": "20:00"
     },
-    "thumbnail": "https://owa.bestprice.vn/images/destinations/uploads/chua-giac-lam-60a232136c860.jpg",
+    "thumbnail": "/img/chua/chuagiaclam.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -42,7 +42,7 @@
       "open": "06:00",
       "close": "21:00"
     },
-    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/2/27/C%E1%BB%95ng_ch%C3%B9a_V%C4%A9nh_Nghi%C3%AAm.jpg",
+    "thumbnail": "/img/chua/chuavinhnghiem.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -69,7 +69,7 @@
       "open": "07:00",
       "close": "18:00"
     },
-    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Ph%C6%B0%E1%BB%9Bc_H%E1%BA%A3i_T%E1%BB%B1.jpg/1280px-Ph%C6%B0%E1%BB%9Bc_H%E1%BA%A3i_T%E1%BB%B1.jpg",
+    "thumbnail": "/img/chua/chuagiacngo.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -88,7 +88,7 @@
     "history": "Được thành lập vào năm 1942 và trải qua nhiều đợt đại trùng tu lớn tạo nên diện tích và cảnh quan tráng lệ như hiện nay",
     "address": {
       "street": "81 Nguyễn Xiển, Long Bình, Thành phố Thủ Đức",
-      "ward": "Tăng Nhơn Phú",
+      "ward": "",
       "city": "TP. Hồ Chí Minh",
       "country": "Việt Nam"
     },
@@ -96,7 +96,7 @@
       "open": "07:00",
       "close": "17:00"
     },
-    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Th%C3%A1p_ch%C3%ADnh_ch%C3%B9a_B%E1%BB%ADu_Long.jpg",
+    "thumbnail": "/img/chua/chuabuulong.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -123,7 +123,7 @@
       "open": "07:30",
       "close": "19:30"
     },
-    "thumbnail": "https://avaco.com.vn/uploads/images/mau-thiet-ke-chua-dep-1(3).jpg",
+    "thumbnail": "/img/chua/vietnamquoctu.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -150,7 +150,7 @@
       "open": "06:00",
       "close": "17:30"
     },
-    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0a/Thien_Hau_Pagoda_%2810017896294%29.jpg/1280px-Thien_Hau_Pagoda_%2810017896294%29.jpg",
+    "thumbnail": "/img/chua/chuabathienhau.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -177,7 +177,7 @@
       "open": "06:00",
       "close": "21:00"
     },
-    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b9/Ch%C3%B9a_Ph%C3%A1p_Hoa%2C_k%C3%AAnh_Nhi%C3%AAu_L%E1%BB%99c.JPG/960px-Ch%C3%B9a_Ph%C3%A1p_Hoa%2C_k%C3%AAnh_Nhi%C3%AAu_L%E1%BB%99c.JPG",
+    "thumbnail": "/img/chua/chuaphaphoa.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -204,7 +204,7 @@
       "open": "06:00",
       "close": "21:00"
     },
-    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/de/ChuaXaLoi001.jpg/1280px-ChuaXaLoi001.jpg",
+    "thumbnail": "/img/chua/chuaxaloi.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -231,7 +231,7 @@
       "open": "06:00",
       "close": "21:00"
     },
-    "thumbnail": "https://statics.vinpearl.com/chua-pho-quang-1_1630405760.jpg",
+    "thumbnail": "/img/chua/chuaphoquang.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -246,8 +246,8 @@
     "name": "Chùa Vạn Phật",
     "slug": "chua-van-phat",
     "otherNames": [],
-    "description": "Chùa có hệ thống tượng Phật được xếp vào hàng kỷ lục tại Việt Nam",
-    "history": "Được xây dựng vào năm 1959, khởi đầu chùa khá đơn sơ và tạm bợ chỉ sau đợt trùng tu kéo dài 10 năm  ngôi chùa mới có diện mạo nhu ngày nay",
+    "description": "Chùa có hệ thống tượng Phật được xếp vào hàng kỷ kỷ kỷ lục tại Việt Nam",
+    "history": "Được xây dựng vào năm 1959, khởi đầu chùa khá đơn sơ và tạm bợ chỉ sau đợt trùng tu kéo dài 10 năm ngôi chùa mới có diện mạo nhu ngày nay",
     "address": {
       "street": "66/14 Nghĩa Thục, Quận 5",
       "ward": "Phường 5",
@@ -258,7 +258,7 @@
       "open": "07:00",
       "close": "19:00"
     },
-    "thumbnail": "https://cdn2.tuoitre.vn/nld/291774122806476800/2024/2/11/1-170762150215227584816.jpeg",
+    "thumbnail": "/img/chua/chuavanduc.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -285,7 +285,7 @@
       "open": "",
       "close": ""
     },
-    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/17/An_Quang_Pagoda_%2810017886424%29.jpg/1280px-An_Quang_Pagoda_%2810017886424%29.jpg",
+    "thumbnail": "/img/chua/chuaanquang.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -312,7 +312,7 @@
       "open": "06:00",
       "close": "20:00"
     },
-    "thumbnail": "https://housevnstorage.blob.core.windows.net/media/imager_987.jpeg",
+    "thumbnail": "/img/chua/chuahuenghiem.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -339,7 +339,7 @@
       "open": "",
       "close": ""
     },
-    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2f/Ch%C3%B9a_Hu%C3%AA_nghi%C3%AAm-An_Ph%C3%BA%2C_Qu%E1%BA%ADn_2%2C_TPHCM%2C_Vi%E1%BB%87t_Nam_-_panoramio.jpg/1920px-Ch%C3%B9a_Hu%C3%AA_nghi%C3%AAm-An_Ph%C3%BA%2C_Qu%E1%BA%ADn_2%2C_TPHCM%2C_Vi%E1%BB%87t_Nam_-_panoramio.jpg",
+    "thumbnail": "/img/chua/chuahuenghiem.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -366,7 +366,7 @@
       "open": "06:00",
       "close": "19:00"
     },
-    "thumbnail": "https://www.chuaviettoancau.com/userfiles/2020/01/181-01-4778.jpg",
+    "thumbnail": "/img/chua/chuaphapvo.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -393,7 +393,7 @@
       "open": "06:00",
       "close": "20:00"
     },
-    "thumbnail": "https://chuaphuocvien.org/images/hero-main.jpg",
+    "thumbnail": "/img/chua/chuaphuocvien.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -420,7 +420,7 @@
       "open": "06:00",
       "close": "18:00"
     },
-    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/ChuaGiacVien01.jpg/500px-ChuaGiacVien01.jpg",
+    "thumbnail": "/img/chua/ChuaGiacVien.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -447,7 +447,7 @@
       "open": "06:00",
       "close": "20:00"
     },
-    "thumbnail": "https://phatgiaonguyenthuy.com/media/cats/chua/chua-viet-nam/buu-quang/buu%20quang-1-c%E1%BB%95ng.jpg",
+    "thumbnail": "/img/chua/chuabuuquang.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -474,7 +474,7 @@
       "open": "05:00",
       "close": "21:00"
     },
-    "thumbnail": "https://statics.vinpearl.com/chua-giac-ngo-01_1679662319.jpg",
+    "thumbnail": "/img/chua/chuagiacngo.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -501,7 +501,7 @@
       "open": "06:00",
       "close": "20:30"
     },
-    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/81/Ch%C3%B9a_V%E1%BA%A1n_%C4%90%E1%BB%A9c_%E1%BB%9F_Th%E1%BB%A7_%C4%90%E1%BB%A9c%2C_th%C3%A1ng_12_n%C4%83m_2021_%28Ch%C3%ADnh_%C4%91i%E1%BB%87n%29_%288%29.jpg/960px-Ch%C3%B9a_V%E1%BA%A1n_%C4%90%E1%BB%A9c_%E1%BB%9F_Th%E1%BB%A7_%C4%90%E1%BB%A9c%2C_th%C3%A1ng_12_n%C4%83m_2021_%28Ch%C3%ADnh_%C4%91i%E1%BB%87n%29_%288%29.jpg",
+    "thumbnail": "/img/chua/chuavanduc.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -528,7 +528,7 @@
       "open": "06:00",
       "close": "18:00"
     },
-    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/77/Ch%C3%B9a_Ch%C4%83ntar%C4%83ngs%C3%A2y.JPG/500px-Ch%C3%B9a_Ch%C4%83ntar%C4%83ngs%C3%A2y.JPG",
+    "thumbnail": "/img/chua/ChuaChăntarăngsây.png",
     "images": [],
     "tradition": "",
     "contact": {
@@ -555,7 +555,7 @@
       "open": "06:00",
       "close": "18:00"
     },
-    "thumbnail": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Ch%C3%B9a_Ph%E1%BB%A5ng_S%C6%A1n%2C_th%C3%A1ng_01_n%C4%83m_2022_%28phi%E1%BA%BFn_%C4%91%C3%A1_kh%E1%BA%AFc_ch%E1%BB%AF_th%C6%B0_ph%C3%A1p%29_%282%29.jpg/500px-Ch%C3%B9a_Ph%E1%BB%A5ng_S%C6%A1n%2C_th%C3%A1ng_01_n%C4%83m_2022_%28phi%E1%BA%BFn_%C4%91%C3%A1_kh%E1%BA%AFc_ch%E1%BB%AF_th%C6%B0_ph%C3%A1p%29_%282%29.jpg",
+    "thumbnail": "/img/chua/chuaphungson.png",
     "images": [],
     "tradition": "",
     "contact": {

@@ -1,66 +1,2810 @@
 [
   {
     "code": "quote-001",
-    "content": "Ý dẫn đầu các pháp,\nÝ làm chủ, ý tạo;\nNếu với ý ô nhiễm,\nNói lên hay hành động,\nKhổ não bước theo sau,\nNhư xe, chân vật kéo.",
+    "content": "Ý dẫn đầu các pháp, Ý làm chủ, ý tạo; Nếu với ý ô nhiễm, Nói lên hay hành động, Khổ não bước theo sau, Như xe, chân vật kéo.",
     "author": "",
-    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 1",
-    "category": "mindfulness",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
     "isActive": true
   },
   {
     "code": "quote-002",
-    "content": "Ý dẫn đầu các pháp,\nÝ làm chủ, ý tạo;\nNếu với ý thanh tịnh,\nNói lên hay hành động,\nAn lạc bước theo sau,\nNhư bóng, không rời hình.",
+    "content": "Ý dẫn đầu các pháp, Ý làm chủ, ý tạo; Nếu với ý thanh tịnh, Nói lên hay hành động, An lạc bước theo sau, Như bóng, không rời hình.",
     "author": "",
-    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 2",
-    "category": "mindfulness",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
     "isActive": true
   },
   {
     "code": "quote-003",
-    "content": "Nó mắng tôi, đánh tôi,\nNó thắng tôi, cướp tôi\nAi ôm hiềm hận ấy,\nHận thù không thể nguôi.",
+    "content": "Nó mắng tôi, đánh tôi, Nó thắng tôi, cướp tôi Ai ôm hiềm hận ấy, Hận thù không thể nguôi.",
     "author": "",
-    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 3",
+    "source": "Kinh Pháp Cú",
     "category": "compassion",
     "isActive": true
   },
   {
     "code": "quote-004",
-    "content": "Nó mắng tôi, đánh tôi,\nNó thắng tôi, cướp tôi\nKhông ôm hiềm hận ấy,\nHận thù được tự nguôi.",
+    "content": "Nó mắng tôi, đánh tôi, Nó thắng tôi, cướp tôi Không ôm hiềm hận ấy, Hận thù được tự nguôi.",
     "author": "",
-    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 4",
+    "source": "Kinh Pháp Cú",
     "category": "compassion",
     "isActive": true
   },
   {
     "code": "quote-005",
-    "content": "Với hận diệt hận thù,\nÐời này không có được.\nKhông hận diệt hận thù,\nLà định luật ngàn thu.",
+    "content": "Với hận diệt hận thù, Ðời này không có được. Không hận diệt hận thù, Là định luật ngàn thu.",
     "author": "",
-    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 5",
+    "source": "Kinh Pháp Cú",
     "category": "compassion",
     "isActive": true
   },
   {
     "code": "quote-006",
-    "content": "Và người khác không biết,\nChúng ta đây bị hại.\nChỗ ấy, ai hiểu được\nTranh luận được lắng êm.",
+    "content": "Và người khác không biết, Chúng ta đây bị hại. Chỗ ấy, ai hiểu được Tranh luận được lắng êm.",
     "author": "",
-    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 6",
-    "category": "compassion",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
     "isActive": true
   },
   {
     "code": "quote-007",
-    "content": "Ai sống nhìn tịnh tướng,\nKhông hộ trì các căn,\năn uống thiếu tiết độ,\nbiếng nhác, chẳng tinh cần.\nMa uy hiếp kẻ ấy,\nnhư cây yếu trước gió.",
+    "content": "Ai sống nhìn tịnh tướng, Không hộ trì các căn, ăn uống thiếu tiết độ, biếng nhác, chẳng tinh cần. Ma uy hiếp kẻ ấy, như cây yếu trước gió.",
     "author": "",
-    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 7",
-    "category": "practice",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
     "isActive": true
   },
   {
     "code": "quote-008",
-    "content": "Ai sống quán bất tịnh,\nKhéo hộ trì các căn,\năn uống có tiết độ,\nCó lòng tin, tinh cần,\nMa không uy hiếp được,\nNhư núi đá, trước gió.",
+    "content": "Ai sống quán bất tịnh, Khéo hộ trì các căn, ăn uống có tiết độ, Có lòng tin, tinh cần, Ma không uy hiếp được, Như núi đá, trước gió.",
     "author": "",
-    "source": "Kinh Pháp Cú — Phẩm Song Yếu, kệ 8",
-    "category": "practice",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-009",
+    "content": "Ai mặc áo cà sa. [1] tâm chưa rời uế trược, không tự chế, không thực, không xứng áo cà sa",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-010",
+    "content": "Ai rời bỏ uế trược, giới luật khéo nghiêm trì, tự chế, sống chơn thực, thật xứng áo cà sa.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-011",
+    "content": "Không chân, tưởng chân thật, chân thật, thấy không chân: chúng không đạt chân thật, do tà tư, tà hạnh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-012",
+    "content": "Chân thật, biết chân thật, Không chân, biết không chân: chúng đạt được chân thật, do chánh tư, chánh hạnh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-013",
+    "content": "Như mái nhà vụng lợp, Mưa liền xâm nhập vào. Cũng vậy tâm không tu, Tham dục liền xâm nhập.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-014",
+    "content": "Như ngôi nhà khéo lợp, Mưa không xâm nhập vào. Cũng vậy tâm khéo tu, Tham dục không xâm nhập.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-015",
+    "content": "Nay sầu, đời sau sầu, Kẻ ác, hai đời sầu; Nó sầu, nó ưu não, Thấy nghiệp uế mình làm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-016",
+    "content": "Nay vui, đời sau vui, Làm phước, hai đời vui, Nó vui, nó an vui, Thấy nghiệp tịnh mình làm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-017",
+    "content": "Nay than, đời sau than, Kẻ ác, hai đời than, Nó than: ‘Ta làm ác’ Ðọa cõi dữ, than hơn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-018",
+    "content": "Nay sướng, đời sau sướng, Làm phước, hai đời sướng. Nó sướng: ‘Ta làm thiện’, Sanh cõi lành, sướng hơn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-019",
+    "content": "Nếu người nói nhiều kinh, Không hành trì, phóng dật; Như kẻ chăn bò người, Không phần Sa môn hạnh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-020",
+    "content": "Dầu nói ít kinh điển, Nhưng hành pháp, tùy pháp, Từ bỏ tham, sân, si, Tĩnh giác, tâm giải thoát, Không chấp thủ hai đời, Dự phần Sa môn hạnh. 2. Phẩm Không Phóng Dật",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-021",
+    "content": "Không phóng dật, đường sống, Phóng dật là đường chết. Không phóng dật, không chết, Phóng dật như chết rồi.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+       {
+    "code": "quote-022",
+    "content": "Biết rõ sai biệt ấy, Người trí không phóng dật, Hoan hỷ, không phóng dật, An vui hạnh bậc Thánh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-023",
+    "content": "Người hằng tu thiền định, Thường kiên trì tinh tấn. Bậc trí hưởng Niết Bàn, Ðạt an tịnh vô thượng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-024",
+    "content": "Nỗ lực, giữ chánh niệm, Tịnh hạnh, hành thận trọng Tự điều, sống theo pháp, Ai sống không phóng dật, Tiếng lành ngày tăng trưởng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-025",
+    "content": "Nỗ lực, không phóng dật, Tự điều, khéo chế ngự. Bậc trí xây hòn đảo, Nước lụt khó ngập tràn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-026",
+    "content": "Chúng ngu si, thiếu trí, Chuyên sống đời phóng dật. Người trí, không phóng dật, Như giữ tài sản quý.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-027",
+    "content": "Chớ sống đời phóng dật, Chớ mê say dục lạc. Không phóng dật, thiền định, Ðạt được an lạc lớn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-028",
+    "content": "Người trí dẹp phóng dật, Với hạnh không phóng dật, Leo lầu cao trí tuệ, Không sầu, nhìn khổ sầu, Bậc trí đứng núi cao, Nhìn kẻ ngu, đất bằng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-029",
+    "content": "Tinh cần giữa phóng dật, Tỉnh thức giữa quần mê. Người trí như ngựa phi, Bỏ sau con ngựa hèn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-030",
+    "content": "Ðế Thích [1] không phóng dật, Ðạt ngôi vị Thiên chủ. Không phóng dật, được khen ; Phóng dật, thường bị trách.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-031",
+    "content": "Vui thích không phóng dật, Tỷ kheo sợ phóng dật, Bước tới như lửa hừng, Thiêu kiết sử lớn nhỏ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-032",
+    "content": "Vui thích không phóng dật, Tỷ kheo sợ phóng dật, Không thể bị thối đọa, Nhất định gần Niết Bàn. 3. Phẩm Tâm",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-033",
+    "content": "Tâm hoảng hốt giao động, Khó hộ trì, khó nhiếp, Người trí làm tâm thẳng, Như thợ tên, làm tên.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-034",
+    "content": "Như cá quăng lên bờ, Vất ra ngoài thủy giới; Tâm này vùng vẫy mạnh, Hãy đoạn thế lực Ma.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-035",
+    "content": "Khó nắm giữ, khinh động, Theo các dục quay cuồng. Lành thay, điều phục tâm; Tâm điều, an lạc đến.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-036",
+    "content": "Tâm khó thấy, tế nhị, Theo các dục quay cuồng. Người trí phòng hộ tâm, Tâm hộ, an lạc đến.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-037",
+    "content": "Chạy xa, sống một mình, Không thân, ẩn hang sâu [1] Ai điều phục được tâm, Thoát khỏi Ma trói buộc. [2]",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-038",
+    "content": "Ai tâm không an trú, Không biết chân diệu pháp, Tịnh tín bị rúng động, Trí tuệ không viên thành.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-039",
+    "content": "Tâm không đầy tràn dục, Tâm không (hận) công phá, Ðoạn tuyệt mọi thiện ác, Kẻ tỉnh không sợ hãi.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-040",
+    "content": "Biết thân như đồ gốm, Trú tâm như thành trì, Chống Ma với gươm trí ; Giữ chiến thắng [3] không tham [4]",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-041",
+    "content": "Không bao lâu thân này, Sẽ nằm dài trên đất, Bị vất bỏ, vô thức, Như khúc cây vô dụng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-042",
+    "content": "Kẻ thù hại kẻ thù, Oan gia hại oan gia, Không bằng tâm hướng tà, [5] Gây ác cho tự thân.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-043",
+    "content": "Ðiều mẹ cha bà con, Không có thể làm được, Tâm hướng chánh làm được Làm được tốt đẹp hơn. 4. Phẩm Hoa",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-044",
+    "content": "Ai chinh phục đất này Dạ ma, Thiên giới này? Ai khéo giảng Pháp cú, Như người khéo hái hoa?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-045",
+    "content": "Hữu học chinh phục đất, Dạ ma, Thiên giới này. Hữu học giảng Pháp cú, Như người khéo hái hoa.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-046",
+    "content": "Biết thân như bọt nước, Ngộ thân là như huyễn, Bẻ tên hoa của ma, Vượt tầm mắt thần chết.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-047",
+    "content": "Người nhặt các loại hoa, Ý đắm say, tham nhiễm, Bị thần chết mang đi, Như lụt trôi làng ngủ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-048",
+    "content": "Người nhặt các loại hoa, Ý đắm say tham nhiễm, Các dục chưa thỏa mãn, Ðã bị chết chinh phục.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-049",
+    "content": "Như ong đến với hoa, Không hại sắc và hương, Che chở hoa, lấy nhụy. Bậc Thánh đi vào làng “.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-050",
+    "content": "Không nên nhìn lỗi người, Người làm hay không làm. Nên nhìn tự chính mình. Có làm hay không làm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-051",
+    "content": "Như bông hoa tươi đẹp, Có sắc nhưng không hương. Cũng vậy, lời khéo nói, Không làm, không kết quả.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-052",
+    "content": "Như bông hoa tươi đẹp, Có sắc lại thêm hương; Cũng vậy, lời khéo nói, Có làm, có kết quả.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+     {
+    "code": "quote-053",
+    "content": "Như từ một đống hoa, Nhiều tràng hoa được làm. Cũng vậy, thân sanh tử, Phải làm nhiều việc lành.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-054",
+    "content": "Hương các loại hoa thơm Không ngược bay chiều gió Nhưng hương người đức hạnh Ngược gió khắp tung bay Chỉ có bậc chân nhân Tỏa khắp mọi phương trời.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-055",
+    "content": "Hoa chiên đàn, già la, Hoa sen, hoa vũ quý, Giữa những hương hoa ấy, Giới hương là vô thượng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-056",
+    "content": "Ít giá trị hương này, Hương già la, chiên đàn; Chỉ hương người đức hạnh, Tối thượng tỏa Thiên giới.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-057",
+    "content": "Nhưng ai có giới hạnh, An trú không phóng dật, Chánh trí, chơn giải thoát, Ác ma không thấy đường.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-058",
+    "content": "Như giữa đống rác nhớp, Quăng bỏ trên đường lớn, Chỗ ấy hoa sen nở, Thơm sạch, đẹp ý người.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-059",
+    "content": "Cũng vậy giữa quần sanh, Uế nhiễm, mù, phàm tục, Ðệ tử bậc Chánh Giác, Sáng ngời với Tuệ Trí.” 5. Phẩm Ngu",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-060",
+    "content": "Ðêm dài cho kẻ thức, Ðường dài cho kẻ mệt, Luân hồi dài, kẻ ngu, Không biết chơn diệu pháp.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-061",
+    "content": "Tìm không được bạn đường, Hơn mình hay bằng mình, Thà quyết sống một mình, Không bè bạn kẻ ngu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-062",
+    "content": "Con tôi, tài sản tôi, Người ngu sanh ưu não, Tự ta, ta không có, Con đâu, tài sản đâu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-063",
+    "content": "Người ngu nghĩ mình ngu, Nhờ vậy thành có trí. Người ngu tưởng có trí, Thật xứng gọi chí ngu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-064",
+    "content": "Người ngu, dầu trọn đời, Thân cận người có trí, Không biết được Chánh pháp, Như muỗng với vị canh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-065",
+    "content": "Người trí, dầu một khắc, Thân cận người có trí, Biết ngay chân diệu pháp, Như lưỡi với vị canh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-066",
+    "content": "Người ngu si thiếu trí, Tự ngã thành kẻ thù. Làm các nghiệp không thiện, Phải chịu quả đắng cay.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-067",
+    "content": "Nghiệp làm không chánh thiện, Làm rồi sanh ăn năn, Mặt nhuốm lệ, khóc than, Lãnh chịu quả dị thục.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-068",
+    "content": "Và nghiệp làm chánh thiện, Làm rồi không ăn năn, Hoan hỷ, ý đẹp lòng, Hưởng thọ quả dị thục.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-069",
+    "content": "Người ngu nghĩ là ngọt, Khi ác chưa chín muồi; Ác nghiệp chín muồi rồi, Người ngu chịu khổ đau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-070",
+    "content": "Tháng tháng với ngọn cỏ, Người ngu có ăn uống Không bằng phần mười sáu Người hiểu pháp hữu vi.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-071",
+    "content": "Nghiệp ác đã được làm, Như sữa, không đông ngay, Cháy ngầm theo kẻ ngu, Như lửa tro che đậy.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-072",
+    "content": "Tự nó chịu bất hạnh, Khi danh đến kẻ ngu. Vận may bị tổn hại, Ðầu nó bị nát tan.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-073",
+    "content": "Ưa danh không tương xứng, Muốn ngồi trước tỷ kheo, Ưa quyền tại tịnh xá, Muốn mọi người lễ kính.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-074",
+    "content": "Mong cả hai tăng, tục, Nghĩ rằng (chính ta làm). Trong mọi việc lớn nhỏ, Phải theo mệnh lệnh ta ” Người ngu nghĩ như vậy Dục và mạn tăng trưởng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-075",
+    "content": "Khác thay duyên thế lợi, Khác thay đường Niết Bàn. Tỷ kheo, đệ tử Phật, Hãy như vậy thắng tri. Chớ ưa thích cung kính, Hãy tu hạnh viễn ly.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-076",
+    "content": "Nếu thấy bậc hiền trí, Chỉ lỗi và khiển trách, Như chỉ chỗ chôn vàng Hãy thân cận người trí! Thân cận người như vậy, Chỉ tốt hơn, không xấu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-077",
+    "content": "Những người hay khuyên dạy, Ngăn người khác làm ác, Ðược người hiền kính yêu, Bị người ác không thích.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-078",
+    "content": "Chớ thân với bạn ác, Chớ thân kẻ tiểu nhân. Hãy thân người bạn lành, Hãy thân bậc thượng nhân.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-079",
+    "content": "Pháp hỷ đem an lạc, Với tâm tư thuần tịnh; Người trí thường hoan hỷ, Với pháp bậc Thánh thuyết.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-080",
+    "content": "Người trị thủy dẫn nước, Kẻ làm tên nắn tên, Người thợ mộc uốn gỗ, Bậc trí nhiếp tự thân.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-081",
+    "content": "Như đá tảng kiên cố, Không gió nào giao động, Cũng vậy, giữa khen chê, Người trí không giao động.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-082",
+    "content": "Như hồ nước sâu thẳm, Trong sáng, không khuấy đục, Cũng vậy, nghe chánh pháp, Người trí hưởng tịnh lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-083",
+    "content": "Người hiền bỏ tất cả, Người lành không bàn dục, Dầu cảm thọ lạc khổ, Bậc trí không vui buồn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-084",
+    "content": "Không vì mình, vì người. Không cầu được con cái, Không tài sản quốc độ, Không cầu mình thành tựu, Với việc làm phi pháp. Vị ấy thật trì giới, Có trí tuệ, đúng pháp.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-085",
+    "content": "Ít người giữa nhân loại, Ðến được bờ bên kia Còn số người còn lại, Xuôi ngược chạy bờ này.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+    {
+    "code": "quote-086",
+    "content": "Những ai hành trì pháp, Theo chánh pháp khéo dạy, Sẽ đến bờ bên kia, Vượt ma lực khó thoát.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-087",
+    "content": "Kẻ trí bỏ pháp đen, Tu tập theo pháp trắng. Bỏ nhà, sống không nhà, Sống viễn ly khổ lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-088",
+    "content": "Hãy cầu vui Niết Bàn, Bỏ dục, không sở hữu, Kẻ trí tự rửa sạch, Cấu uế từ nội tâm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-089",
+    "content": "Những ai với chánh tâm, Khéo tu tập giác chi, Từ bỏ mọi ái nhiễm, Hoan hỷ không chấp thủ. Không lậu hoặc, sáng chói, Sống tịch tịnh ở đời.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-090",
+    "content": "Ðích đã đến, không sầu, Giải thoát ngoài tất cả, Ðoạn trừ mọi buộc ràng, Vị ấy không nhiệt não.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-091",
+    "content": "Tự sách tấn, chánh niệm, Không thích cư xá nào, Như ngỗng trời rời ao, Bỏ sau mọi trú ẩn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-092",
+    "content": "Tài sản không chất chứa, Ăn uống biết liễu tri, Tự tại trong hành xứ, “Không vô tướng, giải thoát, ” Như chim giữa hư không, Hướng chúng đi khó tìm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-093",
+    "content": "Ai lậu hoặc đoạn sạch, Ăn uống không tham đắm, Tự tại trong hành xứ, “Không, vô tướng giải thoát. ” Như chim giữa hư không, Dấu chân thật khó tìm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-094",
+    "content": "Ai nhiếp phục các căn, Như đánh xe điều ngự, Mạn trừ, lậu hoặc dứt, Người vậy, Chư Thiên mến.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-095",
+    "content": "Như đất, không hiềm hận, Như cột trụ, kiên trì, Như hồ, không bùn nhơ, Không luân hồi, vị ấy.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-096",
+    "content": "Người tâm ý an tịnh, Lời an, nghiệp cũng an, Chánh trí, chơn giải thoát, Tịnh lạc là vị ấy.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+    {
+    "code": "quote-097",
+    "content": "Không tin, hiểu vô vi. Người cắt mọi hệ lụy Cơ hội tận, xả ly Vị ấy thật tối thượng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-098",
+    "content": "Làng mạc hay rừng núi Thung lũng hay đồi cao, La Hán trú chỗ nào, Ðất ấy thật khả ái “.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-099",
+    "content": "Khả ái thay núi rừng, Chỗ người phàm không ưa, Vị ly tham ưa thích, Vì không tìm dục lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-100",
+    "content": "Dầu nói ngàn ngàn lời, Nhưng không gì lợi ích, Tốt hơn một câu nghĩa, Nghe xong, được tịnh lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-101",
+    "content": "Dầu nói ngàn câu kệ Nhưng không gì lợi ích, Tốt hơn nói một câu, Nghe xong, được tịnh lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-102",
+    "content": "Dầu nói trăm câu kệ Nhưng không gì lợi ích, Tốt hơn một câu pháp, Nghe xong, được tịnh lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-103",
+    "content": "Dầu tại bãi chiến trường Thắng ngàn ngàn quân địch, Tự thắng mình tốt hơn, Thật chiến thắng tối thượng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-104",
+    "content": "Tự thắng, tốt đẹp hơn, Hơn chiến thắng người khác. Người khéo điều phục mình, Thường sống tự chế ngự.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-105",
+    "content": "Dầu Thiên Thần, Thát Bà, Dầu Ma vương, Phạm Thiên Không ai chiến thắng nổi, Người tự thắng như vậy.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-106",
+    "content": "Tháng tháng bỏ ngàn vàng, Tế tự cả trăm năm, Chẳng bằng trong giây lát, Cúng dường bậc tự tu. Cùng dường vậy tốt hơn, Hơn trăm năm tế tự.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-107",
+    "content": "Dầu trải một trăm năm, Thờ lửa tại rừng sâu, Chẳng bằng trong giây lát, Cúng dường bậc tự tu. Cúng dường vậy tốt hơn, Hơn trăm năm tế tự.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-108",
+    "content": "Suốt năm cúng tế vật, Ðể cầu phước ở đời. Không bằng một phần tư Kính lễ bậc chánh trực.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-109",
+    "content": "Thường tôn trọng, kính lễ Bậc kỳ lão trưởng thượng, Bốn pháp được tăng trưởng: Thọ, sắc, lạc, sức mạnh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-110",
+    "content": "Dầu sống một trăm năm Ác giới, không thiền định, Tốt hơn sống một ngày, Trì giới, tu thiền định.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-111",
+    "content": "Ai sống một trăm năm, Ác tuệ, không thiền định. Tốt hơn sống một ngày, Có tuệ, tu thiền định.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-112",
+    "content": "Ai sống một trăm năm, Lười nhác không tinh tấn, Tốt hơn sống một ngày Tinh tấn tận sức mình.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-113",
+    "content": "Ai sống một trăm năm, Không thấy pháp sinh diệt, Tốt hơn sống một ngày, Thấy được pháp sinh diệt.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-114",
+    "content": "Ai sống một trăm năm, Không thấy câu bất tử, Tốt hơn sống một ngày, Thấy được câu bất tử.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-115",
+    "content": "Ai sống một trăm năm, Không thấy pháp tối thượng, Tốt hơn sống một ngày, Thấy được pháp tối thượng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-116",
+    "content": "Hãy gấp làm điều lành, Ngăn tâm làm điều ác. Ai chậm làm việc lành, Ý ưa thích việc ác.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-117",
+    "content": "Nếu người làm điều ác, Chớ tiếp tục làm thêm. Chớ ước muốn điều ác, Chứa ác, tất chịu khổ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-118",
+    "content": "Nếu người làm điều thiện, Nên tiếp tục làm thêm. Hãy ước muốn điều thiện, Chứa thiện, được an lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-119",
+    "content": "Người ác thấy là hiền. Khi ác chưa chín muồi, Khi ác nghiệp chín muồi, Người ác mới thấy ác.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-120",
+    "content": "Người hiền thấy là ác, Khi thiện chưa chín muồi. Khi thiện được chín muồi, Người hiền thấy là thiện.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-121",
+    "content": "Chớ chê khinh điều ác, Cho rằng “chưa đến mình “, Như nước nhỏ từng giọt, Rồi bình cũng đầy tràn. Người ngu chứa đầy ác Do chất chứa dần dần.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-122",
+    "content": "Chớ chê khinh điều thiện Cho rằng “Chưa đến mình, ” Như nước nhỏ từng giọt, Rồi bình cũng đầy tràn. Người trí chứa đầy thiện, Do chất chứa dần dần.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-123",
+    "content": "Ít bạn đường, nhiều tiền, Người buôn tránh đường hiểm. Muốn sống, tránh thuốc độc, Hãy tránh ác như vậy.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-124",
+    "content": "Bàn tay không thương tích, Có thể cầm thuốc độc. Không thương tích, tránh độc, Không làm, không có ác.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-125",
+    "content": "Hại người không ác tâm, Người thanh tịnh, không uế, Tội ác đến kẻ ngu, Như ngược gió tung bụi.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-126",
+    "content": "Một số sinh bào thai, Kẻ ác sinh địa ngục, Người thiện lên cõi trời, Vô lậu chứng Niết Bàn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-127",
+    "content": "Không trên trời, giữa biển, Không lánh vào động núi, Không chỗ nào trên đời, Trốn được quả ác nghiệp.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-128",
+    "content": "Không trên trời, giữa biển, Không lánh vào động núi, Không chỗ nào trên đời, Trốn khỏi tay thần chết.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-129",
+    "content": "Mọi người sợ hình phạt, Mọi người sợ tử vong. Lấy mình làm ví dụ Không giết, không bảo giết.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-130",
+    "content": "Mọi người sợ hình phạt, Mọi người thích sống còn; Lấy mình làm ví dụ, Không giết, không bảo giết.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-131",
+    "content": "Chúng sanh cầu an lạc, Ai dùng trượng hại người, Ðể tìm lạc cho mình, Ðời sau không được lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-132",
+    "content": "Chúng sanh cầu an lạc, Không dùng trượng hại người, Ðể tìm lạc cho mình, Ðời sau được hưởng lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-133",
+    "content": "Chớ nói lời ác độc, Nói ác, bị nói lại, Khổ thay lời phẩn nộ, Ðao trượng phản chạm mình.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-134",
+    "content": "Nếu tự mình yên lặng, Như chiếc chuông bị bể. Ngươi đã chứng Niết Bàn Ngươi không còn phẩn nộ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-135",
+    "content": "Với gậy người chăn bò, Lùa bò ra bãi cỏ; Cũng vậy, già và chết, Lùa người đến mạng chung.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-136",
+    "content": "Người ngu làm điều ác, Không ý thức việc làm. Do tự nghiệp, người ngu Bị nung nấu, như lửa.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+    {
+    "code": "quote-137",
+    "content": "Dùng trượng phạt không trượng, Làm ác người không ác. Trong mười loại khổ đau, Chịu gấp một loại khổ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-138",
+    "content": "Hoặc khổ thọ khốc liệt, Thân thể bị thương vong, Hoặc thọ bệnh kịch liệt, Hay loạn ý tán tâm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-139",
+    "content": "Hoặc tai họa từ vua, Hay bị vu trọng tội; Bà con phải ly tán, Tài sản bị nát tan.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-140",
+    "content": "Hoặc phòng ốc nhà cửa Bị hỏa tai thiêu đốt. Khi thân hoại mạng chung, Ác tuệ sanh địa ngục.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-141",
+    "content": "Không phải sống lõa thể Bện tóc, tro trét mình, Tuyệt thực, lăn trên đất, Sống nhớp, siêng ngồi xổm, Làm con người được sạch, Nếu không trừ nghi hoặc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-142",
+    "content": "Ai sống tự trang sức, Nhưng an tịnh, nhiếp phục, Sống kiên trì, phạm hạnh, Không hại mọi sinh linh, Vị ấy là phạm chí, Hay sa môn, khất sĩ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-143",
+    "content": "Thật khó tìm ở đời, Người biết thẹn, tự chế, Biết tránh né chỉ trích Như ngựa hiền tránh roi.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-144",
+    "content": "Như ngựa hiền chạm roi, Hãy nhiệt tâm, hăng hái, Với tín, giới, tinh tấn, Thiền định cùng trạch pháp. Minh hạnh đủ, chánh niệm, Ðoạn khổ này vô lượng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-145",
+    "content": "Người trị thủy dẫn nước, Kẻ làm tên nắn tên, Người thợ mộc uốn ván, Bậc tự điều, điều thân.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-146",
+    "content": "Cười gì, hân hoan gì, Khi đời mãi bị thiêu? Bị tối tăm bao trùm, Sao không tìm ngọn đèn?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-147",
+    "content": "Hãy xem bong bóng đẹp, Chỗ chất chứa vết thương, Bệnh hoạn nhiều suy tư, Thật không gì trường cửu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-148",
+    "content": "Sắc này bị suy già, Ổ tật bệnh, mỏng manh, Nhóm bất tịnh, đỗ vỡ, Chết chấm dứt mạng sống.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-149",
+    "content": "Như trái bầu mù thu, Bị vất bỏ quăng đi, Nhóm xương trắng bồ câu, Thấy chúng còn vui gì?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-150",
+    "content": "Thành này làm bằng xương, Quét tô bằng thịt máu, Ở đây già và chết, Mạn, lừa đảo chất chứa.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-151",
+    "content": "Xe vua đẹp cũng già. Thân này rồi sẽ già, Pháp bậc thiện, không già. Như vậy bậc chí thiện Nói lên cho bậc thiện.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-152",
+    "content": "Người ít nghe kém học, Lớn già như trâu đực. Thịt nó tuy lớn lên, Nhưng tuệ không tăng trưởng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-153",
+    "content": "Lang thang bao kiếp sống Ta tìm nhưng chẳng gặp, Người xây dựng nhà này, Khổ thay, phải tái sanh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-154",
+    "content": "Ôi! Người làm nhà kia Nay ta đã thấy ngươi! Ngươi không làm nhà nữa. Ðòn tay ngươi bị gẫy, Kèo cột ngươi bị tan Tâm ta đạt tịch diệt, Tham ái thảy tiêu vong.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-155",
+    "content": "Lúc trẻ, không phạm hạnh, Không tìm kiếm bạc tiền. Như cò già bên ao, Ủ rũ, không tôm cá.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-156",
+    "content": "Lúc trẻ không phạm hạnh, Không tìm kiếm bạc tiền; Như cây cung bị gẫy, Thở than những ngày qua.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-157",
+    "content": "Nếu biết yêu tự ngã, Phải khéo bảo vệ mình, Người trí trong ba canh, Phải luôn luôn tỉnh thức.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-158",
+    "content": "Trước hết tự đặt mình, Vào những gì thích đáng. Sau mới giáo hóa người, Người trí khỏi bị nhiễm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-159",
+    "content": "Hãy tự làm cho mình, Như điều mình dạy người. Khéo tự điều, điều người, Khó thay, tự điều phục!",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-160",
+    "content": "Tự mình y chỉ mình, Nào có y chỉ khác. Nhờ khéo điều phục mình, Ðược y chỉ khó được.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-161",
+    "content": "Ðiều ác tự mình làm, Tự mình sanh, mình tạo. Nghiền nát kẻ ngu si, Như kim cương, ngọc báu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-162",
+    "content": "Phá giới quá trầm trọng, Như dây leo bám cây Gieo hại cho tự thân, Như kẻ thù mong ước.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-163",
+    "content": "Dễ làm các điều ác, Dễ làm tự hại mình. Còn việc lành, việc tốt, Thật tối thượng khó làm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-164",
+    "content": "Kẻ ngu si miệt thị, Giáo pháp bậc La Hán, Bậc Thánh, bậc chánh mạng. Chính do ác kiến này, Như quả loại cây lau Mang quả tự hoại diệt.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-165",
+    "content": "Tự mình, làm điều ác, Tự mình làm nhiễm ô, Tự mình không làm ác, Tự mình làm thanh tịnh. Tịnh, không tịnh tự mình, Không ai thanh tịnh ai!",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-166",
+    "content": "Chớ theo pháp hạ liệt. Chớ sống mặc, buông lung; Chớ tin theo tà kiến, Chớ tăng trưởng tục trần.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-167",
+    "content": "Dầu lợi người bao nhiêu, Chớ quên phần tư lợi, Nhờ thắng trí tư lợi. Hãy chuyên tâm lợi mình.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-168",
+    "content": "Nỗ lực, chớ phóng dật! Hãy sống theo chánh hạnh; Người chánh hạnh hưởng lạc, Cả đời này, đời sau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+   {
+    "code": "quote-169",
+    "content": "Hãy khéo sống chánh hạnh, Chớ sống theo tà hạnh! Người chánh hạnh hưởng lạc, Cả đời này, đời sau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-170",
+    "content": "Hãy nhìn như bọt nước, Hãy nhìn như cảnh huyễn! Quán nhìn đời như vậy, Thần chết không bắt gặp.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-171",
+    "content": "Hãy đến nhìn đời này, Như xe vua lộng lẫy, Người ngu mới tham đắm, Kẻ trí nào đắm say.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-172",
+    "content": "Ai sống trước buông lung, Sau sống không phóng dật, Chói sáng rực đời này. Như trăng thoát mây che.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-173",
+    "content": "Ai dùng các hạnh lành, Làm xóa mờ nghiệp ác, Chói sáng rực đời này, Như trăng thoát mây che.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-174",
+    "content": "Ðời này thật mù quáng, Ít kẻ thấy rõ ràng. Như chim thoát khỏi lưới, Rất ít đi thiên giới.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-175",
+    "content": "Như chim thiên nga bay, Thần thông liệng giữa trời; Chiến thắng ma, ma quân, Kẻ trí thoát đời này.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-176",
+    "content": "Ai vi phạm một pháp, Ai nói lời vọng ngữ, Ai bác bỏ đời sau, Không ác nào không làm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-177",
+    "content": "Keo kiết không sanh thiên, Kẻ ngu ghét bố thí, Người trí thích bố thí, Ðời sau, được hưởng lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-178",
+    "content": "Hơn thống lãnh cõi đất, Hơn được sanh cõi trời, Hơn chủ trì vũ trụ, Quả Dự Lưu tối thắng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-179",
+    "content": "Vị chiến thắng không bại, Vị bước đi trên đời, Không dấu tích chiến thắng, Phật giới rộng mênh mông, Ai dùng chân theo dõi Bậc không để dấu tích?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+    {
+    "code": "quote-180",
+    "content": "Ai giải tỏa lưới tham, Ái phược hết dắt dẫn, Phật giới rộng mênh mông, Ai dùng chân theo dõi, Bậc không để dấu tích?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-181",
+    "content": "Người trí chuyên thiền định, Thích an tịnh viễn ly, Chư thiên đều ái kính, Bậc chánh giác, chánh niệm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-182",
+    "content": "Khó thay, được làm người, Khó thay, được sống còn, Khó thay, nghe diệu pháp, Khó thay, Phật ra đời!",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-183",
+    "content": "Không làm mọi điều ác. Thành tựu các hạnh lành, Tâm ý giữ trong sạch, Chính lời chư Phật dạy.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-184",
+    "content": "Chư Phật thường giảng dạy; Nhẫn, khổ hạnh tối thượng, Niết bàn, quả tối thượng; Xuất gia không phá người; Sa môn không hại người.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-185",
+    "content": "Không phỉ báng, phá hoại, Hộ trì giới căn bản, Ăn uống có tiết độ, Sàng tọa chỗ nhàn tịnh Chuyên chú tăng thượng tâm, Chính lời chư Phật dạy.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-186",
+    "content": "Dầu mưa bằng tiền vàng, Các dục khó thỏa mãn. Dục đắng nhiều ngọt ít, Biết vậy là bậc trí.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-187",
+    "content": "Ðệ tử bậc chánh giác, Không tìm cầu dục lạc, Dầu là dục chư thiên, Chỉ ưa thích ái diệt.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-188",
+    "content": "Loài người sợ hoảng hốt, Tìm nhiều chỗ quy y, Hoặc rừng rậm, núi non, Hoặc vườn cây, đền tháp.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-189",
+    "content": "Quy y ấy không ổn, Không quy y tối thượng. Quy y các chỗ ấy, Không thoát mọi khổ đau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-190",
+    "content": "Ai quy y Ðức Phật, Chánh pháp và chư tăng, Ai dùng chánh tri kiến, Thấy được bốn Thánh đế.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-191",
+    "content": "Thấy khổ và khổ tập, Thấy sự khổ vượt qua, Thấy đường Thánh tám ngành, Ðưa đến khổ não tận.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-192",
+    "content": "Thật quy y an ổn, Thật quy y tối thượng, Có quy y như vậy, Mới thoát mọi khổ đau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-193",
+    "content": "Khó gặp bậc thánh nhơn, Không phải đâu cũng có. Chỗ nào bậc trí sanh, Gia đình tất an lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-194",
+    "content": "Vui thay, Phật ra đời! Vui thay, Pháp được giảng! Vui thay, Tăng hòa hợp! Hòa hợp tu, vui thay!",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-195",
+    "content": "Cúng dường bậc đáng cúng, Chư Phật hoặc đệ tử, Các bậc vượt hý luận, Ðoạn diệt mọi sầu bi.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+   {
+    "code": "quote-196",
+    "content": "Nội dung câu kệ 196",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-197",
+    "content": "Vui thay, chúng ta sống, Không hận, giữa hận thù! Giữa những người thù hận, Ta sống, không hận thù!",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-198",
+    "content": "Vui thay, chúng ta sống, Không bệnh, giữa ốm đau! Giữa những người bệnh hoạn, Ta sống, không ốm đau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-199",
+    "content": "Vui thay, chúng ta sống, Không rộn giữa rộn ràng; Giữa những người rộn ràng, Ta sống, không rộn ràng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-200",
+    "content": "Vui thay chúng ta sống, Không gì, gọi của ta. Ta sẽ hưởng hỷ lạc, Như chư thiên Quang Âm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-201",
+    "content": "Chiến thắng sinh thù oán, Thất bại chịu khổ đau, Sống tịch tịnh an lạc. Bỏ sau mọi thắng bại.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-202",
+    "content": "Lửa nào sánh lửa tham? Ác nào bằng sân hận? Khổ nào sánh khổ uẩn, Lạc nào bằng tịnh lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-203",
+    "content": "Ðói ăn, bệnh tối thượng, Các hành, khổ tối thượng, Hiểu như thực là vậy, Niết Bàn, lạc tối thượng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-204",
+    "content": "Không bệnh, lợi tối thượng, Biết đủ, tiền tối thượng, Thành tín đối với nhau, Là bà con tối thượng. Niết Bàn, lạc tối thượng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-205",
+    "content": "Ðã nếm vị độc cư, Ðược hưởng vị nhàn tịnh, Không sợ hải, không ác, Nếm được vị pháp hỷ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-206",
+    "content": "Lành thay, thấy thánh nhân, Sống chung thường hưởng lạc. Không thấy những người ngu, Thường thường được an lạc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+     {
+    "code": "quote-207",
+    "content": "Sống chung với người ngu, Lâu dài bị lo buồn. Khổ thay gần người ngu, Như thường sống kẻ thù. Vui thay, gần người trí, Như chung sống bà con.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-208",
+    "content": "Bậc hiền sĩ, trí tuệ Bậc nghe nhiều, trì giới, Bậc tự chế, Thánh nhân; Hãy gần gũi, thân cận Thiện nhân, trí giả ấy, Như trăng theo đường sao.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-209",
+    "content": "Tự chuyên, không đáng chuyên Không chuyên, việc đáng chuyên. Bỏ đích, theo hỷ ái, Ganh tị bậc tự chuyên.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-210",
+    "content": "Chớ gần gũi người yêu, Trọn đời xa kẻ ghét. Yêu không gặp là khổ, Oán phải gặp cũng đau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-211",
+    "content": "Do vậy chớ yêu ai, Ái biệt ly là ác; Những ai không yêu ghét, Không thể có buộc ràng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-212",
+    "content": "Do ái sinh sầu ưu, Do ái sinh sợ hãi, Ai thoát khỏi tham ái, Không sầu, đâu sợ hãi?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-213",
+    "content": "Ái luyến sinh sầu ưu, Ái luyến sinh sợ hãi. Ai giải thoát ái luyến Không sầu, đâu sợ hãi?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-214",
+    "content": "Hỷ ái sinh sầu ưu, Hỷ ái sinh sợ hãi. Ai giải thoát hỷ ái, Không sầu, đâu sợ hãi?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-215",
+    "content": "Dục ái sinh sầu ưu, Dục ái sinh sợ hãi, Ai thoát khỏi dục ái, Không sầu, đâu sợ hãi?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-216",
+    "content": "Tham ái sinh sầu ưu, Tham ái sinh sợ hãi. Ai thoát khỏi tham ái, Không sầu, đâu sợ hãi.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-217",
+    "content": "Ðủ giới đức, chánh kiến; Trú pháp, chứng chân lý, Tự làm công việc mình, Ðược quần chúng ái kính.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-218",
+    "content": "Ước vọng pháp ly ngôn Ý cảm xúc thượng quả Tâm thoát ly ác dục, Xứng gọi bậc Thượng Lưu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-219",
+    "content": "Khách lâu ngày ly hương, An toàn từ xa về, Bà con cùng thân hữu, Hân hoan đón chào mừng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-225",
+    "content": "Bậc hiền không hại ai, Thân thường được chế ngự, Ðạt được cảnh bất tử, Ðến đây, không ưu sầu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-226",
+    "content": "Những người thường giác tỉnh, Ngày đêm siêng tu học, Chuyên tâm hướng Niết Bàn, Mọi lậu hoặc được tiêu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-227",
+    "content": "A-tu-la, nên biết, Xưa vậy, nay cũng vậy, Ngồi im, bị người chê, Nói nhiều bị người chê. Nói vừa phải, bị chê. Làm người không bị chê, Thật khó tìm ở đời.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-228",
+    "content": "Xưa, vị lai, và nay, Ðâu có sự kiện này, Người hoàn toàn bị chê, Người trọn vẹn được khen.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-229",
+    "content": "Sáng sáng, thẩm xét kỹ. Bậc có trí tán thán. Bậc trí không tỳ vết, Ðầy đủ giới định tuệ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-230",
+    "content": "Hạnh sáng như vàng ròng, Ai dám chê vị ấy? Chư thiên phải khen thưởng, Phạm Thiên cũng tán dương “.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-231",
+    "content": "Giữ thân đừng phẫn nộ, Phòng thân khéo bảo vệ, Từ bỏ thân làm ác, Với thân làm hạnh lành.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-232",
+    "content": "Giữ lời đừng phẫn nộ, Phòng lời, khéo bảo vệ, Từ bỏ lời thô ác, Với lời, nói điều lành.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-233",
+    "content": "Giữ ý đừng phẫn nộ, Phòng ý, khéo bảo vệ, Từ bỏ ý nghĩ ác, Với ý, nghĩ hạnh lành.’",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-234",
+    "content": "Bậc trí bảo vệ thân, Bảo vệ luôn lời nói Bảo vệ cả tâm tư, Ba nghiệp khéo bảo vệ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-235",
+    "content": "Ngươi nay giống lá héo, Diêm sứ đang chờ ngươi, Ngươi đứng trước cửa chết, Ðường trường thiếu tư lương.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-236",
+    "content": "Hãy tự làm hòn đảo, Tinh cần gấp, sáng suốt. Trừ cấu uế, thanh tịnh, Ðến Thánh địa chư Thiên.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  }, 
+   {
+    "code": "quote-237",
+    "content": "Ðời ngươi nay sắp tàn, Tiến gần đến Diêm Vương. Giữa đường không nơi nghỉ, Ðường trường thiếu tư lương.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-238",
+    "content": "Hãy tự làm hòn đảo, Tinh cần gấp sáng suốt. Trừ cấu uế, thanh tịnh, Chẳng trở lại sanh già.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-239",
+    "content": "Bậc trí theo tuần tự. Từng sát na trừ dần. Như thợ vàng lọc bụi Trừ cấu uế nơi mình.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-240",
+    "content": "Như sét từ sắt sanh, Sắt sanh lại ăn sắt, Cũng vậy, quá lợi dưỡng Tự nghiệp dẫn cõi ác.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-241",
+    "content": "Không tụng làm nhớp kinh, Không đứng dậy, bẩn nhà, Biếng nhác làm nhơ sắc, Phóng dật uế người canh",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-242",
+    "content": "Tà hạnh nhơ đàn bà, Xan tham nhớp kẻ thí, Ác pháp là vết nhơ, Ðời này và đời sau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-243",
+    "content": "Trong hàng cấu uế ấy, Vô minh, nhơ tối thượng, Ðoạn nhơ ấy, tỷ kheo, Thành bậc không uế nhiễm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-244",
+    "content": "Dễ thay, sống không hổ Sống lỗ mãng như quạ, Sống công kích huênh hoang, Sống liều lĩnh, nhiễm ô.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-245",
+    "content": "Khó thay, sống xấu hổ, Thường thường cầu thanh tịnh. Sống vô tư, khiêm tốn, Trong sạch và sáng suốt.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-246",
+    "content": "Ai ở đời sát sinh, Nói láo không chân thật, Ở đời lấy không cho, Qua lại với vợ người.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-247",
+    "content": "Uống rượu men, rượu nấu, Người sống đam mê vậy, Chính ngay tại đời này, Tự đào bới gốc mình.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+   {
+    "code": "quote-248",
+    "content": "Vậy người, hãy nên biết, Không chế ngự là ác. Chớ để tham phi pháp, Làm người đau khổ dài.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-249",
+    "content": "Do tín tâm, hỷ tâm Loài người mới bố thí. Ở đây ai bất mãn Người khác được ăn uống, Người ấy ngày hoặc đêm, Không đạt được tâm định?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-250",
+    "content": "Ai cắt được, phá được, Tận gốc nhổ tâm ấy. Người ấy ngày hoặc đêm, Ðạt được tâm thiền định.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-251",
+    "content": "Lửa nào bằng lửa tham! Chấp nào bằng sân hận! Lưới nào bằng lưới si! Sông nào bằng sông ái!",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-252",
+    "content": "Dễ thay thấy lỗi người, Lỗi mình thấy mới khó. Lỗi người ta phanh tìm, Như sàng trấu trong gạo, Còn lỗi mình, che đậy, Như kẻ gian dấu bài.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-253",
+    "content": "Ai thấy lỗi của người, Thường sanh lòng chỉ trích, Người ấy lậu hoặc tăng, Rất xa lậu hoặc diệt.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-254",
+    "content": "Hư không, không dấu chân, Ngoài đây, không sa môn, Chúng sanh thích hý luận, Như lai, hý luận trừ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-255",
+    "content": "Hư không, không dấu chân, Ngoài đây, không sa môn. Các hành không thường trú, Chư Phật không giao động.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-256",
+    "content": "Ngươi đâu phải pháp trụ, Xử sự quá chuyên chế, Bậc trí cần phân biệt Cả hai chánh và tà!",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-257",
+    "content": "Không chuyên chế, đúng pháp, Công bằng, dắt dẫn người, Bậc trí sống đúng pháp, Thật xứng danh pháp trụ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-258",
+    "content": "Không phải vì nói nhiều, Mới xứng danh bậc trí. An ổn, không oán sợ. Thật đáng gọi bậc trí.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+    {
+    "code": "quote-259",
+    "content": "Không phải vì nói nhiều, Mới xứng danh trì pháp, Những ai tuy nghe ít, Nhưng thân hành đúng pháp, Không phóng túng chánh pháp, Mới xứng danh trì pháp.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-260",
+    "content": "Không phải là trưởng lão, Dầu cho có bạc đầu. Người chỉ tuổi tác cao, Ðược gọi là: “Lão ngu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-261",
+    "content": "Ai chân thật, đúng pháp, Không hại, biết chế phục, Bậc trí không cấu uế, Mới xứng danh Trưởng Lão.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-262",
+    "content": "Không phải nói lưu loát, Không phải sắc mặt đẹp, Thành được người lương thiện, Nếu ganh, tham, dối trá.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-263",
+    "content": "Ai cắt được, phá được Tận gốc nhổ tâm ấy Người trí ấy diệt sân, Ðược gọi người hiền thiện.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-264",
+    "content": "Ðầu trọc, không sa môn Nếu phóng túng, nói láo. Ai còn đầy dục tham, Sao được gọi sa môn?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-265",
+    "content": "Ai lắng dịu hoàn toàn, Các điều ác lớn nhỏ, Vì lắng dịu ác pháp, Ðược gọi là Sa môn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-266",
+    "content": "” Chỉ khất thực nhờ người, Ðâu phải là tỷ kheo! Phải theo pháp toàn diện, Khất sĩ không, không đủ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-267",
+    "content": "” Ai vượt qua thiện ác, Chuyên sống đời Phạm Hạnh, Sống thẩm sát ở đời, Mới xứng danh tỷ kheo.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-268",
+    "content": "Im lặng nhưng ngu si, Ðâu được gọi ẩn sĩ? Như người cầm cán cân, Bậc trí chọn điều lành.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-269",
+    "content": "” Từ bỏ các ác pháp, Mới thật là ẩn sĩ. Ai thật hiểu hai đời Mới được gọi ẩn sĩ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-270",
+    "content": "” Còn sát hại sinh linh, Ðâu được gọi Hiền thánh. Không hại mọi hữu tình, Mới được gọi Hiền Thánh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-271",
+    "content": "Chẳng phải chỉ giới cấm Cũng không phải học nhiều, Chẳng phải chứng thiền định, Sống thanh vắng một mình.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-272",
+    "content": "Ta hưởng an ổn lạc, Phàm phu chưa hưởng được. Tỷ kheo, chớ tự tin Khi lậu hoặc chưa diệt.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-273",
+    "content": "Tám chánh, đường thù thắng, Bốn câu, lý thù thắng. Ly tham, pháp thù thắng, Giữa các loài hai chân, Pháp nhãn, người thù thắng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-274",
+    "content": "Ðường này, không đường khác Ðưa đến kiến thanh tịnh. Nếu ngươi theo đường này, Ma quân sẽ mê loạn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-275",
+    "content": "Nếu người theo đường này, Ðau khổ được đoạn tận. Ta dạy người con đường. Với trí, gai chướng diệt.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-276",
+    "content": "Người hãy nhiệt tình làm, Như Lai chỉ thuyết dạy. Người hành trì thiền định Thoát trói buộc Ác ma.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-277",
+    "content": "Tất cả hành vô thường ” Với Tuệ, quán thấy vậy Ðau khổ được nhàm chán; Chính con đường thanh tịnh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-278",
+    "content": "Tất cả hành khổ đau Với Tuệ quán thấy vậy, Ðau khổ được nhàm chán; Chính con đường thanh tịnh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-279",
+    "content": "Tất cả pháp vô ngã, Với Tuệ quán thấy vậy, Ðau khổ được nhàm chán Chính con đường thanh tịnh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-280",
+    "content": "Khi cần, không nỗ lực, Tuy trẻ mạnh, nhưng lười Chí nhu nhược, biếng nhác. Với trí tuệ thụ động, Sao tìm được chánh đạo?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-281",
+    "content": "Lời nói được thận trọng, Tâm tư khéo hộ phòng, Thân chớ làm điều ác, Hãy giữ ba nghiệp tịnh, Chứng đạo Thánh nhân dạy.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-282",
+    "content": "Tu Thiền, trí tuệ sanh, Bỏ Thiền, trí tuệ diệt. Biết con đường hai ngả Ðưa đến hữu, phi hữu, Hãy tự mình nỗ lực, Khiến trí tuệ tăng trưởng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-283",
+    "content": "Ðốn rừng không đốn cây Từ rừng, sinh sợ hãi; Ðốn rừng (1) và ái dục, Tỷ kheo, hãy tịch tịnh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-284",
+    "content": "Khi nào chưa cắt tiệt, Ái dục giữa gái trai, Tâm ý vẫn buộc ràng, Như bò con vú mẹ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-285",
+    "content": "Tự cắt dây ái dục, Như tay bẻ sen thu, Hãy tu đạo tịch tịnh, Niết-Bàn, Thiện Thệ dạy.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-286",
+    "content": "Mùa mưa ta ở đây Ðông, hạ cũng ở đây, Người ngu tâm tưởng vậy, Không tự giác hiểm nguy.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-287",
+    "content": "Người tâm ý đắm say Con cái và súc vật, Tử thần bắt người ấy, Như lụt trôi làng ngủ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-288",
+    "content": "Một khi tử thần đến, Không có con che chở, Không cha, không bà con, Không thân thích che chở.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-289",
+    "content": "Biết rõ ý nghĩa này, Bậc trí lo trì giới, Mau lẹ làm thanh tịnh, Con đường đến Niết-Bàn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-290",
+    "content": "Nhờ từ bỏ lạc nhỏ, Thấy được lạc lớn hơn, Bậc trí bỏ lạc nhỏ, Thấy được lạc lớn hơn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-291",
+    "content": "Gieo khổ đau cho người, Mong cầu lạc cho mình, Bị hận thù buộc ràng Không sao thoát hận thù.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-292",
+    "content": "Việc đáng làm, không làm, Không đáng làm, lại làm, Người ngạo mạn, phóng dật, Lậu hoặc ắt tăng trưởng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-293",
+    "content": "Người siêng năng cần mẫn, Thường thường quán thân niệm, Không làm việc không đáng, Gắng làm việc đáng làm, Người tư niệm giác tỉnh, Lậu hoặc được tiêu trừ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-294",
+    "content": "Sau khi giết mẹ cha, Giết hai Vua Sát lỵ, Giết vương quốc, quần thần Vô ưu, phạm chí sống.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-295",
+    "content": "Sau khi giết mẹ cha, Hai vua Bà-la-môn, Giết hổ tướng thứ năm Vô ưu, phạm chí sống.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-296",
+    "content": "Ðệ tử Gotama, Luôn luôn tự tỉnh giác Vô luận ngày hay đêm, Tưởng Phật Ðà thường niệm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-297",
+    "content": "Ðệ tử Gotama, Luôn luôn tự tỉnh giác, Vô luận ngày hay đêm, Tưởng Chánh Pháp thường niệm",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-298",
+    "content": "Ðệ tử Gotama, Luôn luôn tự tỉnh giác, Vô luận ngày hay đêm, Tưởng Tăng Già thường niệm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-299",
+    "content": "Ðệ tử Gotama, Luôn luôn tự tỉnh giác, Vô luận ngày hay đêm, Tưởng sắc thân thường niệm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-300",
+    "content": "Ðệ tử Gotama, Luôn luôn tự tỉnh giác, Vô luận ngày hay đêm, Ý vui niềm bất hại.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-301",
+    "content": "Ðệ tử Gotama, Luôn luôn tự tỉnh giác, Vô luận ngày hay đêm, Ý vui tu thiền quán.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-302",
+    "content": "Vui hạnh xuất gia khó, Tại gia sinh hoạt khó, Sống bạn không đồng, khổ, Trôi lăn luân hồi, khổ, Vậy chớ sống luân hồi, Chớ chạy theo đau khổ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-303",
+    "content": "Tín tâm, sống giới hạnh Ðủ danh xưng tài sản, Chỗ nào người ấy đến, Chỗ ấy được cung kính.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-304",
+    "content": "Người lành dầu ở xa Sáng tỏ như núi tuyết, Người ác dầu ở gần Như tên bắn đêm đen.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-305",
+    "content": "Ai ngồi nằm một mình. Ðộc hành không buồn chán, Tự điều phục một mình Sống thoải mái rừng sâu.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-306",
+    "content": "Nói láo đọa địa ngục Có làm nói không làm, Cả hai chết đồng đẳng, Làm người, nghiệp hạ liệt.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-307",
+    "content": "Nhiều người khoác cà sa, Ác hạnh không nhiếp phục. Người ác, do ác hạnh, Phải sanh cõi Ðịa ngục.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  }, 
+    {
+    "code": "quote-308",
+    "content": "Tốt hơn nuốt hòn sắt Cháy đỏ như than hồng, Hơn ác giới, buông lung Ăn đồ ăn quốc độ.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-309",
+    "content": "Bốn nạn chờ đợi người, Phóng dật theo vợ người; Mắc họa, ngủ không yên, Bị chê là thứ ba, Ðọa địa ngục, thứ bốn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-310",
+    "content": "Mắc họa, đọa ác thú, Bị hoảng sợ, ít vui. Quốc vương phạt trọng hình. Vậy chớ theo vợ người.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-311",
+    "content": "Như cỏ sa (1) vụng nắm, Tất bị họa đứt tay Hạnh Sa môn tà vạy, Tất bị đọa địa ngục.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-312",
+    "content": "Sống phóng đãng buông lung, Theo giới cấm ô nhiễm, Sống Phạm hạnh đáng nghi Sao chứng được quả lớn?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-313",
+    "content": "Cần phải làm, nên làm Làm cùng tận khả năng Xuất gia sống phóng đãng, Chỉ tăng loạn bụi đời.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-314",
+    "content": "Ác hạnh không nên làm, Làm xong, chịu khổ lụy, Thiện hạnh, ắt nên làm, Làm xong, không ăn năn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-315",
+    "content": "Như thành ở biên thùy, Trong ngoài đều phòng hộ Cũng vậy, phòng hộ mình, Sát na chớ buông lung. Giây phút qua, sầu muộn. Khi rơi vào địa ngục.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-316",
+    "content": "Không đáng hổ, lại hổ. Việc đáng hổ, lại không. Do chấp nhận tà kiến, Chúng sanh đi ác thú.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-317",
+    "content": "Không đáng sợ, lại sợ, Ðáng sợ, lại thấy không, Do chấp nhận tà kiến. Chúng sanh đi ác thú.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-318",
+    "content": "Không lỗi, lại thấy lỗi, Có lỗi, lại thấy không, Do chấp nhận tà kiến, Chúng sanh đi ác thú.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-319",
+    "content": "Có lỗi, biết có lỗi, Không lỗi, biết là không, Do chấp nhận chánh kiến, Chúng sanh đi cõi lành.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-320",
+    "content": "Ta như voi giữa trận, Hứng chịu cung tên rơi, Chịu đựng mọi phỉ báng. Ác giới rất nhiều người.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-321",
+    "content": "Voi luyện, đưa dự hội, Ngựa luyện, được vua cưỡi, Người luyện, bậc tối thượng Chịu đựng mọi phỉ báng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-322",
+    "content": "Tốt thay, con la thuần, Thuần chủng loài ngựa Xinh. Ðại tượng, voi có ngà. Tự điều mới tối thượng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-333",
+    "content": "Vui thay, già có giới! Vui thay, tín an trú! Vui thay, được trí tuệ, Vui thay, ác không làm.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+  {
+    "code": "quote-334",
+    "content": "Người sống đời phóng dật, Ái tăng như giây leo. Nhảy đời này đời khác, Như vượn tham quả rừng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-335",
+    "content": "Ai sống trong đời này, Bị ái dục buộc ràng Sầu khổ sẽ tăng trưởng, Như cỏ Bi gặp mưa.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-336",
+    "content": "Ai sống trong đời này Ái dục được hàng phục Sầu rơi khỏi người ấy Như giọt nước lá sen.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-337",
+    "content": "Ðây điều lành Ta dạy, Các người tụ họp đây. Hãy nhổ tận gốc ái Như nhổ gốc cỏ Bi. Chớ để ma phá hoại, Như giòng nước cỏ lau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-338",
+    "content": "Như cây bị chặt đốn, Gốc chưa hại vẫn bền Ái tùy miên chưa nhổ, Khổ này vẫn sanh hoài.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-339",
+    "content": "Ba mươi sáu dòng Ái (1), Trôi người đốn khả ái. Các tư tưởng tham ái. Cuốn trôi người tà kiến.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-340",
+    "content": "Dòng ái dục chảy khắp, Như giây leo mọc tràn, Thấy giây leo vừa sanh, Với tuệ, hãy đoạn gốc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-341",
+    "content": "Người đời nhớ ái dục, Ưa thích các hỷ lạc. Tuy mong cầu an lạc, Họ vẫn phải sanh già.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "peace",
+    "isActive": true
+  },
+   {
+    "code": "quote-342",
+    "content": "Người bị ái buộc ràng, Vùng vẫy và hoảng sợ, Như thỏ bị sa lưới. Họ sanh ái trói buộc, Chịu khổ đau dài dài.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-343",
+    "content": "Người bị ái buộc ràng, Vùng vẫy và hoảng sợ, Như thỏ bị sa lưới. Do vậy vị tỷ kheo, Mong cầu mình ly tham Nên nhiếp phục ái dục.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-344",
+    "content": "Lìa rừng lại hướng rừng (2) Thoát rừng chạy theo rừng. Nên xem người như vậy, Ðược thoát khỏi buộc ràng. Lại chạy theo ràng buộc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-345",
+    "content": "Sắt, cây, gai trói buộc Người trí xem chưa bền. Tham châu báu, trang sức Tham vọng vợ và con.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-346",
+    "content": "Người có trí nói rằng: “Trói buộc này thật bền. Rì kéo xuống, lún xuống, Nhưng thật sự khó thoát. Người trí cắt trừ nó, Bỏ dục lạc, không màng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-347",
+    "content": "Người đắm say ái dục Tự lao mình xuống dòng Như nhện sa lưới dệt. Người trí cắt trừ nó, Bỏ mọi khổ, không màng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-348",
+    "content": "Bỏ quá, hiện, vị lai, Ðến bờ kia cuộc đời, Ý giải thoát tất cả, Chớ vướng lại sanh già.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-349",
+    "content": "Người tà ý nhiếp phục, Tham sắc bén nhìn tịnh, Người ấy ái tăng trưởng, Làm giây trói mình chặt.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-350",
+    "content": "Ai vui, an tịnh ý, Quán bất tịnh, thường niệm, Người ấy sẽ diệt ái, Cắt đứt Ma trói buộc.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-351",
+    "content": "Ai tới đích, không sợ, Ly ái, không nhiễm ô Nhổ mũi tên sanh tử, Thân này thân cuối cùng.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-352",
+    "content": "Ái lìa, không chấp thủ. Cú pháp khéo biện tài Thấu suốt từ vô ngại, Hiểu thứ lớp trước sau. Thân này thân cuối cùng Vị như vậy được gọi, Bậc Ðại trí, đại nhân.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+    {
+    "code": "quote-353",
+    "content": "Ta hàng phục tất cả, Ta rõ biết tất cả, Không bị nhiễm pháp nào. Ta từ bỏ tất cả Ái diệt, tự giải thoát. Ðã tự mình thắng trí, Ta gọi ai thầy ta?",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-354",
+    "content": "Pháp thí, thắng mọi thí! Pháp vị, thắng mọi vị! Pháp hỷ, thắng mọi hỷ! Ái diệt, dứt mọi khổ!",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-355",
+    "content": "Tài sản hại người ngu. Không người tìm bờ kia Kẻ ngu vì tham giàu, Hại mình và hại người.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-356",
+    "content": "Cỏ làm hại ruộng vườn, Tham làm hại người đời. Bố thí người ly tham, Do vậy được quả lớn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-357",
+    "content": "Cỏ làm hại ruộng vườn, Sân làm hại người đời. Bố thí người ly sân, Do vậy được quả lớn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-358",
+    "content": "Cỏ làm hại ruộng vườn, Si làm hại người đời, Bố thí người ly si, Do vậy được quả lớn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-359",
+    "content": "Cỏ làm hại ruộng vườn, Dục làm hại người đời. Bố thí người ly dục, Do vậy được quả lớn.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "compassion",
+    "isActive": true
+  },
+  {
+    "code": "quote-360",
+    "content": "Lành thay, phòng hộ mắt! Lành thay, phòng hộ tai. Lành thay, phòng hộ mũi, Lành thay, phòng hộ lưỡi.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-361",
+    "content": "Lành thay,phòng hộ thân! Lành thay, phòng hộ lời, Lành thay, phòng hộ ý. Lành thay, phòng tất cả. Tỷ kheo phòng tất cả. Thoát được mọi khổ đau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-361",
+    "content": "Lành thay,phòng hộ thân! Lành thay, phòng hộ lời, Lành thay, phòng hộ ý. Lành thay, phòng tất cả. Tỷ kheo phòng tất cả. Thoát được mọi khổ đau.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
+    "isActive": true
+  },
+  {
+    "code": "quote-362",
+    "content": "Người chế ngự tay chân, Chế ngự lời và đầu, Vui thích nội thiền định. Ðộc thân, biết vừa đủ, Thật xứng gọi tỷ kheo.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "mindfulness",
+    "isActive": true
+  },
+  {
+    "code": "quote-363",
+    "content": "Tỷ kheo chế ngự miệng, Vừa lời, không cống cao, Khi trình bày pháp nghĩa, Lời lẽ dịu ngọt ngào.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-364",
+    "content": "Vị tỷ kheo thích Pháp, Mến pháp, suy tư Pháp. Tâm tư niệm chánh Pháp, Không rời bỏ chánh Pháp.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "wisdom",
+    "isActive": true
+  },
+  {
+    "code": "quote-365",
+    "content": "Không khinh điều mình được, Không ganh người khác được Tỷ kheo ganh tị người, Không sao chứng Thiền Ðịnh.",
+    "author": "",
+    "source": "Kinh Pháp Cú",
+    "category": "dhamma",
     "isActive": true
   }
 ]
