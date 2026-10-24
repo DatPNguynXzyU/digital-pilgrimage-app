@@ -20,6 +20,9 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(home: ChiTietKinhSachPage(scripture: scripture)),
     );
+    expect(find.byType(Slider), findsNothing);
+    await tester.tap(find.byTooltip('Tự cuộn'));
+    await tester.pump();
     return tester
         .widget<ListView>(find.byKey(const ValueKey('scripture-reader')))
         .controller!;

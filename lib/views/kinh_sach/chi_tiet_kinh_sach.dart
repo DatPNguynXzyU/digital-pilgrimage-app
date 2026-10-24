@@ -20,6 +20,7 @@ class _ChiTietKinhSachPageState extends State<ChiTietKinhSachPage>
   double _fontSize = 18;
   double _speed = 24;
   bool _playing = false;
+  bool _controlsVisible = false;
 
   @override
   void initState() {
@@ -86,7 +87,78 @@ class _ChiTietKinhSachPageState extends State<ChiTietKinhSachPage>
         title: Text(scripture.type),
         backgroundColor: AppTheme.background,
         surfaceTintColor: Colors.transparent,
+        bottom: _controlsVisible
+            ? PreferredSize(
+                preferredSize: const Size.fromHeight(122),
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(16, 10, 16, 8),
+                  decoration: const BoxDecoration(
+                    color: AppTheme.surface,
+                    border: Border(top: BorderSide(color: AppTheme.border)),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              _playing ? 'Đang tự cuộn' : 'Tự cuộn khi đọc',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: AppTheme.primary,
+                              ),
+                            ),
+                          ),
+                          FilledButton.icon(
+                            onPressed: scripture.content.trim().isEmpty
+                                ? null
+                                : _toggle,
+                            icon: Icon(
+                              _playing
+                                  ? Icons.pause_rounded
+                                  : Icons.play_arrow_rounded,
+                            ),
+                            label: Text(_playing ? 'Tạm dừng' : 'Bắt đầu'),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          const Text('Chậm'),
+                          Expanded(
+                            child: Slider(
+                              value: _speed,
+                              min: 8,
+                              max: 64,
+                              divisions: 7,
+                              label: 'Mức ${((_speed - 8) / 8 + 1).round()}',
+                              semanticFormatterCallback: (v) =>
+                                  'Tốc độ mức ${((v - 8) / 8 + 1).round()}',
+                              onChanged: (value) =>
+                                  setState(() => _speed = value),
+                            ),
+                          ),
+                          const Text('Nhanh'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            : null,
         actions: [
+          IconButton(
+            tooltip: _controlsVisible ? 'Ẩn điều khiển tự cuộn' : 'Tự cuộn',
+            isSelected: _controlsVisible,
+            onPressed: () =>
+                setState(() => _controlsVisible = !_controlsVisible),
+            icon: Icon(
+              _playing
+                  ? Icons.pause_circle_outline
+                  : Icons.auto_stories_outlined,
+            ),
+          ),
           IconButton(
             tooltip: 'Giảm cỡ chữ',
             onPressed: _fontSize <= 14
@@ -209,61 +281,6 @@ class _ChiTietKinhSachPageState extends State<ChiTietKinhSachPage>
               ),
             ),
           ],
-        ),
-      ),
-      bottomNavigationBar: SafeArea(
-        top: false,
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(16, 10, 16, 8),
-          decoration: const BoxDecoration(
-            color: AppTheme.surface,
-            border: Border(top: BorderSide(color: AppTheme.border)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      _playing ? 'Đang tự cuộn' : 'Tự cuộn khi đọc',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: AppTheme.primary,
-                      ),
-                    ),
-                  ),
-                  FilledButton.icon(
-                    onPressed: scripture.content.trim().isEmpty
-                        ? null
-                        : _toggle,
-                    icon: Icon(
-                      _playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
-                    ),
-                    label: Text(_playing ? 'Tạm dừng' : 'Bắt đầu'),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Text('Chậm'),
-                  Expanded(
-                    child: Slider(
-                      value: _speed,
-                      min: 8,
-                      max: 64,
-                      divisions: 7,
-                      label: 'Mức ${((_speed - 8) / 8 + 1).round()}',
-                      semanticFormatterCallback: (v) =>
-                          'Tốc độ mức ${((v - 8) / 8 + 1).round()}',
-                      onChanged: (value) => setState(() => _speed = value),
-                    ),
-                  ),
-                  const Text('Nhanh'),
-                ],
-              ),
-            ],
-          ),
         ),
       ),
     );
