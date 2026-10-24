@@ -1,3 +1,5 @@
+import '../config/api_config.dart';
+
 class BuddhistFigure {
   final String id;
   final String name;
@@ -95,9 +97,7 @@ class BuddhistFigure {
               '',
 
       thumbnail:
-          json['thumbnail']
-                  ?.toString() ??
-              '',
+          ApiConfig.resolveImageUrl(json['thumbnail']),
 
       images:
           (json['images']
@@ -105,7 +105,7 @@ class BuddhistFigure {
                   [])
               .map(
                 (item) =>
-                    item.toString(),
+                    ApiConfig.resolveImageUrl(item),
               )
               .toList(),
     );

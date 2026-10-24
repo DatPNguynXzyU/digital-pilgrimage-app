@@ -43,47 +43,70 @@ class _HomeDhammapadaCardState extends State<HomeDhammapadaCard> {
   @override
   Widget build(BuildContext context) => Container(
     key: const ValueKey('dhammapada-card'),
-    padding: const EdgeInsets.all(18),
+    width: double.infinity,
+    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 22),
     decoration: BoxDecoration(
-      color: const Color(0xFFF0E6D5),
+      gradient: const LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [Color(0xFFF7F0E3), Color(0xFFF0E6D5)],
+      ),
       borderRadius: BorderRadius.circular(22),
       border: Border.all(color: AppTheme.border),
     ),
     child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        const Icon(Icons.spa_outlined, color: AppTheme.warmBrown, size: 26),
+        const SizedBox(height: 8),
         const Text(
           'Kinh Pháp Cú',
+          textAlign: TextAlign.center,
           style: TextStyle(
             color: AppTheme.warmBrown,
-            fontSize: 15,
+            fontSize: 17,
             fontWeight: FontWeight.w700,
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 16),
         if (_loading)
           const LinearProgressIndicator()
         else if (_failed)
-          const Text('Không thể tải câu Phật ngôn. Vui lòng thử lại.')
+          const Text(
+            'Không thể tải câu Phật ngôn. Vui lòng thử lại.',
+            textAlign: TextAlign.center,
+          )
         else if (_quote == null)
-          const Text('Chưa có câu Phật ngôn.')
+          const Text('Chưa có câu Phật ngôn.', textAlign: TextAlign.center)
         else ...[
           Text(
             _quote!.content,
-            style: const TextStyle(fontSize: 14, height: 1.5),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 16,
+              height: 1.65,
+              color: AppTheme.text,
+            ),
           ),
           if (_quote!.source.trim().isNotEmpty &&
               _quote!.source.trim() != 'Kinh Pháp Cú') ...[
             const SizedBox(height: 8),
             Text(
               _quote!.source,
+              textAlign: TextAlign.center,
               style: const TextStyle(color: AppTheme.textSecondary),
             ),
           ],
         ],
+        const SizedBox(height: 16),
         Align(
-          alignment: Alignment.centerRight,
+          alignment: Alignment.center,
           child: TextButton.icon(
+            style: TextButton.styleFrom(
+              backgroundColor: Colors.white.withValues(alpha: 0.6),
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
+              shape: const StadiumBorder(),
+            ),
             onPressed: _loading ? null : _load,
             icon: const Icon(Icons.refresh),
             label: Text(_failed ? 'Thử lại' : 'Câu khác'),

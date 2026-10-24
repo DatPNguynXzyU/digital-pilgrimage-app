@@ -1,3 +1,5 @@
+import '../config/api_config.dart';
+
 class Scripture {
   final String id;
   final String title;
@@ -50,7 +52,7 @@ class Scripture {
           json['source'] ?? '',
 
       imageUrl:
-          json['imageUrl'] ?? '',
+          ApiConfig.resolveImageUrl(json['imageUrl']),
 
       order:
           json['order'] ?? 0,

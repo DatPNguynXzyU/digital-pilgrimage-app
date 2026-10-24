@@ -25,6 +25,7 @@ function normalizeCategory(category) {
     .toLowerCase();
 
   const categoryMap = {
+    'dhamma': 'dhamma',
     // Trí tuệ
     'trí tuệ': 'wisdom',
     'tri tue': 'wisdom',

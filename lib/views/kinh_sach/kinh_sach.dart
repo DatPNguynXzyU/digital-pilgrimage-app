@@ -1,3 +1,5 @@
+import '../../widgets/content_thumbnail.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../config/app_theme.dart';
@@ -275,6 +277,13 @@ class _KinhSachPageState extends State<KinhSachPage> {
         borderRadius: BorderRadius.circular(18),
 
         border: Border.all(color: const Color(0xFFF1E6D7)),
+        boxShadow: [
+          BoxShadow(
+            color: primaryBrown.withValues(alpha: 0.04),
+            blurRadius: 14,
+            offset: const Offset(0, 4),
+          ),
+        ],
       ),
 
       child: InkWell(
@@ -290,8 +299,8 @@ class _KinhSachPageState extends State<KinhSachPage> {
           child: Row(
             children: [
               Container(
-                width: 54,
-                height: 54,
+                width: 60,
+                height: 82,
 
                 decoration: BoxDecoration(
                   color: lightBrown,
@@ -299,12 +308,14 @@ class _KinhSachPageState extends State<KinhSachPage> {
                   borderRadius: BorderRadius.circular(14),
                 ),
 
-                child: Icon(
-                  scripture.type == 'Chú'
-                      ? Icons.spa_rounded
-                      : Icons.menu_book_rounded,
-
-                  color: primaryBrown,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(14),
+                  child: ContentThumbnail(
+                    url: scripture.imageUrl,
+                    icon: scripture.type == 'Chú'
+                        ? Icons.spa_rounded
+                        : Icons.menu_book_rounded,
+                  ),
                 ),
               ),
 

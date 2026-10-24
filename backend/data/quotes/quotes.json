@@ -167,7 +167,7 @@
     "category": "mindfulness",
     "isActive": true
   },
-       {
+  {
     "code": "quote-022",
     "content": "Biết rõ sai biệt ấy, Người trí không phóng dật, Hoan hỷ, không phóng dật, An vui hạnh bậc Thánh.",
     "author": "",
@@ -415,7 +415,7 @@
     "category": "dhamma",
     "isActive": true
   },
-     {
+  {
     "code": "quote-053",
     "content": "Như từ một đống hoa, Nhiều tràng hoa được làm. Cũng vậy, thân sanh tử, Phải làm nhiều việc lành.",
     "author": "",
@@ -679,7 +679,7 @@
     "category": "dhamma",
     "isActive": true
   },
-    {
+  {
     "code": "quote-086",
     "content": "Những ai hành trì pháp, Theo chánh pháp khéo dạy, Sẽ đến bờ bên kia, Vượt ma lực khó thoát.",
     "author": "",
@@ -767,7 +767,7 @@
     "category": "peace",
     "isActive": true
   },
-    {
+  {
     "code": "quote-097",
     "content": "Không tin, hiểu vô vi. Người cắt mọi hệ lụy Cơ hội tận, xả ly Vị ấy thật tối thượng.",
     "author": "",
@@ -1087,7 +1087,7 @@
     "category": "dhamma",
     "isActive": true
   },
-    {
+  {
     "code": "quote-137",
     "content": "Dùng trượng phạt không trượng, Làm ác người không ác. Trong mười loại khổ đau, Chịu gấp một loại khổ.",
     "author": "",
@@ -1343,7 +1343,7 @@
     "category": "dhamma",
     "isActive": true
   },
-   {
+  {
     "code": "quote-169",
     "content": "Hãy khéo sống chánh hạnh, Chớ sống theo tà hạnh! Người chánh hạnh hưởng lạc, Cả đời này, đời sau.",
     "author": "",
@@ -1431,7 +1431,7 @@
     "category": "dhamma",
     "isActive": true
   },
-    {
+  {
     "code": "quote-180",
     "content": "Ai giải tỏa lưới tham, Ái phược hết dắt dẫn, Phật giới rộng mênh mông, Ai dùng chân theo dõi, Bậc không để dấu tích?",
     "author": "",
@@ -1559,7 +1559,7 @@
     "category": "dhamma",
     "isActive": true
   },
-   {
+  {
     "code": "quote-196",
     "content": "Nội dung câu kệ 196",
     "author": "",
@@ -1647,7 +1647,7 @@
     "category": "peace",
     "isActive": true
   },
-     {
+  {
     "code": "quote-207",
     "content": "Sống chung với người ngu, Lâu dài bị lo buồn. Khổ thay gần người ngu, Như thường sống kẻ thù. Vui thay, gần người trí, Như chung sống bà con.",
     "author": "",
@@ -1846,8 +1846,8 @@
     "source": "Kinh Pháp Cú",
     "category": "dhamma",
     "isActive": true
-  }, 
-   {
+  },
+  {
     "code": "quote-237",
     "content": "Ðời ngươi nay sắp tàn, Tiến gần đến Diêm Vương. Giữa đường không nơi nghỉ, Ðường trường thiếu tư lương.",
     "author": "",
@@ -1935,7 +1935,7 @@
     "category": "dhamma",
     "isActive": true
   },
-   {
+  {
     "code": "quote-248",
     "content": "Vậy người, hãy nên biết, Không chế ngự là ác. Chớ để tham phi pháp, Làm người đau khổ dài.",
     "author": "",
@@ -2023,7 +2023,7 @@
     "category": "wisdom",
     "isActive": true
   },
-    {
+  {
     "code": "quote-259",
     "content": "Không phải vì nói nhiều, Mới xứng danh trì pháp, Những ai tuy nghe ít, Nhưng thân hành đúng pháp, Không phóng túng chánh pháp, Mới xứng danh trì pháp.",
     "author": "",
@@ -2414,8 +2414,8 @@
     "source": "Kinh Pháp Cú",
     "category": "dhamma",
     "isActive": true
-  }, 
-    {
+  },
+  {
     "code": "quote-308",
     "content": "Tốt hơn nuốt hòn sắt Cháy đỏ như than hồng, Hơn ác giới, buông lung Ăn đồ ăn quốc độ.",
     "author": "",
@@ -2607,7 +2607,7 @@
     "category": "peace",
     "isActive": true
   },
-   {
+  {
     "code": "quote-342",
     "content": "Người bị ái buộc ràng, Vùng vẫy và hoảng sợ, Như thỏ bị sa lưới. Họ sanh ái trói buộc, Chịu khổ đau dài dài.",
     "author": "",
@@ -2695,7 +2695,7 @@
     "category": "wisdom",
     "isActive": true
   },
-    {
+  {
     "code": "quote-353",
     "content": "Ta hàng phục tất cả, Ta rõ biết tất cả, Không bị nhiễm pháp nào. Ta từ bỏ tất cả Ái diệt, tự giải thoát. Ðã tự mình thắng trí, Ta gọi ai thầy ta?",
     "author": "",
@@ -2754,14 +2754,6 @@
   {
     "code": "quote-360",
     "content": "Lành thay, phòng hộ mắt! Lành thay, phòng hộ tai. Lành thay, phòng hộ mũi, Lành thay, phòng hộ lưỡi.",
-    "author": "",
-    "source": "Kinh Pháp Cú",
-    "category": "dhamma",
-    "isActive": true
-  },
-  {
-    "code": "quote-361",
-    "content": "Lành thay,phòng hộ thân! Lành thay, phòng hộ lời, Lành thay, phòng hộ ý. Lành thay, phòng tất cả. Tỷ kheo phòng tất cả. Thoát được mọi khổ đau.",
     "author": "",
     "source": "Kinh Pháp Cú",
     "category": "dhamma",

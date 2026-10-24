@@ -1,3 +1,5 @@
+import '../config/api_config.dart';
+
 class PilgrimageVisit {
   final String id;
   final String templeName;
@@ -23,7 +25,7 @@ class PilgrimageVisit {
       id: json['id']?.toString() ?? '',
       templeName: temple['name']?.toString() ?? '',
       templeSlug: temple['slug']?.toString() ?? '',
-      thumbnail: temple['thumbnail']?.toString() ?? '',
+      thumbnail: ApiConfig.resolveImageUrl(temple['thumbnail']),
       visitDate: rawVisitDate == null ? null : DateTime.tryParse(rawVisitDate),
       note: json['note']?.toString() ?? '',
     );

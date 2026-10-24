@@ -32,6 +32,7 @@ const quoteSchema = new mongoose.Schema(
     category: {
       type: String,
       enum: [
+        'dhamma',
         'wisdom',
         'compassion',
         'mindfulness',

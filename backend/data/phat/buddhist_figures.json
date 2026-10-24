@@ -1,246 +1,291 @@
-  [
-    {
-      "name": "Phật Thích Ca Mâu Ni",
-      "slug": "phat-thich-ca-mau-ni",
-      "category": "Phật",
-      "otherNames": ["Thích Ca Mâu Ni", "Đức Phật lịch sử"],
-      "description": "Đức Phật lịch sử, là một nhà tu hành và nhà truyền giáo, người sáng lập ra Phật giáo",
-      "biography": "Ngài xuất thân là thái tử vương tộc Gautama của tiểu quốc Shakya nhưng sớm từ bỏ cuộc sống vinh hoa phú quý để lên đường đi tìm chánh đạo",
-      "symbol": "Hoa sen, ấn chuyển pháp luân, Bát bát", 
-      "meaning": "Biểu trưng cho trí tuệ, sự thanh tịnh và lòng từ bi",
-      "imageUrl": "/img/phat/thichcamauni.png",
-      "order": 1,
-      "featured": true
-    },
-    {
-      "name": "Phật A Di Đà",
-      "slug": "phat-a-di-da",
-      "category": "Phật",
-      "otherNames": ["Am-mi-đà Phật", "Vô Lượng Thọ Phật"],
-      "description": "Đức Phật A Di Đà là vị Phật giáo chủ cõi Tây Phương Cực Lạc, biểu trưng cho ánh sáng trí tuệ và lòng từ bi vô lượng",
-      "biography": " Theo Đại Kinh A-di-đà hay Đại Kinh Sukhāvatīvyūha, trong một kiếp sống trước đây A-di-đà là một vị tăng tên là Pháp-tạng hay Dharmākara, ông nguyện khi đắc quả Phật sẽ tịnh hoá và trang nghiêm một thế giới và biến nó thành một trong những quốc độ thanh tịnh và đẹp đẽ nhất",
-      "symbol": "Đài sen tiếp dẫn",
-      "meaning": "Biểu trưng cho vô lượng quang minh và vô lượng thọ mạng.",
-      "imageUrl": "/img/phat/phatadida.png",
-      "order": 2,
-      "featured": true
-    },
-    {
-      "name": "Phật Dược Sư",
-      "slug": "phat-duoc-su",
-      "category": "Phật",   
-      "otherNames": ["Dược Sư Lưu Ly Quang Vương Phật"],
-      "description": "Đức Phật Dược Sư là vị Phật chuyên trị liệu các bệnh khổ về thân và tâm, cứu độ chúng sinh khỏi sinh tử và phiền não",
-      "biography": "Phát 12 đại nguyện cứu vớt tất cả khổ đau về thân và tâm của chúng sinh",
-      "symbol": "Bình thuốc thanh tịnh, tháp lưu ly",
-      "meaning": "Biểu trưng cho sự chữa lành, sức khỏe và sự trường thọ.",
-      "imageUrl": "/img/phat/phatduocsu.png",
-      "order": 3,
-      "featured": true
-    },
-    {
-      "name": "Bồ Tát Quán Thế Âm",
-      "slug": "bo-tat-quan-the-am",
-      "category": "Bồ Tát",
-      "otherNames": ["Quan Âm", "Avalokiteshvara"],
-      "description": "Quán Thế Âm Bồ Tát là vị Bồ-tát đại diện cho lòng từ bi, chuyên cứu khổ cứu nạn và lắng nghe tiếng kêu than của chúng sinh trong thế gian",
-      "biography": "Lắng nghe tiếng kêu than của thế gian để đến cứu độ kịp thời.",
-      "symbol": "Cành dương liễu, bình nước cam lộ",
-      "meaning": "Biểu trưng cho lòng từ bi bao la và sự cứu khổ.",
-      "imageUrl": "/img/phat/quantheam.png",
-      "order": 4,
-      "featured": true
-    },  
-
-    {
-      "name": "Bồ Tát Đại Thế Chí",
-      "slug": "bo-tat-dai-the-chi",
-      "category": "Bồ Tát",
-      "otherNames": ["Đắc Đại đế"], 
-      "description": "Vị Bồ Tát dùng ánh sáng trí tuệ chiếu soi chúng sinh, là thị giả bên phải cùng với Quán Thế Âm của đức Phật A Di Đà.",
-      "biography": "Cùng với Bồ Tát Quán Thế Âm phò tá Phật A Di Đà tiếp dẫn chúng sinh về Cực Lạc.",
-      "symbol": "Cành hoa sen xanh",
-      "meaning": "Biểu trưng cho sức mạnh đại trí tuệ.",
-      "imageUrl": "/img/phat/daithechi.png",
-      "order": 5,
-      "featured": false
-    },
-    {
-      "name": "Bồ Tát Địa Tạng",
-      "slug": "bo-tat-dia-tang",
-      "category": "Bồ Tát",
-      "otherNames": ["Ksitigarbha", " Địa Tạng Vương"],
-      "description": "Vị Bồ Tát phát nguyện cứu độ chúng sinh dưới địa ngục với câu nói nổi tiếng 'Địa ngục chưa Không, Thề không hóa Phật'.",
-      "biography": "Hóa thân thành nhiều hình tướng để cứu độ các hương linh và chúng sinh lầm đường lạc lối.",
-      "symbol": "Tích trượng, minh châu",
-      "meaning": "Biểu trưng cho đại nguyện lực và sự kiên định.",
-      "imageUrl": "/img/phat/diatang.png",
-      "order": 6,
-      "featured": true
-    },
-    {
-      "name": "Bồ Tát Văn Thù Sư Lợi",
-      "slug": "bo-tat-van-thu-su-loi",
-      "category": "Bồ Tát",
-      "otherNames": ["Manjushri", "Văn Thù Đại Sĩ"],
-      "description": "Là vị Bồ Tát tượng trưng cho trí huệ, một trong những vị Bồ Tát quan trọng của Phật giáo",
-      "biography": "Được xem là vị thầy của nhiều đời chư Phật, giúp khai phá vô minh",
-      "symbol": "Gươm trí tuệ, Kinh Bát-nhẵ",
-      "meaning": "Văn-thù là vị Bồ Tát tượng trưng cho kinh nghiệm giác ngộ, đạt được bằng phương tiện tri thức",
-      "imageUrl": "/img/phat/vanthu.png",
-      "order": 7,
-      "featured": true
-    },
-    {
-      "name": "Bồ Tát Phổ Hiền",
-      "slug": "bo-tat-pho-hien",
-      "category": "Bồ Tát",
-      "otherNames": ["Samantabhadra"],
-      "description": "Phổ Hiền được xem là người hộ vệ của những ai tuyên giảng đạo pháp và đại diện cho trí huệ thấu hiểu cái nhất thể của sự đồng nhất và khác biệt",
-      "biography": "Hạnh nguyện rộng lớn ban phát phước báu và thực hành hạnh nguyện Bồ Tát",
-      "symbol": "Voi trắng sáu ngà",
-      "meaning": "Biểu trưng cho đại hạnh và đại hạnh (sự thực hành) và lòng từ bi vô biên",
-      "imageUrl": " /img/phat/phohien.png",
-      "order": 8,
-      "featured": true
-    },
-    {
-      "name": "Phật Di Lặc",
-      "slug": "phat-di-lac",
-      "category": "Phật",
-      "otherNames": ["Maitreya", "Phật Tương Lai"],
-      "description": "Vị Phật kế thừa trực tiếp Đức Phật Thích Ca Mâu Ni",
-      "biography": "Ngài là một vị Bồ tát hiện đang tu học và sẽ chứng ngộ thành Phật trong tương lai",
-      "symbol": "Túi vải, thỏi vàng, gậy như ý",
-      "meaning": "Biểu trưng cho sự hoan hỉ, bình an và sung túc",
-      "imageUrl": "/img/phat/dilac.png",
-      "order": 9,
-      "featured": true
-    },
-    {
-      "name": "Phật Nhiên Đăng",
-      "slug": "phat-nhien-dang",
-      "category": "Phật",
-      "otherNames": ["Dipankara"],
-      "description": "Vị quá khứ Phật từng thọ ký cho tôn giả Tất-đạt-đa sẽ thành Phật trong tương lai",
-      "biography": "Xuất hiện trong các kiếp quá khứ để hoằng dương chánh pháp",
-      "symbol": "Ngọn đèn minh triết",
-      "meaning": "Biểu tượng của ánh sáng trí tuệ và sự tiếp nối",
-      "imageUrl": "/img/phat/nhiendang.png",
-      "order": 10,
-      "featured": false
-    },
-    {
-      "name": "Phật Bản Sư",
-      "slug": "phat-ban-su",
-      "category": "Phật",
-      "otherNames": ["Bản Sư Thích Ca"],
-      "description": "Danh xưng tôn kính của người tu hành đối với vị Phật khai sáng đạo pháp của mình",
-      "biography": "Chỉ chung Đức Phật Thích Ca Mâu Ni bậc đạo sư gốc của cõi ta bà",
-      "symbol": "Hoa sen",
-      "meaning": "Biểu thị lòng tri ân sâu sắc đến người thầy tâm linh lớn.",
-      "imageUrl": "/img/phat/phatbansu.png",
-      "order": 11,
-      "featured": false
-    },
-    {
-      "name": "Phật Đại Nhật",
-      "slug": "phat-dai-nhat",
-      "category": "Phật",
-      "otherNames": ["Vairocana", "Tỳ-lư-xá-na"],
-      "description": "Pháp thân của Phật Thích Ca Mâu Ni trong Mật tông, biểu trưng cho ánh sáng mặt trời trí tuệ",
-      "biography": "Ngài là Pháp thân (thân thể chân lý) của Đức Phật Thích Ca trong Phật giáo Đại thừa và Kim Cương thừa",
-      "symbol": "Vương miện ngũ trí",
-      "meaning": "Biểu trưng cho ánh sáng chân lý phổ chiếu muôn nơi",
-      "imageUrl": "/img/phat/phatdainhat.png",
-      "order": 12,
-      "featured": false
-    },
-    {
-      "name": "Phật A Súc",
-      "slug": "phat-a-suc",
-      "category": "Phật",
-      "otherNames": ["Akshobhya", "Bất Động Phật"],
-      "description": "Phật A-súc là một trong năm vị Ngũ trí Như Lai của Mật Tông",
-      "biography": "ngài đã phát nguyện trước Đức Đại Mục Như Lai rằng sẽ không bao giờ khởi tâm sân hận hay thù hận đối với tất cả nhân loại cũng như các loài côn trùng nhỏ bé",
-      "symbol": "Chày Kim Cương",
-      "meaning": "Biểu trưng cho tâm định tĩnh và kiên định",
-      "imageUrl": "/img/phat/phatasuc.png",
-      "order": 13,
-      "featured": false
-    },
-    {
-      "name": "Phật Bảo Sinh",
-      "slug": "phat-bao-sinh",
-      "category": "Phật",
-      "otherNames": ["Ratnasambhava"],
-      "description": "là một trong Ngũ Thiền Phật của Đại thừa, Kim cương thừa hay Mật tông Phật giáo",
-      "biography": "Biểu thị cho tính bình đẳng và đức tính bố thí",
-      "symbol": "Viên ngọc như ý",
-      "meaning": "Biểu trưng cho lòng quảng đại và tài bảo tâm linh",
-      "imageUrl": "/img/phat/phatbaosinh.png",
-      "order": 14,
-      "featured": false
-    },
-    {
-      "name": "Phật Bất Không Thành Tựu",
-      "slug": "phat-bat-khong-thanh-tuu",
-      "category": "Phật",
-      "otherNames": ["Amoghasiddhi"],
-      "description": "là một trong Ngũ Trí Như Lai của truyền thống Đại thừa và Kim cương thừa trong Phật giáo",
-      "biography": "Ngài gắn liền với sự thành tựu con đường Phật đạo và sự chuyển hóa độc tố ganh tỵ",
-      "symbol": "Song kim cang chùy",
-      "meaning": "Biểu trưng cho hành động vô úy và thành tựu Phật quả",
-      "imageUrl": "/img/phat/phatbatkhongthanhtuu.png",
-      "order": 15,
-      "featured": false
-    },
-    {
-      "name": "Bồ Tát Chuẩn Đề",
-      "slug": "bo-tat-chuan-de",
-      "category": "Bồ Tát",
-      "otherNames": ["Chuẩn Đề Bồ Tát"],
-      "description": "Vị Bồ Tát mẹ của chư Phật, biểu trưng cho trí tuệ Bát Nhã và tâm thanh tịnh, được nhắc đến nhiều trong Kim cương thừa",
-      "biography": "Chuẩn Đề là một vị bồ tát trong trường phái Đại thừa, và đặc biệt được nhắc đến nhiều trong Kim cương thừa",
-      "symbol": "Gương báu,tràng hoa báu, cụ duyên quả",
-      "meaning": "Ngài là biểu tượng của tâm thanh tịnh và trí tuệ Bát Nhã, thứ trí tuệ sinh ra tất cả các bậc giác ngộ",
-      "imageUrl": "/img/phat/botatchuande.png",
-      "order": 16,
-      "featured": false
-    },
-
-    {
-      "name": "Bồ Tát Hư Không Tạng",
-      "slug": "bo-tat-hu-khong-tang",
-      "category": "Bồ Tát",
-      "otherNames": ["Akasagarbha"],
-      "description": "Vị Bồ Tát có kho tàng phước đức và trí tuệ vô tận như hư không",
-      "biography": "Ban phát sự giàu có về tinh thần và vật chất cho người tu hành thành tâm",
-      "symbol": "Viên ngọc như ý, thanh kiếm",
-      "meaning": "Biểu trưng cho kho tàng phước đức không bao giờ cạn kiệt",
-      "imageUrl": "/img/phat/botathukhongtang.png",
-      "order": 17,
-      "featured": false
-    },
-    {
-      "name": "Bồ Tát Kim Cương Thủ",
-      "slug": "bo-tat-kim-cuong-thu",
-      "category": "Bồ Tát",
-      "otherNames": ["Vajrapani"],
-      "description": "Vị Bồ Tát bảo hộ chánh pháp, tượng trưng cho năng lượng và uy lực của chư Phật",
-      "biography": "Hộ trì các đạo tràng tu tập và hàng phục phiền não",
-      "symbol": "Kim cang chùy",
-      "meaning": "Biểu trưng cho ý chí kiên cường và sức mạnh trừ ác",
-      "imageUrl": "/img/phat/botatkimcuongthu.png",
-      "order": 18,
-      "featured": false
-    },
-   
+[
+  {
+    "name": "Phật Thích Ca Mâu Ni",
+    "slug": "phat-thich-ca-mau-ni",
+    "category": "Phật",
+    "otherNames": [
+      "Thích Ca Mâu Ni",
+      "Đức Phật lịch sử"
+    ],
+    "description": "Đức Phật lịch sử, là một nhà tu hành và nhà truyền giáo, người sáng lập ra Phật giáo",
+    "biography": "Ngài xuất thân là thái tử vương tộc Gautama của tiểu quốc Shakya nhưng sớm từ bỏ cuộc sống vinh hoa phú quý để lên đường đi tìm chánh đạo",
+    "symbol": "Hoa sen, ấn chuyển pháp luân, Bát bát",
+    "meaning": "Biểu trưng cho trí tuệ, sự thanh tịnh và lòng từ bi",
+    "imageUrl": "/img/phat/thichcamauni.png",
+    "order": 1,
+    "featured": true
+  },
+  {
+    "name": "Phật A Di Đà",
+    "slug": "phat-a-di-da",
+    "category": "Phật",
+    "otherNames": [
+      "Am-mi-đà Phật",
+      "Vô Lượng Thọ Phật"
+    ],
+    "description": "Đức Phật A Di Đà là vị Phật giáo chủ cõi Tây Phương Cực Lạc, biểu trưng cho ánh sáng trí tuệ và lòng từ bi vô lượng",
+    "biography": " Theo Đại Kinh A-di-đà hay Đại Kinh Sukhāvatīvyūha, trong một kiếp sống trước đây A-di-đà là một vị tăng tên là Pháp-tạng hay Dharmākara, ông nguyện khi đắc quả Phật sẽ tịnh hoá và trang nghiêm một thế giới và biến nó thành một trong những quốc độ thanh tịnh và đẹp đẽ nhất",
+    "symbol": "Đài sen tiếp dẫn",
+    "meaning": "Biểu trưng cho vô lượng quang minh và vô lượng thọ mạng.",
+    "imageUrl": "/img/phat/phatadida.png",
+    "order": 2,
+    "featured": true
+  },
+  {
+    "name": "Phật Dược Sư",
+    "slug": "phat-duoc-su",
+    "category": "Phật",
+    "otherNames": [
+      "Dược Sư Lưu Ly Quang Vương Phật"
+    ],
+    "description": "Đức Phật Dược Sư là vị Phật chuyên trị liệu các bệnh khổ về thân và tâm, cứu độ chúng sinh khỏi sinh tử và phiền não",
+    "biography": "Phát 12 đại nguyện cứu vớt tất cả khổ đau về thân và tâm của chúng sinh",
+    "symbol": "Bình thuốc thanh tịnh, tháp lưu ly",
+    "meaning": "Biểu trưng cho sự chữa lành, sức khỏe và sự trường thọ.",
+    "imageUrl": "/img/phat/phatduocsu.png",
+    "order": 3,
+    "featured": true
+  },
+  {
+    "name": "Bồ Tát Quán Thế Âm",
+    "slug": "bo-tat-quan-the-am",
+    "category": "Bồ Tát",
+    "otherNames": [
+      "Quan Âm",
+      "Avalokiteshvara"
+    ],
+    "description": "Quán Thế Âm Bồ Tát là vị Bồ-tát đại diện cho lòng từ bi, chuyên cứu khổ cứu nạn và lắng nghe tiếng kêu than của chúng sinh trong thế gian",
+    "biography": "Lắng nghe tiếng kêu than của thế gian để đến cứu độ kịp thời.",
+    "symbol": "Cành dương liễu, bình nước cam lộ",
+    "meaning": "Biểu trưng cho lòng từ bi bao la và sự cứu khổ.",
+    "imageUrl": "/img/phat/quantheam.png",
+    "order": 4,
+    "featured": true
+  },
+  {
+    "name": "Bồ Tát Đại Thế Chí",
+    "slug": "bo-tat-dai-the-chi",
+    "category": "Bồ Tát",
+    "otherNames": [
+      "Đắc Đại đế"
+    ],
+    "description": "Vị Bồ Tát dùng ánh sáng trí tuệ chiếu soi chúng sinh, là thị giả bên phải cùng với Quán Thế Âm của đức Phật A Di Đà.",
+    "biography": "Cùng với Bồ Tát Quán Thế Âm phò tá Phật A Di Đà tiếp dẫn chúng sinh về Cực Lạc.",
+    "symbol": "Cành hoa sen xanh",
+    "meaning": "Biểu trưng cho sức mạnh đại trí tuệ.",
+    "imageUrl": "/img/phat/daithechi.png",
+    "order": 5,
+    "featured": false
+  },
+  {
+    "name": "Bồ Tát Địa Tạng",
+    "slug": "bo-tat-dia-tang",
+    "category": "Bồ Tát",
+    "otherNames": [
+      "Ksitigarbha",
+      " Địa Tạng Vương"
+    ],
+    "description": "Vị Bồ Tát phát nguyện cứu độ chúng sinh dưới địa ngục với câu nói nổi tiếng 'Địa ngục chưa Không, Thề không hóa Phật'.",
+    "biography": "Hóa thân thành nhiều hình tướng để cứu độ các hương linh và chúng sinh lầm đường lạc lối.",
+    "symbol": "Tích trượng, minh châu",
+    "meaning": "Biểu trưng cho đại nguyện lực và sự kiên định.",
+    "imageUrl": "/img/phat/diatang.png",
+    "order": 6,
+    "featured": true
+  },
+  {
+    "name": "Bồ Tát Văn Thù Sư Lợi",
+    "slug": "bo-tat-van-thu-su-loi",
+    "category": "Bồ Tát",
+    "otherNames": [
+      "Manjushri",
+      "Văn Thù Đại Sĩ"
+    ],
+    "description": "Là vị Bồ Tát tượng trưng cho trí huệ, một trong những vị Bồ Tát quan trọng của Phật giáo",
+    "biography": "Được xem là vị thầy của nhiều đời chư Phật, giúp khai phá vô minh",
+    "symbol": "Gươm trí tuệ, Kinh Bát-nhẵ",
+    "meaning": "Văn-thù là vị Bồ Tát tượng trưng cho kinh nghiệm giác ngộ, đạt được bằng phương tiện tri thức",
+    "imageUrl": "/img/phat/vanthu.png",
+    "order": 7,
+    "featured": true
+  },
+  {
+    "name": "Bồ Tát Phổ Hiền",
+    "slug": "bo-tat-pho-hien",
+    "category": "Bồ Tát",
+    "otherNames": [
+      "Samantabhadra"
+    ],
+    "description": "Phổ Hiền được xem là người hộ vệ của những ai tuyên giảng đạo pháp và đại diện cho trí huệ thấu hiểu cái nhất thể của sự đồng nhất và khác biệt",
+    "biography": "Hạnh nguyện rộng lớn ban phát phước báu và thực hành hạnh nguyện Bồ Tát",
+    "symbol": "Voi trắng sáu ngà",
+    "meaning": "Biểu trưng cho đại hạnh và đại hạnh (sự thực hành) và lòng từ bi vô biên",
+    "imageUrl": " /img/phat/phohien.png",
+    "order": 8,
+    "featured": true
+  },
+  {
+    "name": "Phật Di Lặc",
+    "slug": "phat-di-lac",
+    "category": "Phật",
+    "otherNames": [
+      "Maitreya",
+      "Phật Tương Lai"
+    ],
+    "description": "Vị Phật kế thừa trực tiếp Đức Phật Thích Ca Mâu Ni",
+    "biography": "Ngài là một vị Bồ tát hiện đang tu học và sẽ chứng ngộ thành Phật trong tương lai",
+    "symbol": "Túi vải, thỏi vàng, gậy như ý",
+    "meaning": "Biểu trưng cho sự hoan hỉ, bình an và sung túc",
+    "imageUrl": "/img/phat/dilac.png",
+    "order": 9,
+    "featured": true
+  },
+  {
+    "name": "Phật Nhiên Đăng",
+    "slug": "phat-nhien-dang",
+    "category": "Phật",
+    "otherNames": [
+      "Dipankara"
+    ],
+    "description": "Vị quá khứ Phật từng thọ ký cho tôn giả Tất-đạt-đa sẽ thành Phật trong tương lai",
+    "biography": "Xuất hiện trong các kiếp quá khứ để hoằng dương chánh pháp",
+    "symbol": "Ngọn đèn minh triết",
+    "meaning": "Biểu tượng của ánh sáng trí tuệ và sự tiếp nối",
+    "imageUrl": "/img/phat/nhiendang.png",
+    "order": 10,
+    "featured": false
+  },
+  {
+    "name": "Phật Bản Sư",
+    "slug": "phat-ban-su",
+    "category": "Phật",
+    "otherNames": [
+      "Bản Sư Thích Ca"
+    ],
+    "description": "Danh xưng tôn kính của người tu hành đối với vị Phật khai sáng đạo pháp của mình",
+    "biography": "Chỉ chung Đức Phật Thích Ca Mâu Ni bậc đạo sư gốc của cõi ta bà",
+    "symbol": "Hoa sen",
+    "meaning": "Biểu thị lòng tri ân sâu sắc đến người thầy tâm linh lớn.",
+    "imageUrl": "/img/phat/phatbansu.png",
+    "order": 11,
+    "featured": false
+  },
+  {
+    "name": "Phật Đại Nhật",
+    "slug": "phat-dai-nhat",
+    "category": "Phật",
+    "otherNames": [
+      "Vairocana",
+      "Tỳ-lư-xá-na"
+    ],
+    "description": "Pháp thân của Phật Thích Ca Mâu Ni trong Mật tông, biểu trưng cho ánh sáng mặt trời trí tuệ",
+    "biography": "Ngài là Pháp thân (thân thể chân lý) của Đức Phật Thích Ca trong Phật giáo Đại thừa và Kim Cương thừa",
+    "symbol": "Vương miện ngũ trí",
+    "meaning": "Biểu trưng cho ánh sáng chân lý phổ chiếu muôn nơi",
+    "imageUrl": "/img/phat/phatdainhat.png",
+    "order": 12,
+    "featured": false
+  },
+  {
+    "name": "Phật A Súc",
+    "slug": "phat-a-suc",
+    "category": "Phật",
+    "otherNames": [
+      "Akshobhya",
+      "Bất Động Phật"
+    ],
+    "description": "Phật A-súc là một trong năm vị Ngũ trí Như Lai của Mật Tông",
+    "biography": "ngài đã phát nguyện trước Đức Đại Mục Như Lai rằng sẽ không bao giờ khởi tâm sân hận hay thù hận đối với tất cả nhân loại cũng như các loài côn trùng nhỏ bé",
+    "symbol": "Chày Kim Cương",
+    "meaning": "Biểu trưng cho tâm định tĩnh và kiên định",
+    "imageUrl": "/img/phat/phatasuc.png",
+    "order": 13,
+    "featured": false
+  },
+  {
+    "name": "Phật Bảo Sinh",
+    "slug": "phat-bao-sinh",
+    "category": "Phật",
+    "otherNames": [
+      "Ratnasambhava"
+    ],
+    "description": "là một trong Ngũ Thiền Phật của Đại thừa, Kim cương thừa hay Mật tông Phật giáo",
+    "biography": "Biểu thị cho tính bình đẳng và đức tính bố thí",
+    "symbol": "Viên ngọc như ý",
+    "meaning": "Biểu trưng cho lòng quảng đại và tài bảo tâm linh",
+    "imageUrl": "/img/phat/phatbaosinh.png",
+    "order": 14,
+    "featured": false
+  },
+  {
+    "name": "Phật Bất Không Thành Tựu",
+    "slug": "phat-bat-khong-thanh-tuu",
+    "category": "Phật",
+    "otherNames": [
+      "Amoghasiddhi"
+    ],
+    "description": "là một trong Ngũ Trí Như Lai của truyền thống Đại thừa và Kim cương thừa trong Phật giáo",
+    "biography": "Ngài gắn liền với sự thành tựu con đường Phật đạo và sự chuyển hóa độc tố ganh tỵ",
+    "symbol": "Song kim cang chùy",
+    "meaning": "Biểu trưng cho hành động vô úy và thành tựu Phật quả",
+    "imageUrl": "/img/phat/phatbatkhongthanhtuu.png",
+    "order": 15,
+    "featured": false
+  },
+  {
+    "name": "Bồ Tát Chuẩn Đề",
+    "slug": "bo-tat-chuan-de",
+    "category": "Bồ Tát",
+    "otherNames": [
+      "Chuẩn Đề Bồ Tát"
+    ],
+    "description": "Vị Bồ Tát mẹ của chư Phật, biểu trưng cho trí tuệ Bát Nhã và tâm thanh tịnh, được nhắc đến nhiều trong Kim cương thừa",
+    "biography": "Chuẩn Đề là một vị bồ tát trong trường phái Đại thừa, và đặc biệt được nhắc đến nhiều trong Kim cương thừa",
+    "symbol": "Gương báu,tràng hoa báu, cụ duyên quả",
+    "meaning": "Ngài là biểu tượng của tâm thanh tịnh và trí tuệ Bát Nhã, thứ trí tuệ sinh ra tất cả các bậc giác ngộ",
+    "imageUrl": "/img/phat/botatchuande.png",
+    "order": 16,
+    "featured": false
+  },
+  {
+    "name": "Bồ Tát Hư Không Tạng",
+    "slug": "bo-tat-hu-khong-tang",
+    "category": "Bồ Tát",
+    "otherNames": [
+      "Akasagarbha"
+    ],
+    "description": "Vị Bồ Tát có kho tàng phước đức và trí tuệ vô tận như hư không",
+    "biography": "Ban phát sự giàu có về tinh thần và vật chất cho người tu hành thành tâm",
+    "symbol": "Viên ngọc như ý, thanh kiếm",
+    "meaning": "Biểu trưng cho kho tàng phước đức không bao giờ cạn kiệt",
+    "imageUrl": "/img/phat/botathukhongtang.png",
+    "order": 17,
+    "featured": false
+  },
+  {
+    "name": "Bồ Tát Kim Cương Thủ",
+    "slug": "bo-tat-kim-cuong-thu",
+    "category": "Bồ Tát",
+    "otherNames": [
+      "Vajrapani"
+    ],
+    "description": "Vị Bồ Tát bảo hộ chánh pháp, tượng trưng cho năng lượng và uy lực của chư Phật",
+    "biography": "Hộ trì các đạo tràng tu tập và hàng phục phiền não",
+    "symbol": "Kim cang chùy",
+    "meaning": "Biểu trưng cho ý chí kiên cường và sức mạnh trừ ác",
+    "imageUrl": "/img/phat/botatkimcuongthu.png",
+    "order": 18,
+    "featured": false
+  },
   {
     "name": "Tọa Lộc La Hán",
     "slug": "toa-loc-la-han",
     "category": "La Hán",
-    "otherNames": ["Tân-đầu-lô-phả-đọa", "Pindolabharadvaja", "La Hán Cỡi Hươu"],
+    "otherNames": [
+      "Tân-đầu-lô-phả-đọa",
+      "Pindolabharadvaja",
+      "La Hán Cỡi Hươu"
+    ],
     "description": "Vị La Hán thứ nhất trong Pháp Trụ Ký, thường cỡi hươu và vĩnh viễn lưu lại nhân gian làm phước điền cho chúng sinh",
     "biography": "Xuất thân dòng Bà-la-môn, là đại thần của vua Ưu Điền. Từ bỏ triều đình tu tập chứng Thánh quả. Do biểu diễn thần thông lấy bát quý trên cây cao nên bị Phật phạt ở lại nhân gian chứng minh kinh điển và nhận cúng dường.",
     "symbol": "Con hươu",
@@ -253,7 +298,11 @@
     "name": "Khánh Hỷ La Hán",
     "slug": "khanh-hy-la-han",
     "category": "La Hán",
-    "otherNames": ["Ca-nặc-ca-phạt-tha", "Kanakavatsa", "Yết-nặc-ca-phược-sa"],
+    "otherNames": [
+      "Ca-nặc-ca-phạt-tha",
+      "Kanakavatsa",
+      "Yết-nặc-ca-phược-sa"
+    ],
     "description": "Vị La Hán thứ hai trong Pháp Trụ Ký, nổi tiếng với sự phân biệt thị phi rõ ràng nhất và gương mặt hoan hỷ",
     "biography": "Là người tuân thủ nghiêm ngặt khuôn phép từ khi chưa xuất gia. Sau khi chứng quả A-la-hán, Ngài du hóa khắp nơi thuyết giảng giáo lý nhân quả thiện ác, giúp chúng sinh phân biệt rõ ràng để sửa đổi.",
     "symbol": "Gương mặt tươi vui",
@@ -266,7 +315,10 @@
     "name": "Cử Bát La Hán",
     "slug": "cu-bat-la-han",
     "category": "La Hán",
-    "otherNames": ["Ca-nặc-ca-bạt-ly-đọa-xà", "Kanakabharadvaja"],
+    "otherNames": [
+      "Ca-nặc-ca-bạt-ly-đọa-xà",
+      "Kanakabharadvaja"
+    ],
     "description": "Vị La Hán thứ ba trong Pháp Trụ Ký, giáo hóa vùng Đông Thắng Thần Châu và luôn mang theo chiếc bát sắt",
     "biography": "Được Phật giao phó giáo hóa Đông Thắng Thần Châu. Ngài dùng thần biến hóa độ vua nước Tăng-già-la tin Phật và từng hiển hiện cùng Tôn giả Tân-đầu-lô hứa vĩnh viễn lưu lại thế gian cùng tu tập với Phật tử.",
     "symbol": "Cái bát sắt",
@@ -279,20 +331,26 @@
     "name": "Thác Tháp La Hán",
     "slug": "thac-thap-la-han",
     "category": "La Hán",
-    "otherNames": ["Tô-tần-đà", "Subinda"],
+    "otherNames": [
+      "Tô-tần-đà",
+      "Subinda"
+    ],
     "description": "Vị La Hán thứ tư trong Pháp Trụ Ký, nâng bảo tháp Xá lợi Phật trên tay",
     "biography": "Tu tập tinh nghiêm, ít nói nhưng chứng quả rất sớm nhờ chuyên tâm tọa thiền. Ngài từng dùng thần thông chuyển đá và biến đá thành vàng giúp vua nước Án-đạt-la xây tịnh xá và đúc tượng Phật.",
     "symbol": "tháp Xá Lợi",
     "meaning": "Biểu trưng cho việc gìn giữ mạng mạch Phật pháp và sự giải thoát qua công phu thực hành",
     "imageUrl": "/img/phat/thacthaplahan.png",
-    "order": 22 ,
+    "order": 22,
     "featured": false
   },
   {
     "name": "Tĩnh Tọa La Hán",
     "slug": "tinh-toa-la-han",
     "category": "La Hán",
-    "otherNames": ["Nặc-cù-la", "Nakula"],
+    "otherNames": [
+      "Nặc-cù-la",
+      "Nakula"
+    ],
     "description": "Vị La Hán thứ năm trong Pháp Trụ Ký, đạt quả A-la-hán trong tư thế tĩnh tọa thiền định",
     "biography": "Xuất thân từ giai cấp Sát-đế-lợi với sức mạnh vô song. Sau khi xuất gia theo Phật, Ngài chứng quả qua tư thế tĩnh tọa. Ngài từng khuất phục ngoại đạo Uất-đầu-lam-tử bằng giáo lý định lực chân chánh.",
     "symbol": "Tư thế ngồi kiết già",
@@ -305,7 +363,10 @@
     "name": "Quá Giang La Hán",
     "slug": "qua-giang-la-han",
     "category": "La Hán",
-    "otherNames": ["Bạt-đà-la", "Bhadra"],
+    "otherNames": [
+      "Bạt-đà-la",
+      "Bhadra"
+    ],
     "description": "Vị La Hán thứ sáu trong Pháp Trụ Ký, thường dong thuyền hoằng hóa khắp các quần đảo",
     "biography": "Sanh dưới cây Bạt-đà. Ban đầu có thói quen tắm nhiều lần trong ngày, sau được Phật chỉ dạy cách gột rửa tham sân phiền nội tâm mà chứng quả. Ngài thường vượt biển đi hoằng hóa các đảo miền Đông Ấn Độ.",
     "symbol": "Nước tắm",
@@ -318,7 +379,11 @@
     "name": "Kỵ Tượng La Hán",
     "slug": "ky-tuong-la-han",
     "category": "La Hán",
-    "otherNames": ["Ca-lý-ca", "Kalika", "Phất Trần La Hán"],
+    "otherNames": [
+      "Ca-lý-ca",
+      "Kalika",
+      "Phất Trần La Hán"
+    ],
     "description": "Vị La Hán thứ bảy trong Pháp Trụ Ký, nguyên làm nghề quản tượng, được giao nhiệm vụ gìn giữ dấu chân Phật ở Tích Lan",
     "biography": "Trước khi xuất gia làm nghề huấn luyện voi. Chứng quả A-la-hán, Ngài được Phật bảo ở lại Tích Lan hộ trì Phật pháp. Ngài từng nhiều lần biến hóa dụ các đời vua Tích Lan tìm lại thánh tích Phật Túc Sơn bị lãng quên.",
     "symbol": "Con voi",
@@ -331,7 +396,11 @@
     "name": "Tiếu Sư La Hán",
     "slug": "tieu-su-la-han",
     "category": "La Hán",
-    "otherNames": ["Phạt-xà-la-phất-đa-la", "Vajraputra", "La Hán Đùa Sư Tử"],
+    "otherNames": [
+      "Phạt-xà-la-phất-đa-la",
+      "Vajraputra",
+      "La Hán Đùa Sư Tử"
+    ],
     "description": "Vị La Hán thứ tám trong Pháp Trụ Ký, tráng kiện như thợ săn xưa và luôn có con sư tử quấn quít bên cạnh",
     "biography": "Trước làm thợ săn với thể lực tráng kiện. Sau khi xuất gia chứng quả, Ngài có sư tử theo hầu. Ngài từng dùng thần thông làm ao Ca-lan-đà đầy nước trở lại để củng cố niềm tin Tam bảo cho quần chúng.",
     "symbol": "Con sư tử",
@@ -344,7 +413,10 @@
     "name": "Khai Tâm La Hán",
     "slug": "khai-tam-la-han",
     "category": "La Hán",
-    "otherNames": ["Thú-bác-ca", "Jivaka"],
+    "otherNames": [
+      "Thú-bác-ca",
+      "Jivaka"
+    ],
     "description": "Vị La Hán thứ chín trong Pháp Trụ Ký, có hình tượng vạch áo bày ngực để hiển lộ tâm Phật",
     "biography": "Vốn là dòng Bà-la-môn, cầm gậy đo thân Phật nhưng không được nên khâm phục quy y. Xuất gia khổ hạnh 7 năm chứng quả. Cắm gậy mọc thành Trượng Lâm và dùng thần thông biến ra suối nóng lạnh cho dân chúng.",
     "symbol": "Vạch áo hiển lộ tâm, Cậy gậy trúc",
@@ -357,7 +429,11 @@
     "name": "Thám Thủ La Hán",
     "slug": "tham-thu-la-han",
     "category": "La Hán",
-    "otherNames": ["Bán-thác-ca", "Panthaka", "Đại Lộ Biên Sanh"],
+    "otherNames": [
+      "Bán-thác-ca",
+      "Panthaka",
+      "Đại Lộ Biên Sanh"
+    ],
     "description": "Vị La Hán thứ mười trong Pháp Trụ Ký, có hình tượng đưa hai tay lên sảng khoái sau cơn thiền định",
     "biography": "Sanh ở bên đường, là anh của Châu-lợi-bàn-đặc. Xuất gia chứng quả A-la-hán, sau đó trở về độ em trai. Cả hai anh em cùng chứng Thánh quả và vâng lời Phật đồng tâm lưu lại nhân gian hoằng pháp.",
     "symbol": "Đưa hai tay duỗi người (thám thủ)",
@@ -370,7 +446,10 @@
     "name": "Trầm Tư La Hán",
     "slug": "tram-tu-la-han",
     "category": "La Hán",
-    "otherNames": ["La-hầu-la", "Rāhula"],
+    "otherNames": [
+      "La-hầu-la",
+      "Rāhula"
+    ],
     "description": "Vị La Hán thứ mười một trong Pháp Trụ Ký, là con của Thái tử Tất Đạt Đa, nổi tiếng khiêm cung, nhẫn nhục và Mật hạnh đệ nhất",
     "biography": "Sau khi xuất gia, Ngài dần bỏ thói xấu và vương giả, kiên trì tu tập. Ngài luôn lặng lẽ nhẫn nhục trước mọi nghịch cảnh như bị chiếm phòng, ném đá trúng đầu. Sau khi chứng quả A-la-hán, Ngài được Phật khen tặng là Mật hạnh đệ nhất và chọn lưu lại nhân gian hoằng pháp.",
     "symbol": "Hình tướng tư duy, trầm tư",
@@ -383,7 +462,11 @@
     "name": "Khoái Nhĩ La Hán",
     "slug": "khoai-nhi-la-han",
     "category": "La Hán",
-    "otherNames": ["Na-già-tê-na", "Nagasena", "Na Tiên"],
+    "otherNames": [
+      "Na-già-tê-na",
+      "Nagasena",
+      "Na Tiên"
+    ],
     "description": "Vị La Hán thứ mười hai trong Pháp Trụ Ký, nổi tiếng với tài biện luận xuất chúng và hình tượng ngoáy tai",
     "biography": "Là bậc bác học đa văn ở Bắc Ấn. Ngài đã có cuộc đối đáp vấn đạo bất hủ với vua Di-lan-đà (được lưu trong Kinh Na Tiên Tỳ Kheo), giúp nhà vua trở thành vị quốc vương ủng hộ Phật pháp. Ngài chuyên tu về nhĩ căn viên thông.",
     "symbol": "Động tác ngoáy tai",
@@ -396,7 +479,11 @@
     "name": "Bố Đại La Hán",
     "slug": "bo-dai-la-han",
     "category": "La Hán",
-    "otherNames": ["Nhân-yết-đà", "Nhân-kiệt-đà", "Angada"],
+    "otherNames": [
+      "Nhân-yết-đà",
+      "Nhân-kiệt-đà",
+      "Angada"
+    ],
     "description": "Vị La Hán thứ mười ba trong Pháp Trụ Ký, mang túi vải bên mình, biểu trưng cho lòng từ bi cao độ",
     "biography": "Vốn là người bắt rắn ở Ấn Độ, bẻ răng độc rồi thả chúng đi vì lòng từ bi. Ngài mang túi vải để đựng rắn. Ngài từng 3 lần đưa một người thợ tạc tượng lên cung trời Đâu-suất chiêm ngưỡng Bồ-tát Di-lặc để về tạo tượng.",
     "symbol": "Túi vải lớn",
@@ -409,7 +496,10 @@
     "name": "Ba Tiêu La Hán",
     "slug": "ba-tieu-la-han",
     "category": "La Hán",
-    "otherNames": ["Phạt-na-bà-tư", "Vanavàsin"],
+    "otherNames": [
+      "Phạt-na-bà-tư",
+      "Vanavàsin"
+    ],
     "description": "Vị La Hán thứ mười bốn trong Pháp Trụ Ký, thích tu tập trong núi rừng và tọa thiền dưới cây chuối",
     "biography": "Sanh ra trong cơn mưa lớn dưới cây chuối. Xuất gia xong Ngài thích tu ẩn nơi rừng núi. Vâng lời Phật dạy, Ngài hóa hiện hóa độ vua Ca-nị-sắc-ca xây tháp cúng dường và tổ chức kết tập kinh điển lần thứ tư.",
     "symbol": "Lá Cây chuối (ba tiêu), Phiến đá tọa thiền",
@@ -422,7 +512,10 @@
     "name": "Trường Mi La Hán",
     "slug": "truong-mi-la-han",
     "category": "La Hán",
-    "otherNames": ["A-thị-đa", "Ajita"],
+    "otherNames": [
+      "A-thị-đa",
+      "Ajita"
+    ],
     "description": "Vị La Hán thứ mười lăm trong Pháp Trụ Ký, có đôi lông mày dài rủ xuống từ khi mới sinh",
     "biography": "Thuộc dòng Bà-la-môn, sinh ra đã có lông mày dài báo hiệu tiền kiếp là nhà sư. Sau khi chứng Thánh quả, Ngài du hóa dân gian và đã hóa độ nhà vua nước Đạt-ma-tất-thiết-đế quy ngưỡng Phật pháp nhờ sự dự đoán chính xác.",
     "symbol": "Lông mày dài",
@@ -435,7 +528,11 @@
     "name": "Kháng Môn La Hán",
     "slug": "khang-mon-la-han",
     "category": "La Hán",
-    "otherNames": ["Chú-trà-bán-thác-ca", "Châu-lợi-bàn-đặc", "Cullapatka"],
+    "otherNames": [
+      "Chú-trà-bán-thác-ca",
+      "Châu-lợi-bàn-đặc",
+      "Cullapatka"
+    ],
     "description": "Vị La Hán thứ mười sáu trong Pháp Trụ Ký, tấm gương kiên trì nhẫn nại gắn liền với cây gậy có gõ chuông",
     "biography": "Ban đầu dốt nát không tiếp thu được kinh kệ, nhờ Phật chỉ dạy pháp môn quét rác kiên trì mà chứng Thánh quả. Ngài từng làm ngã cửa khi khất thực nên được Phật trao cây gậy có treo chuông nhỏ để báo hiệu cho chủ nhà.",
     "symbol": "cây tích trượng có gắn những chiếc chuông nhỏ",
@@ -448,9 +545,13 @@
     "name": "Hàng Long La Hán",
     "slug": "hang-long-la-han",
     "category": "La Hán",
-    "otherNames": ["Nan-đề-mật-đa-la", "Nandimitra", "Khánh Hữu"],
+    "otherNames": [
+      "Nan-đề-mật-đa-la",
+      "Nandimitra",
+      "Khánh Hữu"
+    ],
     "description": "Vị La Hán thứ mười bảy (theo dị bản), người đã đọc ra bộ 'Pháp Trụ Ký' thu phục rồng dữ bảo vệ chánh pháp",
-    "biography": "Ra đời sau Phật diệt độ 800 năm. Ngài từng ra tay hàng phục Long Vương khi dâng nước nhấn chìm đảo Sư Tử. Trước khi thị tịch, Ngài để lại bộ 'Pháp Trụ Ký' tiết lộ về 16 vị La Hán lưu trụ cõi Ta-bà.",
+    "biography": "Ra đời sau Phật diệt độ 800 năm. Ngài từng ra tay hàng phục Long Vương khi dâng nước nhấn chìm đảo Sư Tử. Trước khi thị tịch, Ngài để lại bộ 'Pháp Trụ Ký' tiết lộ về 16 vị La Hán lưu trụ cõi Ta-bà",
     "symbol": "Con rồng bị hàng phục",
     "meaning": "Biểu trưng cho thần thông quảng đại, uy lực hàng phục cái ác và công ơn để lại Pháp Trụ Ký",
     "imageUrl": "/img/phat/hanlonglahan.png",
@@ -461,47 +562,58 @@
     "name": "Phục Hổ La Hán",
     "slug": "phuc-ho-la-han",
     "category": "La Hán",
-    "otherNames": ["Đạt-ma-đa-la", "Dharmatrata"],
+    "otherNames": [
+      "Đạt-ma-đa-la",
+      "Dharmatrata"
+    ],
     "description": "Vị La Hán thứ mười tám (theo dị bản), nổi tiếng với tấm lòng chí thành cảm ứng và thu phục hổ dữ",
-    "biography": "Thuở nhỏ chí thành lễ kỉnh hình tượng các vị La Hán nên được cảm ứng chứng kiến nhiều kỳ tích. Ngài làm theo lời dạy tu tập và chứng quả A-la-hán, từng 3 lần thu phục một con hổ dữ mang về núi tu tập.",
+    "biography": "Thuở nhỏ chí thành lễ kỉnh hình tượng các vị La Hán nên được cảm ứng chứng kiến nhiều kỳ tích. Ngài làm theo lời dạy tu tập và chứng quả A-la-hán, từng 3 lần thu phục một con hổ dữ mang về núi tu tập",
     "symbol": "Con hổ thuần phục",
     "meaning": "Biểu trưng cho sự chí thành tu tập, uy lực cảm hóa thú dữ và lòng từ bi vô lượng",
     "imageUrl": "/img/phat/phucholahan.png",
     "order": 36,
     "featured": true
   },
-
   {
     "name": "Tổ sư Ma Ha Ca Diếp",
     "slug": "to-su-ma-ha-ca-diep",
     "category": "Tổ sư",
-    "otherNames": ["Mahakasyapa", "Sơ tổ Thiền tông"],
+    "otherNames": [
+      "Mahakasyapa",
+      "Sơ tổ Thiền tông"
+    ],
     "description": "Sơ tổ Thiền tông Ấn Độ, người kế thừa y bát đầu tiên của Đức Phật Thích Ca",
     "biography": "Nhận nụ cười mỉm Niêm hoa vi tiếu từ Đức Phật trên núi Linh Thứu, trở thành vị Tổ thứ nhất chủ trì kết tập kinh điển lần thứ nhất",
     "symbol": "Cành hoa sen, Y bát",
     "meaning": "Biểu trưng cho sự truyền thừa tâm ấn, đầu khổ hạnh và xả bỏ tham ái",
     "imageUrl": "/img/phat/tosumaha.png",
-    "order":37,
+    "order": 37,
     "featured": true
   },
   {
     "name": "Tổ sư A Nan Đa",
     "slug": "to-su-a-nan-da",
     "category": "Tổ sư",
-    "otherNames": ["Ananda", "Nhị tổ Thiền tông"],
+    "otherNames": [
+      "Ananda",
+      "Nhị tổ Thiền tông"
+    ],
     "description": "Nhị tổ Thiền tông Ấn Độ, em họ và là thị giả thân cận nhất của Đức Phật",
     "biography": "Nổi tiếng với trí nhớ phi thường 'Đa văn đệ nhất', người ghi nhớ và đọc lại toàn bộ Bộ Kinh trong lần kết tập kinh điển đầu tiên",
     "symbol": "Bình bát, Tịnh thủy",
     "meaning": "Biểu trưng cho sự uyên bác, trí nhớ kiệt xuất và lòng tận tụy với chánh pháp",
     "imageUrl": "/img/phat/tosuanam.png",
-    "order":38,
+    "order": 38,
     "featured": true
   },
   {
     "name": "Tiêu Diện Đại Sĩ",
     "slug": "tieu-dien-dai-si",
     "category": "Hộ Pháp",
-    "otherNames": ["Diện Nhiên Vương Bồ Tát", "Ông Tiêu"],
+    "otherNames": [
+      "Diện Nhiên Vương Bồ Tát",
+      "Ông Tiêu"
+    ],
     "description": "Hóa thân của Bồ Tát Quán Thế Âm cai quản hàng ma quỷ, chư thiên trong cõi âm",
     "biography": "Hiện thân hình chằn hung tợn để hàng phục hàng ma quỷ, giúp chúng sinh cõi âm thức tỉnh tu hành",
     "symbol": "Mặt quỷ hung tợn, Lá cờ Lệnh",
@@ -514,7 +626,9 @@
     "name": "Phạm Thiên",
     "slug": "pham-thien",
     "category": "Hộ Pháp",
-    "otherNames": ["Brahma"],
+    "otherNames": [
+      "Brahma"
+    ],
     "description": "Vua cõi trời Sắc giới, vị Thiên hộ pháp đại diện cho lòng từ bi vô lượng",
     "biography": "Là vị chư thiên đã thỉnh cầu Đức Phật Thích Ca thỉnh chuyển bánh xe pháp sau khi Ngài thành đạo dưới cội Bồ Đề",
     "symbol": "Tối cao Thiên trượng",
@@ -524,4 +638,3 @@
     "featured": false
   }
 ]
-  

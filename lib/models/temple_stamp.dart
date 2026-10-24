@@ -1,3 +1,5 @@
+import '../config/api_config.dart';
+
 class TempleStamp {
   final String id;
   final String templeName;
@@ -21,7 +23,7 @@ class TempleStamp {
       id: json['id']?.toString() ?? '',
       templeName: temple['name']?.toString() ?? '',
       templeSlug: temple['slug']?.toString() ?? '',
-      thumbnail: temple['thumbnail']?.toString() ?? '',
+      thumbnail: ApiConfig.resolveImageUrl(temple['thumbnail']),
       receivedAt: rawReceivedAt == null
           ? null
           : DateTime.tryParse(rawReceivedAt),

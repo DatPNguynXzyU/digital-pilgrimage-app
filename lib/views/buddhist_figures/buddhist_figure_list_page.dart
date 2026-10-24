@@ -1,3 +1,4 @@
+import '../../widgets/content_thumbnail.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/buddhist_figure.dart';
@@ -197,15 +198,13 @@ class _BuddhistFigureListPageState extends State<BuddhistFigureListPage> {
                                 child: ListTile(
                                   contentPadding: const EdgeInsets.all(12),
 
-                                  leading: const CircleAvatar(
+                                  leading: CircleAvatar(
                                     radius: 28,
 
-                                    backgroundColor: Color(0xFFF3E1C5),
+                                    backgroundColor: const Color(0xFFF3E1C5),
 
-                                    child: Icon(
-                                      Icons.self_improvement,
-                                      color: primaryBrown,
-                                    ),
+                                    child: ClipOval(child: SizedBox(width: 56, height: 56,
+                                      child: ContentThumbnail(url: figure.thumbnail, icon: Icons.self_improvement))),
                                   ),
 
                                   title: Text(

@@ -1,3 +1,5 @@
+import '../config/api_config.dart';
+
 class Temple {
   final String id;
   final String name;
@@ -120,15 +122,13 @@ class Temple {
           '',
 
       thumbnail:
-          json['thumbnail']
-              ?.toString() ??
-          '',
+          ApiConfig.resolveImageUrl(json['thumbnail']),
 
       images:
           (json['images'] as List?)
                   ?.map(
                     (e) =>
-                        e.toString(),
+                        ApiConfig.resolveImageUrl(e),
                   )
                   .toList() ??
               [],

@@ -125,6 +125,10 @@ async function seedBuddhistFigures() {
     const payload = {
   ...figure,
 
+  thumbnail: figure.thumbnail?.trim() || figure.imageUrl?.trim() || '',
+  symbolism: figure.symbolism || figure.meaning || '',
+  appearance: figure.appearance || figure.symbol || '',
+
   slug: normalizedSlug,
 
   category: normalizeCategory(

@@ -1,3 +1,5 @@
+import '../config/api_config.dart';
+
 class VisitedTemple {
   final String id;
   final String name;
@@ -41,9 +43,7 @@ class VisitedTemple {
           '',
 
       thumbnail:
-          temple['thumbnail']
-                  ?.toString() ??
-              '',
+          ApiConfig.resolveImageUrl(temple['thumbnail']),
 
       visitCount:
           json['visitCount'] ?? 0,
