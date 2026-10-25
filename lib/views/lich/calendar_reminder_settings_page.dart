@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/app_theme.dart';
 import '../../services/calendar_reminder_preferences.dart';
+import '../../services/local_reminders.dart';
 
 class CalendarReminderSettingsPage extends StatefulWidget {
   const CalendarReminderSettingsPage({super.key});
@@ -35,14 +36,23 @@ class _CalendarReminderSettingsPageState
   Future<void> _save() async {
     setState(() => _saving = true);
     try {
+      if ((_festivalEnabled || _personalEnabled) &&
+          !await LocalReminders.instance.requestPermission()) {
+        throw StateError(
+          'Chưa có quyền thông báo. Hãy cấp quyền trong Cài đặt điện thoại.',
+        );
+      }
       await _preferences.save(
         festivalsEnabled: _festivalEnabled,
         personalEnabled: _personalEnabled,
         leadMinutes: _leadMinutes,
       );
+      await LocalReminders.instance.sync();
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Tùy chọn đã lưu trên thiết bị.')),
+        const SnackBar(
+          content: Text('Đã lưu và cập nhật thông báo nhắc lịch.'),
+        ),
       );
     } catch (error) {
       if (!mounted) return;
@@ -137,7 +147,7 @@ class _CalendarReminderSettingsPageState
                   SizedBox(width: 12),
                   Expanded(
                     child: Text(
-                      'Bạn có thể chọn loại lịch và thời điểm nhắc. Ứng dụng hiện lưu tùy chọn trên thiết bị; chưa gửi thông báo hệ thống.',
+                      'Bật thông báo để điện thoại nhắc ngày lễ và lịch cá nhân, kể cả khi bạn không mở ứng dụng.',
                       style: TextStyle(
                         color: Colors.white,
                         height: 1.4,
@@ -161,7 +171,7 @@ class _CalendarReminderSettingsPageState
             _ReminderSwitchTile(
               icon: Icons.spa_outlined,
               title: 'Ngày lễ Phật giáo',
-              subtitle: 'Rằm, mùng Một và các ngày lễ tham khảo',
+              subtitle: 'Các ngày lễ trong danh mục sự kiện',
               value: _festivalEnabled,
               onChanged: (value) => setState(() => _festivalEnabled = value),
             ),
@@ -221,12 +231,34 @@ class _CalendarReminderSettingsPageState
             ),
             const SizedBox(height: 20),
             const Text(
-              'Lịch được đồng bộ theo tài khoản khi đăng nhập. Tùy chọn nhắc vẫn lưu trên thiết bị; ứng dụng chưa gửi thông báo hệ thống.',
+              'Ngày lễ được tính từ 08:00 theo giờ điện thoại, trừ thời gian nhắc trước đã chọn. Lịch cá nhân dùng thời gian nhắc trong từng sự kiện. Ứng dụng lên lịch tối đa 60 thông báo gần nhất và bổ sung khi mở lại. Android có thể gửi trễ do tiết kiệm pin; sau khi buộc dừng ứng dụng, hãy mở lại để cập nhật.',
               style: TextStyle(
                 color: AppTheme.textSecondary,
                 fontSize: 12,
                 height: 1.45,
               ),
+            ),
+            const SizedBox(height: 12),
+            OutlinedButton.icon(
+              onPressed: _saving
+                  ? null
+                  : () async {
+                      try {
+                        await LocalReminders.instance.sendTest();
+                      } catch (error) {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Không thể gửi thông báo thử: $error',
+                              ),
+                            ),
+                          );
+                        }
+                      }
+                    },
+              icon: const Icon(Icons.notifications_active_outlined),
+              label: const Text('Gửi thông báo thử'),
             ),
             const SizedBox(height: 22),
             FilledButton(
@@ -237,7 +269,7 @@ class _CalendarReminderSettingsPageState
                       height: 18,
                       child: CircularProgressIndicator(strokeWidth: 2),
                     )
-                  : const Text('Lưu tùy chọn trên thiết bị'),
+                  : const Text('Lưu nhắc lịch'),
             ),
           ],
         );

@@ -8,7 +8,7 @@ import 'calendar_event_form_page.dart';
 import 'calendar_presentation.dart';
 import 'calendar_reminder_settings_page.dart';
 
-enum FestivalFilter { all, upcoming, monthly, vesak, vuLan }
+enum FestivalFilter { all, upcoming, vesak, vuLan }
 
 class BuddhistFestivalListPage extends StatefulWidget {
   final VoidCallback? onFindTemples;
@@ -96,10 +96,9 @@ class _BuddhistFestivalListPageState extends State<BuddhistFestivalListPage> {
         return occurrence.solarDate.isBefore(
           DateTime.now().add(const Duration(days: 60)),
         );
-      case FestivalFilter.monthly:
-        return occurrence.festival.everyLunarMonth;
       case FestivalFilter.vesak:
-        return occurrence.festival.id == 'vesak';
+        return occurrence.festival.id == 'vesak' ||
+            occurrence.festival.id == 'buddha-birth';
       case FestivalFilter.vuLan:
         return occurrence.festival.id == 'vu-lan';
     }
@@ -129,8 +128,7 @@ class _BuddhistFestivalListPageState extends State<BuddhistFestivalListPage> {
     const filters = [
       (FestivalFilter.all, 'Tất cả'),
       (FestivalFilter.upcoming, 'Sắp diễn ra'),
-      (FestivalFilter.monthly, 'Rằm & mùng Một'),
-      (FestivalFilter.vesak, 'Phật Đản'),
+      (FestivalFilter.vesak, 'Phật Đản / Vesak'),
       (FestivalFilter.vuLan, 'Vu Lan'),
     ];
     return SingleChildScrollView(
@@ -189,7 +187,6 @@ class BuddhistFestivalDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final festival = occurrence.festival;
     final isVesak = festival.id == 'vesak';
-    final isTetNguyenTieu = festival.id == 'tet-nguyen-tieu';
     final isVuLan = festival.id == 'vu-lan';
     final lunarText = '${occurrence.lunarDay}/${occurrence.lunarMonth} âm lịch';
 
@@ -234,9 +231,7 @@ class BuddhistFestivalDetailPage extends StatelessWidget {
           const SizedBox(height: 14),
           _InfoCard(
             title: isVesak
-                ? 'Ý nghĩa Đại lễ Phật Đản'
-                : isTetNguyenTieu
-                ? 'Văn hóa và thực hành'
+                ? 'Đại lễ Tam hợp (Vesak)'
                 : isVuLan
                 ? 'Ý nghĩa Vu Lan'
                 : 'Thông tin ngày lễ',
@@ -281,14 +276,6 @@ class BuddhistFestivalDetailPage extends StatelessWidget {
               onPressed: () => Navigator.pop(context, true),
               icon: const Icon(Icons.search_rounded),
               label: const Text('Tìm chùa'),
-            ),
-          ],
-          if (isTetNguyenTieu) ...[
-            const SizedBox(height: 8),
-            TextButton.icon(
-              onPressed: () => Navigator.pop(context, true),
-              icon: const Icon(Icons.search_rounded),
-              label: const Text('Tìm chùa để tham quan'),
             ),
           ],
         ],

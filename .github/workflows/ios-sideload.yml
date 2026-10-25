@@ -1,0 +1,74 @@
+name: iOS Sideload IPA
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ios-sideload-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build unsigned iPhone release for Sideloadly
+    runs-on: macos-latest
+    timeout-minutes: 45
+    env:
+      API_BASE_URL: ${{ vars.API_BASE_URL || 'https://digital-pilgrimage-api.onrender.com/api' }}
+      FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
+      FIREBASE_IOS_API_KEY: ${{ vars.FIREBASE_IOS_API_KEY }}
+      FIREBASE_IOS_APP_ID: ${{ vars.FIREBASE_IOS_APP_ID }}
+      FIREBASE_MESSAGING_SENDER_ID: ${{ vars.FIREBASE_MESSAGING_SENDER_ID }}
+      GOOGLE_IOS_CLIENT_ID: ${{ vars.GOOGLE_IOS_CLIENT_ID }}
+      GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Validate Firebase iOS variables and prepare sideload configuration
+        run: python3 scripts/prepare-ios-sideload.py
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.4'
+          channel: stable
+          cache: true
+      - name: Check iOS toolchain
+        run: |
+          xcodebuild -version
+          flutter --version
+      - run: flutter pub get --enforce-lockfile
+      - run: flutter analyze --no-pub
+      - run: flutter test --no-pub
+      - name: Build release for physical iPhone without signing
+        run: |
+          flutter build ios --release --no-codesign --no-pub \
+            --build-number="$GITHUB_RUN_NUMBER" \
+            --dart-define-from-file=firebase-config.ios.json
+      - name: Package and validate IPA
+        shell: bash
+        run: |
+          set -euo pipefail
+          APP=build/ios/iphoneos/Runner.app
+          test -f "$APP/Runner"
+          /usr/libexec/PlistBuddy -c 'Print :CFBundleSupportedPlatforms:0' "$APP/Info.plist" | grep -Fx iPhoneOS
+          xcrun lipo -verify_arch arm64 "$APP/Runner"
+          mkdir -p build/sideload/Payload
+          ditto "$APP" build/sideload/Payload/Runner.app
+          cd build/sideload
+          ditto -c -k --keepParent Payload HanhTrinhAnNhien-sideload.ipa
+          shasum -a 256 HanhTrinhAnNhien-sideload.ipa > SHA256SUMS.txt
+          printf '%s\n' "Commit: $GITHUB_SHA" "Run: $GITHUB_RUN_NUMBER" \
+            'Unsigned iPhone release. Sign and install using Sideloadly.' \
+            'NFC is disabled in this sideload build.' > BUILD-INFO.txt
+      - name: Save IPA for Sideloadly
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-sideload-${{ github.run_number }}
+          path: |
+            build/sideload/HanhTrinhAnNhien-sideload.ipa
+            build/sideload/SHA256SUMS.txt
+            build/sideload/BUILD-INFO.txt
+          if-no-files-found: error
+          retention-days: 7

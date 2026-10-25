@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,6 +10,7 @@ import '../models/calendar_event.dart';
 import 'auth_service.dart';
 
 class CalendarEventStore {
+  static final changes = ValueNotifier<int>(0);
   static const String _storageKey = 'personal_calendar_events_v1';
   final http.Client? client;
   CalendarEventStore({this.client});
@@ -90,6 +93,7 @@ class CalendarEventStore {
         _body(existing);
         _body(await _request('PUT', path, token, event.toJson()));
       }
+      changes.value++;
       return;
     }
     final events = await load();
@@ -100,16 +104,19 @@ class CalendarEventStore {
       events[index] = event;
     }
     await _saveGuest(events);
+    changes.value++;
   }
 
   Future<void> delete(String id) async {
     final token = await AuthService().getToken();
     if (token != null && token.isNotEmpty) {
       _body(await _request('DELETE', '/${Uri.encodeComponent(id)}', token));
+      changes.value++;
       return;
     }
     final events = await load();
     events.removeWhere((event) => event.id == id);
     await _saveGuest(events);
+    changes.value++;
   }
 }

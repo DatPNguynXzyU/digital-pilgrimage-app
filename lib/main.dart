@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import 'widgets/reminder_lifecycle.dart';
+
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'config/app_theme.dart';
@@ -23,10 +26,12 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: GlobalMaterialLocalizations.delegates,
       supportedLocales: const [Locale('vi'), Locale('en')],
       locale: const Locale('vi'),
-      builder: (context, child) => BiometricGate(
-        child: BackendReadiness.enabled
-            ? BackendReadyGate(child: child!)
-            : child!,
+      builder: (context, child) => ReminderLifecycle(
+        child: BiometricGate(
+          child: BackendReadiness.enabled
+              ? BackendReadyGate(child: child!)
+              : child!,
+        ),
       ),
       home: const AppStartupPage(),
     );

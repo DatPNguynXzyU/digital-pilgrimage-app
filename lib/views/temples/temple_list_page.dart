@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../services/nearby_temples.dart';
 
 import '../../config/app_theme.dart';
 import '../../models/temple.dart';
@@ -22,6 +26,9 @@ class _TempleListPageState extends State<TempleListPage> {
   late Future<List<Temple>> _templesFuture;
   Timer? _searchDebounce;
   String _sort = 'name_asc';
+  Position? _position;
+  bool _locating = false;
+  String? _locationError;
 
   @override
   void initState() {
@@ -48,7 +55,7 @@ class _TempleListPageState extends State<TempleListPage> {
     if (!mounted) return;
     setState(() {
       _templesFuture = _templeService.getTemples(
-        sort: _sort,
+        sort: _sort == 'nearest' ? 'name_asc' : _sort,
         search: _searchController.text,
       );
     });
@@ -56,11 +63,55 @@ class _TempleListPageState extends State<TempleListPage> {
 
   Future<void> _refresh() async {
     _templesFuture = _templeService.getTemples(
-      sort: _sort,
+      sort: _sort == 'nearest' ? 'name_asc' : _sort,
       search: _searchController.text,
     );
     setState(() {});
     await _templesFuture;
+  }
+
+  Future<void> _locate() async {
+    setState(() {
+      _locating = true;
+      _locationError = null;
+    });
+    try {
+      final position = await NearbyTemples.locate();
+      if (!mounted) return;
+      setState(() {
+        _position = position;
+        _sort = 'nearest';
+      });
+    } catch (error) {
+      if (mounted) {
+        setState(
+          () => _locationError = error is TimeoutException
+              ? 'Chưa lấy được vị trí. Hãy ra nơi thoáng và thử lại.'
+              : error.toString().replaceFirst('Bad state: ', ''),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _locating = false);
+    }
+  }
+
+  Future<void> _openNearbyMap() async {
+    final position = _position;
+    if (position == null) return;
+    final uri = Uri.https('www.google.com', '/maps/search/', {
+      'api': '1',
+      'query': 'chùa gần ${position.latitude},${position.longitude}',
+    });
+    try {
+      if (await launchUrl(uri, mode: LaunchMode.externalApplication)) return;
+    } catch (_) {}
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Không thể mở Google Maps. Vui lòng thử lại.'),
+        ),
+      );
+    }
   }
 
   void _openTemple(Temple temple) {
@@ -129,6 +180,50 @@ class _TempleListPageState extends State<TempleListPage> {
                             ),
                     ),
                   ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      OutlinedButton.icon(
+                        onPressed: _locating ? null : _locate,
+                        icon: const Icon(Icons.my_location),
+                        label: Text(
+                          _locating ? 'Đang lấy vị trí…' : 'Chùa gần bạn',
+                        ),
+                      ),
+                      if (_position != null)
+                        TextButton(
+                          onPressed: _openNearbyMap,
+                          child: const Text('Tìm quanh đây trên Maps'),
+                        ),
+                    ],
+                  ),
+                  if (_locationError != null)
+                    Column(
+                      children: [
+                        Text(
+                          _locationError!,
+                          style: const TextStyle(color: AppTheme.accent),
+                        ),
+                        TextButton(
+                          onPressed: Geolocator.openAppSettings,
+                          child: const Text('Mở cài đặt quyền'),
+                        ),
+                        TextButton(
+                          onPressed: Geolocator.openLocationSettings,
+                          child: const Text('Mở cài đặt GPS'),
+                        ),
+                      ],
+                    ),
+                  if (_position != null)
+                    const Text(
+                      'Khoảng cách đường thẳng. Chùa chưa có tọa độ được xếp cuối danh sách.',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: AppTheme.textSecondary,
+                      ),
+                    ),
                   const SizedBox(height: 10),
                   Row(
                     children: [
@@ -144,6 +239,7 @@ class _TempleListPageState extends State<TempleListPage> {
                       const SizedBox(width: 10),
                       Expanded(
                         child: DropdownButtonFormField<String>(
+                          key: ValueKey(_sort),
                           initialValue: _sort,
                           isExpanded: true,
                           decoration: const InputDecoration(
@@ -152,7 +248,12 @@ class _TempleListPageState extends State<TempleListPage> {
                               vertical: 8,
                             ),
                           ),
-                          items: const [
+                          items: [
+                            if (_position != null)
+                              const DropdownMenuItem(
+                                value: 'nearest',
+                                child: Text('Gần bạn nhất'),
+                              ),
                             DropdownMenuItem(
                               value: 'name_asc',
                               child: Text('Tên A–Z'),
@@ -186,7 +287,14 @@ class _TempleListPageState extends State<TempleListPage> {
                     return _buildError(snapshot.error.toString());
                   }
 
-                  final temples = snapshot.data ?? const <Temple>[];
+                  final source = snapshot.data ?? const <Temple>[];
+                  final temples = _sort == 'nearest' && _position != null
+                      ? NearbyTemples.sorted(
+                          source,
+                          _position!.latitude,
+                          _position!.longitude,
+                        )
+                      : source;
                   if (temples.isEmpty) {
                     return RefreshIndicator(
                       onRefresh: _refresh,
@@ -277,6 +385,13 @@ class _TempleListPageState extends State<TempleListPage> {
   }
 
   Widget _buildTempleCard(Temple temple) {
+    final meters = _position == null
+        ? null
+        : NearbyTemples.distance(
+            temple,
+            _position!.latitude,
+            _position!.longitude,
+          );
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -311,6 +426,21 @@ class _TempleListPageState extends State<TempleListPage> {
                     ),
                   ),
                   const SizedBox(height: 8),
+                  if (_position != null)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Text(
+                        meters == null
+                            ? 'Chưa có tọa độ'
+                            : meters < 1000
+                            ? 'Cách bạn khoảng ${meters.round()} m'
+                            : 'Cách bạn khoảng ${(meters / 1000).toStringAsFixed(1)} km',
+                        style: const TextStyle(
+                          color: AppTheme.warmBrown,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                   if (temple.fullAddress.isNotEmpty)
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,

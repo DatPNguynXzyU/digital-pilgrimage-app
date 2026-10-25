@@ -174,8 +174,7 @@ class _CalendarEventDetailPageState extends State<CalendarEventDetailPage> {
               icon: Icons.notifications_none_rounded,
               title: 'Nhắc trước',
               value: _reminderLabel(_event.reminderMinutes!),
-              subtitle:
-                  'Đã lưu tùy chọn; thông báo hệ thống chưa được tích hợp.',
+              subtitle: 'Bật Lịch cá nhân trong Cài đặt nhắc lịch để nhận thông báo trên điện thoại.',
             ),
           if (_event.description.isNotEmpty)
             _InfoTile(

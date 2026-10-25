@@ -11,6 +11,7 @@ import '../buddhist_figures/buddhist_figure_list_page.dart';
 import '../temples/chi_tiet_chua.dart';
 import 'home_dhammapada_card.dart';
 import 'home_hero.dart';
+import '../../widgets/upcoming_festivals.dart';
 import '../../widgets/profile_avatar.dart';
 
 class TrangChu extends StatefulWidget {
@@ -98,6 +99,8 @@ class _TrangChuState extends State<TrangChu> {
               _buildHero(),
               const SizedBox(height: 28),
               _buildQuoteCard(),
+              const SizedBox(height: 28),
+              const UpcomingFestivals(),
               const SizedBox(height: 28),
               _buildJourneySection(),
               const SizedBox(height: 30),

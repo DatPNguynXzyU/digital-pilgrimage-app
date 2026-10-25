@@ -25,18 +25,12 @@ void main() {
       expect(vuLan.solarDate, DateTime(2024, 8, 18));
     });
 
-    test('includes full moons in leap lunar months', () {
-      final fullMoons = service
-          .occurrencesForYear(2023)
-          .where((item) => item.festival.id == 'full-moon-monthly')
-          .toList();
-
-      expect(fullMoons, hasLength(13));
+    test('does not include old recurring festivals', () {
+      final events = service.occurrencesForYear(2023);
+      expect(events.any((event) => event.festival.everyLunarMonth), isFalse);
       expect(
-        fullMoons.where((item) {
-          return LunarCalendar.fromSolar(item.solarDate).isLeapMonth;
-        }),
-        hasLength(1),
+        events.any((event) => event.festival.id == 'tet-nguyen-tieu'),
+        isFalse,
       );
     });
 

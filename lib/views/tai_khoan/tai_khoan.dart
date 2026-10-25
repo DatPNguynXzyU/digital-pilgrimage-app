@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import '../../widgets/biometric_settings_tile.dart';
 
 import '../../config/app_theme.dart';
@@ -44,6 +46,24 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
   void dispose() {
     AuthService.sessionChanges.removeListener(_loadAccount);
     super.dispose();
+  }
+
+  Future<void> _openCommunity() async {
+    try {
+      final opened = await launchUrl(
+        Uri.parse('https://zalo.me/g/xkofsw6frkf7qrigizmq'),
+        mode: LaunchMode.externalApplication,
+      );
+      if (opened) return;
+    } catch (_) {
+      // Show the same actionable message if the device cannot open the link.
+    }
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Không thể mở nhóm Zalo. Vui lòng thử lại.'),
+      ),
+    );
   }
 
   int _accountRequest = 0;
@@ -592,7 +612,6 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
                   const SizedBox(height: 10),
                   Card(
                     child: ListTile(
-                      enabled: false,
                       leading: const CircleAvatar(
                         backgroundColor: AppTheme.surface,
                         child: Icon(
@@ -605,9 +624,10 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       subtitle: const Text(
-                        'Chưa có API và hệ thống kiểm duyệt',
+                        'Tham gia nhóm Zalo Hành trình an nhiên',
                       ),
-                      trailing: const Icon(Icons.lock_outline),
+                      trailing: const Icon(Icons.open_in_new),
+                      onTap: _openCommunity,
                     ),
                   ),
                   if (_token != null) ...[

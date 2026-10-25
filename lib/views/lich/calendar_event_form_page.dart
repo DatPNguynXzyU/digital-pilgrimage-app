@@ -459,7 +459,7 @@ class _CalendarEventFormPageState extends State<CalendarEventFormPage> {
             ),
             const SizedBox(height: 8),
             const Text(
-              'Tùy chọn nhắc được lưu cùng lịch. Thông báo trên thiết bị cần được tích hợp và cấp quyền riêng.',
+              'Chọn thời gian nhắc cho lịch này, rồi bật Lịch cá nhân trong Cài đặt nhắc lịch và cấp quyền thông báo trên điện thoại.',
               style: TextStyle(
                 color: AppTheme.textSecondary,
                 fontSize: 12,

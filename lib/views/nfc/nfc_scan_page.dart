@@ -205,6 +205,15 @@ class _NfcScanPageState extends State<NfcScanPage> {
   }
 
   Future<void> _startScan() async {
+    if (!kIsWeb &&
+        defaultTargetPlatform == TargetPlatform.iOS &&
+        const bool.fromEnvironment('IOS_SIDELOAD_BUILD')) {
+      _showMessage(
+        'Bản iPhone cài bằng Sideloadly chưa hỗ trợ quét NFC. '
+        'Bạn vẫn có thể xem tem và lịch sử đã đồng bộ từ Android.',
+      );
+      return;
+    }
     if (_starting || _processing || _scanning) return;
     setState(() => _starting = true);
     try {
