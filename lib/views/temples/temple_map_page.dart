@@ -5,6 +5,7 @@ import '../../config/app_theme.dart';
 import '../../models/temple.dart';
 import '../../services/nearby_temples.dart';
 import '../../services/temple_service.dart';
+import '../../widgets/app_header.dart';
 import '../../widgets/folk_art_image.dart';
 import 'chi_tiet_chua.dart';
 import 'temple_list_page.dart';
@@ -66,7 +67,7 @@ class _TempleMapPageState extends State<TempleMapPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Bản đồ chùa')),
+    appBar: AppHeader(title: const Text('Bản đồ chùa')),
     body: FutureBuilder<List<dynamic>>(
       future: _temples,
       builder: (context, snapshot) {

@@ -7,6 +7,7 @@ import '../../models/temple.dart';
 import '../../services/calendar_event_store.dart';
 import '../../services/calendar_festival_service.dart';
 import '../../services/saved_items_store.dart';
+import '../../widgets/app_header.dart';
 import '../../services/temple_service.dart';
 import '../../utils/lunar_calendar.dart';
 import '../../widgets/saved_item_buttons.dart';
@@ -91,7 +92,7 @@ class _SavedItemsPageState extends State<SavedItemsPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Đã lưu')),
+    appBar: AppHeader(title: const Text('Đã lưu')),
     body: FutureBuilder<_SavedData>(
       future: _data,
       builder: (context, snapshot) {

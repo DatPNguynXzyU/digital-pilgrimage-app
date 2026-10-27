@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/app_theme.dart';
 import '../../services/firebase_identity.dart';
+import '../../widgets/app_header.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key, this.initialEmail = '', this.sendReset});
@@ -68,7 +69,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(title: const Text('Quên mật khẩu')),
+      appBar: AppHeader(title: const Text('Quên mật khẩu')),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../config/app_theme.dart';
 import '../../models/pilgrimage_visit.dart';
 import '../../services/pilgrimage_service.dart';
+import '../../widgets/app_header.dart';
 
 class PilgrimageHistoryPage extends StatefulWidget {
   final String token;
@@ -36,7 +37,7 @@ class _PilgrimageHistoryPageState extends State<PilgrimageHistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(title: const Text('Nhật ký hành hương')),
+      appBar: AppHeader(title: const Text('Nhật ký hành hương')),
       body: FutureBuilder<List<PilgrimageVisit>>(
         future: _historyFuture,
         builder: (context, snapshot) {

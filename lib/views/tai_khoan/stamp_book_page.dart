@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../config/app_theme.dart';
 import '../../models/temple_stamp.dart';
 import '../../services/pilgrimage_service.dart';
+import '../../widgets/app_header.dart';
 
 class StampBookPage extends StatefulWidget {
   final String token;
@@ -36,7 +37,7 @@ class _StampBookPageState extends State<StampBookPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(title: const Text('Sổ tem hành hương')),
+      appBar: AppHeader(title: const Text('Sổ tem hành hương')),
       body: FutureBuilder<List<TempleStamp>>(
         future: _stampsFuture,
         builder: (context, snapshot) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../widgets/biometric_settings_tile.dart';
+import '../../widgets/app_header.dart';
 
 import '../../config/app_theme.dart';
 import '../../config/api_config.dart';
@@ -345,7 +346,7 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
     return Scaffold(
       backgroundColor: AppTheme.background,
 
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text(
           'Cá nhân',
           style: TextStyle(fontWeight: FontWeight.bold),

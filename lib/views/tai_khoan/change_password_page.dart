@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/app_theme.dart';
 import '../../services/auth_service.dart';
+import '../../widgets/app_header.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key});
@@ -139,7 +140,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     return Scaffold(
       backgroundColor: AppTheme.background,
 
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text(
           'Đổi mật khẩu',
           style: TextStyle(fontWeight: FontWeight.bold),

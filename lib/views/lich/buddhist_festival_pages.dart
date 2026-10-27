@@ -8,6 +8,7 @@ import '../../utils/lunar_calendar.dart';
 import 'calendar_event_form_page.dart';
 import 'calendar_presentation.dart';
 import 'calendar_reminder_settings_page.dart';
+import '../../widgets/app_header.dart';
 import '../../widgets/saved_item_buttons.dart';
 
 enum FestivalFilter { all, upcoming, vesak, vuLan }
@@ -41,7 +42,7 @@ class _BuddhistFestivalListPageState extends State<BuddhistFestivalListPage> {
 
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text('Ngày lễ Phật giáo'),
         actions: [
           IconButton(
@@ -194,7 +195,7 @@ class BuddhistFestivalDetailPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text('Ngày lễ'),
         actions: [
           SaveItemButton(

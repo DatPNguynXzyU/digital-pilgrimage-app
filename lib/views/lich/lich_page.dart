@@ -13,6 +13,7 @@ import 'calendar_event_form_page.dart';
 import 'calendar_presentation.dart';
 import 'calendar_reminder_settings_page.dart';
 import 'event_list_page.dart';
+import '../../widgets/app_header.dart';
 
 enum CalendarViewMode { month, week, day }
 
@@ -159,7 +160,7 @@ class _LichPageState extends State<LichPage> {
     final lunar = LunarCalendar.fromSolar(_selectedDate);
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text('Lịch Phật giáo'),
         actions: [
           IconButton(

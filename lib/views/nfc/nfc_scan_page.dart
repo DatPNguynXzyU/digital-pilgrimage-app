@@ -13,6 +13,7 @@ import '../../models/temple.dart';
 import '../temples/chi_tiet_chua.dart';
 import '../../services/auth_service.dart';
 import '../../services/nfc_service.dart';
+import '../../widgets/app_header.dart';
 import '../tai_khoan/login_page.dart';
 import '../tai_khoan/pilgrimage_history_page.dart';
 import '../tai_khoan/stamp_book_page.dart';
@@ -410,7 +411,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFBF7),
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text('Check-in NFC'),
         backgroundColor: const Color(0xFFFFFBF7),
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../config/app_theme.dart';
+import '../../widgets/app_header.dart';
 import '../../services/calendar_reminder_preferences.dart';
 import '../../services/local_reminders.dart';
 
@@ -116,7 +117,7 @@ class _CalendarReminderSettingsPageState
   @override
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: AppTheme.background,
-    appBar: AppBar(title: const Text('Cài đặt nhắc lịch')),
+    appBar: AppHeader(title: const Text('Cài đặt nhắc lịch')),
     body: FutureBuilder<void>(
       future: _load,
       builder: (context, snapshot) {

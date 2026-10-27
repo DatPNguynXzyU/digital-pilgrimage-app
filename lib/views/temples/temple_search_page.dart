@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../config/app_theme.dart';
 import '../../models/temple.dart';
 import '../../services/temple_service.dart';
+import '../../widgets/app_header.dart';
 import 'chi_tiet_chua.dart';
 
 class TempleSearchPage extends StatefulWidget {
@@ -61,7 +62,7 @@ class _TempleSearchPageState extends State<TempleSearchPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Tìm kiếm chùa')),
+    appBar: AppHeader(title: const Text('Tìm kiếm chùa')),
     body: SafeArea(
       child: Column(
         children: [

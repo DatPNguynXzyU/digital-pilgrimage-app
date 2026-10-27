@@ -141,12 +141,7 @@ class _TrangChuState extends State<TrangChu> {
                       'Hành Trình An Nhiên',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: AppTheme.text,
-                        fontSize: 19,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: -0.3,
-                      ),
+                      style: AppTheme.headerTitleStyle,
                     ),
                     const SizedBox(height: 3),
                     const Text(

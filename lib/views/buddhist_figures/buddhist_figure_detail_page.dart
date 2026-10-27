@@ -3,6 +3,7 @@ import '../../widgets/content_thumbnail.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/buddhist_figure.dart';
+import '../../widgets/app_header.dart';
 
 class BuddhistFigureDetailPage extends StatelessWidget {
   final BuddhistFigure figure;
@@ -16,7 +17,7 @@ class BuddhistFigureDetailPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFBF7),
 
-      appBar: AppBar(
+      appBar: AppHeader(
         title: Text(figure.name),
 
         backgroundColor: const Color(0xFFFFFBF7),

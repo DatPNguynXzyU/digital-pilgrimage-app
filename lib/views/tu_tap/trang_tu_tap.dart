@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../widgets/app_header.dart';
 
 class TrangTuTap extends StatelessWidget {
   const TrangTuTap({super.key});
@@ -7,7 +8,7 @@ class TrangTuTap extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text(
           'Tu tập',
           style: TextStyle(

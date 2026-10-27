@@ -5,6 +5,7 @@ import '../../models/buddhist_festival.dart';
 import '../../models/calendar_event.dart';
 import '../../services/calendar_event_store.dart';
 import '../../services/calendar_festival_service.dart';
+import '../../widgets/app_header.dart';
 import '../../services/saved_items_store.dart';
 import '../../utils/lunar_calendar.dart';
 import '../../widgets/saved_item_buttons.dart';
@@ -67,7 +68,7 @@ class _EventListPageState extends State<EventListPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(title: const Text('Sự kiện và ngày lễ')),
+    appBar: AppHeader(title: const Text('Sự kiện và ngày lễ')),
     body: Column(
       children: [
         const Padding(

@@ -11,6 +11,11 @@ class AppTheme {
   static const Color textSecondary = Color(0xFF777568);
   static const Color border = Color(0xFFE6DCCB);
   static const Color success = Color(0xFF355747);
+  static const TextStyle headerTitleStyle = TextStyle(
+    color: text,
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+  );
 
   static ThemeData get light {
     final colorScheme = ColorScheme.fromSeed(
@@ -30,12 +35,15 @@ class AppTheme {
         backgroundColor: background,
         foregroundColor: text,
         elevation: 0,
+        scrolledUnderElevation: 0,
+        surfaceTintColor: Colors.transparent,
         centerTitle: false,
-        titleTextStyle: TextStyle(
-          color: text,
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-        ),
+        toolbarHeight: 64,
+        titleSpacing: 16,
+        iconTheme: IconThemeData(color: primary, size: 22),
+        actionsIconTheme: IconThemeData(color: primary, size: 22),
+        shape: Border(bottom: BorderSide(color: border, width: 0.7)),
+        titleTextStyle: headerTitleStyle,
       ),
       cardTheme: CardThemeData(
         color: const Color(0xFFFFF9EF),

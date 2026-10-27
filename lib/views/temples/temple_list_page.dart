@@ -11,6 +11,7 @@ import '../../services/temple_service.dart';
 import '../../widgets/saved_item_buttons.dart';
 import '../nfc/nfc_scan_page.dart';
 import 'chi_tiet_chua.dart';
+import '../../widgets/app_header.dart';
 
 class TempleListPage extends StatefulWidget {
   const TempleListPage({super.key});
@@ -129,7 +130,7 @@ class _TempleListPageState extends State<TempleListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text('Chốn bình yên'),
         actions: [
           Padding(

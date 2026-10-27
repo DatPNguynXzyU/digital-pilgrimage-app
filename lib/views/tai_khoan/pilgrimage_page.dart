@@ -5,6 +5,7 @@ import '../../models/pilgrimage_stats.dart';
 import '../../models/visited_temple.dart';
 import '../../services/pilgrimage_favorites_store.dart';
 import '../../services/pilgrimage_service.dart';
+import '../../widgets/app_header.dart';
 
 class PilgrimagePage extends StatefulWidget {
   final String token;
@@ -130,7 +131,7 @@ class _PilgrimagePageState extends State<PilgrimagePage> {
         : temples;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Hành trình của tôi')),
+      appBar: AppHeader(title: const Text('Hành trình của tôi')),
 
       body: loading
           ? const Center(child: CircularProgressIndicator())

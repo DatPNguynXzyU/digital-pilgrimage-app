@@ -8,6 +8,7 @@ import '../../models/scripture.dart';
 import '../../services/mok_audio_service.dart';
 import '../../widgets/content_thumbnail.dart';
 import '../../widgets/floating_mok_button.dart';
+import '../../widgets/app_header.dart';
 
 class ChiTietKinhSachPage extends StatefulWidget {
   final Scripture scripture;
@@ -88,7 +89,7 @@ class _ChiTietKinhSachPageState extends State<ChiTietKinhSachPage>
     final scripture = widget.scripture;
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(
+      appBar: AppHeader(
         title: Text(scripture.type),
         backgroundColor: AppTheme.background,
         surfaceTintColor: Colors.transparent,

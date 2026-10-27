@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/buddhist_figure.dart';
 import '../../services/buddhist_figure_service.dart';
+import '../../widgets/app_header.dart';
 import 'buddhist_figure_detail_page.dart';
 
 class BuddhistFigureListPage extends StatefulWidget {
@@ -99,7 +100,7 @@ class _BuddhistFigureListPageState extends State<BuddhistFigureListPage> {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFBF7),
 
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text(
           'Tra cứu chư vị',
           style: TextStyle(fontWeight: FontWeight.bold),

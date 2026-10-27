@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../config/app_theme.dart';
 import '../../services/auth_service.dart';
 import '../../services/firebase_identity.dart';
+import '../../widgets/app_header.dart';
 import 'register_page.dart';
 import 'forgot_password_page.dart';
 
@@ -159,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: AppTheme.background,
 
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text(
           'Đăng nhập',
           style: TextStyle(fontWeight: FontWeight.bold),

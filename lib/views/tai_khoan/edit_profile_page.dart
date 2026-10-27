@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../config/app_theme.dart';
 import '../../config/api_config.dart';
 import '../../services/auth_service.dart';
+import '../../widgets/app_header.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -203,7 +204,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     return Scaffold(
       backgroundColor: AppTheme.background,
 
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text(
           'Chỉnh sửa hồ sơ',
           style: TextStyle(fontWeight: FontWeight.bold),

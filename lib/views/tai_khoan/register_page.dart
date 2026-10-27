@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../config/app_theme.dart';
 import '../../services/auth_service.dart';
+import '../../widgets/app_header.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -86,7 +87,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text('Đăng ký tài khoản'),
         backgroundColor: AppTheme.background,
       ),

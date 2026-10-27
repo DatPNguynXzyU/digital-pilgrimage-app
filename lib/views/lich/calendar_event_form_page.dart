@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../config/app_theme.dart';
 import '../../models/calendar_event.dart';
 import '../../services/calendar_event_store.dart';
+import '../../widgets/app_header.dart';
 import '../../services/calendar_festival_service.dart';
 import '../../utils/lunar_calendar.dart';
 import 'calendar_presentation.dart';
@@ -336,7 +337,7 @@ class _CalendarEventFormPageState extends State<CalendarEventFormPage> {
 
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(
+      appBar: AppHeader(
         title: Text(widget.event == null ? 'Thêm lịch mới' : 'Chỉnh sửa lịch'),
       ),
       body: Form(

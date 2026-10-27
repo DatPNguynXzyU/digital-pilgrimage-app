@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../config/app_theme.dart';
 import '../../models/calendar_event.dart';
 import '../../services/calendar_event_store.dart';
+import '../../widgets/app_header.dart';
 import '../../services/saved_items_store.dart';
 import '../../widgets/saved_item_buttons.dart';
 import '../../utils/lunar_calendar.dart';
@@ -77,7 +78,7 @@ class _CalendarEventDetailPageState extends State<CalendarEventDetailPage> {
 
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(
+      appBar: AppHeader(
         title: const Text('Chi tiết lịch'),
         actions: [
           SaveItemButton(
