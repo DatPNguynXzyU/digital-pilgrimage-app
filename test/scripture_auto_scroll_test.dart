@@ -50,6 +50,17 @@ void main() {
     expect(scroll.offset, paused);
   });
 
+  testWidgets('Shared mok control stays available while scripture scrolls', (
+    tester,
+  ) async {
+    final scroll = await open(tester);
+    expect(find.byTooltip('Phát tiếng mõ'), findsOneWidget);
+    scroll.jumpTo(scroll.position.maxScrollExtent);
+    await tester.pump();
+    expect(find.byTooltip('Phát tiếng mõ'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
+  });
+
   testWidgets('Stops at end, on background and manual drag', (tester) async {
     final scroll = await open(tester);
     scroll.jumpTo(scroll.position.maxScrollExtent - 1);
