@@ -9,7 +9,6 @@ import '../../services/nearby_temples.dart';
 import '../../config/app_theme.dart';
 import '../../models/temple.dart';
 import '../../services/temple_service.dart';
-import '../../widgets/saved_item_buttons.dart';
 import '../nfc/nfc_scan_page.dart';
 import 'chi_tiet_chua.dart';
 
@@ -157,12 +156,8 @@ class _TempleListPageState extends State<TempleListPage> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Chỉ dùng vị trí khi bạn chọn “Chùa gần bạn” để tính khoảng cách và sắp xếp kết quả.',
-                  style: TextStyle(
-                    color: AppTheme.textSecondary,
-                    fontSize: 13,
-                    height: 1.35,
-                  ),
+                  'Tìm về những mái chùa Việt',
+                  style: TextStyle(color: AppTheme.textSecondary, fontSize: 14),
                 ),
               ),
             ),
@@ -407,29 +402,13 @@ class _TempleListPageState extends State<TempleListPage> {
             SizedBox(
               height: 170,
               width: double.infinity,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  temple.thumbnail.trim().isEmpty
-                      ? _templeImagePlaceholder()
-                      : Image.network(
-                          temple.thumbnail,
-                          fit: BoxFit.cover,
-                          errorBuilder: (_, _, _) => _templeImagePlaceholder(),
-                        ),
-                  Positioned(
-                    top: 8,
-                    right: 8,
-                    child: DecoratedBox(
-                      decoration: const BoxDecoration(
-                        color: Color(0xFFFFF9EF),
-                        shape: BoxShape.circle,
-                      ),
-                      child: SaveItemButton(id: temple.id, temple: true),
+              child: temple.thumbnail.trim().isEmpty
+                  ? _templeImagePlaceholder()
+                  : Image.network(
+                      temple.thumbnail,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, _, _) => _templeImagePlaceholder(),
                     ),
-                  ),
-                ],
-              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16),

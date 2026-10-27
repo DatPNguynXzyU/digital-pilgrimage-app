@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import '../../config/app_theme.dart';
 import '../../models/calendar_event.dart';
 import '../../services/calendar_event_store.dart';
-import '../../services/saved_items_store.dart';
-import '../../widgets/saved_item_buttons.dart';
 import '../../utils/lunar_calendar.dart';
 import 'calendar_event_form_page.dart';
 import 'calendar_presentation.dart';
@@ -80,10 +78,6 @@ class _CalendarEventDetailPageState extends State<CalendarEventDetailPage> {
       appBar: AppBar(
         title: const Text('Chi tiết lịch'),
         actions: [
-          SaveItemButton(
-            id: SavedItemsStore.personalEventId(_event.id),
-            temple: false,
-          ),
           IconButton(
             tooltip: 'Chỉnh sửa lịch',
             onPressed: _edit,
