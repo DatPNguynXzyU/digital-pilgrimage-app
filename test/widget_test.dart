@@ -10,9 +10,6 @@ import 'package:hanh_trinh_an_nhien/views/main_nav.dart';
 import 'package:hanh_trinh_an_nhien/views/temples/temple_list_page.dart';
 import 'package:hanh_trinh_an_nhien/views/trang_chu/home_dhammapada_card.dart';
 import 'package:hanh_trinh_an_nhien/views/trang_chu/home_hero.dart';
-import 'package:hanh_trinh_an_nhien/services/saved_items_store.dart';
-import 'package:hanh_trinh_an_nhien/widgets/saved_item_buttons.dart';
-import 'package:hanh_trinh_an_nhien/views/temples/saved_items_page.dart';
 
 void main() {
   testWidgets('scripture tab opens the Buddhist figure lookup', (
@@ -255,36 +252,5 @@ void main() {
     await tester.tap(find.text('Thử lại'));
     await tester.pumpAndSettle();
     expect(find.text('Chưa có câu Phật ngôn.'), findsOneWidget);
-  });
-
-  testWidgets('saved temple button persists and toggles favorite state', (
-    WidgetTester tester,
-  ) async {
-    SharedPreferences.setMockInitialValues({});
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: Scaffold(body: SaveItemButton(id: 'temple-1', temple: true)),
-      ),
-    );
-    await tester.pumpAndSettle();
-
-    await tester.tap(find.byIcon(Icons.bookmark_border_rounded));
-    await tester.pumpAndSettle();
-    expect(await SavedItemsStore().loadTemples(), contains('temple-1'));
-    expect(find.byIcon(Icons.bookmark_rounded), findsOneWidget);
-
-    await tester.tap(find.byIcon(Icons.bookmark_rounded));
-    await tester.pumpAndSettle();
-    expect(await SavedItemsStore().loadTemples(), isEmpty);
-  });
-
-  testWidgets('saved page shows a useful empty state', (tester) async {
-    SharedPreferences.setMockInitialValues({});
-    await tester.pumpWidget(const MaterialApp(home: SavedItemsPage()));
-    await tester.pumpAndSettle();
-    expect(
-      find.text('Những ngôi chùa và ngày lễ bạn lưu sẽ xuất hiện ở đây.'),
-      findsOneWidget,
-    );
   });
 }

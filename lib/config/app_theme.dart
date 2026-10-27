@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static const Color primary = Color(0xFF355747);
-  static const Color warmBrown = Color(0xFF594333);
-  static const Color secondary = Color(0xFFD4AC68);
-  static const Color accent = Color(0xFFC86F4A);
-  static const Color background = Color(0xFFF7F1E5);
-  static const Color surface = Color(0xFFE3E9DC);
-  static const Color text = Color(0xFF292E29);
-  static const Color textSecondary = Color(0xFF777568);
-  static const Color border = Color(0xFFE6DCCB);
-  static const Color success = Color(0xFF355747);
+  static const Color primary = Color(0xFF422C22);
+  static const Color warmBrown = Color(0xFF76513C);
+  static const Color secondary = Color(0xFFC49A52);
+  static const Color accent = Color(0xFF853D36);
+  static const Color background = Color(0xFFFAF6ED);
+  static const Color surface = Color(0xFFEFE4D1);
+  static const Color text = Color(0xFF34271F);
+  static const Color textSecondary = Color(0xFF77695C);
+  static const Color border = Color(0xFFDDD1BE);
+  static const Color success = Color(0xFF53755B);
 
   static ThemeData get light {
     final colorScheme = ColorScheme.fromSeed(
@@ -18,7 +18,7 @@ class AppTheme {
       brightness: Brightness.light,
       primary: primary,
       secondary: secondary,
-      surface: const Color(0xFFFFF9EF),
+      surface: background,
       error: accent,
     );
 
@@ -38,31 +38,16 @@ class AppTheme {
         ),
       ),
       cardTheme: CardThemeData(
-        color: const Color(0xFFFFF9EF),
+        color: Colors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           side: const BorderSide(color: border),
         ),
       ),
-      navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xFFFFF9EF),
-        indicatorColor: surface,
-        labelTextStyle: WidgetStateProperty.resolveWith(
-          (states) => TextStyle(
-            color: states.contains(WidgetState.selected)
-                ? primary
-                : textSecondary,
-            fontSize: 11,
-            fontWeight: states.contains(WidgetState.selected)
-                ? FontWeight.w700
-                : FontWeight.w500,
-          ),
-        ),
-      ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: const Color(0xFFFFF9EF),
+        fillColor: Colors.white,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 14,

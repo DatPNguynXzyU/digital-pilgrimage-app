@@ -6,7 +6,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../config/app_theme.dart';
 import '../../models/temple.dart';
-import '../../widgets/saved_item_buttons.dart';
 
 class ChiTietChuaPage extends StatelessWidget {
   final Temple temple;
@@ -28,15 +27,19 @@ class ChiTietChuaPage extends StatelessWidget {
         latitude <= 90 &&
         longitude >= -180 &&
         longitude <= 180;
-    if (!hasValidCoordinates) {
+    final address = temple.fullAddress.trim();
+    final destination = hasValidCoordinates ? '$latitude,$longitude' : address;
+
+    if (destination.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Chùa chưa có tọa độ đã xác minh để tạo chỉ đường.'),
+          content: Text(
+            'Chùa chưa có tọa độ hoặc địa chỉ hợp lệ để chỉ đường.',
+          ),
         ),
       );
       return;
     }
-    final destination = '$latitude,$longitude';
 
     final mapsAppUri = Uri.parse(
       'google.navigation:q=${Uri.encodeQueryComponent(destination)}&mode=d',
@@ -89,7 +92,6 @@ class ChiTietChuaPage extends StatelessWidget {
             pinned: true,
             backgroundColor: AppTheme.primary,
             foregroundColor: Colors.white,
-            actions: [SaveItemButton(id: temple.id, temple: true)],
 
             flexibleSpace: FlexibleSpaceBar(
               background: TemplePhotoAlbum(
@@ -164,7 +166,7 @@ class ChiTietChuaPage extends StatelessWidget {
 
                         _detailRow(
                           Icons.schedule_outlined,
-                          'Giờ ghi nhận: ${temple.openingHoursText}',
+                          'Giờ mở cửa: ${temple.openingHoursText}',
                         ),
                       ],
                     ),
@@ -187,8 +189,8 @@ class ChiTietChuaPage extends StatelessWidget {
 
                         Expanded(
                           child: Text(
-                            'Thông tin do hệ thống tổng hợp. Giờ mở cửa và tọa độ '
-                            'cần được xác nhận trực tiếp với tự viện.',
+                            'Thông tin được cung cấp bởi hệ thống '
+                            'Hành Hương Số',
                             style: TextStyle(fontWeight: FontWeight.w600),
                           ),
                         ),
