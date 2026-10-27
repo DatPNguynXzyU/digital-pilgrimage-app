@@ -12,6 +12,7 @@ import 'calendar_event_detail_page.dart';
 import 'calendar_event_form_page.dart';
 import 'calendar_presentation.dart';
 import 'calendar_reminder_settings_page.dart';
+import 'event_list_page.dart';
 
 enum CalendarViewMode { month, week, day }
 
@@ -230,6 +231,10 @@ class _LichPageState extends State<LichPage> {
                 if (_viewMode != CalendarViewMode.day) ...[
                   const SizedBox(height: 20),
                   _buildEventSection(personalEvents),
+                ],
+                const SizedBox(height: 20),
+                _buildUpcomingSection(personalEvents),
+                if (_viewMode != CalendarViewMode.day) ...[
                   const SizedBox(height: 14),
                   _buildFestivalDisclaimer(),
                 ],
@@ -719,6 +724,175 @@ class _LichPageState extends State<LichPage> {
     );
   }
 
+  Widget _buildUpcomingSection(List<CalendarEvent> personalEvents) {
+    final entries = _upcomingEntries(personalEvents);
+    final visibleEntries = entries.take(3).toList();
+    return Column(
+      key: const ValueKey('upcoming-calendar-section'),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Expanded(
+              child: Text(
+                'Lịch sắp diễn ra',
+                style: TextStyle(
+                  color: AppTheme.text,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            if (entries.length > visibleEntries.length)
+              TextButton(
+                onPressed: () => Navigator.push<void>(
+                  context,
+                  MaterialPageRoute<void>(
+                    builder: (_) => const EventListPage(),
+                  ),
+                ),
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(horizontal: 4),
+                  minimumSize: Size.zero,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                child: const Text('Xem tất cả'),
+              ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        if (visibleEntries.isEmpty)
+          _buildUpcomingEmptyState()
+        else
+          ...visibleEntries.map(_buildUpcomingTile),
+      ],
+    );
+  }
+
+  List<_CalendarEntry> _upcomingEntries(List<CalendarEvent> personalEvents) {
+    final today = _today;
+    final entries = <_CalendarEntry>[];
+    if (_showFestivals) {
+      final lunarYear = LunarCalendar.fromSolar(today).year;
+      entries.addAll(
+        [
+              ..._festivalService.occurrencesForYear(lunarYear),
+              ..._festivalService.occurrencesForYear(lunarYear + 1),
+            ]
+            .where((festival) => !festival.solarDate.isBefore(today))
+            .map(_CalendarEntry.upcomingFestival),
+      );
+    }
+    if (_showPersonalEvents) {
+      for (final event in personalEvents) {
+        DateTime? occurrence;
+        for (var offset = 0; offset <= 366; offset++) {
+          final date = today.add(Duration(days: offset));
+          if (event.occursOn(date)) {
+            occurrence = date;
+            break;
+          }
+        }
+        if (occurrence == null) continue;
+        if (occurrence == today &&
+            event.repeat == CalendarRepeat.none &&
+            event.endAt.isBefore(DateTime.now())) {
+          continue;
+        }
+        entries.add(_CalendarEntry.upcomingPersonal(event, occurrence));
+      }
+    }
+    entries.sort((a, b) => a.date!.compareTo(b.date!));
+    return entries;
+  }
+
+  Widget _buildUpcomingTile(_CalendarEntry entry) {
+    final date = entry.date!;
+    final lunar = LunarCalendar.fromSolar(date);
+    final days = date.difference(_today).inDays;
+    final when = days == 0 ? 'Hôm nay' : 'Còn $days ngày';
+    final event = entry.event;
+    if (event != null) {
+      return _EventCard(
+        key: ValueKey(
+          'upcoming-personal-${event.id}-${date.toIso8601String()}',
+        ),
+        title: event.title,
+        subtitle:
+            '${solarDateLabel(date)} · ${lunar.day}/${lunar.month} âm lịch · '
+            '${TimeOfDay.fromDateTime(event.startAt).format(context)} · $when',
+        color: AppTheme.warmBrown,
+        icon: Icons.event_note_rounded,
+        badge: 'CÁ NHÂN',
+        onTap: () => _openEvent(event),
+      );
+    }
+    final festival = entry.festival!;
+    return _EventCard(
+      key: ValueKey(
+        'upcoming-festival-${festival.festival.id}-${festival.solarDate.year}',
+      ),
+      title: festival.festival.name,
+      subtitle:
+          '${solarDateLabel(date)} · ${festival.lunarDay}/${festival.lunarMonth} âm lịch · $when',
+      color: AppTheme.accent,
+      icon: Icons.spa_rounded,
+      badge: 'NGÀY LỄ',
+      onTap: () => _openFestival(festival),
+    );
+  }
+
+  Widget _buildUpcomingEmptyState() => Container(
+    width: double.infinity,
+    padding: const EdgeInsets.all(15),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      border: Border.all(color: AppTheme.border),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            const Icon(Icons.event_note_outlined, color: AppTheme.secondary),
+            const SizedBox(width: 11),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Chưa có sự kiện sắp diễn ra',
+                    style: TextStyle(
+                      color: AppTheme.text,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    'Thêm lịch cá nhân để ghi nhớ những ngày quan trọng.',
+                    style: TextStyle(
+                      color: AppTheme.textSecondary,
+                      fontSize: 12,
+                      height: 1.35,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: TextButton(
+            onPressed: _addEvent,
+            child: const Text('+ Thêm lịch'),
+          ),
+        ),
+      ],
+    ),
+  );
+
   List<_CalendarEntry> _eventEntriesForDate(
     List<CalendarEvent> personalEvents,
   ) {
@@ -920,14 +1094,21 @@ class _LichPageState extends State<LichPage> {
 class _CalendarEntry {
   final CalendarEvent? event;
   final FestivalOccurrence? festival;
+  final DateTime? date;
 
-  const _CalendarEntry._({this.event, this.festival});
+  const _CalendarEntry._({this.event, this.festival, this.date});
 
   factory _CalendarEntry.personal(CalendarEvent event) =>
       _CalendarEntry._(event: event);
 
   factory _CalendarEntry.festival(FestivalOccurrence festival) =>
       _CalendarEntry._(festival: festival);
+
+  factory _CalendarEntry.upcomingPersonal(CalendarEvent event, DateTime date) =>
+      _CalendarEntry._(event: event, date: date);
+
+  factory _CalendarEntry.upcomingFestival(FestivalOccurrence festival) =>
+      _CalendarEntry._(festival: festival, date: festival.solarDate);
 }
 
 class _EventCard extends StatelessWidget {

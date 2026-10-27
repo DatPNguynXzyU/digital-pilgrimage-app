@@ -51,5 +51,6 @@ flutter:
 
   assets:
     - images/
+    - images/buddha-meditation.png
     - images/folk/
     - assets/audio/mokugyo.wav

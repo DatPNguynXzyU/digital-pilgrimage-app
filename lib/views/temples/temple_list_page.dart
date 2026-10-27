@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../services/nearby_temples.dart';
 
@@ -30,6 +29,7 @@ class _TempleListPageState extends State<TempleListPage> {
   Position? _position;
   bool _locating = false;
   String? _locationError;
+  NearbyLocationFailure? _locationFailure;
 
   @override
   void initState() {
@@ -74,7 +74,10 @@ class _TempleListPageState extends State<TempleListPage> {
   Future<void> _locate() async {
     setState(() {
       _locating = true;
+      _position = null;
+      _sort = 'name_asc';
       _locationError = null;
+      _locationFailure = null;
     });
     try {
       final position = await NearbyTemples.locate();
@@ -82,36 +85,30 @@ class _TempleListPageState extends State<TempleListPage> {
       setState(() {
         _position = position;
         _sort = 'nearest';
+        _locationError = null;
+        _locationFailure = null;
       });
     } catch (error) {
       if (mounted) {
-        setState(
-          () => _locationError = error is TimeoutException
-              ? 'Chưa lấy được vị trí. Hãy ra nơi thoáng và thử lại.'
-              : error.toString().replaceFirst('Bad state: ', ''),
-        );
+        setState(() {
+          if (error is NearbyLocationException) {
+            _locationFailure = error.failure;
+            _locationError = switch (error.failure) {
+              NearbyLocationFailure.serviceDisabled =>
+                'Vui lòng bật GPS để tìm chùa gần bạn.',
+              NearbyLocationFailure.permissionDenied ||
+              NearbyLocationFailure.permissionDeniedForever =>
+                'Ứng dụng cần quyền vị trí để tìm chùa gần bạn.',
+            };
+          } else {
+            _locationError = error is TimeoutException
+                ? 'Chưa xác định được vị trí. Vui lòng thử lại.'
+                : 'Không lấy được vị trí. Vui lòng thử lại.';
+          }
+        });
       }
     } finally {
       if (mounted) setState(() => _locating = false);
-    }
-  }
-
-  Future<void> _openNearbyMap() async {
-    final position = _position;
-    if (position == null) return;
-    final uri = Uri.https('www.google.com', '/maps/search/', {
-      'api': '1',
-      'query': 'chùa gần ${position.latitude},${position.longitude}',
-    });
-    try {
-      if (await launchUrl(uri, mode: LaunchMode.externalApplication)) return;
-    } catch (_) {}
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Không thể mở Google Maps. Vui lòng thử lại.'),
-        ),
-      );
     }
   }
 
@@ -152,82 +149,97 @@ class _TempleListPageState extends State<TempleListPage> {
         top: false,
         child: Column(
           children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(18, 2, 18, 12),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Chỉ dùng vị trí khi bạn chọn “Chùa gần bạn” để tính khoảng cách và sắp xếp kết quả.',
-                  style: TextStyle(
-                    color: AppTheme.textSecondary,
-                    fontSize: 13,
-                    height: 1.35,
-                  ),
-                ),
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
               child: Column(
                 children: [
-                  TextField(
-                    controller: _searchController,
-                    textInputAction: TextInputAction.search,
-                    decoration: InputDecoration(
-                      hintText: 'Tìm theo tên chùa hoặc địa chỉ',
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: _searchController.text.isEmpty
-                          ? null
-                          : IconButton(
-                              tooltip: 'Xóa tìm kiếm',
-                              onPressed: _searchController.clear,
-                              icon: const Icon(Icons.close),
-                            ),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Wrap(
-                    spacing: 8,
-                    crossAxisAlignment: WrapCrossAlignment.center,
+                  Row(
                     children: [
-                      OutlinedButton.icon(
-                        onPressed: _locating ? null : _locate,
-                        icon: const Icon(Icons.my_location),
-                        label: Text(
-                          _locating ? 'Đang lấy vị trí…' : 'Chùa gần bạn',
+                      Expanded(
+                        child: TextField(
+                          controller: _searchController,
+                          textInputAction: TextInputAction.search,
+                          decoration: InputDecoration(
+                            hintText: 'Tìm theo tên chùa hoặc địa chỉ',
+                            prefixIcon: const Icon(Icons.search),
+                            suffixIcon: _searchController.text.isEmpty
+                                ? null
+                                : IconButton(
+                                    tooltip: 'Xóa tìm kiếm',
+                                    onPressed: _searchController.clear,
+                                    icon: const Icon(Icons.close),
+                                  ),
+                          ),
                         ),
                       ),
-                      if (_position != null)
-                        TextButton(
-                          onPressed: _openNearbyMap,
-                          child: const Text('Tìm quanh đây trên Maps'),
+                      const SizedBox(width: 8),
+                      Tooltip(
+                        message: 'Tìm chùa gần bạn',
+                        child: Semantics(
+                          button: true,
+                          label: 'Tìm chùa gần bạn bằng GPS',
+                          child: IconButton.filledTonal(
+                            key: const ValueKey('nearby-temples-location'),
+                            onPressed: _locating ? null : _locate,
+                            icon: _locating
+                                ? const SizedBox(
+                                    width: 20,
+                                    height: 20,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                    ),
+                                  )
+                                : const Icon(Icons.my_location_rounded),
+                          ),
                         ),
+                      ),
                     ],
                   ),
+                  if (_locating)
+                    const Padding(
+                      padding: EdgeInsets.only(top: 6),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Đang xác định vị trí...',
+                          style: TextStyle(color: AppTheme.textSecondary),
+                        ),
+                      ),
+                    ),
                   if (_locationError != null)
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          _locationError!,
-                          style: const TextStyle(color: AppTheme.accent),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Text(
+                            _locationError!,
+                            style: const TextStyle(color: AppTheme.accent),
+                          ),
                         ),
-                        TextButton(
-                          onPressed: Geolocator.openAppSettings,
-                          child: const Text('Mở cài đặt quyền'),
-                        ),
-                        TextButton(
-                          onPressed: Geolocator.openLocationSettings,
-                          child: const Text('Mở cài đặt GPS'),
-                        ),
+                        if (_locationFailure ==
+                            NearbyLocationFailure.permissionDeniedForever)
+                          TextButton(
+                            onPressed: Geolocator.openAppSettings,
+                            child: const Text('Mở cài đặt quyền'),
+                          )
+                        else if (_locationFailure ==
+                            NearbyLocationFailure.serviceDisabled)
+                          TextButton(
+                            onPressed: Geolocator.openLocationSettings,
+                            child: const Text('Bật GPS trong cài đặt'),
+                          )
+                        else
+                          TextButton(
+                            onPressed: _locating ? null : _locate,
+                            child: Text(
+                              _locationFailure ==
+                                      NearbyLocationFailure.permissionDenied
+                                  ? 'Cấp quyền vị trí'
+                                  : 'Thử lại',
+                            ),
+                          ),
                       ],
-                    ),
-                  if (_position != null)
-                    const Text(
-                      'Khoảng cách đường thẳng. Chùa chưa có tọa độ được xếp cuối danh sách.',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: AppTheme.textSecondary,
-                      ),
                     ),
                   const SizedBox(height: 10),
                   Row(

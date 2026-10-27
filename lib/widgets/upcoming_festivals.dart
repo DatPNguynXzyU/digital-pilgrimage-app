@@ -8,7 +8,8 @@ import '../views/lich/buddhist_festival_pages.dart';
 import '../views/lich/calendar_reminder_settings_page.dart';
 
 class UpcomingFestivals extends StatefulWidget {
-  const UpcomingFestivals({super.key});
+  const UpcomingFestivals({super.key, this.limit = 3});
+  final int limit;
   @override
   State<UpcomingFestivals> createState() => _UpcomingFestivalsState();
 }
@@ -41,7 +42,7 @@ class _UpcomingFestivalsState extends State<UpcomingFestivals>
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
-    final events = _service.upcoming(now: now);
+    final events = _service.upcoming(now: now, limit: widget.limit);
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(12),

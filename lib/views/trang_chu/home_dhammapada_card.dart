@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../config/app_theme.dart';
 import '../../models/quote.dart';
 import '../../services/quote_service.dart';
 
@@ -41,78 +40,243 @@ class _HomeDhammapadaCardState extends State<HomeDhammapadaCard> {
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-    key: const ValueKey('dhammapada-card'),
-    width: double.infinity,
-    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 22),
-    decoration: BoxDecoration(
-      gradient: const LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [Color(0xFFF7F0E3), Color(0xFFF0E6D5)],
-      ),
-      borderRadius: BorderRadius.circular(22),
-      border: Border.all(color: AppTheme.border),
-    ),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Icon(Icons.spa_outlined, color: AppTheme.warmBrown, size: 26),
-        const SizedBox(height: 8),
-        const Text(
-          'Kinh Pháp Cú',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: AppTheme.warmBrown,
-            fontSize: 17,
-            fontWeight: FontWeight.w700,
+  Widget build(BuildContext context) => LayoutBuilder(
+    builder: (context, constraints) {
+      final width = constraints.maxWidth;
+      final quoteSize = width < 340
+          ? 16.0
+          : width < 430
+          ? 18.0
+          : 20.0;
+      return Container(
+        key: const ValueKey('dhammapada-card'),
+        width: double.infinity,
+        clipBehavior: Clip.antiAlias,
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFFCF6),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: ClipRect(
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: IgnorePointer(
+                  child: CustomPaint(painter: _LotusDecorationPainter()),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(
+                  width < 360 ? 20 : 28,
+                  25,
+                  width < 360 ? 20 : 28,
+                  18,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'KINH PHÁP CÚ',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF806D4D),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 2,
+                      ),
+                    ),
+                    const SizedBox(height: 17),
+                    if (_loading)
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 24),
+                        child: SizedBox(
+                          width: 22,
+                          height: 22,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Color(0xFF806D4D),
+                          ),
+                        ),
+                      )
+                    else if (_failed)
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          'Không thể tải câu Phật ngôn. Vui lòng thử lại.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Color(0xFF68645C)),
+                        ),
+                      )
+                    else if (_quote == null)
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          'Chưa có câu Phật ngôn.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Color(0xFF68645C)),
+                        ),
+                      )
+                    else ...[
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 560),
+                        child: Text(
+                          _quote!.content,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontFamily: 'serif',
+                            fontSize: quoteSize,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.w400,
+                            height: 1.52,
+                            color: const Color(0xFF171717),
+                          ),
+                        ),
+                      ),
+                      if (_quote!.source.trim().isNotEmpty) ...[
+                        const SizedBox(height: 16),
+                        Text(
+                          _quote!.source,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontFamily: 'serif',
+                            fontSize: 14,
+                            fontStyle: FontStyle.italic,
+                            color: Color(0xFF68645C),
+                          ),
+                        ),
+                      ],
+                    ],
+                    const SizedBox(height: 12),
+                    Tooltip(
+                      message: 'Tải câu Phật ngôn khác từ nguồn',
+                      child: TextButton.icon(
+                        onPressed: _loading ? null : _load,
+                        icon: _loading
+                            ? const SizedBox(
+                                width: 15,
+                                height: 15,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 1.8,
+                                ),
+                              )
+                            : const Icon(Icons.refresh_rounded, size: 17),
+                        label: Text(_failed ? 'Thử lại' : 'Câu khác'),
+                        style: TextButton.styleFrom(
+                          foregroundColor: const Color(0xFF526A58),
+                          textStyle: const TextStyle(fontSize: 13),
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          minimumSize: const Size(0, 36),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
-        const SizedBox(height: 16),
-        if (_loading)
-          const LinearProgressIndicator()
-        else if (_failed)
-          const Text(
-            'Không thể tải câu Phật ngôn. Vui lòng thử lại.',
-            textAlign: TextAlign.center,
-          )
-        else if (_quote == null)
-          const Text('Chưa có câu Phật ngôn.', textAlign: TextAlign.center)
-        else ...[
-          Text(
-            _quote!.content,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 16,
-              height: 1.65,
-              color: AppTheme.text,
-            ),
-          ),
-          if (_quote!.source.trim().isNotEmpty &&
-              _quote!.source.trim() != 'Kinh Pháp Cú') ...[
-            const SizedBox(height: 8),
-            Text(
-              _quote!.source,
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: AppTheme.textSecondary),
-            ),
-          ],
-        ],
-        const SizedBox(height: 16),
-        Align(
-          alignment: Alignment.center,
-          child: TextButton.icon(
-            style: TextButton.styleFrom(
-              backgroundColor: Colors.white.withValues(alpha: 0.6),
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-              shape: const StadiumBorder(),
-            ),
-            onPressed: _loading ? null : _load,
-            icon: const Icon(Icons.refresh),
-            label: Text(_failed ? 'Thử lại' : 'Câu khác'),
-          ),
-        ),
-      ],
-    ),
+      );
+    },
   );
+}
+
+class _LotusDecorationPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final watermarkPaint = Paint()
+      ..color = const Color(0x24E5D4B0)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.5
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    _drawLotus(
+      canvas,
+      Offset(size.width / 2, size.height * .51),
+      Size(size.width * .48, size.width * .35),
+      watermarkPaint,
+    );
+
+    final cornerPaint = Paint()
+      ..color = const Color(0x66DCC18D)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1.15
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    final cornerSize = Size(size.width * .28, size.width * .2);
+    _drawLotus(canvas, Offset(0, size.height + 5), cornerSize, cornerPaint);
+    canvas.save();
+    canvas.translate(size.width, 0);
+    canvas.scale(-1, 1);
+    _drawLotus(canvas, Offset(0, size.height + 5), cornerSize, cornerPaint);
+    canvas.restore();
+  }
+
+  void _drawLotus(Canvas canvas, Offset center, Size size, Paint paint) {
+    final halfWidth = size.width / 2;
+    final height = size.height;
+    final baseY = center.dy + height * .28;
+    final path = Path()
+      ..moveTo(center.dx, baseY)
+      ..cubicTo(
+        center.dx - halfWidth * .14,
+        center.dy + height * .04,
+        center.dx - halfWidth * .13,
+        center.dy - height * .34,
+        center.dx,
+        center.dy - height * .5,
+      )
+      ..cubicTo(
+        center.dx + halfWidth * .13,
+        center.dy - height * .34,
+        center.dx + halfWidth * .14,
+        center.dy + height * .04,
+        center.dx,
+        baseY,
+      )
+      ..moveTo(center.dx, baseY)
+      ..cubicTo(
+        center.dx - halfWidth * .38,
+        center.dy + height * .13,
+        center.dx - halfWidth * .76,
+        center.dy - height * .18,
+        center.dx - halfWidth,
+        center.dy - height * .02,
+      )
+      ..cubicTo(
+        center.dx - halfWidth * .78,
+        center.dy + height * .23,
+        center.dx - halfWidth * .36,
+        center.dy + height * .34,
+        center.dx,
+        baseY,
+      )
+      ..moveTo(center.dx, baseY)
+      ..cubicTo(
+        center.dx + halfWidth * .38,
+        center.dy + height * .13,
+        center.dx + halfWidth * .76,
+        center.dy - height * .18,
+        center.dx + halfWidth,
+        center.dy - height * .02,
+      )
+      ..cubicTo(
+        center.dx + halfWidth * .78,
+        center.dy + height * .23,
+        center.dx + halfWidth * .36,
+        center.dy + height * .34,
+        center.dx,
+        baseY,
+      )
+      ..moveTo(center.dx - halfWidth * .74, baseY + height * .09)
+      ..quadraticBezierTo(
+        center.dx,
+        baseY + height * .3,
+        center.dx + halfWidth * .74,
+        baseY + height * .09,
+      );
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

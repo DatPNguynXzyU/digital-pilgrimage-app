@@ -9,13 +9,8 @@ import '../../services/pilgrimage_service.dart';
 import '../../services/temple_service.dart';
 import '../buddhist_figures/buddhist_figure_list_page.dart';
 import '../temples/chi_tiet_chua.dart';
-import '../temples/temple_search_page.dart';
-import '../temples/saved_items_page.dart';
-import '../temples/temple_map_page.dart';
-import '../lich/event_list_page.dart';
 import 'home_dhammapada_card.dart';
 import 'folk_home_hero.dart';
-import 'illustrated_feature.dart';
 import '../../widgets/upcoming_festivals.dart';
 import '../../widgets/profile_avatar.dart';
 import '../../widgets/folk_art_image.dart';
@@ -94,22 +89,18 @@ class _TrangChuState extends State<TrangChu> {
             padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
             children: [
               _buildHeader(),
-              const SizedBox(height: 16),
-              _buildSearch(),
-              const SizedBox(height: 16),
+              const SizedBox(height: 14),
               _buildHero(),
-              const SizedBox(height: 22),
-              _buildFeatures(),
-              const SizedBox(height: 24),
-              const UpcomingFestivals(),
-              const SizedBox(height: 28),
+              const SizedBox(height: 16),
               _buildQuoteCard(),
-              const SizedBox(height: 28),
-              _buildJourneySection(),
-              const SizedBox(height: 30),
+              const SizedBox(height: 22),
+              const UpcomingFestivals(limit: 2),
+              const SizedBox(height: 24),
               _buildTempleSectionHeading(),
               const SizedBox(height: 14),
               _buildFeaturedTemples(),
+              const SizedBox(height: 24),
+              _buildJourneySection(),
               const SizedBox(height: 28),
               _buildKnowledgeLink(),
             ],
@@ -195,141 +186,8 @@ class _TrangChuState extends State<TrangChu> {
     );
   }
 
-  Widget _buildHero() => const FolkHomeHero();
-
-  Widget _buildSearch() => Material(
-    color: const Color(0xFFFFF9EF),
-    borderRadius: BorderRadius.circular(18),
-    child: InkWell(
-      borderRadius: BorderRadius.circular(18),
-      onTap: () => Navigator.push(
-        context,
-        MaterialPageRoute<void>(builder: (_) => const TempleSearchPage()),
-      ),
-      child: Container(
-        height: 54,
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: AppTheme.border),
-        ),
-        child: const Row(
-          children: [
-            Icon(Icons.search_rounded, color: AppTheme.primary),
-            SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                'Tìm chùa, địa danh...',
-                style: TextStyle(color: AppTheme.textSecondary, fontSize: 15),
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
-
-  Widget _buildFeatures() => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      _buildSectionHeading('Khám phá', 'Bước vào hành trình'),
-      const SizedBox(height: 12),
-      LayoutBuilder(
-        builder: (context, constraints) {
-          final gap = 11.0;
-          final tileWidth = (constraints.maxWidth - gap) / 2;
-          final textScale = MediaQuery.textScalerOf(context)
-              .scale(1)
-              .clamp(1.0, 1.6)
-              .toDouble();
-          final tileHeight = 184 + (textScale - 1) * 52;
-          return Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: tileWidth,
-                    height: tileHeight,
-                    child: IllustratedFeature(
-                      title: 'Tìm chùa',
-                      subtitle: 'Khám phá chùa gần bạn',
-                      illustration: 'temple-search',
-                      onTap: () => widget.onNavigate?.call(3),
-                    ),
-                  ),
-                  SizedBox(width: gap),
-                  SizedBox(
-                    width: tileWidth,
-                    height: tileHeight,
-                    child: IllustratedFeature(
-                      title: 'Bản đồ',
-                      subtitle: 'Chỉ đường, định vị',
-                      illustration: 'hand-drawn-map',
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (_) => const TempleMapPage(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 11),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: tileWidth,
-                    height: tileHeight,
-                    child: IllustratedFeature(
-                      title: 'Lịch lễ',
-                      subtitle: 'Ngày lễ, khóa tu',
-                      illustration: 'festival-calendar',
-                      onTap: () => widget.onNavigate?.call(1),
-                    ),
-                  ),
-                  SizedBox(width: gap),
-                  SizedBox(
-                    width: tileWidth,
-                    height: tileHeight,
-                    child: IllustratedFeature(
-                      title: 'Sự kiện',
-                      subtitle: 'Hoạt động Phật giáo',
-                      illustration: 'temple-event',
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute<void>(
-                          builder: (_) => const EventListPage(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 11),
-              SizedBox(
-                width: double.infinity,
-                child: IllustratedFeature(
-                  title: 'Đã lưu',
-                  subtitle: 'Chùa và sự kiện yêu thích',
-                  illustration: 'saved-journal',
-                  wide: true,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (_) => const SavedItemsPage(),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    ],
-  );
+  Widget _buildHero() =>
+      FolkHomeHero(onOpenCalendar: () => widget.onNavigate?.call(1));
 
   Widget _buildSectionHeading(String eyebrow, String title) {
     return Column(

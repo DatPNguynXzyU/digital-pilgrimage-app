@@ -2,6 +2,18 @@ import 'package:geolocator/geolocator.dart';
 
 import '../models/temple.dart';
 
+enum NearbyLocationFailure {
+  serviceDisabled,
+  permissionDenied,
+  permissionDeniedForever,
+}
+
+class NearbyLocationException implements Exception {
+  const NearbyLocationException(this.failure);
+
+  final NearbyLocationFailure failure;
+}
+
 class NearbyTemples {
   static double? distance(Temple temple, double latitude, double longitude) {
     final lat = temple.latitude;
@@ -28,18 +40,22 @@ class NearbyTemples {
 
   static Future<Position> locate() async {
     if (!await Geolocator.isLocationServiceEnabled()) {
-      throw StateError('Hãy bật dịch vụ vị trí (GPS) rồi thử lại.');
+      throw const NearbyLocationException(
+        NearbyLocationFailure.serviceDisabled,
+      );
     }
     var permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
     }
     if (permission == LocationPermission.deniedForever) {
-      throw StateError('Quyền vị trí đã bị chặn. Hãy mở Cài đặt để cấp quyền.');
+      throw const NearbyLocationException(
+        NearbyLocationFailure.permissionDeniedForever,
+      );
     }
     if (permission == LocationPermission.denied) {
-      throw StateError(
-        'Chưa được cấp quyền vị trí. Bạn vẫn có thể tìm chùa theo tên.',
+      throw const NearbyLocationException(
+        NearbyLocationFailure.permissionDenied,
       );
     }
     return Geolocator.getCurrentPosition(

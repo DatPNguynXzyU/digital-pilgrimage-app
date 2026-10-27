@@ -1,113 +1,181 @@
 import 'package:flutter/material.dart';
 
-import '../../config/app_theme.dart';
-import '../../widgets/folk_art_image.dart';
 import '../../utils/lunar_calendar.dart';
 
 class FolkHomeHero extends StatelessWidget {
-  const FolkHomeHero({super.key});
+  const FolkHomeHero({super.key, this.onOpenCalendar, this.date});
+
+  final VoidCallback? onOpenCalendar;
+  final DateTime? date;
+
+  static const _weekdays = [
+    'Thứ Hai',
+    'Thứ Ba',
+    'Thứ Tư',
+    'Thứ Năm',
+    'Thứ Sáu',
+    'Thứ Bảy',
+    'Chủ nhật',
+  ];
+  static const _can = [
+    'Canh',
+    'Tân',
+    'Nhâm',
+    'Quý',
+    'Giáp',
+    'Ất',
+    'Bính',
+    'Đinh',
+    'Mậu',
+    'Kỷ',
+  ];
+  static const _chi = [
+    'Tý',
+    'Sửu',
+    'Dần',
+    'Mão',
+    'Thìn',
+    'Tỵ',
+    'Ngọ',
+    'Mùi',
+    'Thân',
+    'Dậu',
+    'Tuất',
+    'Hợi',
+  ];
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
-    final now = DateTime.now();
+    final textScale = MediaQuery.textScalerOf(context)
+        .scale(1)
+        .clamp(1.0, 2.0)
+        .toDouble();
+    final now = date ?? DateTime.now();
     final lunar = LunarCalendar.fromSolar(now);
-    return AspectRatio(
-      aspectRatio: width < 380 ? 1.28 : 1.48,
+    final lunarYearName =
+        '${_can[lunar.year % 10]} ${_chi[(lunar.year + 8) % 12]}';
+    final dateLabel =
+        '${_weekdays[now.weekday - 1]} · '
+        '${now.day.toString().padLeft(2, '0')}/'
+        '${now.month.toString().padLeft(2, '0')}/${now.year}';
+    final card = AspectRatio(
+      key: const ValueKey('hero-date-card'),
+      aspectRatio: (width < 380 ? 1.42 : 1.52) - (textScale - 1) * .36,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(26),
+        borderRadius: BorderRadius.circular(25),
         child: Stack(
           fit: StackFit.expand,
           children: [
-            const FolkArtImage(
-              name: 'pagoda-hero',
+            Image.asset(
+              'images/buddha-meditation.png',
               fit: BoxFit.cover,
-              semanticLabel: 'Chùa Việt bên hồ sen và núi xanh',
+              semanticLabel: 'Đức Phật ngồi thiền giữa rừng cây thanh tịnh',
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 128,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Color(0xDDF7F1E5)],
-                  ),
+            const DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0x080D1B12),
+                    Color(0x18131B14),
+                    Color(0xD90E1711),
+                  ],
+                  stops: [0, .43, 1],
                 ),
               ),
             ),
             Positioned(
-              left: 16,
-              bottom: 14,
-              right: 16,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
+              left: 20,
+              right: 18,
+              bottom: 17,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text(
-                          'CHỐN AN NHIÊN',
-                          style: TextStyle(
-                            color: AppTheme.primary,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w800,
-                            letterSpacing: 1.5,
-                          ),
+                  Text(
+                    dateLabel,
+                    style: const TextStyle(
+                      color: Color(0xFFF6F0E5),
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      shadows: [Shadow(color: Colors.black38, blurRadius: 8)],
+                    ),
+                  ),
+                  const SizedBox(height: 9),
+                  const Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.nightlight_round,
+                        color: Color(0xFFFFD43B),
+                        size: 16,
+                      ),
+                      SizedBox(width: 4),
+                      Text(
+                        'Âm lịch',
+                        style: TextStyle(
+                          color: Color(0xFFFFD43B),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
                         ),
-                        SizedBox(height: 4),
-                        Text(
-                          'Tìm một chốn\nan yên',
-                          style: TextStyle(
-                            color: AppTheme.text,
-                            fontSize: 25,
-                            height: 1.02,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: -0.5,
-                          ),
-                        ),
+                      ),
+                    ],
+                  ),
+                  Text(
+                    '${lunar.day}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: width < 380 ? 52 : 60,
+                      height: 1.16,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: -1.2,
+                      shadows: const [
+                        Shadow(color: Colors.black38, blurRadius: 10),
                       ],
                     ),
                   ),
-                  Container(
-                    key: const ValueKey('hero-date-card'),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 8,
+                  const SizedBox(height: 5),
+                  Text(
+                    'Tháng ${lunar.month.toString().padLeft(2, '0')}'
+                    '${lunar.isLeapMonth ? ' nhuận' : ''}',
+                    style: const TextStyle(
+                      color: Color(0xFFF6F0E5),
+                      fontSize: 18,
+                      height: 1.2,
+                      fontWeight: FontWeight.w500,
                     ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFF9EF),
-                      borderRadius: BorderRadius.circular(15),
-                      border: Border.all(color: AppTheme.border),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${now.day}/${now.month}/${now.year}',
-                          style: const TextStyle(
-                            color: AppTheme.primary,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(height: 3),
-                        Text(
-                          'Âm ${lunar.day}/${lunar.month}',
-                          style: const TextStyle(
-                            color: AppTheme.textSecondary,
-                            fontSize: 11,
-                          ),
-                        ),
-                      ],
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Năm $lunarYearName',
+                    style: const TextStyle(
+                      color: Color(0xFFE6D7B9),
+                      fontSize: 13,
+                      height: 1.2,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+    return Semantics(
+      button: onOpenCalendar != null,
+      label:
+          'Lịch âm dương hôm nay. $dateLabel. '
+          'Ngày âm ${lunar.day}, tháng ${lunar.month}, năm $lunarYearName.',
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(25),
+        child: InkWell(
+          onTap: onOpenCalendar,
+          borderRadius: BorderRadius.circular(25),
+          child: card,
         ),
       ),
     );

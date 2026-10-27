@@ -10,6 +10,7 @@ import 'package:hanh_trinh_an_nhien/views/main_nav.dart';
 import 'package:hanh_trinh_an_nhien/views/temples/temple_list_page.dart';
 import 'package:hanh_trinh_an_nhien/views/trang_chu/home_dhammapada_card.dart';
 import 'package:hanh_trinh_an_nhien/views/trang_chu/home_hero.dart';
+import 'package:hanh_trinh_an_nhien/views/trang_chu/folk_home_hero.dart';
 import 'package:hanh_trinh_an_nhien/services/saved_items_store.dart';
 import 'package:hanh_trinh_an_nhien/widgets/saved_item_buttons.dart';
 import 'package:hanh_trinh_an_nhien/views/temples/saved_items_page.dart';
@@ -230,6 +231,44 @@ void main() {
     expect(gaps[0], closeTo(gaps[1], 1));
     expect(gaps[1], closeTo(gaps[2], 1));
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('editorial calendar hero fits small and large layouts', (
+    WidgetTester tester,
+  ) async {
+    for (final size in [const Size(320, 700), const Size(460, 900)]) {
+      tester.view.physicalSize = size;
+      tester.view.devicePixelRatio = 1;
+      await tester.pumpWidget(
+        MaterialApp(
+          home: MediaQuery(
+            data: MediaQueryData(
+              size: size,
+              textScaler: TextScaler.linear(size.width < 400 ? 1.5 : 1),
+            ),
+            child: Scaffold(
+              body: Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: size.width - 32,
+                  child: FolkHomeHero(
+                    date: DateTime(2026, 10, 27),
+                    onOpenCalendar: () {},
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(find.byKey(const ValueKey('hero-date-card')), findsOneWidget);
+      expect(find.textContaining('Thứ Ba'), findsOneWidget);
+      expect(find.textContaining('Năm Bính Ngọ'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    }
+    tester.view.resetPhysicalSize();
+    tester.view.resetDevicePixelRatio();
   });
 
   testWidgets('Dhammapada handles empty data and retry', (tester) async {
