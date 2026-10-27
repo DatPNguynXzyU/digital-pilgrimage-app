@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import '../../config/app_theme.dart';
 import '../../models/buddhist_festival.dart';
 import '../../services/calendar_festival_service.dart';
+import '../../services/saved_items_store.dart';
 import '../../utils/lunar_calendar.dart';
 import 'calendar_event_form_page.dart';
 import 'calendar_presentation.dart';
 import 'calendar_reminder_settings_page.dart';
+import '../../widgets/saved_item_buttons.dart';
 
 enum FestivalFilter { all, upcoming, vesak, vuLan }
 
@@ -192,7 +194,15 @@ class BuddhistFestivalDetailPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppTheme.background,
-      appBar: AppBar(title: const Text('Ngày lễ')),
+      appBar: AppBar(
+        title: const Text('Ngày lễ'),
+        actions: [
+          SaveItemButton(
+            id: SavedItemsStore.festivalId(festival.id, occurrence.solarDate),
+            temple: false,
+          ),
+        ],
+      ),
       body: ListView(
         padding: const EdgeInsets.fromLTRB(18, 4, 18, 28),
         children: [

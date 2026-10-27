@@ -9,10 +9,16 @@ import '../../services/pilgrimage_service.dart';
 import '../../services/temple_service.dart';
 import '../buddhist_figures/buddhist_figure_list_page.dart';
 import '../temples/chi_tiet_chua.dart';
+import '../temples/temple_search_page.dart';
+import '../temples/saved_items_page.dart';
+import '../temples/temple_map_page.dart';
+import '../lich/event_list_page.dart';
 import 'home_dhammapada_card.dart';
-import 'home_hero.dart';
+import 'folk_home_hero.dart';
+import 'illustrated_feature.dart';
 import '../../widgets/upcoming_festivals.dart';
 import '../../widgets/profile_avatar.dart';
+import '../../widgets/folk_art_image.dart';
 
 class TrangChu extends StatefulWidget {
   final ValueChanged<int>? onNavigate;
@@ -75,13 +81,6 @@ class _TrangChuState extends State<TrangChu> {
     return 'Chào buổi tối';
   }
 
-  String get _todayLabel {
-    final now = DateTime.now();
-    return 'Thứ ${now.weekday == DateTime.sunday ? 'Chủ nhật' : now.weekday + 1}, '
-        '${now.day.toString().padLeft(2, '0')}/'
-        '${now.month.toString().padLeft(2, '0')}/${now.year}';
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,12 +94,16 @@ class _TrangChuState extends State<TrangChu> {
             padding: const EdgeInsets.fromLTRB(20, 12, 20, 28),
             children: [
               _buildHeader(),
-              const SizedBox(height: 22),
+              const SizedBox(height: 16),
+              _buildSearch(),
+              const SizedBox(height: 16),
               _buildHero(),
+              const SizedBox(height: 22),
+              _buildFeatures(),
+              const SizedBox(height: 24),
+              const UpcomingFestivals(),
               const SizedBox(height: 28),
               _buildQuoteCard(),
-              const SizedBox(height: 28),
-              const UpcomingFestivals(),
               const SizedBox(height: 28),
               _buildJourneySection(),
               const SizedBox(height: 30),
@@ -120,33 +123,51 @@ class _TrangChuState extends State<TrangChu> {
     return Row(
       children: [
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              Text(
-                _greeting,
-                style: const TextStyle(
-                  color: AppTheme.textSecondary,
-                  fontSize: 14,
+              const SizedBox(
+                width: 48,
+                height: 48,
+                child: FolkArtImage(
+                  name: 'lotus-logo',
+                  semanticLabel: 'Biểu trưng hoa sen và mái chùa',
                 ),
               ),
-              const SizedBox(height: 3),
-              const Text(
-                'Hành trình an nhiên',
-                style: TextStyle(
-                  color: AppTheme.text,
-                  fontSize: 23,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: -0.4,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Text(
-                _todayLabel,
-                style: const TextStyle(
-                  color: AppTheme.warmBrown,
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _greeting,
+                      style: const TextStyle(
+                        color: AppTheme.textSecondary,
+                        fontSize: 13,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    const Text(
+                      'Hành Trình An Nhiên',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: AppTheme.text,
+                        fontSize: 19,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: -0.3,
+                      ),
+                    ),
+                    const SizedBox(height: 3),
+                    const Text(
+                      'Khám phá những ngôi chùa Việt',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: AppTheme.textSecondary,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -174,7 +195,141 @@ class _TrangChuState extends State<TrangChu> {
     );
   }
 
-  Widget _buildHero() => const HomeHero();
+  Widget _buildHero() => const FolkHomeHero();
+
+  Widget _buildSearch() => Material(
+    color: const Color(0xFFFFF9EF),
+    borderRadius: BorderRadius.circular(18),
+    child: InkWell(
+      borderRadius: BorderRadius.circular(18),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute<void>(builder: (_) => const TempleSearchPage()),
+      ),
+      child: Container(
+        height: 54,
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: AppTheme.border),
+        ),
+        child: const Row(
+          children: [
+            Icon(Icons.search_rounded, color: AppTheme.primary),
+            SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                'Tìm chùa, địa danh...',
+                style: TextStyle(color: AppTheme.textSecondary, fontSize: 15),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+
+  Widget _buildFeatures() => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _buildSectionHeading('Khám phá', 'Bước vào hành trình'),
+      const SizedBox(height: 12),
+      LayoutBuilder(
+        builder: (context, constraints) {
+          final gap = 11.0;
+          final tileWidth = (constraints.maxWidth - gap) / 2;
+          final textScale = MediaQuery.textScalerOf(context)
+              .scale(1)
+              .clamp(1.0, 1.6)
+              .toDouble();
+          final tileHeight = 184 + (textScale - 1) * 52;
+          return Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: tileWidth,
+                    height: tileHeight,
+                    child: IllustratedFeature(
+                      title: 'Tìm chùa',
+                      subtitle: 'Khám phá chùa gần bạn',
+                      illustration: 'temple-search',
+                      onTap: () => widget.onNavigate?.call(3),
+                    ),
+                  ),
+                  SizedBox(width: gap),
+                  SizedBox(
+                    width: tileWidth,
+                    height: tileHeight,
+                    child: IllustratedFeature(
+                      title: 'Bản đồ',
+                      subtitle: 'Chỉ đường, định vị',
+                      illustration: 'hand-drawn-map',
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (_) => const TempleMapPage(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 11),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: tileWidth,
+                    height: tileHeight,
+                    child: IllustratedFeature(
+                      title: 'Lịch lễ',
+                      subtitle: 'Ngày lễ, khóa tu',
+                      illustration: 'festival-calendar',
+                      onTap: () => widget.onNavigate?.call(1),
+                    ),
+                  ),
+                  SizedBox(width: gap),
+                  SizedBox(
+                    width: tileWidth,
+                    height: tileHeight,
+                    child: IllustratedFeature(
+                      title: 'Sự kiện',
+                      subtitle: 'Hoạt động Phật giáo',
+                      illustration: 'temple-event',
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (_) => const EventListPage(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 11),
+              SizedBox(
+                width: double.infinity,
+                child: IllustratedFeature(
+                  title: 'Đã lưu',
+                  subtitle: 'Chùa và sự kiện yêu thích',
+                  illustration: 'saved-journal',
+                  wide: true,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (_) => const SavedItemsPage(),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
+    ],
+  );
 
   Widget _buildSectionHeading(String eyebrow, String title) {
     return Column(

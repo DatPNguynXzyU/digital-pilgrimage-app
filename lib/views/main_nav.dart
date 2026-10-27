@@ -36,10 +36,7 @@ class _MainNavigationState extends State<MainNavigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      body: IndexedStack(index: _currentIndex, children: _pages),
       bottomNavigationBar: AppBottomNavigation(
         selectedIndex: _currentIndex,
         onDestinationSelected: _changeTab,
@@ -64,7 +61,7 @@ class AppBottomNavigation extends StatelessWidget {
       selectedIndex: selectedIndex,
       onDestinationSelected: onDestinationSelected,
       height: 72,
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xFFFFF9EF),
       indicatorColor: AppTheme.surface,
       animationDuration: const Duration(milliseconds: 220),
       // Cập nhật thứ tự các mục điều hướng tương ứng

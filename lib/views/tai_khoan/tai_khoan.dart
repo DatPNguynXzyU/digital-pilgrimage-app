@@ -13,6 +13,7 @@ import 'pilgrimage_page.dart';
 import 'pilgrimage_history_page.dart';
 import 'edit_profile_page.dart';
 import 'stamp_book_page.dart';
+import '../temples/saved_items_page.dart';
 
 class TaiKhoanPage extends StatefulWidget {
   const TaiKhoanPage({super.key});
@@ -399,6 +400,29 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
                   // =========================
                   _buildProfileHero(),
                   const SizedBox(height: 24),
+
+                  Card(
+                    child: ListTile(
+                      minVerticalPadding: 10,
+                      leading: const CircleAvatar(
+                        backgroundColor: AppTheme.surface,
+                        child: Icon(Icons.bookmark_outline_rounded),
+                      ),
+                      title: const Text(
+                        'Đã lưu',
+                        style: TextStyle(fontWeight: FontWeight.w700),
+                      ),
+                      subtitle: const Text('Chùa và ngày lễ yêu thích'),
+                      trailing: const Icon(Icons.chevron_right_rounded),
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (_) => const SavedItemsPage(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 18),
 
                   // =========================
                   // CHƯA ĐĂNG NHẬP

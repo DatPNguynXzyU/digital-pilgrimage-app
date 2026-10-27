@@ -52,7 +52,7 @@ class _UpcomingFestivalsState extends State<UpcomingFestivals>
               children: [
                 const Expanded(
                   child: Text(
-                    'Lễ sắp tới',
+                    'Sắp diễn ra',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
                   ),
                 ),
@@ -73,7 +73,7 @@ class _UpcomingFestivalsState extends State<UpcomingFestivals>
                       builder: (_) => const BuddhistFestivalListPage(),
                     ),
                   ),
-                  child: const Text('Tất cả'),
+                  child: const Text('Xem tất cả'),
                 ),
               ],
             ),
