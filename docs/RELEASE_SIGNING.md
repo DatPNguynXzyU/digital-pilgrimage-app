@@ -1,3 +1,5 @@
+> Cấu trúc mới (27/10/2026): ứng dụng Flutter nằm trong `client/`. Chạy các lệnh `flutter`, thao tác `android/`, `ios/`, `lib/`, `test/`, `images/` và `firebase-config*.json` từ thư mục `client/`. Backend và script vận hành vẫn ở gốc repository. Xem [cấu trúc dự án](CAU_TRUC_DU_AN.md).
+
 # Ký APK release
 
 Gradle đọc `android/key.properties`, dùng keystore `android/release-keystore.jks`, alias `release`. Hai file được android/.gitignore loại khỏi Git. Sao lưu riêng cả hai vào nơi an toàn; cần cùng khóa để phát hành cập nhật. Không tạo lại hoặc ghi đè khóa này.

@@ -57,3 +57,18 @@ app.*.map.json
 /firebase-config.json
 /firebase-config.ios.json
 /ios/Flutter/Firebase.local.xcconfig
+
+# Local CodeGraph indexes
+/.codegraph/
+/.codegraph-*/
+
+# Flutter client (monorepo)
+/client/build/
+/client/coverage/
+/client/android/app/debug/
+/client/android/app/profile/
+/client/android/app/release/
+/client/android/.kotlin/
+/client/firebase-config.json
+/client/firebase-config.ios.json
+/client/ios/Flutter/Firebase.local.xcconfig

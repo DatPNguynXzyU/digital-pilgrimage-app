@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Flutter client",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/client",
+      "program": "${workspaceFolder}/client/lib/main.dart",
+      "toolArgs": [
+        "--dart-define-from-file=firebase-config.json"
+      ]
+    }
+  ]
+}

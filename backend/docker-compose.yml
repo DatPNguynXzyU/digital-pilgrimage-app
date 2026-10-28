@@ -1,0 +1,7 @@
+name: 'apptungkinh'
+
+services:
+  redis:
+    image: redis:alpine
+    volumes:
+      - db_data:/var/lib/postgresql/data

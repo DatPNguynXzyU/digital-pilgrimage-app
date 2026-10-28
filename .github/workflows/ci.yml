@@ -34,6 +34,9 @@ jobs:
     name: Flutter analyze and test
     runs-on: ubuntu-24.04
     timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: client
     steps:
       - uses: actions/checkout@v4
         with:
@@ -50,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: flutter-coverage
-          path: coverage/lcov.info
+          path: client/coverage/lcov.info
           if-no-files-found: error
           retention-days: 14
 
@@ -86,6 +89,9 @@ jobs:
     needs: [flutter, backend]
     runs-on: ubuntu-24.04
     timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: client
     env:
       API_BASE_URL: ${{ vars.API_BASE_URL || 'http://10.0.2.2:3000/api' }}
       FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
@@ -120,6 +126,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: android-debug-${{ github.run_number }}
-          path: build/app/outputs/flutter-apk/app-debug.apk
+          path: client/build/app/outputs/flutter-apk/app-debug.apk
           if-no-files-found: error
           retention-days: 7

@@ -16,6 +16,9 @@ jobs:
     name: Build unsigned iPhone release for Sideloadly
     runs-on: macos-latest
     timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: client
 
     env:
       API_BASE_URL: ${{ vars.API_BASE_URL || 'https://digital-pilgrimage-api.onrender.com/api' }}
@@ -32,7 +35,7 @@ jobs:
           persist-credentials: false
 
       - name: Validate Firebase iOS variables and prepare sideload configuration
-        run: python3 scripts/prepare-ios-sideload.py
+        run: python3 ../scripts/prepare-ios-sideload.py
 
       - uses: subosito/flutter-action@v2
         with:
@@ -88,8 +91,8 @@ jobs:
         with:
           name: ios-sideload-${{ github.run_number }}
           path: |
-            build/sideload/HanhTrinhAnNhien-sideload.ipa
-            build/sideload/SHA256SUMS.txt
-            build/sideload/BUILD-INFO.txt
+            client/build/sideload/HanhTrinhAnNhien-sideload.ipa
+            client/build/sideload/SHA256SUMS.txt
+            client/build/sideload/BUILD-INFO.txt
           if-no-files-found: error
           retention-days: 7
