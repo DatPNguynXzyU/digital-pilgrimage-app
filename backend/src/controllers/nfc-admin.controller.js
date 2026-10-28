@@ -81,7 +81,7 @@ async function statistics(req, res) {
   }
 }
 async function temples(req, res) {
-  try { res.json({ success: true, data: await Temple.find().select('name status').sort({ name: 1 }).lean() }); }
+  try { res.json({ success: true, data: await Temple.find().select('name slug status').sort({ name: 1 }).lean() }); }
   catch { res.status(500).json({ success: false, message: 'Không thể tải danh sách chùa.' }); }
 }
 async function createEvent(req, res) {

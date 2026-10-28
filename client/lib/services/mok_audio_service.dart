@@ -2,17 +2,27 @@ import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
 
-/// Preloaded low-latency sound pool shared by scripture readers.
+/// Preloaded, independent sound pools shared by scripture readers.
 class MokAudioService {
-  MokAudioService._();
+  MokAudioService._(this._asset, {required Duration duration})
+    : _soundDuration = duration;
 
-  static final MokAudioService instance = MokAudioService._();
+  static final MokAudioService instance = MokAudioService._(
+    'audio/mokugyo.wav',
+    duration: const Duration(seconds: 4),
+  );
+  static final MokAudioService bell = MokAudioService._(
+    'audio/temple_bell.wav',
+    duration: const Duration(seconds: 6),
+  );
+
+  final String _asset;
 
   AudioPool? _pool;
   Future<AudioPool>? _poolFuture;
   StopFunction? _activeStop;
   Timer? _retirementTimer;
-  Duration _soundDuration = const Duration(seconds: 4);
+  Duration _soundDuration;
   bool _isPlaying = false;
   int _generation = 0;
   Future<void> _disposing = Future<void>.value();
@@ -37,7 +47,7 @@ class MokAudioService {
     final generation = ++_generation;
 
     try {
-      // Cut the previous ring before the next hit so rapid taps stay clear.
+      // Restart only this instrument; never stop the other instrument's ring.
       _retirementTimer?.cancel();
       _retirementTimer = null;
       final previousStop = _activeStop;
@@ -78,10 +88,18 @@ class MokAudioService {
 
     final generation = _generation;
     final pending = _poolFuture ??= AudioPool.create(
-      source: AssetSource('audio/mokugyo.wav'),
+      source: AssetSource(_asset),
       minPlayers: 1,
       maxPlayers: 1,
       playerMode: PlayerMode.lowLatency,
+      // Neither instrument should steal audio focus from the other.
+      audioContext: AudioContext(
+        android: const AudioContextAndroid(audioFocus: AndroidAudioFocus.none),
+        iOS: AudioContextIOS(
+          category: AVAudioSessionCategory.playback,
+          options: const {AVAudioSessionOptions.mixWithOthers},
+        ),
+      ),
     );
     try {
       final pool = await pending;

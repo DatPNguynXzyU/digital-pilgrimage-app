@@ -58,6 +58,7 @@ class _HomeDhammapadaCardState extends State<HomeDhammapadaCard> {
         ),
         child: ClipRect(
           child: Stack(
+            alignment: Alignment.center,
             children: [
               Positioned.fill(
                 child: IgnorePointer(
@@ -120,7 +121,7 @@ class _HomeDhammapadaCardState extends State<HomeDhammapadaCard> {
                         constraints: const BoxConstraints(maxWidth: 560),
                         child: Text(
                           _quote!.displayContent,
-                          textAlign: TextAlign.left,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'serif',
                             fontSize: quoteSize,

@@ -14,6 +14,8 @@ import 'pilgrimage_page.dart';
 import 'pilgrimage_history_page.dart';
 import 'edit_profile_page.dart';
 import 'stamp_book_page.dart';
+import '../admin/nfc_statistics_page.dart';
+import '../admin/nfc_tag_admin_page.dart';
 import '../temples/saved_items_page.dart';
 
 class TaiKhoanPage extends StatefulWidget {
@@ -400,6 +402,38 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
                   // AVATAR
                   // =========================
                   _buildProfileHero(),
+                  if (_user?['role'] == 'admin')
+                    Card(
+                      child: ListTile(
+                        leading: const Icon(Icons.nfc),
+                        title: const Text('Quản lý thẻ NFC'),
+                        subtitle: const Text(
+                          'Đọc, ghi và liên kết thẻ với chùa',
+                        ),
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (_) => const NfcTagAdminPage(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (_user?['role'] == 'admin')
+                    Card(
+                      child: ListTile(
+                        leading: const Icon(Icons.bar_chart_rounded),
+                        title: const Text('Thống kê NFC'),
+                        subtitle: const Text(
+                          'Quản trị · Lượt quét và người tham gia',
+                        ),
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (_) => const NfcStatisticsPage(),
+                          ),
+                        ),
+                      ),
+                    ),
                   const SizedBox(height: 24),
 
                   Card(
