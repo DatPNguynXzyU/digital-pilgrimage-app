@@ -1,3 +1,5 @@
+> Cấu trúc mới (27/10/2026): ứng dụng Flutter nằm trong `client/`. Chạy các lệnh `flutter`, thao tác `android/`, `ios/`, `lib/`, `test/`, `images/` và `firebase-config*.json` từ thư mục `client/`. Backend và script vận hành vẫn ở gốc repository. Xem [cấu trúc dự án](CAU_TRUC_DU_AN.md).
+
 # Hướng dẫn clone, setup và đóng góp
 Hành Trình An Nhiên | Windows PowerShell | Cập nhật 21/10/2026
 ## 1. Chọn cách chạy
@@ -25,6 +27,7 @@ git status
 git switch main
 git pull --ff-only origin main
 git switch -c feature/ten-cong-viec
+cd client
 flutter pub get --enforce-lockfile
 ```
 Chạy lệnh ở thư mục có pubspec.yaml. Nếu đã clone và có thay đổi chưa lưu, commit hoặc lưu công việc trước khi chuyển nhánh; không dùng reset --hard để xử lý tùy tiện. Nếu chức năng nằm trong PR chưa merge, hỏi người phụ trách nhánh chính xác.
@@ -62,7 +65,7 @@ Lựa chọn dưới đây dùng MongoDB riêng trong Docker và backend chạy 
 ```powershell
 docker run -d --name pilgrimage-dev-mongo -p 127.0.0.1:27017:27017 mongo:7 --replSet rs0 --bind_ip_all
 docker exec pilgrimage-dev-mongo mongosh --quiet --eval 'rs.initiate({_id:"rs0",members:[{_id:0,host:"localhost:27017"}]})'
-cd backend
+cd ../backend
 npm ci
 ```
 Lệnh tạo container và rs.initiate chỉ chạy lần đầu. Chờ Mongo sẵn sàng nếu exec báo chưa kết nối; lần sau dùng docker start pilgrimage-dev-mongo. Container này là dữ liệu dev, cần kế hoạch lưu trữ riêng nếu muốn giữ lâu dài.
@@ -99,7 +102,7 @@ Redis local/staging: đặt cả UPSTASH_REDIS_REST_URL và UPSTASH_REDIS_REST_T
 Giữ REDIS_RATE_LIMIT_ENABLED=false khi chưa xác minh proxy. Muốn test limiter khi gọi trực tiếp server local thì khai báo TRUST_PROXY_HOPS=0 và bật true. Trên Render cần xác minh số proxy, không sao chép số hop tùy ý. Cache công khai hiện TTL 60 giây; request có Authorization không dùng cache. Xem docs/REDIS.md để kiểm tra chi tiết.
 Cloudinary chỉ cần khi test lưu ảnh cloud: AVATAR_STORAGE=cloudinary, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET. Dùng tài khoản test; chạy local có thể giữ AVATAR_STORAGE=local.
 ## 9. Kiểm thử trước khi mở PR
-Tại thư mục gốc:
+Tại thư mục `client/`:
 ```powershell
 flutter analyze --no-pub
 flutter test --no-pub --coverage

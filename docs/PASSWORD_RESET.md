@@ -1,3 +1,5 @@
+> Cấu trúc mới (27/10/2026): ứng dụng Flutter nằm trong `client/`. Chạy các lệnh `flutter`, thao tác `android/`, `ios/`, `lib/`, `test/`, `images/` và `firebase-config*.json` từ thư mục `client/`. Backend và script vận hành vẫn ở gốc repository. Xem [cấu trúc dự án](CAU_TRUC_DU_AN.md).
+
 # Quên mật khẩu
 
 Màn hình đăng nhập có nút Quên mật khẩu, điền sẵn email đang nhập. Người dùng gửi yêu cầu; Firebase gửi liên kết mở trang đặt lại mật khẩu mặc định trên trình duyệt. Sau khi lưu mật khẩu mới, quay lại app đăng nhập. Không tạo phiên đăng nhập khi gửi email và không yêu cầu mật khẩu cũ.

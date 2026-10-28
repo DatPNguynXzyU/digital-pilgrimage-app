@@ -49,6 +49,6 @@ if __name__ == "__main__":
     if os.environ.get("GITHUB_ACTIONS") != "true":
         raise SystemExit("Run this script only in a disposable GitHub Actions checkout.")
     try:
-        prepare(Path(__file__).resolve().parents[1], os.environ)
+        prepare(Path(__file__).resolve().parents[1] / "client", os.environ)
     except ValueError as error:
         raise SystemExit(str(error)) from None

@@ -16,7 +16,11 @@
       "close": "20:00"
     },
     "thumbnail": "/img/chua/chuagiaclam.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuagiaclam1.png",
+      "/img/chua/chuagiaclam2.png",
+      "/img/chua/chuagiaclam3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -24,7 +28,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.778886272212773,
+      "longitude": 106.64942743438864
+    }
   },
   {
     "name": "Chùa Vĩnh Nghiêm",
@@ -43,7 +51,12 @@
       "close": "21:00"
     },
     "thumbnail": "/img/chua/chuavinhnghiem.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuavinhnghiem1.png",
+      "/img/chua/chuavinhnghiem2.png",
+      "/img/chua/chuavinhnghiem3.png",
+      "/img/chua/chuavinhnghiem4.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -51,7 +64,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.79045467930912,
+      "longitude": 106.68228414002992
+    }
   },
   {
     "name": "Chùa Ngọc Hoàng",
@@ -69,8 +86,12 @@
       "open": "07:00",
       "close": "18:00"
     },
-    "thumbnail": "/img/chua/chuagiacngo.png",
-    "images": [],
+    "thumbnail": "/img/chua/chuangochoang.png",
+    "images": [
+      "/img/chua/chuangochoang1.png",
+      "/img/chua/chuangochoang2.png",
+      "/img/chua/chuangochoang3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -78,7 +99,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.792003549055336,
+      "longitude": 106.69821263574443
+    }
   },
   {
     "name": "Chùa Bửu Long",
@@ -97,7 +122,11 @@
       "close": "17:00"
     },
     "thumbnail": "/img/chua/chuabuulong.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuabuulong1.png",
+      "/img/chua/chuabuulong2.png",
+      "/img/chua/chuabuulong3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -105,7 +134,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.879061848321907,
+      "longitude": 106.83559732829991
+    }
   },
   {
     "name": "Việt Nam Quốc Tự",
@@ -124,7 +157,11 @@
       "close": "19:30"
     },
     "thumbnail": "/img/chua/vietnamquoctu.png",
-    "images": [],
+    "images": [
+      "/img/chua/vietnamquoctu1.png",
+      "/img/chua/vietnamquoctu2.png",
+      "/img/chua/vietnamquoctu3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -132,7 +169,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.772317515897424,
+      "longitude": 106.6741658915244
+    }
   },
   {
     "name": "Chùa Bà Thiên Hậu",
@@ -151,7 +192,11 @@
       "close": "17:30"
     },
     "thumbnail": "/img/chua/chuabathienhau.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuabathienhau1.png",
+      "/img/chua/chuabathienhau2.png",
+      "/img/chua/chuabathienhau3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -159,7 +204,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.753280562528534,
+      "longitude": 106.66126536564938
+    }
   },
   {
     "name": "Chùa Pháp Hoa",
@@ -178,7 +227,11 @@
       "close": "21:00"
     },
     "thumbnail": "/img/chua/chuaphaphoa.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuaphaphoa1.png",
+      "/img/chua/chuaphaphoa2.png",
+      "/img/chua/chuaphaphoa3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -186,7 +239,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.786453349867998,
+      "longitude": 106.68185676692637
+    }
   },
   {
     "name": "Chùa Xá Lợi",
@@ -205,7 +262,11 @@
       "close": "21:00"
     },
     "thumbnail": "/img/chua/chuaxaloi.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuaxaloi1.png",
+      "/img/chua/chuaxaloi2.png",
+      "/img/chua/chuaxaloi3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -213,7 +274,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.778138868619973,
+      "longitude": 106.68664391805761
+    }
   },
   {
     "name": "Chùa Phổ Quang",
@@ -232,7 +297,11 @@
       "close": "21:00"
     },
     "thumbnail": "/img/chua/chuaphoquang.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuaphoquang1.png",
+      "/img/chua/chuaphoquang2.png",
+      "/img/chua/chuaphoquang3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -240,7 +309,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.805121128210663,
+      "longitude": 106.66875474354826
+    }
   },
   {
     "name": "Chùa Vạn Phật",
@@ -259,7 +332,11 @@
       "close": "19:00"
     },
     "thumbnail": "/img/chua/chuavanphat.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuavanphat1.png",
+      "/img/chua/chuavanphat2.png",
+      "/img/chua/chuavanphat3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -267,7 +344,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.753397736713957,
+      "longitude": 106.67533527489243
+    }
   },
   {
     "name": "Chùa Ấn Quang",
@@ -286,7 +367,11 @@
       "close": ""
     },
     "thumbnail": "/img/chua/chuaanquang.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuaanquang1.png",
+      "/img/chua/chuaanquang2.png",
+      "/img/chua/chuaanquang3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -294,7 +379,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.766011279873183,
+      "longitude": 106.67223935528482
+    }
   },
   {
     "name": "Chùa Huệ Nghiêm",
@@ -313,7 +402,11 @@
       "close": "20:00"
     },
     "thumbnail": "/img/chua/chuahuenghiem.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuahuenghiem1.png",
+      "/img/chua/chuahuenghiem2.png",
+      "/img/chua/chuahuenghiem3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -321,7 +414,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.742564064149095,
+      "longitude": 106.61622750123338
+    }
   },
   {
     "name": "Chùa Huê Nghiêm",
@@ -340,7 +437,11 @@
       "close": ""
     },
     "thumbnail": "/img/chua/chuahueenghiem.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuahueenghiem1.png",
+      "/img/chua/chuahueenghiem2.png",
+      "/img/chua/chuahueenghiem3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -348,7 +449,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.789036826977735,
+      "longitude": 106.73961149761313
+    }
   },
   {
     "name": "Chùa Pháp Võ",
@@ -367,7 +472,11 @@
       "close": "19:00"
     },
     "thumbnail": "/img/chua/chuaphapvo.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuaphapvo1.png",
+      "/img/chua/chuaphapvo2.png",
+      "/img/chua/chuaphapvo3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -375,7 +484,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.683911828508279,
+      "longitude": 106.74574546692635
+    }
   },
   {
     "name": "Chùa Phước Viên",
@@ -394,7 +507,11 @@
       "close": "20:00"
     },
     "thumbnail": "/img/chua/chuaphuocvien.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuaphuocvien1.png",
+      "/img/chua/chuaphuocvien2.png",
+      "/img/chua/chuaphuocvien3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -402,7 +519,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.80120957519853,
+      "longitude": 106.71221333994146
+    }
   },
   {
     "name": "Chùa Giác Viên",
@@ -421,7 +542,11 @@
       "close": "18:00"
     },
     "thumbnail": "/img/chua/ChuaGiacVien.png",
-    "images": [],
+    "images": [
+      "/img/chua/ChuaGiacVien1.png",
+      "/img/chua/ChuaGiacVien2.png",
+      "/img/chua/ChuaGiacVien3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -429,7 +554,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.763274662148993,
+      "longitude": 106.63967785343388
+    }
   },
   {
     "name": "Chùa Bửu Quang",
@@ -448,7 +577,11 @@
       "close": "20:00"
     },
     "thumbnail": "/img/chua/chuabuuquang.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuabuuquang1.png",
+      "/img/chua/chuabuuquang2.png",
+      "/img/chua/chuabuuquang3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -456,7 +589,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.873530996709007,
+      "longitude": 106.73836122644896
+    }
   },
   {
     "name": "Chùa Giác Ngộ",
@@ -475,7 +612,11 @@
       "close": "21:00"
     },
     "thumbnail": "/img/chua/chuagiacngo.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuagiacngo1.png",
+      "/img/chua/chuagiacngo2.png",
+      "/img/chua/chuagiacngo3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -483,7 +624,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.76096102049972,
+      "longitude": 106.67305693809051
+    }
   },
   {
     "name": "Chùa Vạn Đức",
@@ -502,7 +647,11 @@
       "close": "20:30"
     },
     "thumbnail": "/img/chua/chuavanduc.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuavanduc1.png",
+      "/img/chua/chuavanduc2.png",
+      "/img/chua/chuavanduc3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -510,7 +659,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.863619590321976,
+      "longitude": 106.74278451719431
+    }
   },
   {
     "name": "Chùa Chantarangsay",
@@ -529,7 +682,11 @@
       "close": "18:00"
     },
     "thumbnail": "/img/chua/ChuaChăntarăngsây.png",
-    "images": [],
+    "images": [
+      "/img/chua/ChuaChăntarăngsây1.png",
+      "/img/chua/ChuaChăntarăngsây2.png",
+      "/img/chua/ChuaChăntarăngsây3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -537,7 +694,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.786487503365251,
+      "longitude": 106.68341191480744
+    }
   },
   {
     "name": "Chùa Phụng Sơn",
@@ -556,7 +717,11 @@
       "close": "18:00"
     },
     "thumbnail": "/img/chua/chuaphungson.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuaphungson1.png",
+      "/img/chua/chuaphungson2.png",
+      "/img/chua/chuaphungson3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -564,7 +729,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.756796624081769,
+      "longitude": 106.6453629282999
+    }
   },
   {
     "name": "Chùa Nghĩa An",
@@ -587,7 +756,11 @@
       "close": "18:00"
     },
     "thumbnail": "/img/chua/chuanghiaan.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuanghiaan1.png",
+      "/img/chua/chuanghiaan2.png",
+      "/img/chua/chuanghiaan3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -595,7 +768,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.753855484998883,
+      "longitude": 106.6627446589867
+    }
   },
   {
     "name": "Chùa Hà Chương",
@@ -619,7 +796,11 @@
       "close": "17:00"
     },
     "thumbnail": "/img/chua/chuahachuong.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuahachuong1.png",
+      "/img/chua/chuahachuong2.png",
+      "/img/chua/chuahachuong3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -627,7 +808,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.753118788150958,
+      "longitude": 106.65802815076202
+    }
   },
   {
     "name": "Chùa Bửu Đà",
@@ -646,7 +831,11 @@
       "close": "20:30"
     },
     "thumbnail": "/img/chua/chuabuuda.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuabuuda1.png",
+      "/img/chua/chuabuuda2.png",
+      "/img/chua/chuabuuda3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -654,7 +843,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.780916600518646,
+      "longitude": 106.67500803224479
+    }
   },
   {
     "name": "Chùa Nam Thiên Một Cột",
@@ -676,7 +869,11 @@
       "close": "18:00"
     },
     "thumbnail": "/img/chua/chuanamthienmotcot.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuanamthienmotcot1.png",
+      "/img/chua/chuanamthienmotcot2.png",
+      "/img/chua/chuanamthienmotcot3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -684,7 +881,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.84361968839854,
+      "longitude": 106.76324208142303
+    }
   },
   {
     "name": "Chùa Quan Âm",
@@ -705,7 +906,11 @@
       "close": "17:30"
     },
     "thumbnail": "/img/chua/chuaquanam.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuaquanam1.png",
+      "/img/chua/chuaquanam2.png",
+      "/img/chua/chuaquanam3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -713,7 +918,11 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.754159606553204,
+      "longitude": 106.65971517561758
+    }
   },
   {
     "name": "Chùa Phước Tường",
@@ -732,7 +941,11 @@
       "close": "18:30"
     },
     "thumbnail": "/img/chua/chuaphuoctuong.png",
-    "images": [],
+    "images": [
+      "/img/chua/chuaphuoctuong1.png",
+      "/img/chua/chuaphuoctuong2.png",
+      "/img/chua/chuaphuoctuong3.png"
+    ],
     "tradition": "",
     "contact": {
       "phone": "",
@@ -740,6 +953,10 @@
       "email": ""
     },
     "isFeatured": true,
-    "status": "active"
+    "status": "active",
+    "location": {
+      "latitude": 10.842293957378379,
+      "longitude": 106.78897185599632
+    }
   }
 ]

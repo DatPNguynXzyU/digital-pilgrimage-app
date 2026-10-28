@@ -1,15 +1,28 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const { resolveQuote } = require('../src/utils/quote-content');
+const catalog = require('../data/quotes/quotes.json');
 
 test('legacy demo quotes resolve to complete verses and never repeat the excluded code', () => {
-  for (const content of ['Tâm dẫn đầu các pháp...', 'Một câu trích dẫn khác...']) {
+  for (const content of ['Tâm dẫn đầu các pháp...', 'Một câu trích dẫn khác...', 'Nội dung câu kệ 196']) {
     let previous = 'quote-001';
     for (let i = 0; i < 30; i++) {
       const quote = resolveQuote({ code: 'quote-002', content }, previous);
       assert.notEqual(quote.code, previous);
-      assert.match(quote.source, /kệ \d+/);
-      assert.ok(quote.content.includes('\n'));
+      // The imported catalog stores prose; Flutter restores matching verse
+      // line breaks for display. The API must preserve the catalog wording.
+      const expected = catalog.find(item => item.code === quote.code && item.isActive);
+      assert.ok(expected, 'fallback must select an active catalog entry');
+      assert.deepEqual(quote, {
+        code: expected.code,
+        content: expected.content,
+        source: expected.source,
+        author: expected.author,
+      });
+      assert.ok(quote.content.trim().length > 0, 'fallback must not be empty');
+      assert.notEqual(quote.content, 'Tâm dẫn đầu các pháp...');
+      assert.notEqual(quote.content, 'Một câu trích dẫn khác...');
+      assert.doesNotMatch(quote.content, /^Nội dung câu kệ \d+$/u);
       previous = quote.code;
     }
   }

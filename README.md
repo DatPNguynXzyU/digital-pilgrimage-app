@@ -1,3 +1,5 @@
+> **Cấu trúc mới:** Flutter nằm trong `client/`, API trong `backend/`, báo cáo trong `docs/reports/`. Trước mọi lệnh Flutter, vào `client/`. Xem [hướng dẫn cấu trúc mới](docs/CAU_TRUC_DU_AN.md), [CI](docs/CI.md) và [CD](docs/CD.md).
+
   # 🪷 Hành Trình An Nhiên (Digital Pilgrimage)
 
   <p align="center">
@@ -187,57 +189,24 @@
 
   ```text
   digital-pilgrimage-app/
-  ├── .github/
-  │   └── workflows/
-  │       ├── ci.yml                     # Pipeline CI: test Backend, test Flutter, build APK
-  │       └── cd.yml                     # Pipeline CD: build & push Docker image GHCR
-  ├── android/                           # Cấu hình dự án Android (Gradle, permissions)
-  ├── assets/                            # Tài nguyên tĩnh
-  ├── images/                            # Logo, biểu tượng ứng dụng launcher
-  ├── docs/                              # Tài liệu kỹ thuật chi tiết
-  │   ├── BIOMETRIC_LOCK.md              # Hướng dẫn cơ chế khóa sinh trắc học
-  │   ├── FIREBASE_AUTH.md               # Hướng dẫn cấu hình Firebase Auth & Google Sign-In
-  │   └── RENDER_DEPLOY.md               # Hướng dẫn triển khai miễn phí trên Render
-  ├── backend/                           # Mã nguồn Backend Node.js
-  │   ├── data/                          # Dữ liệu hạt giống dạng JSON (chùa, kinh sách)
-  │   ├── img/                           # Thư mục lưu ảnh tĩnh cục bộ
-  │   ├── src/
-  │   │   ├── config/                    # Cấu hình DB, Firebase Admin, Cloudinary
-  │   │   ├── controllers/               # Bộ điều khiển xử lý logic từng domain
-  │   │   ├── middleware/                # Middleware xác thực JWT, validate form
-  │   │   ├── models/                    # Mongoose Schemas (User, Temple, Stamp, v.v.)
-  │   │   ├── routes/                    # Định tuyến API Express
-  │   │   ├── seed/                      # Script nạp dữ liệu ban đầu và gán thẻ NFC
-  │   │   ├── app.js                     # Cấu hình ứng dụng Express
-  │   │   └── server.js                  # Điểm khởi động server
-  │   ├── test/                          # Kiểm thử backend (API test, avatar storage, claims)
-  │   ├── Dockerfile                     # Dockerfile tối ưu cho backend
-  │   ├── compose.yaml                   # Docker Compose chạy cục bộ
-  │   ├── package.json                   # Dependencies backend
-  │   └── .env.example                   # Mẫu biến môi trường backend
-  ├── lib/                               # Mã nguồn ứng dụng Flutter
-  │   ├── config/                        # Cấu hình API endpoint, AppTheme
-  │   ├── models/                        # Data models (Temple, Scripture, User, v.v.)
-  │   ├── services/                      # Tầng gọi API và dịch vụ nền (NFC, Auth, Gate)
-  │   ├── utils/                         # Tiện ích chuyển đổi âm lịch (lunar calendar)
-  │   ├── views/                         # Giao diện màn hình ứng dụng
-  │   │   ├── startup/                   # Màn hình Splash & Onboarding
-  │   │   ├── trang_chu/                 # Màn hình Trang chủ & Daily Quote
-  │   │   ├── lich/                      # Lịch âm dương, ngày lễ & sự kiện tu tập
-  │   │   ├── kinh_sach/                 # Danh sách & chi tiết tụng kinh
-  │   │   ├── temples/                   # Danh sách & chi tiết chùa
-  │   │   ├── buddhist_figures/          # Danh mục chư Phật & Bồ Tát
-  │   │   ├── qr/                        # Trình quét mã QR
-  │   │   ├── nfc/                       # Trình quét thẻ NFC
-  │   │   ├── tai_khoan/                 # Cá nhân, đăng nhập, sổ tem, lịch sử viếng
-  │   │   └── main_nav.dart              # Thanh điều hướng chính (Bottom Navigation)
-  │   ├── widgets/                       # Thành phần giao diện tái sử dụng
-  │   └── main.dart                      # Điểm vào ứng dụng Flutter
-  ├── test/                              # Kiểm thử Flutter (unit test, widget test)
-  ├── firebase-config.example.json       # Mẫu biến cấu hình Firebase client cho Flutter
-  ├── render.yaml                        # Bản thiết kế triển khai tự động trên Render
-  ├── pubspec.yaml                       # Quản lý thư viện Flutter
-  └── README.md                          # Tài liệu hướng dẫn chính của dự án
+  ├── client/                 # Toàn bộ ứng dụng Flutter
+  │   ├── lib/                # Mã nguồn Dart
+  │   ├── test/               # Kiểm thử Flutter
+  │   ├── android/            # Gradle, Android native, khóa ký cục bộ
+  │   ├── ios/                # Xcode, cấu hình iOS
+  │   ├── images/             # Hình ảnh Flutter
+  │   ├── assets/             # Tài nguyên Flutter
+  │   ├── pubspec.yaml
+  │   ├── pubspec.lock
+  │   └── firebase-config*.json
+  ├── backend/                # API, dữ liệu, hình chùa, Docker và test backend
+  ├── .github/workflows/      # CI Android, iOS sideload, CD backend
+  ├── scripts/                # Script vận hành và chuẩn bị iOS
+  ├── docs/                   # Hướng dẫn kỹ thuật
+  │   └── reports/            # Báo cáo Word/PDF và tài liệu bàn giao cũ
+  ├── releases/               # Tài nguyên phát hành hiện có
+  ├── render.yaml             # Cấu hình triển khai backend
+  └── README.md
   ```
 
   ---
@@ -394,6 +363,7 @@
 
   1. Cài đặt các gói phụ thuộc:
     ```bash
+    cd client
     flutter pub get
     ```
 
