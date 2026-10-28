@@ -51,6 +51,8 @@ pilgrimageVisitSchema.index({
   templeId: 1,
 });
 
+pilgrimageVisitSchema.index({ templeId: 1, visitDate: 1, userId: 1 });
+
 module.exports = mongoose.model(
   'PilgrimageVisit',
   pilgrimageVisitSchema

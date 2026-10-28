@@ -51,6 +51,49 @@ async function account() {
   return { ...credentials, token: loggedIn.body.token, registeredToken: registered.body.token, id: loggedIn.body.user.id };
 }
 const eventData = () => ({ id: randomUUID(), title: 'Lễ Phật', startAt: '2026-10-16T09:00:00.000', endAt: '2026-10-16T10:00:00.000', repeat: 'monthly', usesLunarDate: true, reminderMinutes: 30 });
+test('admin NFC statistics: access control, distinct users, VN day boundaries, event windows and empty periods', async () => {
+  const admin = await account(), user = await account();
+  const root = '/admin/nfc';
+  assert.equal((await request('GET', root + '/statistics')).status, 401);
+  assert.equal((await request('GET', root + '/statistics', user.token)).status, 403);
+  assert.equal((await request('POST', root + '/events', user.token, {})).status, 403);
+  await User.updateOne({ _id: admin.id }, { role: 'admin' });
+  const temple = await Temple.create({ name: 'Statistics Temple', slug: randomUUID() });
+  const otherTemple = await Temple.create({ name: 'Other Statistics Temple', slug: randomUUID() });
+  const tag = await NfcTag.create({ uid: 'ABCDEF1234', templeId: temple._id });
+  const fixture = (templeId, userId, visitDate) => ({ templeId, userId, nfcTagId: tag._id, visitDate });
+  await Visit.insertMany([
+    fixture(temple._id, user.id, '2024-05-01T16:59:59Z'), // May 1, 23:59 VN
+    fixture(temple._id, user.id, '2024-05-01T17:00:00Z'), // May 2, 00:00 VN
+    fixture(temple._id, user.id, '2024-05-02T05:00:00Z'),
+    fixture(temple._id, admin.id, '2024-05-02T16:59:59Z'),
+    fixture(otherTemple._id, user.id, '2024-05-02T06:00:00Z'),
+    fixture(temple._id, user.id, '2024-05-02T17:00:00Z'), // excluded
+  ]);
+  const event = { title: 'Lễ thử nghiệm', templeId: String(temple._id), startAt: '2024-05-01T17:00:00Z', endAt: '2024-05-02T16:59:59Z' };
+  assert.equal((await request('POST', root + '/events', admin.token, event)).status, 201);
+  assert.equal((await request('POST', root + '/events', admin.token, { ...event, title: 'Trùng giờ' })).status, 201);
+  assert.equal((await request('POST', root + '/events', admin.token, { ...event, endAt: event.startAt })).status, 400);
+  for (const query of ['from=2024-02-30', 'templeId=wrong', 'from=2020-01-01&to=2026-01-01', 'from=2024-05-03&to=2024-05-01']) {
+    assert.equal((await request('GET', root + '/statistics?' + query, admin.token)).status, 400);
+  }
+  const query = '?from=2024-05-02&to=2024-05-02';
+  const stats = (await request('GET', root + '/statistics' + query, admin.token)).body.data;
+  assert.equal(stats.total.scans, 4);
+  assert.equal(stats.total.participants, 2); // not sum of temple participants
+  assert.equal(stats.activeTemples, 2);
+  assert.deepEqual(stats.days, [{ _id: '2024-05-02', scans: 4, participants: 2 }]);
+  assert.equal(stats.events.length, 2);
+  for (const e of stats.events) { assert.equal(e.scans, 2); assert.equal(e.participants, 1); }
+  const filtered = (await request('GET', root + '/statistics' + query + '&templeId=' + temple._id, admin.token)).body.data;
+  assert.equal(filtered.total.scans, 3);
+  const empty = (await request('GET', root + '/statistics?from=2023-01-01&to=2023-01-02', admin.token)).body.data;
+  assert.equal(empty.total.scans, 0);
+  assert.equal(empty.days.length, 2);
+  assert.ok(empty.days.every(d => d.scans === 0 && d.participants === 0));
+  await User.updateOne({ _id: admin.id }, { role: 'user' });
+  assert.equal((await request('GET', root + '/statistics', admin.token)).status, 403);
+});
 test('Firebase verification, legacy collision, blocked users and revoked sessions', async () => {
   const legacy = await account();
   const firebase = require('../src/config/firebase');
