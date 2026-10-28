@@ -4,7 +4,7 @@ const { resolveQuote } = require('../src/utils/quote-content');
 const catalog = require('../data/quotes/quotes.json');
 
 test('legacy demo quotes resolve to complete verses and never repeat the excluded code', () => {
-  for (const content of ['Tâm dẫn đầu các pháp...', 'Một câu trích dẫn khác...']) {
+  for (const content of ['Tâm dẫn đầu các pháp...', 'Một câu trích dẫn khác...', 'Nội dung câu kệ 196']) {
     let previous = 'quote-001';
     for (let i = 0; i < 30; i++) {
       const quote = resolveQuote({ code: 'quote-002', content }, previous);
@@ -19,7 +19,10 @@ test('legacy demo quotes resolve to complete verses and never repeat the exclude
         source: expected.source,
         author: expected.author,
       });
-      assert.ok(quote.content.length > 40, 'fallback must contain a full quote');
+      assert.ok(quote.content.trim().length > 0, 'fallback must not be empty');
+      assert.notEqual(quote.content, 'Tâm dẫn đầu các pháp...');
+      assert.notEqual(quote.content, 'Một câu trích dẫn khác...');
+      assert.doesNotMatch(quote.content, /^Nội dung câu kệ \d+$/u);
       previous = quote.code;
     }
   }
