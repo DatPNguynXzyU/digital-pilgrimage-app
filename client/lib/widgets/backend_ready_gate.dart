@@ -65,7 +65,7 @@ class _BackendReadyGateState extends State<BackendReadyGate>
   @override
   Widget build(BuildContext context) => Stack(
     children: [
-      if (_opened) widget.child,
+      if (_opened) TickerMode(enabled: _ready, child: widget.child),
       if (!_ready)
         Scaffold(
           body: Center(
@@ -74,12 +74,20 @@ class _BackendReadyGateState extends State<BackendReadyGate>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (_checking) const CircularProgressIndicator(),
-                  const SizedBox(height: 24),
-                  Text(
-                    _error ?? 'Đang kết nối máy chủ…\nLần mở đầu có thể mất khoảng một phút.',
-                    textAlign: TextAlign.center,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(32),
+                    child: Image.asset(
+                      'images/app_icon.png',
+                      width: 220,
+                      height: 220,
+                      fit: BoxFit.contain,
+                      semanticLabel: 'Hành Trình An Nhiên',
+                    ),
                   ),
+                  if (_error != null) ...[
+                    const SizedBox(height: 24),
+                    Text(_error!, textAlign: TextAlign.center),
+                  ],
                   if (!_checking)
                     TextButton(onPressed: _check, child: const Text('Thử lại')),
                 ],

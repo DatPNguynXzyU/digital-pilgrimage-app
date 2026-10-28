@@ -9,3 +9,9 @@
 - Credit: “Mokugyo drum sounds” by George Papargyris, used under CC BY 4.0.
 - The app asset contains only the first isolated strike and its short natural decay; repeated strikes from the source preview are excluded.
 
+## Temple bell strike
+
+- Asset: `client/assets/audio/temple_bell.wav` (one synthesized strike, 6 seconds).
+- Created for this project using additive synthesis with inharmonic, decaying partials; no third-party recording was sampled.
+- Plays locally without downloading audio. The reader uses an independent pool for the bell and wooden fish.
+

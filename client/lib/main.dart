@@ -9,17 +9,26 @@ import 'views/startup/app_startup_page.dart';
 import 'services/backend_readiness.dart';
 import 'widgets/backend_ready_gate.dart';
 import 'widgets/biometric_gate.dart';
+import 'widgets/nfc_launch_gate.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: _navigatorKey,
       debugShowCheckedModeBanner: false,
       title: 'Hành Trình An Nhiên',
       theme: AppTheme.light,
@@ -29,8 +38,13 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => ReminderLifecycle(
         child: BiometricGate(
           child: BackendReadiness.enabled
-              ? BackendReadyGate(child: child!)
-              : child!,
+              ? BackendReadyGate(
+                  child: NfcLaunchGate(
+                    navigatorKey: _navigatorKey,
+                    child: child!,
+                  ),
+                )
+              : NfcLaunchGate(navigatorKey: _navigatorKey, child: child!),
         ),
       ),
       home: const AppStartupPage(),

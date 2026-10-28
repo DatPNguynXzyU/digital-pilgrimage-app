@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nfc_manager/nfc_manager.dart';
+import 'package:nfc_manager/ndef_record.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
 import 'package:nfc_manager/nfc_manager_ios.dart';
 import 'package:nfc_manager_ndef/nfc_manager_ndef.dart';
@@ -19,7 +20,10 @@ import '../tai_khoan/pilgrimage_history_page.dart';
 import '../tai_khoan/stamp_book_page.dart';
 
 class NfcScanPage extends StatefulWidget {
-  const NfcScanPage({super.key});
+  const NfcScanPage({super.key, this.initialUid});
+
+  /// Physical UID delivered by an Android NFC intent, not by a URL parameter.
+  final String? initialUid;
 
   @override
   State<NfcScanPage> createState() => _NfcScanPageState();
@@ -36,6 +40,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
   bool _processing = false;
   bool _isLoggedIn = false;
   bool _checkingAuth = true;
+  bool _initialTapHandled = false;
 
   String _status = 'Nhấn nút bên dưới và chạm thẻ NFC vào mặt lưng điện thoại.';
 
@@ -50,7 +55,17 @@ class _NfcScanPageState extends State<NfcScanPage> {
   }
 
   Future<void> _initAuthAndScan() async {
-    final token = await _authService.getToken();
+    String? token;
+    try {
+      token = await _authService.getToken();
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _checkingAuth = false;
+        _status = 'Không thể kiểm tra phiên đăng nhập. Vui lòng đăng nhập lại.';
+      });
+      return;
+    }
     final loggedIn = token != null && token.isNotEmpty;
 
     if (!mounted) return;
@@ -59,6 +74,20 @@ class _NfcScanPageState extends State<NfcScanPage> {
       _checkingAuth = false;
     });
 
+    if (loggedIn && widget.initialUid != null) {
+      if (_initialTapHandled) return;
+      _initialTapHandled = true;
+      setState(() {
+        _processing = true;
+        _status = 'Đã nhận thẻ. Đang ghi nhận check-in và nhận tem…';
+      });
+      try {
+        await _checkInTemple(uid: widget.initialUid!);
+      } finally {
+        if (mounted) setState(() => _processing = false);
+      }
+      return;
+    }
     if (loggedIn &&
         !kIsWeb &&
         [
@@ -147,12 +176,17 @@ class _NfcScanPageState extends State<NfcScanPage> {
         final payload = record.payload;
         if (payload.isEmpty) continue;
 
-        final langLen = payload[0] & 0x3F;
-        final textStart = 1 + langLen;
         String text;
-        if (textStart < payload.length) {
+        final isText =
+            record.typeNameFormat == TypeNameFormat.wellKnown &&
+            record.type.length == 1 &&
+            record.type.first == 0x54;
+        if (isText) {
+          final textStart = 1 + (payload[0] & 0x3F);
+          if ((payload[0] & 0x80) != 0 || textStart >= payload.length) continue;
           text = utf8.decode(payload.sublist(textStart), allowMalformed: true);
         } else {
+          // MIME temple records contain plain UTF-8 JSON, without a text status/language prefix.
           text = utf8.decode(payload, allowMalformed: true);
         }
 
@@ -360,10 +394,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
   // ==========================================
   // CHECK-IN BACKEND
   // ==========================================
-  Future<void> _checkInTemple({
-    required String uid,
-    required String slug,
-  }) async {
+  Future<void> _checkInTemple({required String uid, String? slug}) async {
     try {
       final response = await _nfcService.checkIn(uid: uid, slug: slug);
       final data = response['data'] as Map<String, dynamic>? ?? {};

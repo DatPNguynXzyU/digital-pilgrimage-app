@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 
 import '../services/mok_audio_service.dart';
 
-/// Fixed floating wooden-fish control for scripture reading pages.
+/// Matching floating wooden-fish and bell controls for scripture readers.
 class FloatingMokButton extends StatefulWidget {
-  const FloatingMokButton({super.key});
+  const FloatingMokButton({super.key}) : isBell = false;
+
+  const FloatingMokButton.bell({super.key}) : isBell = true;
+
+  final bool isBell;
 
   @override
   State<FloatingMokButton> createState() => _FloatingMokButtonState();
@@ -15,25 +19,30 @@ class FloatingMokButton extends StatefulWidget {
 class _FloatingMokButtonState extends State<FloatingMokButton> {
   bool _busy = false;
 
+  MokAudioService get _audio =>
+      widget.isBell ? MokAudioService.bell : MokAudioService.instance;
+
+  String get _soundName => widget.isBell ? 'chuông' : 'mõ';
+
   @override
   void initState() {
     super.initState();
     // Load into the low-latency pool without starting playback.
-    unawaited(MokAudioService.instance.prepare());
+    unawaited(_audio.prepare());
   }
 
   Future<void> _play() async {
     if (_busy) return;
     setState(() => _busy = true);
-    final succeeded = await MokAudioService.instance.playOnce();
+    final succeeded = await _audio.playOnce();
     if (!mounted) return;
     setState(() => _busy = false);
     if (!succeeded) {
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
         ..showSnackBar(
-          const SnackBar(
-            content: Text('Không phát được tiếng mõ. Hãy thử lại.'),
+          SnackBar(
+            content: Text('Không phát được tiếng $_soundName. Hãy thử lại.'),
           ),
         );
     }
@@ -43,9 +52,11 @@ class _FloatingMokButtonState extends State<FloatingMokButton> {
   Widget build(BuildContext context) {
     return Semantics(
       button: true,
-      label: _busy ? 'Đang phát tiếng mõ' : 'Phát tiếng mõ',
+      label: _busy ? 'Đang phát tiếng $_soundName' : 'Phát tiếng $_soundName',
       child: Tooltip(
-        message: _busy ? 'Đang phát tiếng mõ' : 'Phát tiếng mõ',
+        message: _busy
+            ? 'Đang phát tiếng $_soundName'
+            : 'Phát tiếng $_soundName',
         child: Material(
           color: const Color(0xFF754000),
           shape: const CircleBorder(),
@@ -61,10 +72,16 @@ class _FloatingMokButtonState extends State<FloatingMokButton> {
                 child: AnimatedScale(
                   scale: _busy ? 1.12 : 1,
                   duration: const Duration(milliseconds: 180),
-                  child: const CustomPaint(
-                    size: Size(34, 34),
-                    painter: _MokGlyphPainter(),
-                  ),
+                  child: widget.isBell
+                      ? const Icon(
+                          Icons.notifications_none_rounded,
+                          color: Colors.white,
+                          size: 34,
+                        )
+                      : const CustomPaint(
+                          size: Size(34, 34),
+                          painter: _MokGlyphPainter(),
+                        ),
                 ),
               ),
             ),

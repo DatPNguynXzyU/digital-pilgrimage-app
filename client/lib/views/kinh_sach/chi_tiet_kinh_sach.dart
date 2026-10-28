@@ -72,7 +72,11 @@ class _ChiTietKinhSachPageState extends State<ChiTietKinhSachPage>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state != AppLifecycleState.resumed) _pause();
+    if (state != AppLifecycleState.resumed) {
+      _pause();
+      unawaited(MokAudioService.instance.stopAndDispose());
+      unawaited(MokAudioService.bell.stopAndDispose());
+    }
   }
 
   @override
@@ -81,6 +85,7 @@ class _ChiTietKinhSachPageState extends State<ChiTietKinhSachPage>
     _ticker.dispose();
     _scroll.dispose();
     unawaited(MokAudioService.instance.stopAndDispose());
+    unawaited(MokAudioService.bell.stopAndDispose());
     super.dispose();
   }
 
@@ -293,7 +298,14 @@ class _ChiTietKinhSachPageState extends State<ChiTietKinhSachPage>
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: const Padding(
         padding: EdgeInsets.only(right: 4, bottom: 12),
-        child: FloatingMokButton(),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FloatingMokButton.bell(),
+            SizedBox(height: 12),
+            FloatingMokButton(),
+          ],
+        ),
       ),
     );
   }

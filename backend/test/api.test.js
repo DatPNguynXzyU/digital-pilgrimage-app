@@ -51,6 +51,35 @@ async function account() {
   return { ...credentials, token: loggedIn.body.token, registeredToken: registered.body.token, id: loggedIn.body.user.id };
 }
 const eventData = () => ({ id: randomUUID(), title: 'Lễ Phật', startAt: '2026-10-16T09:00:00.000', endAt: '2026-10-16T10:00:00.000', repeat: 'monthly', usesLunarDate: true, reminderMinutes: 30 });
+test('NFC admin tag lifecycle: privileges, registration, collisions, disabling and check-in', async () => {
+  const admin = await account(), user = await account();
+  const root = '/admin/nfc/tags';
+  const uid = '04112233445566';
+  const temple = await Temple.create({ name: 'Writer Temple', slug: randomUUID() });
+  const other = await Temple.create({ name: 'Other Writer Temple', slug: randomUUID() });
+  const body = { uid, templeId: String(temple._id) };
+  assert.equal((await request('GET', root + '/' + uid)).status, 401);
+  for (const [method, path, payload] of [['GET', root + '/' + uid], ['POST', root, body], ['POST', root + '/' + uid + '/status', { status: 'inactive' }]]) {
+    assert.equal((await request(method, path, user.token, payload)).status, 403);
+  }
+  await User.updateOne({ _id: admin.id }, { role: 'admin' });
+  assert.equal((await request('GET', root + '/' + uid, admin.token)).body.data.tag, null);
+  assert.equal((await request('POST', root, admin.token, { ...body, uid: 'bad-input' })).status, 400);
+  assert.equal((await request('POST', root, admin.token, body)).status, 201);
+  assert.equal((await request('POST', root, admin.token, body)).status, 200);
+  assert.equal((await request('POST', root, admin.token, { ...body, templeId: String(other._id) })).status, 409);
+  assert.equal((await NfcTag.findOne({ uid })).templeId.toString(), String(temple._id));
+  assert.equal((await request('POST', '/nfc/scan', user.token, { uid })).status, 200);
+  assert.equal((await request('POST', root + '/' + uid + '/status', admin.token, { status: 'inactive' })).status, 200);
+  assert.equal((await request('POST', '/nfc/scan', user.token, { uid })).status, 404);
+  assert.equal((await request('POST', root, admin.token, body)).status, 409);
+  assert.equal((await request('POST', root + '/' + uid + '/status', admin.token, { status: 'active' })).status, 200);
+  assert.equal((await request('GET', root + '/' + uid, admin.token)).body.data.tag.templeId.name, temple.name);
+  assert.equal(await Visit.countDocuments({ userId: user.id }), 1);
+  assert.equal(await Stamp.countDocuments({ userId: user.id }), 1);
+  await User.updateOne({ _id: admin.id }, { role: 'user' });
+  assert.equal((await request('POST', root, admin.token, body)).status, 403);
+});
 test('admin NFC statistics: access control, distinct users, VN day boundaries, event windows and empty periods', async () => {
   const admin = await account(), user = await account();
   const root = '/admin/nfc';
