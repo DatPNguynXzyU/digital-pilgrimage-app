@@ -43,6 +43,7 @@ app.use('/api/auth', (req, res, next) => {
 app.use('/api/temples', cache(60));
 app.use('/api/scriptures', cache(60));
 app.use(express.json());
+app.use('/api/admin/nfc', require('./routes/nfc-admin.routes'));
 app.use('/api/quotes', require('./routes/quote.routes'));
 app.use(
   '/api/auth',
