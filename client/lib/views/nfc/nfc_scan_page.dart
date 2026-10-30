@@ -14,6 +14,7 @@ import '../../models/temple.dart';
 import '../temples/chi_tiet_chua.dart';
 import '../../services/auth_service.dart';
 import '../../services/nfc_service.dart';
+import '../../services/nfc_platform_support.dart';
 import '../../widgets/app_header.dart';
 import '../tai_khoan/login_page.dart';
 import '../tai_khoan/pilgrimage_history_page.dart';
@@ -220,6 +221,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
   // ==========================================
   @override
   void dispose() {
+    NfcPlatformSupport.iosSessionActive = false;
     if (_scanning) {
       NfcManager.instance.stopSession().catchError((Object _) {});
     }
@@ -240,13 +242,8 @@ class _NfcScanPageState extends State<NfcScanPage> {
   }
 
   Future<void> _startScan() async {
-    if (!kIsWeb &&
-        defaultTargetPlatform == TargetPlatform.iOS &&
-        const bool.fromEnvironment('IOS_SIDELOAD_BUILD')) {
-      _showMessage(
-        'Bản iPhone cài bằng Sideloadly chưa hỗ trợ quét NFC. '
-        'Bạn vẫn có thể xem tem và lịch sử đã đồng bộ từ Android.',
-      );
+    if (NfcPlatformSupport.disabledIosBuild) {
+      _showMessage(NfcPlatformSupport.disabledMessage);
       return;
     }
     if (_starting || _processing || _scanning) return;
@@ -264,8 +261,8 @@ class _NfcScanPageState extends State<NfcScanPage> {
       }
       setState(() => _isLoggedIn = true);
       await _scan();
-    } catch (_) {
-      if (mounted) _showMessage('Không thể khởi động NFC. Vui lòng thử lại.');
+    } catch (error) {
+      if (mounted) _showMessage(NfcPlatformSupport.explain(error));
     } finally {
       if (mounted) setState(() => _starting = false);
     }
@@ -287,7 +284,11 @@ class _NfcScanPageState extends State<NfcScanPage> {
 
     if (!mounted) return;
     if (availability != NfcAvailability.enabled) {
-      _showMessage('NFC chưa được bật hoặc thiết bị không hỗ trợ NFC.');
+      _showMessage(
+        defaultTargetPlatform == TargetPlatform.iOS
+            ? 'iPhone chưa cung cấp NFC cho bản cài này. Hãy kiểm tra thiết bị và profile có NFC Tag Reading.'
+            : 'NFC chưa được bật hoặc thiết bị không hỗ trợ NFC.',
+      );
       return;
     }
 
@@ -301,14 +302,20 @@ class _NfcScanPageState extends State<NfcScanPage> {
     });
 
     try {
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+        NfcPlatformSupport.iosSessionActive = true;
+      }
       await NfcManager.instance.startSession(
         alertMessageIos: 'Đưa phần trên iPhone lại gần thẻ NFC của chùa.',
         invalidateAfterFirstReadIos: false,
         onSessionErrorIos: (_) {
+          NfcPlatformSupport.iosSessionActive = false;
           if (!mounted || _processing) return;
           setState(() {
             _scanning = false;
-            _status = 'Phiên quét đã kết thúc. Nhấn quét để thử lại.';
+            _status =
+                'Phiên quét đã kết thúc. Nhấn quét để thử lại. '
+                'Nếu iOS từ chối quyền NFC, cần kiểm tra profile ký IPA.';
           });
         },
         pollingOptions: {NfcPollingOption.iso14443, NfcPollingOption.iso15693},
@@ -378,15 +385,17 @@ class _NfcScanPageState extends State<NfcScanPage> {
               _status = error.toString().replaceFirst('Exception: ', '');
             });
           } finally {
+            NfcPlatformSupport.iosSessionActive = false;
             if (mounted) setState(() => _processing = false);
           }
         },
       );
     } catch (e) {
+      NfcPlatformSupport.iosSessionActive = false;
       if (!mounted) return;
       setState(() {
         _scanning = false;
-        _status = e.toString().replaceFirst('Exception: ', '');
+        _status = NfcPlatformSupport.explain(e);
       });
     }
   }
@@ -420,6 +429,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
   }
 
   Future<void> _stopScan() async {
+    NfcPlatformSupport.iosSessionActive = false;
     try {
       await NfcManager.instance.stopSession();
     } catch (_) {}

@@ -31,6 +31,7 @@ class ConfigurationTest(unittest.TestCase):
                              "GOOGLE_REVERSED_CLIENT_ID = com.googleusercontent.apps.123-ios\n")
             config = module.configuration(self.env)
             self.assertEqual(config["IOS_SIDELOAD_BUILD"], "true")
+            self.assertEqual(config["IOS_NFC_ENABLED"], "false")
             self.assertEqual(config["FIREBASE_API_KEY"], "public-client-key")
             self.assertNotIn("FIREBASE_IOS_API_KEY", config)
 
@@ -40,6 +41,38 @@ class ConfigurationTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "GOOGLE_IOS_CLIENT_ID"):
                 module.prepare(Path(directory), self.env)
             self.assertEqual(list(Path(directory).iterdir()), [])
+
+    def test_nfc_test_build_retains_tag_entitlement_and_other_entries(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "ios/Flutter").mkdir(parents=True)
+            (root / "ios/Runner").mkdir(parents=True)
+            path = root / "ios/Runner/Runner.entitlements"
+            path.write_bytes(plistlib.dumps({"example-preserved": True}))
+            module.prepare(root, {**self.env, "ENABLE_IOS_NFC": "true"})
+            self.assertEqual(plistlib.loads(path.read_bytes()), {
+                "example-preserved": True,
+                "com.apple.developer.nfc.readersession.formats": ["TAG"],
+            })
+            config = module.configuration({**self.env, "ENABLE_IOS_NFC": "true"})
+            self.assertEqual(config["IOS_NFC_ENABLED"], "true")
+            module.prepare(root, self.env)
+            self.assertEqual(plistlib.loads(path.read_bytes()), {"example-preserved": True})
+
+    def test_invalid_nfc_switch_does_not_write_configuration(self):
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(ValueError, "ENABLE_IOS_NFC"):
+                module.prepare(Path(directory), {**self.env, "ENABLE_IOS_NFC": "maybe"})
+            self.assertEqual(list(Path(directory).iterdir()), [])
+
+    def test_xcode_runner_signing_references_tag_entitlements(self):
+        root = Path(__file__).resolve().parents[1] / "client/ios"
+        project = (root / "Runner.xcodeproj/project.pbxproj").read_text(encoding="utf-8")
+        self.assertEqual(project.count("CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;"), 3)
+        entitlements = plistlib.loads((root / "Runner/Runner.entitlements").read_bytes())
+        self.assertEqual(entitlements["com.apple.developer.nfc.readersession.formats"], ["TAG"])
+        info = plistlib.loads((root / "Runner/Info.plist").read_bytes())
+        self.assertTrue(info["NFCReaderUsageDescription"])
 
     def test_rejects_wrong_platform_mismatched_project_and_injected_scheme(self):
         for key, value in [("FIREBASE_IOS_APP_ID", "1:123:android:abc"),

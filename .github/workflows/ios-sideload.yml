@@ -3,6 +3,12 @@ name: iOS Sideload IPA
 
 on:
   workflow_dispatch:
+    inputs:
+      enable_nfc:
+        description: 'Enable NFC test (final signing profile must support NFC Tag Reading)'
+        type: boolean
+        default: true
+        required: true
 
 permissions:
   contents: read
@@ -28,6 +34,7 @@ jobs:
       FIREBASE_MESSAGING_SENDER_ID: ${{ vars.FIREBASE_MESSAGING_SENDER_ID }}
       GOOGLE_IOS_CLIENT_ID: ${{ vars.GOOGLE_IOS_CLIENT_ID }}
       GOOGLE_WEB_CLIENT_ID: ${{ vars.GOOGLE_WEB_CLIENT_ID }}
+      ENABLE_IOS_NFC: ${{ inputs.enable_nfc && 'true' || 'false' }}
 
     steps:
       - uses: actions/checkout@v4
@@ -81,10 +88,13 @@ jobs:
           ditto -c -k --keepParent Payload HanhTrinhAnNhien-sideload.ipa
 
           shasum -a 256 HanhTrinhAnNhien-sideload.ipa > SHA256SUMS.txt
+          cp ../../ios/Runner/Runner.entitlements NFC.entitlements.plist
 
           printf '%s\n' "Commit: $GITHUB_SHA" "Run: $GITHUB_RUN_NUMBER" \
             'Unsigned iPhone release. Sign and install using Sideloadly.' \
-            'NFC is disabled in this sideload build.' > BUILD-INFO.txt
+            "NFC code enabled: $ENABLE_IOS_NFC" \
+            'When NFC is enabled, final signing must preserve TAG entitlement and use an NFC-capable provisioning profile.' \
+            'Unsigned IPA alone does not grant NFC access; free sideload signing may reject or remove the entitlement.' > BUILD-INFO.txt
 
       - name: Save IPA for Sideloadly
         uses: actions/upload-artifact@v4
@@ -94,5 +104,6 @@ jobs:
             client/build/sideload/HanhTrinhAnNhien-sideload.ipa
             client/build/sideload/SHA256SUMS.txt
             client/build/sideload/BUILD-INFO.txt
+            client/build/sideload/NFC.entitlements.plist
           if-no-files-found: error
           retention-days: 7
