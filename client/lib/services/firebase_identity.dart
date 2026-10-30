@@ -49,6 +49,8 @@ class FirebaseIdentity {
     }
     final instance = FirebaseAuth.instance;
     await instance.setLanguageCode('vi');
+    // Wait for native persistence restoration before inspecting currentUser.
+    await instance.authStateChanges().first;
     return instance;
   }
 

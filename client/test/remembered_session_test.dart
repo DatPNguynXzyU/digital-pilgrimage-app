@@ -15,6 +15,15 @@ void main() {
     expect(await auth.isLoggedIn(), isFalse);
     expect(await auth.getToken(), isNull);
   });
+  test('legacy login can sign out without being offered Firebase remembrance', () async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('auth_token', 'legacy-token');
+    final auth = AuthService();
+    expect(await auth.isLoggedIn(), isTrue);
+    expect(await auth.canRememberAccount(), isFalse);
+    await auth.logout();
+    expect(await auth.isLoggedIn(), isFalse);
+  });
   test('cancelled biometrics cannot restore a session', () async {
     final auth = AuthService(authenticate: () async => false);
     await expectLater(auth.loginWithBiometrics(), throwsException);
