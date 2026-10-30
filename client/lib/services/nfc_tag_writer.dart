@@ -61,16 +61,21 @@ NdefMessage templeTagMessage(String slug) {
   return NdefMessage(
     records: [
       NdefRecord(
+        typeNameFormat: TypeNameFormat.wellKnown,
+        type: bytes('U'),
+        identifier: Uint8List(0),
+        payload: Uint8List.fromList([
+          4,
+          ...bytes(
+            'hanh-trinh-an-nhien-app.starryflute8194.chatgpt.site/nfc/?temple=$slug',
+          ),
+        ]),
+      ),
+      NdefRecord(
         typeNameFormat: TypeNameFormat.media,
         type: bytes('application/vnd.hanhtrinhannhien.temple'),
         identifier: Uint8List(0),
         payload: bytes(jsonEncode({'type': 'temple', 'slug': slug})),
-      ),
-      NdefRecord(
-        typeNameFormat: TypeNameFormat.external,
-        type: bytes('android.com:pkg'),
-        identifier: Uint8List(0),
-        payload: bytes('com.example.apptungkinh'),
       ),
     ],
   );

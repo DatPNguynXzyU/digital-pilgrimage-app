@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Check-in chùa · Hành Trình An Nhiên</title>
+<style>body{margin:0;background:#f7f3e8;color:#294e40;font:18px/1.6 system-ui}main{max-width:580px;margin:8vh auto;padding:28px}section{background:white;border-radius:24px;padding:28px;box-shadow:0 8px 32px #294e4010}h1{line-height:1.25}a{color:inherit}.button{display:block;background:#294e40;color:white;padding:14px;text-align:center;border-radius:14px;text-decoration:none;margin:16px 0}small{display:block;color:#65695f}</style></head>
+<body><main><section><p>HÀNH TRÌNH AN NHIÊN</p><h1 id="title">Check-in tại chùa</h1><p id="status">Mở ứng dụng để xem chùa và chạm thẻ nhận tem kỷ niệm.</p><a class="button" id="open" hidden>Mở ứng dụng</a><a class="button" href="/#tai-app">Tải ứng dụng Android</a><small>Cài xong, hãy quay lại và chạm thẻ lần nữa. Nếu đã cài mà vẫn mở trình duyệt, bật “Mở liên kết được hỗ trợ” trong cài đặt ứng dụng. Cần bản ứng dụng có hỗ trợ link NFC.</small><p><a href="/">Về trang giới thiệu</a></p></section></main><script>
+const slug = new URL(location.href).searchParams.get('temple');
+if (slug && slug.length <= 150 && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+  const open = document.getElementById('open');
+  open.hidden = false;
+  open.href = `intent://${location.host}/nfc/?temple=${encodeURIComponent(slug)}#Intent;scheme=https;package=com.example.apptungkinh;end`;
+  fetch(`https://digital-pilgrimage-api.onrender.com/api/temples/${encodeURIComponent(slug)}`)
+    .then(r => { if (!r.ok) throw Error(); return r.json(); })
+    .then(body => { if (body.success && body.data?.name) document.getElementById('title').textContent = body.data.name; })
+    .catch(() => { document.getElementById('status').textContent = 'Chưa tải được tên chùa. Bạn vẫn có thể tải app, rồi chạm lại thẻ để tiếp tục.'; });
+} else { document.getElementById('status').textContent = 'Link chưa có mã chùa hợp lệ. Hãy kiểm tra lại nội dung thẻ NFC.'; }
+</script></body></html>
+

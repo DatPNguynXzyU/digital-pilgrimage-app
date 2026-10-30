@@ -47,7 +47,12 @@ class MainActivity : FlutterFragmentActivity() {
         } else {
             val uid = savedInstanceState.getString("nfc.pending.uid")
             val eventId = savedInstanceState.getString("nfc.pending.eventId")
-            if (uid != null && eventId != null) pendingTag = mapOf("uid" to uid, "eventId" to eventId)
+            val slug = savedInstanceState.getString("nfc.pending.slug")
+            if (eventId != null && (uid != null || slug != null)) {
+                pendingTag = mutableMapOf("eventId" to eventId).apply {
+                    uid?.let { put("uid", it) }; slug?.let { put("slug", it) }
+                }
+            }
         }
     }
 
@@ -55,6 +60,7 @@ class MainActivity : FlutterFragmentActivity() {
         pendingTag?.let { tag ->
             outState.putString("nfc.pending.uid", tag["uid"])
             outState.putString("nfc.pending.eventId", tag["eventId"])
+            outState.putString("nfc.pending.slug", tag["slug"])
         }
         super.onSaveInstanceState(outState)
     }
@@ -67,8 +73,25 @@ class MainActivity : FlutterFragmentActivity() {
 
     @Suppress("DEPRECATION")
     private fun captureNfcIntent(intent: Intent?) {
-        if (intent?.action != NfcAdapter.ACTION_NDEF_DISCOVERED) return
+        if (intent == null) return
         if (intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY != 0) return
+        if (intent.action == Intent.ACTION_VIEW || intent.action == NfcAdapter.ACTION_NDEF_DISCOVERED) {
+            val uri = intent.data
+            val slug = uri?.getQueryParameter("temple")
+            if (uri?.scheme == "https" && uri.host == "hanh-trinh-an-nhien-app.starryflute8194.chatgpt.site" &&
+                uri.path == "/nfc/" && slug != null && slug.length <= 150 &&
+                Regex("^[a-z0-9]+(?:-[a-z0-9]+)*$").matches(slug)) {
+                val now = SystemClock.elapsedRealtime()
+                if (lastUid == "link:$slug" && now - lastTapAt < 3000) return
+                lastUid = "link:$slug"
+                lastTapAt = now
+                // A public link only navigates. Physical NFC is read again for check-in.
+                pendingTag = mapOf("slug" to slug, "eventId" to UUID.randomUUID().toString())
+                nfcChannel?.invokeMethod("tagAvailable", null)
+                return
+            }
+        }
+        if (intent.action != NfcAdapter.ACTION_NDEF_DISCOVERED) return
         try {
             val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG) ?: return
             if (tag.id.isEmpty()) return

@@ -33,13 +33,18 @@ void main() {
   final message = templeTagMessage('chua-giac-lam');
   test('temple NDEF fits NTAG215 and carries app opening records', () {
     expect(message.byteLength, lessThan(496));
-    expect(jsonDecode(utf8.decode(message.records.first.payload)), {
+    expect(message.records.first.payload.first, 4);
+    expect(
+      utf8.decode(message.records.first.payload.sublist(1)),
+      'hanh-trinh-an-nhien-app.starryflute8194.chatgpt.site/nfc/?temple=chua-giac-lam',
+    );
+    expect(jsonDecode(utf8.decode(message.records.last.payload)), {
       'type': 'temple',
       'slug': 'chua-giac-lam',
     });
     expect(
-      utf8.decode(message.records.last.payload),
-      'com.example.apptungkinh',
+      message.records.any((r) => utf8.decode(r.type) == 'android.com:pkg'),
+      isFalse,
     );
     expect(sameNdef(NdefMessage.decode(message.encode()), message), isTrue);
   });
