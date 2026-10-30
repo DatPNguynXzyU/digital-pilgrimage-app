@@ -30,6 +30,10 @@ def configuration(env):
             raise ValueError(name + " is not a valid OAuth client ID")
     config["FIREBASE_API_KEY"] = config.pop("FIREBASE_IOS_API_KEY")
     config["IOS_SIDELOAD_BUILD"] = "true"
+    nfc = env.get("ENABLE_IOS_NFC", "false").strip().lower()
+    if nfc not in ("true", "false"):
+        raise ValueError("ENABLE_IOS_NFC must be true or false")
+    config["IOS_NFC_ENABLED"] = nfc
     return config
 
 
@@ -39,10 +43,17 @@ def prepare(root, env):
     (root / "firebase-config.ios.json").write_text(json.dumps(config), encoding="utf-8")
     (root / "ios/Flutter/Firebase.local.xcconfig").write_text(
         f"GOOGLE_REVERSED_CLIENT_ID = com.googleusercontent.apps.{client}\n", encoding="utf-8")
-    # Only the ephemeral CI checkout is changed. The regular iOS build retains NFC.
-    with (root / "ios/Runner/Runner.entitlements").open("wb") as output:
-        plistlib.dump({}, output)
-    print("Prepared Firebase iOS client configuration and sideload entitlements.")
+    # A test build can retain NFC. The final signing profile must authorize it.
+    entitlement_path = root / "ios/Runner/Runner.entitlements"
+    entitlements = plistlib.loads(entitlement_path.read_bytes()) if entitlement_path.exists() else {}
+    key = "com.apple.developer.nfc.readersession.formats"
+    if config["IOS_NFC_ENABLED"] == "true":
+        entitlements[key] = ["TAG"]
+    else:
+        entitlements.pop(key, None)
+    with entitlement_path.open("wb") as output:
+        plistlib.dump(entitlements, output)
+    print("Prepared Firebase iOS client configuration; NFC enabled: " + config["IOS_NFC_ENABLED"])
 
 
 if __name__ == "__main__":

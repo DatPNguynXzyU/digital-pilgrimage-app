@@ -1,0 +1,13 @@
+import 'dotenv/config';
+import {Pool} from 'pg';
+import nodemailer from 'nodemailer';
+import {readFile} from 'node:fs/promises';
+import {createApp} from './app.js';
+if(!process.env.DATABASE_URL || (process.env.JWT_SECRET?.length||0)<32)throw Error('Cần DATABASE_URL và JWT_SECRET tối thiểu 32 ký tự');
+const pool=new Pool({connectionString:process.env.DATABASE_URL,ssl:process.env.DB_SSL==='true'?{rejectUnauthorized:true}:undefined});
+await pool.query(await readFile(new URL('./schema.sql',import.meta.url),'utf8'));
+if(process.env.BOOTSTRAP_ADMIN_EMAIL)await pool.query("UPDATE users SET role='admin' WHERE email=$1 AND verified=true",[process.env.BOOTSTRAP_ADMIN_EMAIL.toLowerCase()]);
+const mail=nodemailer.createTransport({host:process.env.SMTP_HOST,port:Number(process.env.SMTP_PORT||587),secure:process.env.SMTP_PORT==='465',auth:{user:process.env.SMTP_USER,pass:process.env.SMTP_PASSWORD},connectionTimeout:15000});
+const sendMail=(email,code,kind)=>mail.sendMail({from:process.env.SMTP_FROM,to:email,subject:'ChildGuard • Mã xác thực',text:`Mã ${kind==='verify'?'xác minh tài khoản':'đăng nhập'} ChildGuard của bạn: ${code}. Có hiệu lực 5 phút. Không chia sẻ mã này.`});
+const server=createApp({pool,sendMail}).listen(process.env.PORT||10000,'0.0.0.0');
+process.on('SIGTERM',()=>server.close(async()=>{await pool.end();process.exit(0);}));

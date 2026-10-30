@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../services/auth_service.dart';
 import '../services/biometric_lock.dart';
+import '../services/nfc_platform_support.dart';
 
 class BiometricGate extends StatefulWidget {
   const BiometricGate({
@@ -47,7 +48,11 @@ class _BiometricGateState extends State<BiometricGate>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.inactive &&
+    final background =
+        state == AppLifecycleState.paused || state == AppLifecycleState.hidden;
+    if ((background ||
+            (state == AppLifecycleState.inactive &&
+                !NfcPlatformSupport.hasIosSheet)) &&
         _enabled &&
         !BiometricLock.authenticating) {
       setState(() => _locked = true);

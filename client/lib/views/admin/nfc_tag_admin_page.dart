@@ -6,6 +6,7 @@ import 'package:nfc_manager/ndef_record.dart';
 import '../../services/nfc_admin_service.dart';
 import '../../services/nfc_tag_writer.dart';
 import '../../services/nfc_launch_service.dart';
+import '../../services/nfc_platform_support.dart';
 
 class NfcTagAdminPage extends StatefulWidget {
   const NfcTagAdminPage({super.key, this.reader, this.service});
@@ -17,7 +18,7 @@ class NfcTagAdminPage extends StatefulWidget {
 
 class _NfcTagAdminPageState extends State<NfcTagAdminPage>
     with WidgetsBindingObserver {
-  late final NfcTagReader _reader = widget.reader ?? AndroidNfcTagReader();
+  late final NfcTagReader _reader = widget.reader ?? MobileNfcTagReader();
   late final NfcAdminService _api = widget.service ?? NfcAdminService();
   List<dynamic> _temples = [];
   String? _temple;
@@ -36,7 +37,13 @@ class _NfcTagAdminPageState extends State<NfcTagAdminPage>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state != AppLifecycleState.resumed) unawaited(_reader.cancel());
+    if (state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.detached ||
+        (state == AppLifecycleState.inactive &&
+            !NfcPlatformSupport.hasIosSheet)) {
+      unawaited(_reader.cancel());
+    }
   }
 
   @override
@@ -69,8 +76,7 @@ class _NfcTagAdminPageState extends State<NfcTagAdminPage>
     }
   }
 
-  String _message(Object error) =>
-      error.toString().replaceFirst('Exception: ', '');
+  String _message(Object error) => NfcPlatformSupport.explain(error);
   void _ensureForeground() {
     if (!mounted ||
         (WidgetsBinding.instance.lifecycleState != null &&
@@ -287,7 +293,7 @@ class _NfcTagAdminPageState extends State<NfcTagAdminPage>
         padding: const EdgeInsets.all(20),
         children: [
           const Text(
-            'QUẢN TRỊ · ANDROID',
+            'QUẢN TRỊ · NFC',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           const Text(

@@ -1,0 +1,21 @@
+name: phamnguyentuandat_2380614580
+description: ChildGuard - quản lý thời gian số của gia đình.
+publish_to: none
+version: 1.0.0+1
+environment:
+  sdk: ^3.8.0
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.4.0
+  flutter_secure_storage: ^9.2.4
+  local_auth: ^2.3.0
+  nfc_manager: ^3.5.0
+  flutter_web_auth_2: ^4.1.0
+  crypto: ^3.0.6
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+flutter:
+  uses-material-design: true

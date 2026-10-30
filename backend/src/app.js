@@ -32,6 +32,13 @@ app.get('/api/health', (req, res) => {
 });
 
 app.use(cors());
+const swaggerUi = require('swagger-ui-express');
+const openapi = require('./config/openapi');
+app.get('/api-docs.json', (req, res) => res.json(openapi));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openapi, {
+  customSiteTitle: 'Hành Trình An Nhiên — API',
+  swaggerOptions: { validatorUrl: null, persistAuthorization: false },
+}));
 app.use('/api', rateLimit('api', 120, 60));
 app.use('/api/auth', (req, res, next) => {
   if (['POST', 'PUT'].includes(req.method) &&
