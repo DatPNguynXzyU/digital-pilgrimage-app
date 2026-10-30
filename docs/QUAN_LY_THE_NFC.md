@@ -2,7 +2,7 @@
 
 ## Chuẩn bị
 
-- Backend và app Android phải có bản cập nhật quản lý thẻ (API bên dưới).
+- Backend và app phải có bản cập nhật quản lý thẻ (API bên dưới); iOS cần bản NFC test và quyền ký tương ứng.
 - Tài khoản trong MongoDB `users` có `role: "admin"`, trạng thái active.
 - Điện thoại Android có NFC, đã bật NFC, có mạng; thẻ NTAG215 đã định dạng NDEF và còn quyền ghi.
 - Mục **Cá nhân → Quản lý thẻ NFC** chỉ xuất hiện với admin. Máy chủ kiểm tra vai trò trong MongoDB ở từng request; tự sửa giao diện không cấp được quyền quản lý UID.
@@ -48,7 +48,7 @@ Backend không thể chứng minh điện thoại thực sự ghi NDEF chỉ t�
 
 Không đổi UID, không khóa vĩnh viễn, không format thẻ và không cấu hình mật khẩu NTAG215 trong phiên bản này. Quyền admin bảo vệ app/API; thẻ vật lý chưa bảo vệ ghi vẫn có thể bị phần mềm NFC khác ghi đè. Đây không phải tính năng chống sao chép thẻ.
 
-Chỉ hỗ trợ quản trị đọc/ghi trên Android trong phiên bản này. iOS sideload chưa được cấp khả năng NFC; không gọi API phần cứng NFC trên iOS/Web.
+Hỗ trợ quản trị đọc/ghi trên Android; đã bổ sung đường kiểm thử iOS có `IOS_NFC_ENABLED=true` và chữ ký/profile có NFC Tag Reading. Bản sideload tắt NFC vẫn chặn trước khi gọi phần cứng. Xem `docs/NFC_IOS_TEST.md` để build và kiểm tra quyền ký; Apple ID miễn phí/Sideloadly không tự cấp quyền NFC. Web không hỗ trợ đọc/ghi trong app này.
 
 ## API
 

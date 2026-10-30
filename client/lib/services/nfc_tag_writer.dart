@@ -4,8 +4,11 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/nfc_manager_android.dart';
+import 'package:nfc_manager/nfc_manager_ios.dart';
 import 'package:nfc_manager/ndef_record.dart';
 import 'package:nfc_manager_ndef/nfc_manager_ndef.dart';
+
+import 'nfc_platform_support.dart';
 
 class NfcTagSnapshot {
   final String uid;
@@ -108,7 +111,7 @@ Future<NdefMessage> writeVerifiedNdef({
   return current!;
 }
 
-class AndroidNfcTagReader implements NfcTagReader {
+class MobileNfcTagReader implements NfcTagReader {
   Completer<NfcTagSnapshot>? _pending;
   bool _handling = false;
   Timer? _timer;
@@ -116,10 +119,15 @@ class AndroidNfcTagReader implements NfcTagReader {
     String? expectedUid,
     NdefMessage? message,
   }) async {
-    if (kIsWeb || defaultTargetPlatform != TargetPlatform.android) {
-      throw Exception(
-        'Quản lý đọc/ghi thẻ hiện hỗ trợ điện thoại Android có NFC.',
-      );
+    if (kIsWeb ||
+        ![
+          TargetPlatform.android,
+          TargetPlatform.iOS,
+        ].contains(defaultTargetPlatform)) {
+      throw Exception('Đọc/ghi thẻ cần điện thoại Android hoặc iPhone có NFC.');
+    }
+    if (NfcPlatformSupport.disabledIosBuild) {
+      throw Exception(NfcPlatformSupport.disabledMessage);
     }
     if (_pending != null) throw Exception('Đang có phiên NFC khác.');
     final result = Completer<NfcTagSnapshot>();
@@ -131,7 +139,11 @@ class AndroidNfcTagReader implements NfcTagReader {
     try {
       if (await NfcManager.instance.checkAvailability() !=
           NfcAvailability.enabled) {
-        throw Exception('Hãy bật NFC trên điện thoại.');
+        throw Exception(
+          defaultTargetPlatform == TargetPlatform.iOS
+              ? 'iPhone chưa cung cấp NFC cho bản cài này. Hãy kiểm tra thiết bị và profile NFC Tag Reading.'
+              : 'Hãy bật NFC trên điện thoại.',
+        );
       }
       if (_pending != result || result.isCompleted) {
         throw Exception('Đã hủy phiên NFC.');
@@ -139,17 +151,37 @@ class AndroidNfcTagReader implements NfcTagReader {
       _timer = Timer(const Duration(seconds: 45), () {
         cancel();
       });
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+        NfcPlatformSupport.iosSessionActive = true;
+      }
       await NfcManager.instance.startSession(
         pollingOptions: {NfcPollingOption.iso14443},
+        alertMessageIos: message == null
+            ? 'Đưa thẻ NFC sát phần trên của iPhone để đọc.'
+            : 'Giữ đúng thẻ sát phần trên của iPhone để ghi và kiểm tra.',
+        invalidateAfterFirstReadIos: false,
+        onSessionErrorIos: (error) {
+          if (!result.isCompleted) {
+            result.completeError(
+              Exception('iOS đã kết thúc phiên NFC (${error.code.name}).'),
+            );
+          }
+        },
         onDiscovered: (tag) async {
           if (_handling || _pending != result || result.isCompleted) return;
           _handling = true;
           try {
-            final native = NfcTagAndroid.from(tag);
-            if (native == null || native.id.isEmpty) {
+            final ios = defaultTargetPlatform == TargetPlatform.iOS;
+            final native = ios ? null : NfcTagAndroid.from(tag);
+            final miFare = ios ? MiFareIos.from(tag) : null;
+            final iso7816 = ios ? Iso7816Ios.from(tag) : null;
+            final identifier = ios
+                ? miFare?.identifier ?? iso7816?.identifier
+                : native?.id;
+            if (identifier == null || identifier.isEmpty) {
               throw Exception('Không đọc được UID vật lý.');
             }
-            final uid = native.id
+            final uid = identifier
                 .map((b) => b.toRadixString(16).padLeft(2, '0'))
                 .join()
                 .toUpperCase();
@@ -167,7 +199,13 @@ class AndroidNfcTagReader implements NfcTagReader {
               result.complete(
                 NfcTagSnapshot(
                   uid: uid,
-                  technologies: native.techList,
+                  technologies:
+                      native?.techList ??
+                      [
+                        if (miFare != null)
+                          'MiFare ${miFare.mifareFamily.name}',
+                        if (iso7816 != null) 'ISO 7816',
+                      ],
                   ndefSupported: ndef != null,
                   writable: ndef?.isWritable ?? false,
                   capacity: ndef?.maxSize ?? 0,
@@ -184,6 +222,7 @@ class AndroidNfcTagReader implements NfcTagReader {
       );
       return await result.future;
     } finally {
+      NfcPlatformSupport.iosSessionActive = false;
       _timer?.cancel();
       try {
         await NfcManager.instance.stopSession();

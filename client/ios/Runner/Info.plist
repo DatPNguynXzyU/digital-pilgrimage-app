@@ -9,7 +9,7 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Chọn ảnh đại diện từ thư viện ảnh của bạn.</string>
 	<key>NFCReaderUsageDescription</key>
-	<string>Đọc thẻ NFC tại chùa để check-in và nhận tem hành hương.</string>
+	<string>Đọc thẻ NFC tại chùa để check-in, nhận tem; quản trị viên có thể đọc và ghi thông tin chùa lên thẻ.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

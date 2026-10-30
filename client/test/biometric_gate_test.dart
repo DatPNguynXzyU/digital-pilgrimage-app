@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hanh_trinh_an_nhien/services/auth_service.dart';
 import 'package:hanh_trinh_an_nhien/services/biometric_lock.dart';
+import 'package:hanh_trinh_an_nhien/services/nfc_platform_support.dart';
 import 'package:hanh_trinh_an_nhien/widgets/biometric_gate.dart';
 
 void main() {
@@ -44,6 +46,44 @@ void main() {
     await tester.pumpWidget(app());
     await tester.pumpAndSettle();
     expect(find.text('Private content'), findsOneWidget);
+  });
+
+  testWidgets('iOS NFC sheet does not relock but backgrounding still locks', (
+    tester,
+  ) async {
+    debugDefaultTargetPlatformOverride = TargetPlatform.iOS;
+    SharedPreferences.setMockInitialValues({
+      'auth_token': 'session',
+      BiometricLock.preferenceKey: true,
+    });
+    try {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: BiometricGate(
+            authenticate: () async => true,
+            child: const Scaffold(body: Text('Private content')),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Xác thực vân tay'));
+      await tester.pumpAndSettle();
+      NfcPlatformSupport.iosSessionActive = true;
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+      await tester.pumpAndSettle();
+      expect(find.text('Private content'), findsOneWidget);
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+      await tester.pumpAndSettle();
+      // Background apps do not paint frames; inspect the lock after returning.
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pumpAndSettle();
+      expect(find.text('Private content'), findsNothing);
+    } finally {
+      NfcPlatformSupport.iosSessionActive = false;
+      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pumpAndSettle();
+      debugDefaultTargetPlatformOverride = null;
+    }
   });
 
   testWidgets('success unlocks and leaving app locks again', (tester) async {
