@@ -54,10 +54,8 @@ class _BiometricSettingsTileState extends State<BiometricSettingsTile> {
   @override
   Widget build(BuildContext context) => SwitchListTile(
     secondary: const Icon(Icons.fingerprint),
-    title: const Text('Khóa bằng vân tay / sinh trắc học'),
-    subtitle: const Text(
-      'Xác thực khi mở lại ứng dụng. Dùng sinh trắc học đã đăng ký trên điện thoại.',
-    ),
+    title: const Text('Khóa sinh trắc học'),
+    subtitle: const Text('Xác thực khi mở lại app'),
     value: _enabled,
     onChanged: _busy ? null : _change,
   );

@@ -6,6 +6,8 @@ import '../../services/calendar_event_store.dart';
 import '../../widgets/app_header.dart';
 import '../../services/calendar_festival_service.dart';
 import '../../utils/lunar_calendar.dart';
+import '../../services/local_reminders.dart';
+import '../../services/calendar_reminder_preferences.dart';
 import 'calendar_presentation.dart';
 
 class CalendarEventFormPage extends StatefulWidget {
@@ -317,7 +319,42 @@ class _CalendarEventFormPageState extends State<CalendarEventFormPage> {
     );
 
     try {
+      if (_reminderMinutes != null) {
+        if (_repeat == CalendarRepeat.none &&
+            !startAt
+                .subtract(Duration(minutes: _reminderMinutes!))
+                .isAfter(DateTime.now())) {
+          throw StateError(
+            'Giờ nhắc đã qua. Chọn giờ bắt đầu muộn hơn hoặc tắt nhắc lịch.',
+          );
+        }
+        if (!await LocalReminders.instance.requestPermission()) {
+          throw StateError(
+            'Hãy bật quyền thông báo cho ứng dụng hoặc chọn Không nhắc.',
+          );
+        }
+        final prefs = CalendarReminderPreferences();
+        await prefs.save(
+          festivalsEnabled: await prefs.festivalsEnabled(),
+          personalEnabled: true,
+          leadMinutes: await prefs.leadMinutes(),
+        );
+      }
       await _store.upsert(event);
+      try {
+        await LocalReminders.instance.sync();
+      } catch (_) {
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Đã lưu lịch nhưng chưa đặt được thông báo. Mở cài đặt nhắc lịch để thử lại.',
+            ),
+          ),
+        );
+        Navigator.pop(context, event);
+        return;
+      }
       if (!mounted) return;
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Đã lưu lịch.')));

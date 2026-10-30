@@ -25,6 +25,17 @@ class AuthService {
   Future<bool> hasRememberedAccount() async =>
       (await SharedPreferences.getInstance()).containsKey(rememberedUidKey);
 
+  Future<bool> canRememberAccount() async {
+    if (kIsWeb || !FirebaseIdentity.configured) return false;
+    final saved = (await SharedPreferences.getInstance()).getString(_tokenKey);
+    if (saved?.startsWith('firebase:') != true) return false;
+    try {
+      return (await FirebaseIdentity.auth()).currentUser != null;
+    } catch (_) {
+      return false;
+    }
+  }
+
   /// Opt-in suspension: Firebase SDK retains its own session, while the app
   /// removes its active bearer. Never store a password or copy a refresh token.
   Future<void> rememberAndLogout() async {
@@ -387,6 +398,9 @@ class AuthService {
       );
     }
     final idToken = await current.getIdToken(true);
+    if (idToken == null || idToken.isEmpty) {
+      throw Exception('Không lấy được phiên Firebase. Hãy đăng nhập lại.');
+    }
     final response = await http.post(
       Uri.parse('${ApiConfig.baseUrl}/auth/firebase'),
       headers: {'Content-Type': 'application/json'},
@@ -403,7 +417,7 @@ class AuthService {
     }
     await (await SharedPreferences.getInstance()).setString(
       _tokenKey,
-      body['token'],
+      'firebase:$idToken',
     );
     sessionChanges.value++;
     return body;

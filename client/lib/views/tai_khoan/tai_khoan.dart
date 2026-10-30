@@ -213,27 +213,35 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
   }
 
   Future<void> _logout() async {
+    final canRemember = await _authService.canRememberAccount();
+    if (!mounted) return;
+    var keepAccount = false;
     final remember = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Đăng xuất'),
-        content: const Text(
-          'Ghi nhớ trên điện thoại này để vào lại bằng sinh trắc học? Firebase sẽ giữ phiên để khôi phục. Chỉ dùng trên thiết bị cá nhân. Bạn có thể chọn Quên tài khoản ở màn hình đăng nhập để xóa phiên.',
+      builder: (context) => StatefulBuilder(
+        builder: (context, update) => AlertDialog(
+          title: const Text('Đăng xuất'),
+          content: canRemember
+              ? CheckboxListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Ghi nhớ tài khoản'),
+                  subtitle: const Text('Vào lại bằng sinh trắc học'),
+                  value: keepAccount,
+                  onChanged: (value) =>
+                      update(() => keepAccount = value ?? false),
+                )
+              : const Text('Bạn muốn đăng xuất?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Hủy'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(context, keepAccount),
+              child: const Text('Đăng xuất'),
+            ),
+          ],
         ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Hủy'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Đăng xuất hoàn toàn'),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('Ghi nhớ tài khoản'),
-          ),
-        ],
       ),
     );
     if (remember == null) return;

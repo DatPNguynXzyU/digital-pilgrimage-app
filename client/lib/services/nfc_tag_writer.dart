@@ -120,6 +120,7 @@ class MobileNfcTagReader implements NfcTagReader {
   Completer<NfcTagSnapshot>? _pending;
   bool _handling = false;
   Timer? _timer;
+  bool _sessionOpen = false;
   Future<NfcTagSnapshot> _scan({
     String? expectedUid,
     NdefMessage? message,
@@ -159,6 +160,7 @@ class MobileNfcTagReader implements NfcTagReader {
       if (defaultTargetPlatform == TargetPlatform.iOS) {
         NfcPlatformSupport.iosSessionActive = true;
       }
+      _sessionOpen = true;
       await NfcManager.instance.startSession(
         pollingOptions: {NfcPollingOption.iso14443},
         alertMessageIos: message == null
@@ -229,9 +231,14 @@ class MobileNfcTagReader implements NfcTagReader {
     } finally {
       NfcPlatformSupport.iosSessionActive = false;
       _timer?.cancel();
-      try {
-        await NfcManager.instance.stopSession();
-      } catch (_) {}
+      // Keep Android reader mode while the admin edits the form. Releasing it
+      // immediately redispatches the URL on a card still held against the phone.
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+        try {
+          await NfcManager.instance.stopSession();
+        } catch (_) {}
+        _sessionOpen = false;
+      }
       if (_pending == result) _pending = null;
     }
   }
@@ -244,12 +251,14 @@ class MobileNfcTagReader implements NfcTagReader {
   @override
   Future<void> cancel() async {
     final pending = _pending;
-    if (pending == null) return;
-    if (!pending.isCompleted) {
+    if (pending != null && !pending.isCompleted) {
       pending.completeError(Exception('Phiên NFC đã hủy hoặc hết thời gian.'));
     }
-    try {
-      await NfcManager.instance.stopSession();
-    } catch (_) {}
+    if (_sessionOpen) {
+      _sessionOpen = false;
+      try {
+        await NfcManager.instance.stopSession();
+      } catch (_) {}
+    }
   }
 }
