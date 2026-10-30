@@ -14,9 +14,81 @@ import 'firebase_identity.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
 
 class AuthService {
+  AuthService({this.authenticate = BiometricLock.authenticate});
+  final Future<bool> Function() authenticate;
   static final profileChanges = ValueNotifier<int>(0);
   static final sessionChanges = ValueNotifier<int>(0);
   static const String _tokenKey = 'auth_token';
+  static const rememberedUidKey = 'remembered_firebase_uid';
+  static int _sessionEpoch = 0;
+
+  Future<bool> hasRememberedAccount() async =>
+      (await SharedPreferences.getInstance()).containsKey(rememberedUidKey);
+
+  /// Opt-in suspension: Firebase SDK retains its own session, while the app
+  /// removes its active bearer. Never store a password or copy a refresh token.
+  Future<void> rememberAndLogout() async {
+    if (kIsWeb || !FirebaseIdentity.configured) {
+      throw Exception(
+        'Ghi nhớ sinh trắc học cần tài khoản Firebase trên điện thoại.',
+      );
+    }
+    final epoch = _sessionEpoch;
+    final token = await getToken();
+    final user = (await FirebaseIdentity.auth()).currentUser;
+    if (token?.startsWith('firebase:') != true || user == null) {
+      throw Exception(
+        'Hãy đăng nhập bằng Google hoặc tài khoản Firebase trước.',
+      );
+    }
+    if (!await authenticate()) {
+      throw Exception('Chưa xác thực sinh trắc học; chưa đăng xuất.');
+    }
+    if (_sessionEpoch != epoch) {
+      throw Exception('Phiên đã thay đổi. Hãy thử lại.');
+    }
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(rememberedUidKey, user.uid);
+    await prefs.remove(_tokenKey);
+    _sessionEpoch++;
+    await BiometricLock.setEnabled(false);
+    sessionChanges.value++;
+  }
+
+  Future<void> loginWithBiometrics() async {
+    final prefs = await SharedPreferences.getInstance();
+    final uid = prefs.getString(rememberedUidKey);
+    final epoch = _sessionEpoch;
+    if (uid == null || kIsWeb) throw Exception('Chưa có tài khoản ghi nhớ.');
+    if (!await authenticate()) {
+      throw Exception('Chưa xác thực sinh trắc học.');
+    }
+    if (epoch != _sessionEpoch || prefs.getString(rememberedUidKey) != uid) {
+      throw Exception('Tài khoản ghi nhớ đã thay đổi.');
+    }
+    try {
+      final user = (await FirebaseIdentity.auth()).currentUser;
+      if (user == null || user.uid != uid) {
+        await logout();
+        throw Exception(
+          'Phiên đã hết hạn. Hãy đăng nhập lại bằng Google hoặc mật khẩu.',
+        );
+      }
+      // _acceptFirebase reloads the user, forces token refresh and asks backend
+      // to validate email, revocation and account status before restoring access.
+      await _acceptFirebase(user, expectedEpoch: epoch);
+    } on firebase.FirebaseAuthException catch (error) {
+      if ([
+        'user-disabled',
+        'user-token-expired',
+        'invalid-user-token',
+        'user-not-found',
+      ].contains(error.code)) {
+        await logout();
+      }
+      throw Exception(FirebaseIdentity.message(error));
+    }
+  }
 
   // ==============================
   // ĐĂNG NHẬP
@@ -25,6 +97,7 @@ class AuthService {
     required String email,
     required String password,
   }) async {
+    await logout();
     final uri = Uri.parse('${ApiConfig.baseUrl}/auth/login');
 
     final response = await http.post(
@@ -101,6 +174,8 @@ class AuthService {
     final prefs = await SharedPreferences.getInstance();
     if (prefs.getString(_tokenKey) != rejectedToken) return;
     await prefs.remove(_tokenKey);
+    await prefs.remove(rememberedUidKey);
+    _sessionEpoch++;
     await BiometricLock.setEnabled(false);
     sessionChanges.value++;
   }
@@ -275,9 +350,11 @@ class AuthService {
   // ĐĂNG XUẤT
   // ==============================
   Future<void> logout() async {
+    _sessionEpoch++;
     final prefs = await SharedPreferences.getInstance();
 
     await prefs.remove(_tokenKey);
+    await prefs.remove(rememberedUidKey);
     await BiometricLock.setEnabled(false);
     sessionChanges.value++;
     // Clear the app session even if the identity provider is unavailable.
@@ -287,6 +364,7 @@ class AuthService {
   }
 
   Future<Map<String, dynamic>> loginWithGoogle() async {
+    await logout();
     try {
       return await _acceptFirebase(await FirebaseIdentity.google());
     } catch (error) {
@@ -297,7 +375,10 @@ class AuthService {
     }
   }
 
-  Future<Map<String, dynamic>> _acceptFirebase(firebase.User user) async {
+  Future<Map<String, dynamic>> _acceptFirebase(
+    firebase.User user, {
+    int? expectedEpoch,
+  }) async {
     await user.reload();
     final current = (await FirebaseIdentity.auth()).currentUser!;
     if (!current.emailVerified) {
@@ -316,6 +397,9 @@ class AuthService {
         body['success'] != true ||
         body['token'] is! String) {
       throw Exception(body['message'] ?? 'Không thể đăng nhập.');
+    }
+    if (expectedEpoch != null && expectedEpoch != _sessionEpoch) {
+      throw Exception('Phiên đã thay đổi. Hãy đăng nhập lại.');
     }
     await (await SharedPreferences.getInstance()).setString(
       _tokenKey,

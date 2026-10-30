@@ -25,6 +25,45 @@ class _LoginPageState extends State<LoginPage> {
 
   bool _loading = false;
   bool _hidePassword = true;
+  bool _remembered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _refreshRemembered();
+  }
+
+  Future<void> _refreshRemembered() async {
+    final value = await _authService.hasRememberedAccount();
+    if (mounted) setState(() => _remembered = value);
+  }
+
+  Future<void> _biometricLogin() async {
+    if (_loading) return;
+    setState(() => _loading = true);
+    try {
+      await _authService.loginWithBiometrics();
+      if (mounted) Navigator.pop(context, true);
+    } catch (error) {
+      if (mounted) {
+        _showMessage(error.toString().replaceFirst('Exception: ', ''));
+      }
+      await _refreshRemembered();
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
+
+  Future<void> _forget() async {
+    if (_loading) return;
+    setState(() => _loading = true);
+    try {
+      await _authService.logout();
+      await _refreshRemembered();
+    } finally {
+      if (mounted) setState(() => _loading = false);
+    }
+  }
 
   Future<void> _google() async {
     if (_loading) return;
@@ -174,6 +213,17 @@ class _LoginPageState extends State<LoginPage> {
 
           child: Column(
             children: [
+              if (_remembered) ...[
+                OutlinedButton.icon(
+                  onPressed: _loading ? null : _biometricLogin,
+                  icon: const Icon(Icons.fingerprint),
+                  label: const Text('Đăng nhập bằng sinh trắc học'),
+                ),
+                TextButton(
+                  onPressed: _loading ? null : _forget,
+                  child: const Text('Quên tài khoản trên thiết bị này'),
+                ),
+              ],
               const SizedBox(height: 30),
 
               // ===================================

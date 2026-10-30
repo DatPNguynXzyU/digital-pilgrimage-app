@@ -32,6 +32,7 @@ class NfcLaunchTag {
 /// Receives Android NFC intents, including taps that cold-started the app.
 class NfcLaunchService extends ChangeNotifier {
   static bool managementActive = false;
+  static int scanPages = 0;
   static const channel = MethodChannel('hanh_trinh_an_nhien/nfc_launch');
   bool get supported =>
       !kIsWeb && defaultTargetPlatform == TargetPlatform.android;

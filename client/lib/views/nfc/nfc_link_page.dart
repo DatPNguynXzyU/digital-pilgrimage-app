@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../models/temple.dart';
 import '../../services/temple_service.dart';
 import '../temples/chi_tiet_chua.dart';
-import 'nfc_scan_page.dart';
 
 class NfcLinkPage extends StatefulWidget {
   const NfcLinkPage({super.key, required this.slug});
@@ -39,23 +38,7 @@ class _NfcLinkPageState extends State<NfcLinkPage> {
           ),
         );
       }
-      return Scaffold(
-        body: ChiTietChuaPage(temple: snapshot.data!),
-        bottomNavigationBar: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: FilledButton.icon(
-              icon: const Icon(Icons.nfc),
-              label: const Text('Chạm thẻ để check-in tại chùa này'),
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute<void>(
-                  builder: (_) => NfcScanPage(expectedSlug: widget.slug),
-                ),
-              ),
-            ),
-          ),
-        ),
-      );
+      return ChiTietChuaPage(temple: snapshot.data!);
     },
   );
 }

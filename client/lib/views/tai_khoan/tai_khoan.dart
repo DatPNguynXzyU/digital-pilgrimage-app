@@ -213,7 +213,46 @@ class _TaiKhoanPageState extends State<TaiKhoanPage> {
   }
 
   Future<void> _logout() async {
-    await _authService.logout();
+    final remember = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Đăng xuất'),
+        content: const Text(
+          'Ghi nhớ trên điện thoại này để vào lại bằng sinh trắc học? Firebase sẽ giữ phiên để khôi phục. Chỉ dùng trên thiết bị cá nhân. Bạn có thể chọn Quên tài khoản ở màn hình đăng nhập để xóa phiên.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Hủy'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Đăng xuất hoàn toàn'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Ghi nhớ tài khoản'),
+          ),
+        ],
+      ),
+    );
+    if (remember == null) return;
+    try {
+      if (remember) {
+        await _authService.rememberAndLogout();
+      } else {
+        await _authService.logout();
+      }
+    } catch (error) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error.toString().replaceFirst('Exception: ', '')),
+          ),
+        );
+      }
+      return;
+    }
 
     if (!mounted) return;
 
