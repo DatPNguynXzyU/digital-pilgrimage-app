@@ -2,14 +2,23 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 class NfcLaunchTag {
-  const NfcLaunchTag({required this.uid, required this.eventId});
-  final String uid;
+  const NfcLaunchTag({this.uid, this.slug, required this.eventId});
+  final String? uid;
+  final String? slug;
   final String eventId;
 
   static NfcLaunchTag? fromNative(Object? value) {
     if (value is! Map) return null;
     final uid = value['uid'];
     final eventId = value['eventId'];
+    final slug = value['slug'];
+    if (slug is String &&
+        slug.length <= 150 &&
+        RegExp(r'^[a-z0-9]+(?:-[a-z0-9]+)*$').hasMatch(slug) &&
+        eventId is String &&
+        eventId.isNotEmpty) {
+      return NfcLaunchTag(slug: slug, eventId: eventId);
+    }
     if (uid is! String ||
         !RegExp(r'^(?:[0-9A-Fa-f]{2}){4,16}$').hasMatch(uid) ||
         eventId is! String ||

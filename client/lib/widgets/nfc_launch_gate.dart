@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../services/nfc_launch_service.dart';
 import '../views/nfc/nfc_scan_page.dart';
+import '../views/nfc/nfc_link_page.dart';
 
 /// Defers the tag until the backend and biometric gates allow interaction.
 class NfcLaunchGate extends StatefulWidget {
@@ -81,7 +82,9 @@ class _NfcLaunchGateState extends State<NfcLaunchGate>
         await navigator.push<void>(
           MaterialPageRoute(
             settings: const RouteSettings(name: '/nfc/check-in'),
-            builder: (_) => NfcScanPage(initialUid: tag.uid),
+            builder: (_) => tag.slug != null
+                ? NfcLinkPage(slug: tag.slug!)
+                : NfcScanPage(initialUid: tag.uid),
           ),
         );
       } finally {

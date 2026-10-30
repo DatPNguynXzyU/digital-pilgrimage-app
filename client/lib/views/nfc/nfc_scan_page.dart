@@ -21,7 +21,8 @@ import '../tai_khoan/pilgrimage_history_page.dart';
 import '../tai_khoan/stamp_book_page.dart';
 
 class NfcScanPage extends StatefulWidget {
-  const NfcScanPage({super.key, this.initialUid});
+  const NfcScanPage({super.key, this.initialUid, this.expectedSlug});
+  final String? expectedSlug;
 
   /// Physical UID delivered by an Android NFC intent, not by a URL parameter.
   final String? initialUid;
@@ -405,7 +406,17 @@ class _NfcScanPageState extends State<NfcScanPage> {
   // ==========================================
   Future<void> _checkInTemple({required String uid, String? slug}) async {
     try {
-      final response = await _nfcService.checkIn(uid: uid, slug: slug);
+      if (widget.expectedSlug != null &&
+          slug != null &&
+          slug != widget.expectedSlug) {
+        throw Exception(
+          'Thẻ không thuộc chùa đang mở. Hãy chạm đúng thẻ tại chùa này.',
+        );
+      }
+      final response = await _nfcService.checkIn(
+        uid: uid,
+        slug: widget.expectedSlug ?? slug,
+      );
       final data = response['data'] as Map<String, dynamic>? ?? {};
       final templeJson = data['temple'] as Map<String, dynamic>? ?? {};
       final visitJson = data['visit'] as Map<String, dynamic>? ?? {};
