@@ -53,6 +53,36 @@ void main() {
   });
 
   tearDown(() => unlocked.dispose());
+  testWidgets(
+    'external URL opens check-in directly without awarding a stamp from the URL',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      pending = {'slug': 'chua-giac-lam', 'eventId': 'external-url'};
+      await tester.pumpWidget(app());
+      await tester.pumpAndSettle();
+      expect(find.text('Check-in NFC'), findsOneWidget);
+      expect(find.text('Yêu cầu đăng nhập'), findsOneWidget);
+      expect(find.text('Check-in chùa'), findsNothing);
+      expect(find.text('Tem mới!'), findsNothing);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+  testWidgets(
+    'URL tap during an in-app scan is consumed without opening another page',
+    (tester) async {
+      NfcLaunchService.scanPages++;
+      pending = {'slug': 'chua-giac-lam', 'eventId': 'url-during-scan'};
+      try {
+        await tester.pumpWidget(app());
+        await tester.pumpAndSettle();
+        expect(find.text('Trang chủ thử nghiệm'), findsOneWidget);
+        expect(find.text('Check-in chùa'), findsNothing);
+        expect(pending, isNull);
+      } finally {
+        NfcLaunchService.scanPages--;
+      }
+    },
+  );
   testWidgets('management taps do not open check-in or award a stamp', (
     tester,
   ) async {

@@ -14,6 +14,7 @@ import '../../models/temple.dart';
 import '../temples/chi_tiet_chua.dart';
 import '../../services/auth_service.dart';
 import '../../services/nfc_service.dart';
+import '../../services/nfc_launch_service.dart';
 import '../../services/nfc_platform_support.dart';
 import '../../widgets/app_header.dart';
 import '../tai_khoan/login_page.dart';
@@ -53,7 +54,16 @@ class _NfcScanPageState extends State<NfcScanPage> {
   @override
   void initState() {
     super.initState();
+    NfcLaunchService.scanPages++;
     _initAuthAndScan();
+  }
+
+  @override
+  void dispose() {
+    NfcLaunchService.scanPages--;
+    NfcPlatformSupport.iosSessionActive = false;
+    NfcManager.instance.stopSession().catchError((_) {});
+    super.dispose();
   }
 
   Future<void> _initAuthAndScan() async {
@@ -220,15 +230,6 @@ class _NfcScanPageState extends State<NfcScanPage> {
   // ==========================================
   // BẮT ĐẦU QUÉT NFC (BẮT BUỘC ĐÃ ĐĂNG NHẬP)
   // ==========================================
-  @override
-  void dispose() {
-    NfcPlatformSupport.iosSessionActive = false;
-    if (_scanning) {
-      NfcManager.instance.stopSession().catchError((Object _) {});
-    }
-    super.dispose();
-  }
-
   Future<void> _openResult(bool stamps) async {
     final token = await AuthService().getToken();
     if (!mounted || token == null) return;
@@ -325,7 +326,12 @@ class _NfcScanPageState extends State<NfcScanPage> {
             return;
           }
 
-          setState(() => _processing = true);
+          // Consume the first discovery before awaiting any work. Reader mode
+          // remains enabled on Android so the URL tag cannot relaunch the app.
+          setState(() {
+            _processing = true;
+            _scanning = false;
+          });
 
           try {
             HapticFeedback.mediumImpact();
@@ -335,7 +341,9 @@ class _NfcScanPageState extends State<NfcScanPage> {
             final uid = _extractUid(tag);
 
             try {
-              await NfcManager.instance.stopSession();
+              if (defaultTargetPlatform == TargetPlatform.iOS) {
+                await NfcManager.instance.stopSession();
+              }
             } catch (_) {}
 
             if (uid == null || uid.isEmpty) {
@@ -377,7 +385,9 @@ class _NfcScanPageState extends State<NfcScanPage> {
             await _checkInTemple(uid: uid, slug: slug);
           } catch (error) {
             try {
-              await NfcManager.instance.stopSession();
+              if (defaultTargetPlatform == TargetPlatform.iOS) {
+                await NfcManager.instance.stopSession();
+              }
             } catch (_) {}
 
             if (!mounted) return;
